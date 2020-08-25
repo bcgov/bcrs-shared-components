@@ -1,8 +1,9 @@
 {
-  "name": "root",
+  "name": "bcrs-shared-components",
   "private": true,
   "scripts": {
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "build": "build-storybook -o ./docs"
   },
   "dependencies": {
     "vue": "^2.6.12"
