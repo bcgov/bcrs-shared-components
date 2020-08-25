@@ -1,1 +1,1 @@
-# bcrs-common-components
+# bcrs-shared-components
