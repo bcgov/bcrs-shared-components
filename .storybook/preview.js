@@ -8,14 +8,10 @@ import Vuelidate from 'vuelidate'
 import Affix from 'vue-affix'
 import Vue2Filters from 'vue2-filters' // needed by SbcFeeSummary
 
-//import DetailComment from '../src/components/DetailComment.vue'
-
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 Vue.use(Affix)
 Vue.use(Vue2Filters)
-
-//Vue.component('detail-comment', DetailComment);
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

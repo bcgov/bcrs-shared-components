@@ -3,8 +3,7 @@
   "private": true,
   "scripts": {
     "storybook": "start-storybook -p 6006",
-    "build": "build-storybook -o ./docs",
-    "build-storybook": "build-storybook"
+    "storybook:build": "build-storybook -o ./docs"
   },
   "dependencies": {
     "@babel/compat-data": "^7.9.0",

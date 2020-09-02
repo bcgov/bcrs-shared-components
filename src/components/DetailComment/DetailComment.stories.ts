@@ -1,11 +1,11 @@
-import DetailComment from './DetailComment'
+import DetailComment from './DetailComment.vue'
 
 export default {
-    title: 'component/DetailComment',
-    component: DetailComment,
+  title: 'component/DetailComment',
+  component: DetailComment,
 };
 
 export const Default = () => ({
-    components: { DetailComment },
-    template: '<detail-comment />',
+  components: { DetailComment },
+  template: '<detail-comment />',
 });

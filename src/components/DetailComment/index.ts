@@ -1,3 +1,3 @@
-import DetailComment from './DetailComment'
+import DetailComment from './DetailComment.vue'
 
 export default DetailComment
