@@ -3,5 +3,10 @@
     "version": "1.0.1",
     "publishConfig": {
         "access": "public"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "vue-property-decorator": "^8.4.0",
+        "vue-debounce-decorator": "^1.0.1"
     }
 }
