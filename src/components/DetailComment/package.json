@@ -1,12 +1,11 @@
 {
     "name": "@vysakh-aot/detail-comment",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "publishConfig": {
         "access": "public"
     },
-    "dependencies": {},
     "devDependencies": {
-        "vue-property-decorator": "^8.4.0",
-        "vue-debounce-decorator": "^1.0.1"
+        "vue-debounce-decorator": "^1.0.1",
+        "vue-property-decorator": "^8.4.0"
     }
 }
