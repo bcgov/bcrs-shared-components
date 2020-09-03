@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook -o ./docs"
+    "storybook:build": "build-storybook -o ./docs",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@babel/compat-data": "^7.9.0",
@@ -37,12 +38,16 @@
     "@types/jest": "^25.1.4",
     "@types/lodash": "^4.14.149",
     "@types/vuelidate": "^0.7.11",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
     "@vue/cli-plugin-babel": "4.4.1",
     "@vue/cli-plugin-eslint": "4.2.3",
     "@vue/cli-plugin-pwa": "4.2.3",
     "@vue/cli-plugin-typescript": "4.2.3",
     "@vue/cli-plugin-unit-jest": "4.2.3",
     "@vue/cli-service": "4.2.3",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/eslint-config-typescript": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.28",
     "babel-loader": "^8.1.0",
     "css-loader": "^4.2.2",

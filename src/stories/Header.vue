@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import './header.css';
-import MyButton from './Button.vue';
+import './header.css'
+import MyButton from './Button.vue'
 
 export default {
   name: 'my-header',
@@ -40,20 +40,20 @@ export default {
 
   props: {
     user: {
-      type: Object,
-    },
+      type: Object
+    }
   },
 
   methods: {
-    onLogin() {
-      this.$emit('onLogin');
+    onLogin () {
+      this.$emit('onLogin')
     },
-    onLogout() {
-      this.$emit('onLogout');
+    onLogout () {
+      this.$emit('onLogout')
     },
-    onCreateAccount() {
-      this.$emit('onCreateAccount');
-    },
-  },
-};
+    onCreateAccount () {
+      this.$emit('onCreateAccount')
+    }
+  }
+}
 </script>
