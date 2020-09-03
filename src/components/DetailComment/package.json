@@ -4,7 +4,7 @@
     "publishConfig": {
         "access": "public"
     },
-    "devDependencies": {
+    "dependencies": {
         "vue-debounce-decorator": "^1.0.1",
         "vue-property-decorator": "^8.4.0"
     }
