@@ -1,0 +1,11 @@
+{
+    "name": "@bcrs-shared-components/detail-comment",
+    "version": "1.0.2",
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {
+        "vue-debounce-decorator": "^1.0.1",
+        "vue-property-decorator": "^8.4.0"
+    }
+}
