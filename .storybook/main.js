@@ -23,6 +23,9 @@ module.exports = {
       include: path.resolve(__dirname, '../'),
     });
 
+    // Alternately, for an alias:
+    config.resolve.alias['@'] = path.resolve(__dirname, '../') + '/src';
+
     // Return the altered config
     return config;
   },

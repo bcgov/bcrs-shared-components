@@ -1,10 +1,15 @@
 {
   "name": "bcrs-shared-components",
   "private": true,
+  "appName": "BCRS Shared Components",
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook -o ./docs",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lint:nofix": "vue-cli-service lint --no-fix",
+    "test:unit": "vue-cli-service test:unit --testPathPattern",
+    "test:unit-silent": "vue-cli-service test:unit --silent",
+    "test:debug": "node --inspect-brk node_modules/.bin/vue-cli-service test:unit --testPathPattern --no-cache --watch --runInBand"
   },
   "dependencies": {
     "@babel/compat-data": "^7.9.0",

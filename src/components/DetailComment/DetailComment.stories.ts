@@ -1,11 +1,19 @@
-import DetailComment from './DetailComment.vue'
+import { DetailComment } from './index'
 
 export default {
   title: 'component/DetailComment',
-  component: DetailComment
+  component: DetailComment,
+  argTypes: {
+  }
 }
 
-export const Default = () => ({
+const Template = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
   components: { DetailComment },
-  template: '<detail-comment />'
+  template: '<detail-comment v-bind="$props" />'
 })
+
+export const Default = Template.bind({})
+Default.args = {
+  placeholder: 'Provide a detail comment'
+}
