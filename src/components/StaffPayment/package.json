@@ -5,8 +5,8 @@
         "access": "public"
     },
     "dependencies": {
-        "@bcrs-shared-components/enums": "^1.0.0",
-        "@bcrs-shared-components/interfaces": "^1.0.0",
+        "@bcrs-shared-components/enums": "^0.0.0",
+        "@bcrs-shared-components/interfaces": "^0.0.0",
         "vue-property-decorator": "^8.4.0"
     }
 }
