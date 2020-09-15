@@ -72,8 +72,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch, Emit } from 'vue-property-decorator'
-import { StaffPaymentOptions } from '@/enums'
-import { FormIF, StaffPaymentIF } from '@/interfaces'
+import { StaffPaymentOptions } from '@bcrs-shared-components/enums'
+import { FormIF, StaffPaymentIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
 export default class StaffPayment extends Vue {

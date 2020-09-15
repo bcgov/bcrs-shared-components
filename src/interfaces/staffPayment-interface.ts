@@ -1,4 +1,4 @@
-import { StaffPaymentOptions } from '@/enums'
+import { StaffPaymentOptions } from '@bcrs-shared-components/enums'
 
 /** A filing's business object from the API. */
 export interface StaffPaymentIF {

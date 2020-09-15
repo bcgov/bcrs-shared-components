@@ -25,6 +25,7 @@ module.exports = {
 
     // Alternately, for an alias:
     config.resolve.alias['@'] = path.resolve(__dirname, '../') + '/src';
+    config.resolve.alias['@bcrs-shared-components'] = path.resolve(__dirname, '../') + '/src';
 
     // Return the altered config
     return config;
