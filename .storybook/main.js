@@ -24,8 +24,10 @@ module.exports = {
     });
 
     // Alternately, for an alias:
+    config.resolve.alias['@bcrs-shared-components/enums'] = path.resolve(__dirname, '../') + '/src/enums';
+    config.resolve.alias['@bcrs-shared-components/interfaces'] = path.resolve(__dirname, '../') + '/src/interfaces';
+    config.resolve.alias['@bcrs-shared-components'] = path.resolve(__dirname, '../') + '/src/components';
     config.resolve.alias['@'] = path.resolve(__dirname, '../') + '/src';
-    config.resolve.alias['@bcrs-shared-components'] = path.resolve(__dirname, '../') + '/src';
 
     // Return the altered config
     return config;
