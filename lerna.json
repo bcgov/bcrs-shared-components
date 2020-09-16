@@ -2,7 +2,9 @@
   "version": "independent",
   "npmClient": "npm",
   "packages": [
-    "src/components/*"
+    "src/components/*",
+    "src/interfaces",
+    "src/enums"
   ],
   "command": {
     "publish": {

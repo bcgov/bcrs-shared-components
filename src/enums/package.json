@@ -1,0 +1,7 @@
+{
+    "name": "@bcrs-shared-components/enums",
+    "version": "1.0.0",
+    "publishConfig": {
+        "access": "public"
+    }
+}

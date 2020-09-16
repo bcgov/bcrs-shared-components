@@ -6,7 +6,13 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import Vuelidate from 'vuelidate'
 
-Vue.use(Vuetify)
+import '@/assets/styles/base.scss'
+import '@/assets/styles/layout.scss'
+import '@/assets/styles/overrides.scss'
+
+Vue.use(Vuetify, {
+  iconfont: 'mdi'
+})
 Vue.use(Vuelidate)
 
 export const parameters = {
