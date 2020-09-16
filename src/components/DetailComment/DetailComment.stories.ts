@@ -10,7 +10,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { DetailComment },
-  template: '<detail-comment v-bind="$props" />'
+  template: '<detail-comment v-bind="$props" />' // $props comes from args below
 })
 
 export const Default = Template.bind({})
