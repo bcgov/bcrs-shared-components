@@ -13,7 +13,18 @@ const Template = (args, { argTypes }) => ({
   template: '<detail-comment v-bind="$props" />' // $props comes from args below
 })
 
-export const Default = Template.bind({})
-Default.args = {
-  placeholder: 'Provide a detail comment'
+export const Outlined = Template.bind({})
+Outlined.args = {
+  placeholder: 'Provide a detail comment',
+  textAreaStyle: 'outlined',
+  maxLength: 4096
+
+} 
+
+export const Filled = Template.bind({})
+Filled.args = {
+  placeholder: 'Provide a detail comment',
+  textAreaStyle: 'filled',
+  maxLength: 1000,
+  rowCount: 2
 }
