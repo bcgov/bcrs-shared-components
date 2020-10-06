@@ -9,7 +9,8 @@
     "lint:nofix": "vue-cli-service lint --no-fix",
     "test:unit": "vue-cli-service test:unit --testPathPattern",
     "test:unit-silent": "vue-cli-service test:unit --silent",
-    "test:debug": "node --inspect-brk node_modules/.bin/vue-cli-service test:unit --testPathPattern --no-cache --watch --runInBand"
+    "test:debug": "node --inspect-brk node_modules/.bin/vue-cli-service test:unit --testPathPattern --no-cache --watch --runInBand",
+    "lernaupdate": "node_modules/.bin/lernaupdate"
   },
   "dependencies": {
     "@babel/compat-data": "^7.9.0",
@@ -59,6 +60,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "flush-promises": "^1.0.2",
     "lerna": "^3.22.1",
+    "lerna-update-wizard": "^0.17.8",
     "react-is": "^16.13.1",
     "sass": "^1.26.2",
     "sass-loader": "^8.0.2",

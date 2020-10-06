@@ -2,9 +2,10 @@
   <v-card flat id="detail-comment-container">
     <v-textarea
       ref="textarea"
-      outlined
+      :outlined="isStyle('outlined')"
+      :filled="isStyle('filled')"
       auto-grow
-      rows="5"
+      :rows="rowCount"
       id="detail-comment-textarea"
       :counter="maxLength"
       :rules="rules"
@@ -53,10 +54,21 @@ export default class DetailComment extends Vue {
   @Prop({ default: false })
   private autofocus: boolean
 
+  @Prop({ default: 5 })
+  private rowCount: number
+
+  @Prop({ default: 'outlined' })
+  private textAreaStyle: string
+
+
   /** Called when component is created. */
   created (): void {
     // inform parent of initial validity
     this.emitValid(this.value)
+  }
+
+  isStyle(style: string): boolean {
+    return this.textAreaStyle.toLowerCase() === style.toLowerCase()
   }
 
   /**
