@@ -43,9 +43,6 @@ import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
 import { mapState } from 'vuex'
 
 @Component({
-  computed: {
-  // ...mapState(['currentDate'])
-  }
 })
 export default class Certify extends Vue {
 
