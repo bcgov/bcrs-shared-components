@@ -1,5 +1,5 @@
 //
-// Copyright © 2019 Province of British Columbia
+// Copyright © 2020 Province of British Columbia
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
 // the License. You may obtain a copy of the License at
@@ -13,13 +13,12 @@
 
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import { getVuexStore } from '@/store'
 import { mount, Wrapper } from '@vue/test-utils'
 import { Certify } from '@/components/Certify'
 
 Vue.use(Vuetify)
 
-const store = getVuexStore()
+// const store = getVuexStore()
 
 // Input field selectors to test changes to the DOM elements.
 const certifiedBySelector: string = 'input[type=text]'
@@ -49,9 +48,7 @@ function getLastEvent (wrapper: Wrapper<Certify>, name: string): any {
  * Creates and mounts a component, so that it can be tested.
  *
  * @param certifiedBy the value to pass to the component for the name input. The default value is "undefined".
- * @param isCertified the value to pass to the component for the checkbox. The default value is "undefined".
- * @param currentDate the value to pass to the component for the static date. The default value is defaultDate.
- *
+ * @param isCertified the value to pass to the component for the checkbox. The default value is "undefined". *
  * @returns a Wrapper<Certify> object with the given parameters.
  */
 function createComponent (
@@ -59,12 +56,11 @@ function createComponent (
   isCertified: boolean = undefined,
   currentDate: string = defaultDate
 ): Wrapper<Certify> {
-  store.state.currentDate = currentDate
 
   return mount(Certify, {
-    store,
     sync: false,
     propsData: {
+      currentDate,
       certifiedBy,
       isCertified
     }

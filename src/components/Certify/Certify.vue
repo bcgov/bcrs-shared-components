@@ -9,7 +9,7 @@
             persistent-hint
             id="certified-by-textfield"
             label="Person's legal name"
-            hint="Legal name of authorized person"
+            hint="Enter the legal name of the person authorized to complete and submit these changes."
             :value="certifiedBy"
             :rules="[(v) => !!v || 'A person\'s legal name is required.']"
             @input="emitCertifiedBy($event)"
@@ -17,6 +17,7 @@
         </div>
       </div>
       <v-checkbox
+        hide-details
         :value="isCertified"
         @change="emitIsCertified($event)"
         id="isCertified-checkbox"
