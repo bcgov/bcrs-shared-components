@@ -8,8 +8,7 @@
             filled
             persistent-hint
             id="certified-by-textfield"
-            label="Person's legal name"
-            hint="Enter the legal name of the person authorized to complete and submit these changes."
+            label="Legal name of authorized person"
             :value="certifiedBy"
             :rules="[(v) => !!v || 'A person\'s legal name is required.']"
             @input="emitCertifiedBy($event)"
@@ -26,8 +25,8 @@
           <div class="certify-stmt">
             I,
             <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
-            , certify that I have relevant knowledge of the
-            {{ entityDisplay || "association" }} and that I am authorized to
+            , has certified that he/she has relevant knowledge of the
+            {{ entityDisplay || "association" }} and is authorized to
             make this filing.
           </div>
         </template>
