@@ -6,7 +6,7 @@
           <label><strong>Legal Name</strong></label>
         </v-flex>
         <v-flex xs9 md10>
-          <div class="value certifiedBy">
+          <div class="value certified-by">
             <v-text-field
               filled
               persistent-hint
@@ -110,7 +110,7 @@ export default class Certify extends Vue {
   font-size: 0.875rem;
 }
 
-.certifiedBy-container {
+.certified-by-container {
   display: flex;
   flex-flow: column nowrap;
   position: relative;
@@ -122,7 +122,7 @@ export default class Certify extends Vue {
 }
 
 @media (min-width: 768px) {
-  .certifiedBy-container {
+  .certified-by-container {
     flex-flow: row nowrap;
 
     > label:first-child {
