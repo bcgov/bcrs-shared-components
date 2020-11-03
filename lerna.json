@@ -1,6 +1,18 @@
 {
+  "version": "independent",
+  "npmClient": "npm",
   "packages": [
-    "packages/*"
+    "src/components/*",
+    "src/interfaces",
+    "src/enums"
   ],
-  "version": "0.0.0"
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "*.stories.ts",
+        "*.md"
+      ],
+      "message": "chore(release): publish"
+    }
+  }
 }
