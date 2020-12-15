@@ -1,4 +1,8 @@
-# bcrs-shared-components
+# bcrs repository for shared components
+![Lifecycle](https://img.shields.io/badge/Lifecycle-Stable-97ca00)
+
+
+## bcrs-shared-components
 
 See https://github.com/bcgov/entity/blob/master/rfcs/rfc-shared-components.md.
 
