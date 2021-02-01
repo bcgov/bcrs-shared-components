@@ -94,27 +94,4 @@ describe('DetailComment', () => {
     expect(confirmBtn.attributes('disabled')).toBeUndefined()
     expect(confirmBtn.text()).toBe('File and Pay')
   })
-
-  // it('emits events when value model is changed', async () => {
-  //   const wrapper = shallowMount(FeeSummar,
-  //     {
-  //       vuetify
-  //     })
-  //   const vm: any = wrapper.vm
-  //
-  //   // const element = wrapper.find('#detail-comment-textarea')
-  //   // element.setValue('testing 4 5 6')
-  //
-  //   // apparently you can't set a textarea's value, so do it explicitly
-  //   // NB: need to wait for debounce
-  //   vm.onValueChanged('testing 4 5 6')
-  //   await sleep(300)
-  //   vm.emitInput('testing 4 5 6')
-  //
-  //   // verify valid and input events
-  //   expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
-  //   expect(wrapper.emitted('input').pop()).toEqual(['testing 4 5 6'])
-  //
-  //   wrapper.destroy()
-  // })
 })
