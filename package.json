@@ -26,6 +26,7 @@
     "sbc-common-components": "2.4.8",
     "v-mask": "^2.1.0",
     "vue": "^2.6.11",
+    "vue-affix": "^0.5.2",
     "vue-router": "^3.1.6",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.2.15",

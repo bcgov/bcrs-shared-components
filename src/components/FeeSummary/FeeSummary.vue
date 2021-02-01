@@ -7,7 +7,6 @@
         :filingData="[...filingData]"
         :payURL="payApiUrl"
       />
-      <certify />
       <template>
         <v-row class="mt-1">
           <v-col cols="6" class="pr-2">
@@ -54,7 +53,7 @@ export default class FeeSummary extends Vue {
   readonly showFeeSummary: boolean
 
   /** Filing information to calculate fees. */
-  @Prop({ default: {} })
+  @Prop({ default: null })
   readonly filingData: FilingDataIF
 
   /** Url at which to request fee calculations. */
@@ -80,7 +79,9 @@ export default class FeeSummary extends Vue {
 
   /** Emit action event. */
   @Emit('action')
-  private emitAction (action: string): void { }
+  private emitAction (action: string): void {
+    console.log()
+  }
 }
 </script>
 
