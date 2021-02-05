@@ -2,7 +2,7 @@
 
 This library is based on https://github.com/bcgov/entity/blob/master/rfcs/rfc-shared-components.md.
 
-The Storybook (sample) pages for this library are at https://bcgov.github.io/bcrs-shared-components/
+The Storybook (sample) pages for this library are at https://bcgov.github.io/bcrs-shared-components/.
 
 ## How to Publish New or Upgraded Component to npm?
 

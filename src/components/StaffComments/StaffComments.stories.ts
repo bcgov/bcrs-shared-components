@@ -22,10 +22,10 @@ let comments: any[] = [
 const mock = new MockAdapter(axios);
 
 // mock GET request
-mock.onGet('/businesses/1234/comments').reply(200, { comments  })
+mock.onGet('/businesses/CP1234567/comments').reply(200, { comments  })
 
 // mock GET request
-mock.onPost('/businesses/1234/comments').reply(config => {
+mock.onPost('/businesses/CP1234567/comments').reply(config => {
   // add new comment to comments array
   const comment = JSON.parse(config.data).comment
   comments.push({
@@ -52,7 +52,7 @@ const Template = (args, { argTypes }) => ({
 export const Default = Template.bind({})
 Default.args = {
   axios: axios.create(),
-  businessId: 1234,
+  businessId: 'CP1234567',
   maxLength: 2000
 }
 

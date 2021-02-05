@@ -1,9 +1,9 @@
 <template>
+  <!-- NB: attach the menu to its button so we can unit test it -->
   <v-menu
     bottom
-    nudge-top="33"
-    nudge-left="20"
     v-model="showComments"
+    attach="#comments-button"
     :close-on-click="false"
     :close-on-content-click="false"
   >
@@ -21,18 +21,20 @@
     </template>
 
     <!-- the menu (dialog) -->
-    <v-card flat id="staff-comment-container" class="px-8 py-6">
+    <!-- NB: stop click events from propagating up to comments-btn -->
+    <v-card flat id="staff-comment-container" class="px-8 py-6" @click.stop :ripple="false">
       <v-card-title class="d-flex justify-space-between pa-0">
         <div>
           <v-icon medium color="primary">mdi-comment-text-outline</v-icon>
           <span>{{numComments}}</span>
         </div>
-        <v-btn icon large class="mr-n3" @click="close()">
+        <v-btn icon large class="mr-n3" id="close-button" @click="close()">
           <v-icon color="primary">mdi-close</v-icon>
         </v-btn>
       </v-card-title>
 
       <v-card-text class="mt-2 pa-0">
+        <!-- NB: prevent input events from propagating up to comments-btn -->
         <v-textarea
           ref="textarea"
           autofocus
@@ -42,23 +44,36 @@
           v-model="comment"
           placeholder="Enter Comments"
           :rules="rules"
+          @onInput.prevent
         />
       </v-card-text>
 
       <v-card-actions class="d-flex justify-space-between pa-0">
         <div class="body-2 mt-1">{{charsRemaining}}</div>
         <div class="mr-n3">
-          <v-btn text color="primary" class="font-weight-bold" :loading="isSaving" @click="save()">
+          <v-btn
+            text
+            color="primary"
+            class="font-weight-bold"
+            id="save-button"
+            :loading="isSaving"
+            @click="save()"
+          >
             Save
           </v-btn>
-          <v-btn text color="primary" @click="close()">
+          <v-btn
+            text
+            color="primary"
+            id="cancel-button"
+            @click="close()"
+          >
             Cancel
           </v-btn>
         </div>
       </v-card-actions>
 
       <v-card-text class="mt-6 pa-0">
-        <div class="existing-comments pr-5">
+        <div class="pr-5" id="existing-comments">
           <div v-for="(comment, i) in comments" :key="i" class="body-2">
             <p class="pre-line" v-html="comment.comment" />
             <p class="font-italic">
@@ -195,6 +210,12 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
   overflow: hidden;
 }
 
+.v-menu__content {
+  max-width: unset !important;
+  top: -33px !important;
+  left: -20px !important;
+}
+
 .v-card__title {
   .v-icon {
     margin-top: 1px;
@@ -236,10 +257,11 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
   color: $gray7;
 }
 
-.existing-comments {
+#existing-comments {
   height: 16rem;
   max-height: 16rem;
   overflow-y: scroll;
+  text-align: left;
 
   .body-2 {
     color: $gray7;
