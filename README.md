@@ -23,9 +23,9 @@ cd bcrs-shared-components
 
 ```
 git fetch --all
-git reset --all bcgov/master
+git reset --all origin/master
 ```
-Warning: this overwrites any uncommitted changes on your branch
+Warning: this overwrites any uncommitted changes on your branch! Stash first if needed.
 
 ### 3. Create a local feature branch
 
@@ -61,8 +61,9 @@ npm run storybook
 
 Storybook should open in your browser (and will auto-rebuild on code changes).
 
-Note: GitHub Pages are used to serve the Storybook app folder. As this requires a developer to build before committing, they should ensure that they are building
-the latest code (ie, including all other recent changes in the repo).
+Note: GitHub Pages are used to serve the Storybook app folder. As this requires a developer to
+build before committing, they should ensure that they are building the latest code (ie,
+including all other recent changes in the repo).
 
 ### 10. Update lerna dependencies
 
@@ -70,7 +71,7 @@ the latest code (ie, including all other recent changes in the repo).
 lerna bootstrap --hoist
 ```
 
-### 11. Push your changes to main repo
+### 11. Commit your changes to main repo
 
 ```
 git push --set-upstream origin my-feature-branch
@@ -78,23 +79,28 @@ git push --set-upstream origin my-feature-branch
 
 ### 12. Create a PR from your branch to "master" in GitHub
 
-### 13. Once PR is approved, have Lerna update the versions
+### 13. After reviews/fixes, merge your PR
+
+### 14. Update your master branch and have Lerna update the versions of the affected components
 
 ```
+git co master
+git fetch origin
+git reset --hard origin/master
 lerna version --include-merged-tags
 ```
 
-### 14. Publish to npm
+Note: This step will create new tags and commit them!
+
+### 15. Publish to npm
 
 ```
 lerna publish from-package
 ```
 
-### 15. Commit the new changes (ie, package versions)
+Note: For this step, you need to be logged in to NPM (along with permissions on this library)... follow the prompts if applicable.
 
-### 16. Merge the PR
-
-### 17. You can now import your new component into a Vue project!
+### 16. You can now import your new component into a Vue project!
 
 # Special Procedures
 
@@ -102,7 +108,8 @@ lerna publish from-package
 
 If you want, you can create a new shared package for supporting code (eg, "interfaces"). Or,
 you can just create a local copy of the files that you need (eg, with only the content that
-you need) that your shared component will use when running in Storybook. When your component is running in your actual app, it would use the app's copy of those files.
+you need) that your shared component will use when running in Storybook. When your component
+is running in your actual app, it would use the app's copy of those files.
 
 Eg, the following will use the bcrs-shared-components files in Storybook, or your app's files
 when deployed:
@@ -115,10 +122,6 @@ same functionality as the app's files -- duplicate code. Also, the bcrs-shared-c
 will be unversioned. However, in some cases, these are acceptable compromises in order to
 maintain clean code.
 
-## How to Update an Existing Package
-
-_future_
-
 # References
 
 https://lerna.js.org/
@@ -126,3 +129,5 @@ https://lerna.js.org/
 https://storybook.js.org/
 
 https://git-scm.com/
+
+https://www.npmjs.com/
