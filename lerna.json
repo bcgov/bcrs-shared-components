@@ -3,8 +3,8 @@
   "npmClient": "npm",
   "packages": [
     "src/components/*",
-    "src/interfaces",
-    "src/enums"
+    "src/enums",
+    "src/interfaces"
   ],
   "command": {
     "publish": {
