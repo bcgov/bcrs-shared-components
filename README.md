@@ -23,7 +23,7 @@ cd bcrs-shared-components
 
 ```
 git fetch --all
-git reset --all origin/master
+git reset --hard origin/master
 ```
 Warning: this overwrites any uncommitted changes on your branch! Stash first if needed.
 
