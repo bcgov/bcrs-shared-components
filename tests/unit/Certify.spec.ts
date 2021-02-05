@@ -56,7 +56,6 @@ function createComponent (
   isCertified: boolean = undefined,
   currentDate: string = defaultDate
 ): Wrapper<Certify> {
-
   return mount(Certify, {
     sync: false,
     propsData: {

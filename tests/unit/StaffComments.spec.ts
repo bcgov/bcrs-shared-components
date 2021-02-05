@@ -21,9 +21,9 @@ const vuetify = new Vuetify({})
 const sampleComments = [
   {
     comment: {
-      comment: "A comment.",
-      submitterDisplayName: "Tester",
-      timestamp: "2021-02-04T22:08:27.930417+00:00"
+      comment: 'A comment.',
+      submitterDisplayName: 'Tester',
+      timestamp: '2021-02-04T22:08:27.930417+00:00'
     }
   }
 ]
@@ -59,7 +59,7 @@ describe('Staff Comments', () => {
   it('displays correctly with existing comments', async () => {
     // mock GET comments endpoint
     sinon.stub(axios, 'get').withArgs('businesses/CP0000002/comments')
-      .returns(new Promise(resolve => resolve({ data: { comments: sampleComments } }) )
+      .returns(new Promise(resolve => resolve({ data: { comments: sampleComments } }))
       )
 
     // mount the component
@@ -134,7 +134,7 @@ describe('Staff Comments', () => {
   it('closes the dialog correctly', async () => {
     // mock GET comments endpoint
     sinon.stub(axios, 'get').withArgs('businesses/CP0000004/comments')
-      .returns( new Promise(resolve => resolve({ data: { comments: [] } })))
+      .returns(new Promise(resolve => resolve({ data: { comments: [] } })))
 
     // mount the component
     const wrapper = mount(StaffComments, { propsData: { axios, businessId: 'CP0000004' }, vuetify })
@@ -173,7 +173,7 @@ describe('Staff Comments', () => {
   it('cancels the dialog correctly', async () => {
     // mock GET comments endpoint
     sinon.stub(axios, 'get').withArgs('businesses/CP0000005/comments')
-      .returns( new Promise(resolve => resolve({ data: { comments: [] } })))
+      .returns(new Promise(resolve => resolve({ data: { comments: [] } })))
 
     // mount the component
     const wrapper = mount(StaffComments, { propsData: { axios, businessId: 'CP0000005' }, vuetify })
@@ -212,7 +212,7 @@ describe('Staff Comments', () => {
   it('validates empty comment correctly', async () => {
     // mock GET comments endpoint
     sinon.stub(axios, 'get').withArgs('businesses/CP0000006/comments')
-      .returns( new Promise(resolve => resolve({ data: { comments: [] } })))
+      .returns(new Promise(resolve => resolve({ data: { comments: [] } })))
 
     // mount the component
     const wrapper = mount(StaffComments, { propsData: { axios, businessId: 'CP0000006' }, vuetify })
@@ -247,7 +247,7 @@ describe('Staff Comments', () => {
   it('validates excessive comment correctly', async () => {
     // mock GET comments endpoint
     sinon.stub(axios, 'get').withArgs('businesses/CP0000007/comments')
-      .returns( new Promise(resolve => resolve({ data: { comments: [] } })))
+      .returns(new Promise(resolve => resolve({ data: { comments: [] } })))
 
     // mount the component
     const wrapper = mount(StaffComments, { propsData: { axios, businessId: 'CP0000007', maxLength: 3 }, vuetify })
@@ -282,7 +282,7 @@ describe('Staff Comments', () => {
   it('resets validation when reopened', async () => {
     // mock GET comments endpoint
     sinon.stub(axios, 'get').withArgs('businesses/CP0000008/comments')
-      .returns( new Promise(resolve => resolve({ data: { comments: [] } })))
+      .returns(new Promise(resolve => resolve({ data: { comments: [] } })))
 
     // mount the component
     const wrapper = mount(StaffComments, { propsData: { axios, businessId: 'CP0000008' }, vuetify })
