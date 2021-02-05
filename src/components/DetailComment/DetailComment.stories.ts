@@ -18,8 +18,7 @@ Outlined.args = {
   placeholder: 'Provide a detail comment',
   textAreaStyle: 'outlined',
   maxLength: 4096
-
-} 
+}
 
 export const Filled = Template.bind({})
 Filled.args = {

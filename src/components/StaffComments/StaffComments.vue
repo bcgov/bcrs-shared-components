@@ -1,91 +1,92 @@
 <template>
-  <!-- NB: attach the menu to its button so we can unit test it -->
-  <v-menu
-    bottom
-    v-model="showComments"
-    attach="#comments-button"
-    :close-on-click="false"
-    :close-on-content-click="false"
-  >
-    <!-- the button -->
-    <template v-slot:activator="{ on, attrs }">
-      <v-btn
-        small text color="primary"
-        id="comments-button"
-        v-bind="attrs"
-        v-on="on"
-      >
-        <v-icon medium>mdi-comment-text-outline</v-icon>
-        <span>{{numComments}}</span>
-      </v-btn>
-    </template>
-
-    <!-- the menu (dialog) -->
-    <!-- NB: stop click events from propagating up to comments-btn -->
-    <v-card flat id="staff-comment-container" class="px-8 py-6" @click.stop :ripple="false">
-      <v-card-title class="d-flex justify-space-between pa-0">
-        <div>
-          <v-icon medium color="primary">mdi-comment-text-outline</v-icon>
+  <div class="d-inline" id="staff-comments">
+    <!-- NB: attach the menu to component div so we can unit test it -->
+    <v-menu
+      bottom
+      v-model="showComments"
+      attach="#staff-comments"
+      :nudge-top="nudgeTop"
+      :nudge-left="nudgeLeft"
+      :close-on-click="false"
+      :close-on-content-click="false"
+    >
+      <!-- the button -->
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          small text color="primary"
+          id="comments-button"
+          v-bind="attrs"
+          v-on="on"
+        >
+          <v-icon medium>mdi-comment-text-outline</v-icon>
           <span>{{numComments}}</span>
-        </div>
-        <v-btn icon large class="mr-n3" id="close-button" @click="close()">
-          <v-icon color="primary">mdi-close</v-icon>
         </v-btn>
-      </v-card-title>
+      </template>
 
-      <v-card-text class="mt-2 pa-0">
-        <!-- NB: prevent input events from propagating up to comments-btn -->
-        <v-textarea
-          ref="textarea"
-          autofocus
-          no-resize
-          filled
-          rows="5"
-          v-model="comment"
-          placeholder="Enter Comments"
-          :rules="rules"
-          @onInput.prevent
-        />
-      </v-card-text>
-
-      <v-card-actions class="d-flex justify-space-between pa-0">
-        <div class="body-2 mt-1">{{charsRemaining}}</div>
-        <div class="mr-n3">
-          <v-btn
-            text
-            color="primary"
-            class="font-weight-bold"
-            id="save-button"
-            :loading="isSaving"
-            @click="save()"
-          >
-            Save
-          </v-btn>
-          <v-btn
-            text
-            color="primary"
-            id="cancel-button"
-            @click="close()"
-          >
-            Cancel
-          </v-btn>
-        </div>
-      </v-card-actions>
-
-      <v-card-text class="mt-6 pa-0">
-        <div class="pr-5" id="existing-comments">
-          <div v-for="(comment, i) in comments" :key="i" class="body-2">
-            <p class="pre-line" v-html="comment.comment" />
-            <p class="font-italic">
-              {{ comment.submitterDisplayName }}
-              &hyphen;
-              {{apiToSimpleDateTime(comment.timestamp)}}
-            </p>
+      <!-- the menu (panel) -->
+      <v-card flat id="staff-comment-container" class="px-8 py-6">
+        <v-card-title class="d-flex justify-space-between pa-0">
+          <div>
+            <v-icon medium color="primary">mdi-comment-text-outline</v-icon>
+            <span>{{numComments}}</span>
           </div>
-        </div>
-      </v-card-text>
-    </v-card>
-  </v-menu>
+          <v-btn icon large class="mr-n3" id="close-button" @click="close()">
+            <v-icon color="primary">mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="mt-2 pa-0">
+          <v-textarea
+            ref="textarea"
+            autofocus
+            no-resize
+            filled
+            rows="5"
+            v-model="comment"
+            placeholder="Enter Comments"
+            :rules="rules"
+          />
+        </v-card-text>
+
+        <v-card-actions class="d-flex justify-space-between pa-0">
+          <div class="body-2 mt-1">{{charsRemaining}}</div>
+          <div class="mr-n3">
+            <v-btn
+              text
+              color="primary"
+              class="font-weight-bold"
+              id="save-button"
+              :loading="isSaving"
+              @click="save()"
+            >
+              Save
+            </v-btn>
+            <v-btn
+              text
+              color="primary"
+              id="cancel-button"
+              @click="close()"
+            >
+              Cancel
+            </v-btn>
+          </div>
+        </v-card-actions>
+
+        <v-card-text class="mt-6 pa-0">
+          <div class="pr-5" id="existing-comments">
+            <div v-for="(comment, i) in comments" :key="i" class="body-2">
+              <p class="pre-line" v-html="comment.comment" />
+              <p class="font-italic">
+                {{ comment.submitterDisplayName }}
+                &hyphen;
+                {{apiToSimpleDateTime(comment.timestamp)}}
+              </p>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-menu>
+  </div>
 </template>
 
 <script lang="ts">
@@ -99,19 +100,13 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     textarea: FormIF
   }
 
-  /** Axios instance prop. */
-  @Prop({ required: true })
-  readonly axios: any
+  @Prop({ required: true }) readonly axios: any
+  @Prop({ required: true }) readonly businessId: string
+  @Prop({ default: 33 }) readonly nudgeTop: number
+  @Prop({ default: 20 }) readonly nudgeLeft: number
+  @Prop({ default: 4096 }) readonly maxLength: number
 
-  /** Business ID prop. */
-  @Prop({ required: true })
-  readonly businessId: string
-
-  /** Max Length prop (optional). */
-  @Prop({ default: 4096 })
-  readonly maxLength: number
-
-  /** Model property for v-menu (ie, whether to show the dialog). */
+  /** Model property for v-menu (ie, whether to show the panel). */
   private showComments = false
 
   /** The list of comments. */
@@ -192,7 +187,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     }
   }
 
-  /** Closes the menu (dialog). */
+  /** Closes the menu (panel). */
   private close (): void {
     // clear any errors; leave the data
     this.$refs.textarea.resetValidation()
@@ -208,12 +203,6 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
   width: 33rem;
   height: 36rem;
   overflow: hidden;
-}
-
-.v-menu__content {
-  max-width: unset !important;
-  top: -33px !important;
-  left: -20px !important;
 }
 
 .v-card__title {
