@@ -42,7 +42,7 @@ npm i --global lerna     // if you didn't do this previously
 
 ### 5. Create your component in its own folder (eg, `src/components/MyComponent/MyComponent.vue`)
 
-### 6. Create `package.json file` for your component (see others as examples)
+### 6. Create `package.json file` for your component with version "0.0.0" (see others as examples)
 
 ### 7. Create new Storybook file for your component (see others as examples)
 
