@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import flushPromises from 'flush-promises'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
-import mockRouter from './MockRouter'
 
 import { ContactInfo } from '@/components/ContactInfo'
 import { ContactIF } from '@/interfaces'
@@ -26,7 +24,6 @@ const doneButtonSelector: string = '#done-btn'
 const cancelBtnSelector: string = '#cancel-btn'
 const localVue = createLocalVue()
 localVue.use(VueRouter)
-const router = mockRouter.mock()
 
 const originalBusinessContactInfo: ContactIF = {
   email: 'abc@test.com',
@@ -60,8 +57,7 @@ function createComponent (
       hasBusinessContactInfoChange: hasBusinessContactInfoChange
     },
     vuetify,
-    localVue,
-    router
+    localVue
   })
 }
 
