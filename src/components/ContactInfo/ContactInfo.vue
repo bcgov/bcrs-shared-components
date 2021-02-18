@@ -99,7 +99,7 @@
       <v-layout row class="mx-0">
         <v-flex xs3></v-flex>
         <v-flex xs9 class="my-4 info-text">
-          There is no fee to change Registered Contact Information. Any changes made will be applied immediately.
+          There is no fee to change Registered Office Contact Information. Any changes made will be applied immediately.
         </v-flex>
       </v-layout>
 
@@ -223,7 +223,7 @@ import { ContactIF, FormIF } from '@/interfaces'
 })
 export default class ContactInfo extends Vue {
   // Refs
-  $refs!: {
+  $refs!: Vue['$refs'] & {
     editContactForm: FormIF,
   }
 
@@ -262,6 +262,7 @@ export default class ContactInfo extends Vue {
 
   /** Emit the updated data to parent component */
   private updateContactInfo (): void {
+    console.log('Inside Update')
     this.emitContactInfo(this.contactInfo)
     this.isEditing = false
   }
@@ -292,7 +293,7 @@ export default class ContactInfo extends Vue {
     ]
     this.confirmEmailRules = [
       (v: string) => !!v || 'Confirm email address',
-      (v: string) => v?.toString() === this.contactInfo?.email || 'Email addresses must match'
+      (v: string) => v.toString() === this.contactInfo.email || 'Email addresses must match'
     ]
     this.phoneRules = [
       (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'

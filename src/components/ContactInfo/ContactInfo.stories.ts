@@ -21,20 +21,20 @@ const ContactData: ContactIF = {
   extension: ''
 }
 
-export const Outlined = Template.bind({})
-Outlined.args = {
+export const FilledAlteration = Template.bind({})
+FilledAlteration.args = {
   businessContact: ContactData,
   originalBusinessContact: ContactData,
-  'has-business-contact-info-change': false,
-  'edit-label': 'Change',
-  'edited-label': 'Changed'
+  hasBusinessContactInfoChange: false,
+  editLabel: 'Change',
+  editedLabel: 'Changed'
 }
 
-export const Filled = Template.bind({})
-Filled.args = {
+export const FilledCorrection = Template.bind({})
+FilledCorrection.args = {
   businessContact: ContactData,
   originalBusinessContact: ContactData,
-  'has-business-contact-info-change': false,
-  'edit-label': 'Change',
-  'edited-label': 'Changed'
+  hasBusinessContactInfoChange: false,
+  editLabel: 'Correct',
+  editedLabel: 'Corrected'
 }
