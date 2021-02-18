@@ -12,10 +12,6 @@ Vue.use(Vuetify)
 
 let vuetify = new Vuetify({})
 
-// Events
-const haveChangesEvent = 'haveChanges'
-const formDataChangeEvent = 'contactInfoChange'
-
 // Input field selectors to test changes to the DOM elements.
 const emailSelector: string = '#txt-email'
 const confirmEmailSelector: string = '#txt-confirm-email'
@@ -31,32 +27,6 @@ const cancelBtnSelector: string = '#cancel-btn'
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 const router = mockRouter.mock()
-
-/**
- * Returns the last event for a given name, to be used for testing event propagation in response to component changes.
- *
- * @param wrapper the wrapper for the component that is being tested.
- * @param name the name of the event that is to be returned.
- *
- * @returns the value of the last named event for the wrapper.
- */
-function getLastEvent (wrapper: Wrapper<ContactInfo>, name: string): any {
-  const eventsList: Array<any> = wrapper.emitted(name)
-  if (eventsList) {
-    const events: Array<any> = eventsList[eventsList.length - 1]
-    return events[0]
-  }
-  return null
-}
-
-/**
- * Utility method to get around with the timing issues
- */
-async function waitForUpdate (wrapper: Wrapper<Vue>) {
-  await Vue.nextTick()
-  await flushPromises()
-  await Vue.nextTick()
-}
 
 const originalBusinessContactInfo: ContactIF = {
   email: 'abc@test.com',
