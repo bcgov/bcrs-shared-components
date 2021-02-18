@@ -65,7 +65,7 @@ const originalBusinessContactInfo: ContactIF = {
   extension: ''
 }
 
-const correctedBusinessContactInfo: ContactIF = {
+const editedBusinessContactInfo: ContactIF = {
   email: 'abc@test.com',
   confirmEmail: 'abc@test.com',
   phone: '(666) 555-5555',
@@ -107,11 +107,11 @@ describe('Business Contact Info component', () => {
 
   it('Loads the component in read only mode and shows corrected labels', async () => {
     const wrapper: Wrapper<ContactInfo> =
-      createComponent(originalBusinessContactInfo, correctedBusinessContactInfo)
+      createComponent(originalBusinessContactInfo, editedBusinessContactInfo)
 
-    expect(wrapper.find(readOnlyEmailSelector).text()).toEqual(correctedBusinessContactInfo.email)
-    expect(wrapper.find(readOnlyPhoneSelector).text()).toContain(correctedBusinessContactInfo.phone)
-    expect(wrapper.find(readOnlyPhoneSelector).text()).toContain('Ext: ' + correctedBusinessContactInfo.extension)
+    expect(wrapper.find(readOnlyEmailSelector).text()).toEqual(editedBusinessContactInfo.email)
+    expect(wrapper.find(readOnlyPhoneSelector).text()).toContain(editedBusinessContactInfo.phone)
+    expect(wrapper.find(readOnlyPhoneSelector).text()).toContain('Ext: ' + editedBusinessContactInfo.extension)
     wrapper.destroy()
   })
 
@@ -126,7 +126,7 @@ describe('Business Contact Info component', () => {
 
   it('Shows undo button if there are corrections to business info', async () => {
     const wrapper: Wrapper<ContactInfo> =
-      createComponent(originalBusinessContactInfo, correctedBusinessContactInfo, true)
+      createComponent(originalBusinessContactInfo, editedBusinessContactInfo, true)
 
     expect(wrapper.find(correctButtonSelector).exists()).toBe(false)
     expect(wrapper.find(undoButtonSelector).exists()).toBe(true)
@@ -135,9 +135,9 @@ describe('Business Contact Info component', () => {
 
   it('Shows business contact form with values populated when correct button is clicked', async () => {
     const wrapper: Wrapper<ContactInfo> =
-      createComponent(originalBusinessContactInfo, originalBusinessContactInfo, false)
-    wrapper.find(correctButtonSelector).trigger('click')
-    await waitForUpdate(wrapper)
+      createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
+    wrapper.find('#btn-correct-contact-info').trigger('click')
+    await Vue.nextTick()
 
     expect(wrapper.find(formSelector).exists()).toBe(true)
     expect((<HTMLInputElement> wrapper.find(emailSelector).element).value).toEqual(originalBusinessContactInfo.email)
