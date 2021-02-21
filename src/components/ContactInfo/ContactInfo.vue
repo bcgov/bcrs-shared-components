@@ -294,7 +294,8 @@ export default class ContactInfo extends Vue {
     ]
     this.confirmEmailRules = [
       (v: string) => !!v || 'Confirm email address',
-      (v: string) => !v || (v.toString() === this.$refs.editContactForm?.$el[0]?.value) || 'Email addresses must match'
+      (v: string) => !v || (v.toString() === (this.$refs.editContactForm && this.$refs.editContactForm.$el[0].value)) ||
+        'Email addresses must match'
     ]
     this.phoneRules = [
       (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
