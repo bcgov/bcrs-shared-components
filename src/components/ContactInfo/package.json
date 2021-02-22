@@ -5,6 +5,7 @@
     "access": "public"
   },
   "dependencies": {
-    "vue-property-decorator": "^8.4.0"
+    "vue-property-decorator": "^8.4.0",
+    "@bcrs-shared-components/interfaces": "^1.0.10"
   }
 }
