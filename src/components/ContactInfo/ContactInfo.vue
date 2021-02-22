@@ -18,7 +18,9 @@
         <label class="d-flex flex-wrap">
           <span class="subtitle mr-2">Email Address</span>
         </label>
-        <div id="lbl-email" class="info-text">{{ !!contactInfo.email ? contactInfo.email : "(Not entered)" }}</div>
+        <div id="lbl-email" class="info-text">
+          {{ !!businessContact.email ? businessContact.email : "(Not entered)" }}
+        </div>
       </v-flex>
 
       <!-- Phone Number -->
@@ -26,9 +28,9 @@
         <label class="d-flex flex-wrap">
           <span class="subtitle mr-2">Phone Number</span>
         </label>
-        <div id="lbl-phone" v-if="!!contactInfo.phone" class="info-text">
-          {{ contactInfo.phone }}
-          <span v-if="!!contactInfo.extension">Ext: {{ contactInfo.extension }}</span>
+        <div id="lbl-phone" v-if="!!businessContact.phone" class="info-text">
+          {{ businessContact.phone }}
+          <span v-if="!!businessContact.extension">Ext: {{ businessContact.extension }}</span>
         </div>
         <div id="lbl-no-phone" v-else class="info-text">(Not entered)</div>
       </v-flex>
@@ -262,7 +264,6 @@ export default class ContactInfo extends Vue {
 
   /** Emit the updated data to parent component */
   private updateContactInfo (): void {
-    console.log('Inside Update')
     this.emitContactInfo(this.contactInfo)
     this.isEditing = false
   }
@@ -293,7 +294,8 @@ export default class ContactInfo extends Vue {
     ]
     this.confirmEmailRules = [
       (v: string) => !!v || 'Confirm email address',
-      (v: string) => v.toString() === this.contactInfo.email || 'Email addresses must match'
+      (v: string) => !v || (v.toString() === (this.$refs.editContactForm && this.$refs.editContactForm.$el[0].value)) ||
+        'Email addresses must match'
     ]
     this.phoneRules = [
       (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
