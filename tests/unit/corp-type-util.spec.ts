@@ -23,9 +23,9 @@ describe('Corp Type Util', () => {
     expect(obj.corpTypeCd).toBe('CR')
     expect(obj.colinInd).toBe(true)
     expect(obj.corpClass).toBe('BC')
-    expect(obj.shortDesc).toBe('BC CORPORATION')
-    expect(obj.fullDesc).toBe('BC Corporation')
-    expect(obj.numberedDesc).toBe('Numbered Corporation')
+    expect(obj.shortDesc).toBe('BC COMPANY')
+    expect(obj.fullDesc).toBe('BC Company')
+    expect(obj.numberedDesc).toBe('Numbered Company')
   })
 
   it('gets corp full description correctly', () => {
