@@ -3,5 +3,8 @@
     "version": "1.0.6",
     "publishConfig": {
         "access": "public"
+    },
+    "dependencies": {
+        "@bcrs-shared-components/corp-type-module": "^1.0.0"
     }
 }
