@@ -383,7 +383,8 @@ export function GetCorpInfoObject (cd: CorpTypeCd): CorpInfoIF {
  * @returns the description (or '' if not found)
  */
 export function GetCorpFullDescription (cd: CorpTypeCd): string {
-  return CorpInfoArray.find(obj => (cd === obj.corpTypeCd))?.fullDesc || ''
+  const item = CorpInfoArray.find(obj => (cd === obj.corpTypeCd))
+  return (item && item.fullDesc) || ''
 }
 
 /**
@@ -392,5 +393,6 @@ export function GetCorpFullDescription (cd: CorpTypeCd): string {
  * @returns the description (or '' if not found)
  */
 export function GetCorpNumberedDescription (cd: CorpTypeCd): string {
-  return CorpInfoArray.find(obj => (cd === obj.corpTypeCd))?.numberedDesc || ''
+  const item = CorpInfoArray.find(obj => (cd === obj.corpTypeCd))
+  return (item && item.numberedDesc) || ''
 }
