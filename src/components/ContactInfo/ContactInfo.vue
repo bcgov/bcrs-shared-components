@@ -250,7 +250,7 @@ export default class ContactInfo extends Vue {
   private editedLabel!: string
 
   /** Option to disable the edit actions */
-  @Prop()
+  @Prop({ default: false })
   private disableActions!: boolean
 
   // Local Properties
