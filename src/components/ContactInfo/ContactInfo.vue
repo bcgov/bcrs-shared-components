@@ -5,7 +5,7 @@
       <v-flex xs3>
         <label>
           <span>Registered Office <br> Contact Information</span>
-          <v-flex md1>
+          <v-flex>
             <v-chip v-if="hasBusinessContactInfoChange" x-small label color="primary" text-color="white">
               {{editedLabel}}
             </v-chip>
@@ -36,7 +36,7 @@
       </v-flex>
 
       <!-- Edit Actions -->
-      <v-flex xs1 class="mt-n2">
+      <v-flex v-if="!disableActions" xs1 class="mt-n2">
         <div class="actions mr-4">
           <v-btn
             v-if="hasBusinessContactInfoChange"
@@ -218,7 +218,7 @@ import { Component, Prop, Watch, Emit, Vue } from 'vue-property-decorator'
 import { mask } from 'vue-the-mask'
 
 // Interfaces & enums
-import { ContactIF, FormIF } from '@bcrs-shared-components/interfaces'
+import { ContactPointIF, FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({
   directives: { mask }
@@ -231,11 +231,11 @@ export default class ContactInfo extends Vue {
 
   /** The current business contact information */
   @Prop()
-  private businessContact!: ContactIF
+  private businessContact!: ContactPointIF
 
   /** The baseline contact information */
   @Prop()
-  private originalBusinessContact!: ContactIF
+  private originalBusinessContact!: ContactPointIF
 
   /** Flag for identifying changes */
   @Prop()
@@ -249,9 +249,13 @@ export default class ContactInfo extends Vue {
   @Prop()
   private editedLabel!: string
 
+  /** Option to disable the edit actions */
+  @Prop({ default: false })
+  private disableActions!: boolean
+
   // Local Properties
   private isEditing: boolean = false
-  private contactInfo: ContactIF
+  private contactInfo: ContactPointIF
   private formValid: boolean = false
 
   // Text-field Rules
@@ -316,7 +320,7 @@ export default class ContactInfo extends Vue {
   }
 
   @Emit('contactInfoChange')
-  private emitContactInfo (contactInfo: ContactIF): void { }
+  private emitContactInfo (contactInfo: ContactPointIF): void { }
 }
 </script>
 

@@ -3,7 +3,7 @@ import Vuetify from 'vuetify'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 
 import { ContactInfo } from '@/components/ContactInfo'
-import { ContactIF } from '@/interfaces'
+import { ContactPointIF } from '@/interfaces'
 import VueRouter from 'vue-router'
 
 Vue.use(Vuetify)
@@ -25,14 +25,14 @@ const cancelBtnSelector: string = '#cancel-btn'
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 
-const originalBusinessContactInfo: ContactIF = {
+const originalBusinessContactInfo: ContactPointIF = {
   email: 'abc@test.com',
   confirmEmail: 'abc@test.com',
   phone: '(555) 555-5555',
   extension: ''
 }
 
-const editedBusinessContactInfo: ContactIF = {
+const editedBusinessContactInfo: ContactPointIF = {
   email: 'abc@test.com',
   confirmEmail: 'abc@test.com',
   phone: '(666) 555-5555',
@@ -48,7 +48,7 @@ const editedBusinessContactInfo: ContactIF = {
  * @returns a Wrapper<BusinessContactInfo> object with the given parameters.
  */
 function createComponent (
-  originalContactInfo: ContactIF, contactInfo: ContactIF, hasBusinessContactInfoChange: boolean = false):
+  originalContactInfo: ContactPointIF, contactInfo: ContactPointIF, hasBusinessContactInfoChange: boolean = false):
   Wrapper<ContactInfo> {
   return mount(ContactInfo, {
     propsData: {
