@@ -5,7 +5,7 @@
       <v-flex xs3>
         <label>
           <span>Registered Office <br> Contact Information</span>
-          <v-flex md1>
+          <v-flex>
             <v-chip v-if="hasBusinessContactInfoChange" x-small label color="primary" text-color="white">
               {{editedLabel}}
             </v-chip>
@@ -36,7 +36,7 @@
       </v-flex>
 
       <!-- Edit Actions -->
-      <v-flex xs1 class="mt-n2">
+      <v-flex v-if="!disableActions" xs1 class="mt-n2">
         <div class="actions mr-4">
           <v-btn
             v-if="hasBusinessContactInfoChange"
@@ -248,6 +248,10 @@ export default class ContactInfo extends Vue {
   /** Edited label name (ie 'Changed' or 'Corrected') */
   @Prop()
   private editedLabel!: string
+
+  /** Option to disable the edit actions */
+  @Prop()
+  private disableActions!: boolean
 
   // Local Properties
   private isEditing: boolean = false
