@@ -1,6 +1,6 @@
 import {
   BusinessIF, NameRequestIF, NameTranslationIF, ShareStructureIF, ContactPointIF
-} from '@/interfaces'
+} from './'
 
 /**
  * A filing's alteration object from the API. See:
