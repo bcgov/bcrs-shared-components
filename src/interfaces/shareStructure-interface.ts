@@ -1,4 +1,4 @@
-import { ActionTypes } from '@/enums'
+import { ActionTypes } from '@bcrs-shared-components/enums'
 
 /**
  * See:
