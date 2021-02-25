@@ -44,15 +44,23 @@ npm i --global lerna     // if you didn't do this previously
 
 ### 6. Create `package.json file` for your component with version "0.0.0" (see others as examples)
 
-### 7. Create new Storybook file for your component (see others as examples)
+### 7. Update Lerna dependencies
 
-### 8. Create create unit test file for your component and verify locally
+```
+lerna bootstrap --hoist
+```
+
+This updates the node_modules/ in the sub-folders.
+
+### 8. Create new Storybook file for your component (see others as examples)
+
+### 9. Create create unit test file for your component and verify locally
 
 ```
 npm run test:unit MyComponent
 ```
 
-### 9. Build Storybook and verify your component
+### 10. Build Storybook and verify your component
 
 ```
 npm run storybook:build     // only required the first time per feature
@@ -64,12 +72,6 @@ Storybook should open in your browser (and will auto-rebuild on code changes).
 Note: GitHub Pages are used to serve the Storybook app folder. As this requires a developer to
 build before committing, they should ensure that they are building the latest code (ie,
 including all other recent changes in the repo).
-
-### 10. Update lerna dependencies
-
-```
-lerna bootstrap --hoist
-```
 
 ### 11. Commit your changes to main repo
 
