@@ -218,7 +218,7 @@ import { Component, Prop, Watch, Emit, Vue } from 'vue-property-decorator'
 import { mask } from 'vue-the-mask'
 
 // Interfaces & enums
-import { ContactIF, FormIF } from '@bcrs-shared-components/interfaces'
+import { ContactPointIF, FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({
   directives: { mask }
@@ -231,11 +231,11 @@ export default class ContactInfo extends Vue {
 
   /** The current business contact information */
   @Prop()
-  private businessContact!: ContactIF
+  private businessContact!: ContactPointIF
 
   /** The baseline contact information */
   @Prop()
-  private originalBusinessContact!: ContactIF
+  private originalBusinessContact!: ContactPointIF
 
   /** Flag for identifying changes */
   @Prop()
@@ -255,7 +255,7 @@ export default class ContactInfo extends Vue {
 
   // Local Properties
   private isEditing: boolean = false
-  private contactInfo: ContactIF
+  private contactInfo: ContactPointIF
   private formValid: boolean = false
 
   // Text-field Rules
@@ -320,7 +320,7 @@ export default class ContactInfo extends Vue {
   }
 
   @Emit('contactInfoChange')
-  private emitContactInfo (contactInfo: ContactIF): void { }
+  private emitContactInfo (contactInfo: ContactPointIF): void { }
 }
 </script>
 

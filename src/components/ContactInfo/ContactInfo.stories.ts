@@ -1,5 +1,5 @@
 import { ContactInfo } from './index'
-import { ContactIF } from '@/interfaces'
+import { ContactPointIF } from '@/interfaces'
 
 export default {
   title: 'component/ContactInfo',
@@ -14,14 +14,14 @@ const Template = (args, { argTypes }) => ({
   template: '<contact-info v-bind="$props" />' // $props comes from args below
 })
 
-const ContactData: ContactIF = {
+const ContactData: ContactPointIF = {
   email: 'mock@email.com',
   confirmEmail: 'mock@email.com',
   phone: '2501234567',
   extension: ''
 }
 
-const ContactDataChanged: ContactIF = {
+const ContactDataChanged: ContactPointIF = {
   email: 'newMock@email.com',
   confirmEmail: 'newMock@email.com',
   phone: '2509876543',
