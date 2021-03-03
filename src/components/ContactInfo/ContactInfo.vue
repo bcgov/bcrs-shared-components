@@ -16,7 +16,7 @@
       <!-- Email Address -->
       <v-flex xs4>
         <label class="d-flex flex-wrap">
-          <span class="subtitle mr-2">Email Address</span>
+          <span class="subtitle text-body-3 mr-2">Email Address</span>
         </label>
         <div id="lbl-email" class="info-text">
           {{ !!businessContact.email ? businessContact.email : "(Not entered)" }}
@@ -26,7 +26,7 @@
       <!-- Phone Number -->
       <v-flex xs4>
         <label class="d-flex flex-wrap">
-          <span class="subtitle mr-2">Phone Number</span>
+          <span class="subtitle text-body-3 mr-2">Phone Number</span>
         </label>
         <div id="lbl-phone" v-if="!!businessContact.phone" class="info-text">
           {{ businessContact.phone }}
@@ -42,20 +42,31 @@
             v-if="hasBusinessContactInfoChange"
             id="btn-undo-contact-info"
             text color="primary"
+            class="undo-action"
             @click="resetContactInfo()"
           >
             <v-icon small>mdi-undo</v-icon>
             <span>Undo</span>
           </v-btn>
-          <v-btn
-            v-else
-            id="btn-correct-contact-info"
-            text color="primary"
-            @click="isEditing = true"
+
+          <v-tooltip v-else
+                     top
+                     content-class="top-tooltip"
+                     transition="fade-transition"
+                     nudge-right="3"
           >
-            <v-icon small>mdi-pencil</v-icon>
-            <span>{{editLabel}}</span>
-          </v-btn>
+            <template v-slot:activator="{ on }">
+              <v-btn  v-on="on"
+                      id="btn-correct-contact-info"
+                      text color="primary"
+                      @click="isEditing = true"
+              >
+                <v-icon small>mdi-pencil</v-icon>
+                <span>{{editLabel}}</span>
+              </v-btn>
+            </template>
+            <span>No fee to change</span>
+          </v-tooltip>
 
           <!-- Drop Down Actions -->
           <span class="more-actions" v-if="hasBusinessContactInfoChange">
@@ -302,6 +313,7 @@ export default class ContactInfo extends Vue {
         'Email addresses must match'
     ]
     this.phoneRules = [
+      (v: string) => !!v || 'Phone number is required',
       (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
     ]
 
@@ -338,6 +350,10 @@ export default class ContactInfo extends Vue {
 
   .v-btn {
     min-width: 0.5rem;
+  }
+
+  .undo-action{
+    border-right: 1px solid $gray1;
   }
 }
 
