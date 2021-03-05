@@ -31,7 +31,7 @@ describe('Corp Type Util', () => {
   it('gets corp full description correctly', () => {
     expect(GetCorpFullDescription(CorpTypeCd.BC_COMPANY)).toBe('BC Limited Company')
     expect(GetCorpFullDescription(CorpTypeCd.BC_ULC_COMPANY)).toBe('BC Unlimited Liability Company')
-    expect(GetCorpFullDescription(CorpTypeCd.BENEFIT_COMPANY)).toBe('Benefit Company')
+    expect(GetCorpFullDescription(CorpTypeCd.BENEFIT_COMPANY)).toBe('BC Benefit Company')
     expect(GetCorpFullDescription(CorpTypeCd.COOP)).toBe('Cooperative Association')
     expect(GetCorpFullDescription(null)).toBe('')
   })

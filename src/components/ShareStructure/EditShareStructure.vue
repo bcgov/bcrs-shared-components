@@ -237,6 +237,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
   }
 
   // Rules
+  /** The rules applying to the Class/Series name input field. */
   private get nameRule (): Array<Function> {
     const rules: Array<Function> = [
       (v: string) => !/^\s/g.test(v) || 'Invalid spaces', // leading spaces
@@ -270,7 +271,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     }
     return rules
   }
-
+  /** The rules applying to the Class/Series max share input field. */
   private get maximumShareRule (): Array<Function> {
     let rules: Array<Function> = []
     if (!this.hasNoMaximumShares) {
@@ -303,7 +304,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     }
     return rules
   }
-
+  /** The rules applying to the Class/Series par value input field. */
   private get parValueRule (): Array<Function> {
     if (!this.hasNoParValue) {
       return [
@@ -315,6 +316,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     return []
   }
 
+  /** The rules applying to the Class/Series currency input field. */
   private get currencyRule (): Array<Function> {
     if (!this.hasNoParValue) {
       return [(v: string) => !!v || 'Currency is required']
@@ -338,6 +340,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
   }
 
   // Methods
+  /** Apply the Rules to the input fields and validate. */
   private async validateForm (): Promise<void> {
     this.nameRules = this.nameRule
     this.maximumShareRules = this.maximumShareRule
@@ -355,6 +358,10 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     }
   }
 
+  /**
+   * Emit the updated share structure to the parent component.
+   * @param shareStructure The object body to emit.
+   * */
   private emitAddShareStructureEvent (shareStructure: ShareClassIF): void {
     if (this.isClass) {
       this.emitAddEditShareClassEvent(shareStructure)
@@ -363,6 +370,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     }
   }
 
+  /** Add a NEW share class or series to the share structure and the appropriate action. */
   private addShareStructure (): ShareClassIF {
     let shareStructureToAdd: ShareClassIF = { ...this.shareStructure }
     if (this.activeIndex === -1) {
@@ -394,6 +402,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     return shareStructureToAdd
   }
 
+  /** Remove the current share class or series. */
   private removeShareStructure (): void {
     if (this.isClass) {
       this.emitRemoveShareClassEvent(this.activeIndex)
@@ -402,6 +411,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     }
   }
 
+  /** Reset the form validators. */
   private resetFormAndData (emitEvent: boolean): void {
     this.$refs.shareStructureForm.reset()
     if (emitEvent) {
@@ -409,12 +419,14 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     }
   }
 
+  /** Update the maximum share flag. */
   private changeMaximumShareFlag (): void {
     if (this.hasNoMaximumShares) {
       this.shareStructure.maxNumberOfShares = null
     }
   }
 
+  /** Update the par value flag. */
   private changeParValueFlag (): void {
     if (this.hasNoParValue) {
       this.shareStructure.currency = null
@@ -422,6 +434,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     }
   }
 
+  /** Middleware to prompt a confirmation of removal or resolution. */
   private async confirmSeriesRemoval (): Promise<void> {
     if (this.hasSeriesShares && !this.shareStructure.hasRightsOrRestrictions) {
       // open confirmation dialog and wait for response

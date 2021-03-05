@@ -1,8 +1,6 @@
 import Vue from 'vue'
-import { ConfirmDialog } from './index'
-// import { ActionableItemIF } from '@/interfaces'
-// import { ActionTypes } from '@/enums'
 import Vuetify from 'vuetify'
+import { ConfirmDialog } from './index'
 
 export default {
   title: 'component/ConfirmDialog',
@@ -16,8 +14,8 @@ const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { ConfirmDialog },
   template: '<confirm-dialog v-bind="$props" @hook:mounted="externalMount" />',
-  methods: { // bind the new method to the component
-    async externalMount () { // don't use an arrow function or this will have wrong scope
+  methods: {
+    async externalMount () {
       const vm = this.$children[0] // target the component confirm-dialog
       await Vue.nextTick() // wait that mounted() finished
       vm.open(
@@ -29,10 +27,11 @@ const Template = (args, { argTypes }) => ({
           yes: 'yes',
           no: 'no',
           cancel: 'Cancel'
-        }) // Show the modal / call the method
+        })
     }
   }
 })
 
+// Passing an ID that doesn't exist to attach the dialog throws an error in StoryBook
 export const base = Template.bind({})
 base.args = {}
