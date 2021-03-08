@@ -16,6 +16,7 @@ const Template = (args, { argTypes }) => ({
 export const Default = Template.bind({})
 Default.args = {
   currentDate: '2020-01-17',
+  isStaff: false,
   certifiedBy: '',
   isCertified: false,
   message: 'Note: It is an offence to make a false or misleading statement in respect of a material fact in a \n' +

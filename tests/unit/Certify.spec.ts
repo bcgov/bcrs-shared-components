@@ -54,6 +54,7 @@ function getLastEvent (wrapper: Wrapper<Certify>, name: string): any {
 function createComponent (
   certifiedBy: string = undefined,
   isCertified: boolean = undefined,
+  isStaff: boolean = undefined,
   currentDate: string = defaultDate
 ): Wrapper<Certify> {
   return mount(Certify, {
@@ -61,7 +62,8 @@ function createComponent (
     propsData: {
       currentDate,
       certifiedBy,
-      isCertified
+      isCertified,
+      isStaff
     }
   })
 }
@@ -113,6 +115,13 @@ describe('Certify', () => {
 
   it('is valid when both certifiedBy and isCertified are defined', () => {
     const wrapper: Wrapper<Certify> = createComponent(trimmedCertifier, true)
+
+    // The last "valid" event should indicate that the form is valid.
+    expect(getLastEvent(wrapper, 'valid')).toBe(true)
+  })
+
+  it('is valid when both certifiedBy, isCertified, and is staff are defined', () => {
+    const wrapper: Wrapper<Certify> = createComponent(trimmedCertifier, true, true)
 
     // The last "valid" event should indicate that the form is valid.
     expect(getLastEvent(wrapper, 'valid')).toBe(true)
