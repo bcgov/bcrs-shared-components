@@ -171,10 +171,10 @@ import { ConfirmDialog } from '@/components/ConfirmDialog'
 
 // Interfaces and Enums
 import { ConfirmDialogType, FormIF, ShareClassIF } from '@/interfaces'
-
-// Mixins
-import { CurrencyLookupMixin } from '@/mixins'
 import { ActionTypes } from '@/enums'
+
+// Mixin
+import CurrencyLookupMixin from './currency-lookup-mixin'
 
 @Component({
   components: {

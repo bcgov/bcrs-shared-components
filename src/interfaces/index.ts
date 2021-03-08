@@ -1,5 +1,5 @@
 export * from './actionable-item-interface'
-export * from './address-interface'
+export * from './addresses-interface'
 export * from './alteration-interface'
 export * from './business-interface'
 export * from './business-snapshot-interface'
