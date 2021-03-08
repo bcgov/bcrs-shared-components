@@ -9,8 +9,8 @@
     @keydown.esc="onClickCancel">
 
     <v-card>
-      <v-card-title>{{ title }}</v-card-title>
-      <v-card-text class="pre-wrap my-2" v-show="!!message" v-html="message"></v-card-text>
+      <v-card-title id="confirm-title">{{ title }}</v-card-title>
+      <v-card-text id="confirm-text" class="pre-wrap my-2" v-show="!!message" v-html="message"></v-card-text>
       <v-divider class="my-0" v-show="!!options.yes || !!options.no || !!options.cancel"></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
