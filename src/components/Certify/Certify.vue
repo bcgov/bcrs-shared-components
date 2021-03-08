@@ -24,16 +24,16 @@
             >
               <template slot="label">
                 <div class="certify-stmt" v-if="isStaff">
+                  <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
+                  certifies that they have relevant knowledge of the
+                  {{ entityDisplay || "association" }} and is authorized to
+                  make this filing.
+                </div>
+                <div class="certify-stmt" v-else>
                   I,
                   <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
                   , certify that I have relevant knowledge of the
                   {{ entityDisplay || "association" }} and I am authorized to
-                  make this filing.
-                </div>
-                <div class="certify-stmt" v-else>
-                  <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
-                  certifies that they have relevant knowledge of the
-                  {{ entityDisplay || "association" }} and is authorized to
                   make this filing.
                 </div>
               </template>

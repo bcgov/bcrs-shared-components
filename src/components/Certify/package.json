@@ -1,6 +1,6 @@
 {
     "name": "@bcrs-shared-components/certify",
-    "version": "1.0.7",
+    "version": "1.0.6",
     "publishConfig": {
         "access": "public"
     },

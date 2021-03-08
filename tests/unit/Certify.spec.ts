@@ -113,6 +113,13 @@ describe('Certify', () => {
     expect(getLastEvent(wrapper, 'valid')).toBe(false)
   })
 
+  it('is invalid when just isStaff is defined', () => {
+    const wrapper: Wrapper<Certify> = createComponent(undefined, undefined, true)
+
+    // The last "valid" event should indicate that the form is invalid.
+    expect(getLastEvent(wrapper, 'valid')).toBe(false)
+  })
+
   it('is valid when both certifiedBy and isCertified are defined', () => {
     const wrapper: Wrapper<Certify> = createComponent(trimmedCertifier, true)
 
