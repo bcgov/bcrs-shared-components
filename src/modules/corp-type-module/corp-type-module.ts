@@ -101,7 +101,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     colinInd: true,
     corpClass: CorpClass.BC,
     shortDesc: 'BENEFIT COMPANY',
-    fullDesc: 'Benefit Company',
+    fullDesc: 'BC Benefit Company',
     numberedDesc: 'Numbered Benefit Company'
   }, {
     corpTypeCd: CorpTypeCd.CONTINUE_IN,

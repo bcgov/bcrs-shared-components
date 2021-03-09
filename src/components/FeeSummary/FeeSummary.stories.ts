@@ -1,6 +1,7 @@
 import { FeeSummary } from './index'
-import { EntityTypes, FilingCodes } from '@/enums'
+import { FilingCodes } from '@/enums'
 import { FilingDataIF } from '@/interfaces'
+import { CorpTypeCd } from '@bcrs-shared-components/enums'
 
 export default {
   title: 'component/FeeSummary',
@@ -17,7 +18,7 @@ const Template = (args, { argTypes }) => ({
 
 const filingData: FilingDataIF = {
   filingTypeCode: FilingCodes.ALTERATION,
-  entityType: EntityTypes.BC_CORPORATION,
+  entityType: CorpTypeCd.BC_CORPORATION,
   priority: false
 }
 

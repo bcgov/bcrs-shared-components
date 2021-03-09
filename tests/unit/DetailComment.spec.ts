@@ -3,6 +3,7 @@ import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
 import { DetailComment } from '@/components/DetailComment'
 import { sleep } from '@/utils/sleep'
+import flushPromises from 'flush-promises'
 
 Vue.use(Vuetify)
 
@@ -58,6 +59,7 @@ describe('DetailComment', () => {
     // NB: need to wait for debounce
     wrapper.setProps({ value: 'testing 1 2 3' })
     await sleep(300)
+    await flushPromises()
 
     // verify valid event
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
