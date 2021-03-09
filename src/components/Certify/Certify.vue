@@ -23,11 +23,17 @@
               id="isCertified-checkbox"
             >
               <template slot="label">
-                <div class="certify-stmt">
+                <div class="certify-stmt" v-if="isStaff">
+                  <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
+                  certifies that they have relevant knowledge of the
+                  {{ entityDisplay || "association" }} and is authorized to
+                  make this filing.
+                </div>
+                <div class="certify-stmt" v-else>
                   I,
                   <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
-                  , has certified that he/she has relevant knowledge of the
-                  {{ entityDisplay || "association" }} and is authorized to
+                  , certify that I have relevant knowledge of the
+                  {{ entityDisplay || "association" }} and I am authorized to
                   make this filing.
                 </div>
               </template>
@@ -49,7 +55,11 @@ export default class Certify extends Vue {
   @Prop({ default: '' })
   private currentDate!: string
 
-  /** Certified By prop. */
+  /** Is Staff prop. */
+  @Prop({ default: false })
+  private isStaff: boolean
+
+/** Certified By prop. */
   @Prop({ default: '' })
   private certifiedBy: string
 
