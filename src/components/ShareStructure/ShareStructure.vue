@@ -18,9 +18,9 @@
       <!-- Instructional Text -->
       <div class="share-info-container info-text pt-6 px-4">
         Your share structure contains a class or series of shares with special rights or restrictions. You must have
-        passed a resolution or have a court order to change your share structure. <strong>Note:</strong> All changes must
-        have the same Resolution or Court Order Date. If you need to enter changes that occurred on multiple dates you
-        must file and pay for each change separately.
+        passed a resolution or have a court order to change your share structure. <strong>Note:</strong> All changes
+        must have the same Resolution or Court Order Date. If you need to enter changes that occurred on multiple dates
+        you must file and pay for each change separately.
       </div>
 
       <!-- Add Buttons -->
@@ -217,10 +217,8 @@
         <!-- Share Series rows -->
         <template v-for="(seriesItem, index) in row.item.series">
           <tr
-            v-if="showSeriesEditForm[row.index] &&
-                  !showSeriesEditForm[row.index][index] &&
-                  !(!isEditMode && (seriesItem.action === ActionTypes.REMOVED ||
-                    row.item.action === ActionTypes.REMOVED))"
+            v-if="showSeriesEditForm[row.index] && !showSeriesEditForm[row.index][index] && !(!isEditMode &&
+            (seriesItem.action === ActionTypes.REMOVED || row.item.action === ActionTypes.REMOVED))"
             :key="`class:${row.index}-Series:${index}`"
             class="series-row"
             :class="[
