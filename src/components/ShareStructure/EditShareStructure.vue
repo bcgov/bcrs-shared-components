@@ -167,7 +167,7 @@
 import { Component, Emit, Mixins, Prop, Vue, Watch } from 'vue-property-decorator'
 
 // Components
-import { ConfirmDialog } from '@/components/ConfirmDialog'
+import { ConfirmDialog } from '@/components/confirm-dialog'
 
 // Interfaces and Enums
 import { ConfirmDialogType, FormIF, ShareClassIF } from '@/interfaces'

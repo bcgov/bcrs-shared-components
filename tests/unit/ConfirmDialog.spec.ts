@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Affix from 'vue-affix'
 import { mount } from '@vue/test-utils'
-import { ConfirmDialog } from '@/components/ConfirmDialog'
+import { ConfirmDialog } from '@/components/confirm-dialog'
 
 Vue.use(Vuetify)
 Vue.use(Affix)

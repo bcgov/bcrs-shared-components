@@ -54,7 +54,7 @@ This updates the node_modules/ in the sub-folders.
 
 ### 8. Create new Storybook file for your component (see others as examples)
 
-### 9. Create create unit test file for your component and verify locally
+### 9. Create unit test file for your component and verify locally
 
 ```
 npm run test:unit MyComponent

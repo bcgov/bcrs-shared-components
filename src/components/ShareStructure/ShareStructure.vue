@@ -6,36 +6,37 @@
       attach="#share-structure"
     />
 
-    <!-- Summary Section -->
-    <div id="share-summary">
-      <!-- Summary Header -->
-      <div class="share-summary-header">
-        <v-icon color="app-dk-blue">mdi-sitemap</v-icon>
-        <label class="share-summary-header-title"><strong> Share Structure</strong></label>
+    <template v-if="isEditMode">
+      <div id="share-summary">
+        <!-- Summary Header -->
+        <div class="share-summary-header">
+          <v-icon color="app-dk-blue">mdi-sitemap</v-icon>
+          <label class="share-summary-header-title"><strong> Share Structure</strong></label>
+        </div>
       </div>
-    </div>
 
-    <!-- Instructional Text -->
-    <div class="share-info-container info-text pt-6 px-4">
-      Your share structure contains a class or series of shares with special rights or restrictions. You must have
-      passed a resolution or have a court order to change your share structure. <strong>Note:</strong> All changes must
-      have the same Resolution or Court Order Date. If you need to enter changes that occurred on multiple dates you
-      must file and pay for each change separately.
-    </div>
+      <!-- Instructional Text -->
+      <div class="share-info-container info-text pt-6 px-4">
+        Your share structure contains a class or series of shares with special rights or restrictions. You must have
+        passed a resolution or have a court order to change your share structure. <strong>Note:</strong> All changes must
+        have the same Resolution or Court Order Date. If you need to enter changes that occurred on multiple dates you
+        must file and pay for each change separately.
+      </div>
 
-    <!-- Add Buttons -->
-    <div class="btn-container py-6 px-4">
-      <v-btn
-        id="btn-add-person"
-        outlined
-        color="primary"
-        :disabled="addEditInProgress"
-        @click="initNewShareClass()"
-      >
-        <v-icon>mdi-plus</v-icon>
-        <span>Add Share Class</span>
-      </v-btn>
-    </div>
+      <!-- Add Buttons -->
+      <div class="btn-container py-6 px-4">
+        <v-btn
+          id="btn-add-person"
+          outlined
+          color="primary"
+          :disabled="addEditInProgress"
+          @click="initNewShareClass()"
+        >
+          <v-icon>mdi-plus</v-icon>
+          <span>Add Share Class</span>
+        </v-btn>
+      </div>
+    </template>
 
     <v-expand-transition>
       <v-card flat class="add-share-structure-container" v-if="showAddShareStructureForm">
@@ -64,7 +65,7 @@
 
         <!-- Share Class Rows-->
         <tr
-          v-if="!showClassEditForm[row.index]"
+          v-if="!showClassEditForm[row.index] && !(!isEditMode && row.item.action === ActionTypes.REMOVED)"
           :key="row.item.id"
           class="class-row"
           :class="[
@@ -74,7 +75,7 @@
         >
           <td :class="{ 'list-item__subtitle' : row.item.action === ActionTypes.REMOVED }" class="list-item__title">
             {{ row.item.name }}
-            <action-chip v-if="row.item.action" :actionable-item="row.item" :is-correction="isCorrection" />
+            <action-chip v-if="row.item.action && isEditMode" :actionable-item="row.item" :edited-label="editedLabel" />
           </td>
           <td class="text-right">
             {{ row.item.maxNumberOfShares ? (+row.item.maxNumberOfShares).toLocaleString() : 'No Maximum' }}
@@ -84,7 +85,7 @@
           <td>{{ row.item.hasRightsOrRestrictions ? 'Yes' : 'No' }}</td>
 
           <!-- Share Class Action Btns -->
-          <td class="actions-cell pt-4">
+          <td v-if="isEditMode" class="actions-cell pt-4">
             <div class="actions">
               <!-- Share Class Correct Btn -->
               <span v-if="!row.item.action" class="edit-action">
@@ -94,7 +95,7 @@
                        :disabled="addEditInProgress"
                 >
                   <v-icon small>mdi-pencil</v-icon>
-                  <span>{{editLabel(isCorrection)}}</span>
+                  <span>{{editLabel}}</span>
                 </v-btn>
               </span>
 
@@ -144,7 +145,7 @@
                       @click="initShareClassForEdit(row.index)"
                       :disabled="addEditInProgress">
                       <v-list-item-subtitle>
-                        <v-icon small>mdi-pencil</v-icon> {{editLabel(isCorrection)}}
+                        <v-icon small>mdi-pencil</v-icon> {{editLabel}}
                       </v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item
@@ -216,12 +217,15 @@
         <!-- Share Series rows -->
         <template v-for="(seriesItem, index) in row.item.series">
           <tr
-            v-if="showSeriesEditForm[row.index] && !showSeriesEditForm[row.index][index]"
+            v-if="showSeriesEditForm[row.index] &&
+                  !showSeriesEditForm[row.index][index] &&
+                  !(!isEditMode && (seriesItem.action === ActionTypes.REMOVED ||
+                    row.item.action === ActionTypes.REMOVED))"
             :key="`class:${row.index}-Series:${index}`"
             class="series-row"
             :class="[
               { 'series-row-last': index === row.item.series.length - 1},
-              { 'removed' : row.item.action === ActionTypes.REMOVED }
+              { 'removed' : seriesItem.action === ActionTypes.REMOVED }
             ]"
           >
             <td class="series-name">
@@ -232,9 +236,9 @@
               </span>
               </li>
               <action-chip
-                v-if="row.item.action !== ActionTypes.REMOVED && seriesItem.action"
+                v-if="row.item.action !== ActionTypes.REMOVED && seriesItem.action && isEditMode"
                 :actionable-item="seriesItem"
-                :is-correction="isCorrection"
+                :edited-label="editedLabel"
               />
             </td>
             <td class="text-right">
@@ -245,7 +249,7 @@
             <td>{{ seriesItem.hasRightsOrRestrictions ? 'Yes' : 'No' }}</td>
 
             <!-- Share Series Edit Btn -->
-            <td class="actions-cell pt-4">
+            <td v-if="isEditMode" class="actions-cell pt-4">
               <div class="actions" v-if="row.item.action !== ActionTypes.REMOVED">
                 <!-- Series Correct Btn -->
                 <span v-if="!seriesItem.action" class="edit-action">
@@ -255,7 +259,7 @@
                          :disabled="addEditInProgress"
                   >
                     <v-icon small>mdi-pencil</v-icon>
-                    <span>{{editLabel(isCorrection)}}</span>
+                    <span>{{editLabel}}</span>
                   </v-btn>
                 </span>
 
@@ -306,7 +310,7 @@
                         :disabled="addEditInProgress"
                       >
                       <v-list-item-subtitle>
-                        <v-icon small>mdi-pencil</v-icon> {{editLabel(isCorrection)}}
+                        <v-icon small>mdi-pencil</v-icon> {{editLabel}}
                       </v-list-item-subtitle>
                     </v-list-item>
                       <v-list-item
@@ -400,12 +404,12 @@ import { cloneDeep, isEqual, omit } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 
 // Components
-import { ActionChip } from '@/components/ActionChip'
-import { ConfirmDialog } from '@/components/ConfirmDialog'
+import { ActionChip } from '@bcrs-shared-components/action-chip'
+import { ConfirmDialog } from '@bcrs-shared-components/confirm-dialog'
 import EditShareStructure from './EditShareStructure.vue'
 
 // Mixins
-import { CommonMixin } from '@/mixins'
+import ShareMixin from './share-mixin'
 
 import {
   BusinessSnapshotIF,
@@ -424,13 +428,17 @@ import { ActionTypes } from '@/enums'
     EditShareStructure
   }
 })
-export default class ShareStructure extends Mixins(CommonMixin) {
+export default class ShareStructure extends Mixins(ShareMixin) {
   // Refs
   $refs!: Vue['$refs'] & {
     confirm: ConfirmDialogType,
   };
 
   // Props
+  /** Edit Mode */
+  @Prop({ default: true })
+  private isEditMode!: boolean
+
   @Prop()
   private isCorrection: boolean
 
@@ -445,6 +453,14 @@ export default class ShareStructure extends Mixins(CommonMixin) {
 
   @Prop({ default: false })
   private resolutionRequired: boolean
+
+  /** Edit label name (ie 'Change' or 'Correct') */
+  @Prop({ default: 'Edit' })
+  private editLabel!: string
+
+  /** Edited label name (ie 'Changed' or 'Corrected') */
+  @Prop({ default: 'EDITED' })
+  private editedLabel!: string
 
   // Local Properties
   private activeIndex: number = -1
