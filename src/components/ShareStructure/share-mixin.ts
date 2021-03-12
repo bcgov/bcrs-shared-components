@@ -1,7 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 /**
- * Mixin that provides some useful common utilities.
+ * Mixin that provides some utilities.
  */
 @Component({})
 export default class ShareMixin extends Vue {
