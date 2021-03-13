@@ -217,8 +217,7 @@
         <!-- Share Series rows -->
         <template v-for="(seriesItem, index) in row.item.series">
           <tr
-            v-if="showSeriesEditForm[row.index] && !showSeriesEditForm[row.index][index] && !(!isEditMode &&
-            (seriesItem.action === ActionTypes.REMOVED || row.item.action === ActionTypes.REMOVED))"
+            v-if="displaySeriesRow(row, seriesItem, index)"
             :key="`class:${row.index}-Series:${index}`"
             class="series-row"
             :class="[
@@ -532,6 +531,13 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   /** True if we have any changes (from original IA). */
   private get hasSeriesChanges (): boolean {
     return !!this.shareClasses.find(shareClass => shareClass.series.some(x => x.action))
+  }
+
+  /** Helper function to handle the various display states of the nested series rows. */
+  private displaySeriesRow (classRow, seriesRow, index): boolean {
+    return this.showSeriesEditForm[classRow.index] &&
+      !this.showSeriesEditForm[classRow.index][index] &&
+      !(!this.isEditMode && (seriesRow.action === ActionTypes.REMOVED || classRow.item.action === ActionTypes.REMOVED))
   }
 
   // Share Class Functionality

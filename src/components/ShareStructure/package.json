@@ -5,6 +5,8 @@
     "access": "public"
   },
   "dependencies": {
+    "@bcrs-shared-components/action-chip": "^1.0.0",
+    "@bcrs-shared-components/confirm-dialog": "^1.0.0",
     "@bcrs-shared-components/enums": "^1.0.9",
     "@bcrs-shared-components/interfaces": "^1.0.14",
     "array.prototype.move": "0.0.4",
