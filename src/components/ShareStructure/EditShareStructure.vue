@@ -167,11 +167,11 @@
 import { Component, Emit, Mixins, Prop, Vue, Watch } from 'vue-property-decorator'
 
 // Components
-import { ConfirmDialog } from '@/components/ConfirmDialog'
+import { ConfirmDialog } from '@bcrs-shared-components/confirm-dialog'
 
 // Interfaces and Enums
-import { ConfirmDialogType, FormIF, ShareClassIF } from '@/interfaces'
-import { ActionTypes } from '@/enums'
+import { ConfirmDialogType, FormIF, ShareClassIF } from '@bcrs-shared-components/interfaces'
+import { ActionTypes } from '@bcrs-shared-components/enums'
 
 // Mixin
 import CurrencyLookupMixin from './currency-lookup-mixin'

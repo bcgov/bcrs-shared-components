@@ -8,7 +8,7 @@ import { createLocalVue, mount } from '@vue/test-utils'
 
 // Components
 import { ShareStructure } from '@/components/ShareStructure'
-import { ActionChip } from '@/components/ActionChip'
+import { ActionChip } from '@/components/action-chip'
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
@@ -327,8 +327,10 @@ describe('Share Structure component', () => {
     expect(seriesListItem2.querySelectorAll('td')[4].textContent).toContain('No')
   })
 
-  it('checks for the Action chips on modified Class shares', () => {
+  it('checks for the Action chips on modified Class shares', async () => {
     expect(wrapper.find(ActionChip).exists()).toBe(true)
+    wrapper.setProps({ editedLabel: 'CORRECTED' })
+    await Vue.nextTick()
 
     const classSharesEdited = wrapper.findAll(ActionChip).at(4)
     const classSharesRemoved = wrapper.findAll(ActionChip).at(5)
@@ -340,8 +342,10 @@ describe('Share Structure component', () => {
     expect(wrapper.vm.hasClassChanges).toBe(true)
   })
 
-  it('checks for the Action chips on modified Series shares', () => {
+  it('checks for the Action chips on modified Series shares', async () => {
     expect(wrapper.find(ActionChip).exists()).toBe(true)
+    wrapper.setProps({ editedLabel: 'CORRECTED' })
+    await Vue.nextTick()
 
     const seriesSharesRemoved = wrapper.findAll(ActionChip).at(0)
     const seriesSharesEdited = wrapper.findAll(ActionChip).at(1)
@@ -353,7 +357,10 @@ describe('Share Structure component', () => {
     expect(wrapper.vm.hasSeriesChanges).toBe(true)
   })
 
-  it('checks for correct CLASS primary action', () => {
+  it('checks for correct CLASS primary action', async () => {
+    wrapper.setProps({ editLabel: 'Correct' })
+    await Vue.nextTick()
+
     // Verify the correct PRIMARY action
     const classRows = wrapper.vm.$el.querySelectorAll('.v-data-table .class-row')
     expect(classRows[0].querySelector('#class-0-change-btn').textContent).toContain('Correct')
@@ -361,7 +368,10 @@ describe('Share Structure component', () => {
     expect(classRows[4].querySelector('#class-4-change-added-btn').textContent).toContain('Edit')
   })
 
-  it('checks for correct SERIES primary action', () => {
+  it('checks for correct SERIES primary action', async () => {
+    wrapper.setProps({ editLabel: 'Correct' })
+    await Vue.nextTick()
+
     // Verify the correct PRIMARY action
     const seriesRows = wrapper.vm.$el.querySelectorAll('.v-data-table .series-row')
     expect(seriesRows[0].querySelector('#series-0-undo-btn').textContent).toContain('Undo')
@@ -436,7 +446,7 @@ describe('Share Structure component', () => {
 
   // Checks for alterations label
   it('checks for the Action chips on modified Class shares', async () => {
-    wrapper.setProps({ isCorrection: false })
+    wrapper.setProps({ editedLabel: 'CHANGED' })
     await Vue.nextTick()
 
     expect(wrapper.find(ActionChip).exists()).toBe(true)
@@ -452,7 +462,7 @@ describe('Share Structure component', () => {
   })
 
   it('checks for the Action chips on modified Series shares', async () => {
-    wrapper.setProps({ isCorrection: false })
+    wrapper.setProps({ editedLabel: 'CHANGED' })
     await Vue.nextTick()
 
     expect(wrapper.find(ActionChip).exists()).toBe(true)
@@ -468,7 +478,7 @@ describe('Share Structure component', () => {
   })
 
   it('checks for correct CLASS primary action', async () => {
-    wrapper.setProps({ isCorrection: false })
+    wrapper.setProps({ editLabel: 'Change' })
     await Vue.nextTick()
 
     // Verify the correct PRIMARY action

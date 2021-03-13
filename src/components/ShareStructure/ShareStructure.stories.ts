@@ -182,11 +182,26 @@ const businessSnapshot = [
   {}
 ]
 
-export const Default = Template.bind({})
-Default.args = {
+export const correction = Template.bind({})
+correction.args = {
+  isEditMode: true,
+  editLabel: 'Correct',
+  editedLabel: 'CORRECTED',
   isCorrection: true,
   incorporationApplication: IA,
   businessSnapshot: businessSnapshot,
   shareClasses: IA.incorporationApplication.shareStructure.shareClasses,
   resolutionRequired: false
+}
+
+export const alteration = Template.bind({})
+alteration.args = {
+  isEditMode: true,
+  editLabel: 'Change',
+  editedLabel: 'CHANGED',
+  isCorrection: true,
+  incorporationApplication: IA,
+  businessSnapshot: businessSnapshot,
+  shareClasses: businessSnapshot[4].shareClasses,
+  resolutionRequired: true
 }
