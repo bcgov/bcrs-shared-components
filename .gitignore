@@ -12,3 +12,6 @@ yarn-error.log*
 
 # Unit test / coverage reports
 coverage/
+
+# Local configuration files
+.idea
