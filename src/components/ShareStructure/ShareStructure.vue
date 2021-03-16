@@ -80,7 +80,7 @@
           <td class="text-right">
             {{ row.item.maxNumberOfShares ? (+row.item.maxNumberOfShares).toLocaleString() : 'No Maximum' }}
           </td>
-          <td class="text-right">{{ row.item.parValue ? `$${row.item.parValue}.00` : 'No Par Value' }}</td>
+          <td class="text-right">{{ row.item.parValue ? `$${formatParValue(row.item.parValue)}` : 'No Par Value' }}</td>
           <td>{{ row.item.currency }}</td>
           <td>{{ row.item.hasRightsOrRestrictions ? 'Yes' : 'No' }}</td>
 
@@ -128,14 +128,14 @@
 
               <!-- Share Class Dropdown Actions -->
               <span v-if="row.item.action !== ActionTypes.REMOVED">
-                <v-menu offset-y left>
+                <v-menu offset-y left v-model="classDropdown[row.index]">
                   <template v-slot:activator="{ on }">
                     <v-btn text
                            color="primary"
                            class="actions__more-actions__btn"
                            :disabled="addEditInProgress"
                            v-on="on">
-                      <v-icon>mdi-menu-down</v-icon>
+                      <v-icon>{{classDropdown[row.index] ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
                     </v-btn>
                   </template>
                   <v-list class="more-actions">
@@ -145,7 +145,7 @@
                       @click="initShareClassForEdit(row.index)"
                       :disabled="addEditInProgress">
                       <v-list-item-subtitle>
-                        <v-icon small>mdi-pencil</v-icon> {{editLabel}}
+                        <v-icon small color="primary" class="mr-3">mdi-pencil</v-icon>{{ editLabel }}
                       </v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item
@@ -164,7 +164,7 @@
                       :disabled="isMoveDisabled(row.index, 'up')"
                     >
                       <v-list-item-subtitle class="move-up-selector">
-                        <v-icon>mdi-arrow-up</v-icon> Move Up
+                        <v-icon color="primary">mdi-arrow-up</v-icon> Move Up
                       </v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item
@@ -174,7 +174,7 @@
                       :disabled="isMoveDisabled(row.index, 'down')"
                     >
                       <v-list-item-subtitle class="move-down-selector">
-                        <v-icon>mdi-arrow-down</v-icon> Move Down
+                        <v-icon color="primary">mdi-arrow-down</v-icon> Move Down
                       </v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item
@@ -182,7 +182,7 @@
                       @click="confirmShareRemoval(row.index)"
                     >
                       <v-list-item-subtitle class="remove-selector">
-                        <v-icon>mdi-delete</v-icon> Remove
+                        <v-icon color="primary">mdi-delete</v-icon> Remove
                       </v-list-item-subtitle>
                     </v-list-item>
                   </v-list>
@@ -222,7 +222,7 @@
             class="series-row"
             :class="[
               { 'series-row-last': index === row.item.series.length - 1},
-              { 'removed' : seriesItem.action === ActionTypes.REMOVED }
+              { 'removed' : row.item.action === ActionTypes.REMOVED || seriesItem.action === ActionTypes.REMOVED }
             ]"
           >
             <td class="series-name">
@@ -241,7 +241,7 @@
             <td class="text-right">
               {{ seriesItem.maxNumberOfShares ? (+seriesItem.maxNumberOfShares).toLocaleString() : 'No Maximum' }}
             </td>
-            <td class="text-right">{{ row.item.parValue ? `$${row.item.parValue}.00` : 'No Par Value' }}</td>
+            <td class="text-right">{{ row.item.parValue ? `$${formatParValue(row.item.parValue)}` : 'No Par Value' }}</td>
             <td>{{ row.item.currency }}</td>
             <td>{{ seriesItem.hasRightsOrRestrictions ? 'Yes' : 'No' }}</td>
 
@@ -290,13 +290,13 @@
 
                 <!-- Share Series Dropdown Actions -->
                 <span v-if="seriesItem.action !== ActionTypes.REMOVED">
-                  <v-menu offset-y left>
+                  <v-menu offset-y left v-model="seriesDropdown[row.index][index]">
                     <template v-slot:activator="{ on }">
                       <v-btn text color="primary"
                              class="actions__more-actions__btn" v-on="on"
                              :disabled="addEditInProgress"
                       >
-                        <v-icon>mdi-menu-down</v-icon>
+                        <v-icon>{{seriesDropdown[row.index][index] ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
                       </v-btn>
                     </template>
                     <v-list class="more-actions">
@@ -307,7 +307,7 @@
                         :disabled="addEditInProgress"
                       >
                       <v-list-item-subtitle>
-                        <v-icon small>mdi-pencil</v-icon> {{editLabel}}
+                        <v-icon small color="primary" class="mr-2">mdi-pencil</v-icon> {{editLabel}}
                       </v-list-item-subtitle>
                     </v-list-item>
                       <v-list-item
@@ -317,7 +317,7 @@
                         :disabled="isMoveDisabled(row.index, 'up', index)"
                       >
                         <v-list-item-subtitle class="move-up-selector">
-                          <v-icon>mdi-arrow-up</v-icon> Move Up
+                          <v-icon color="primary">mdi-arrow-up</v-icon> Move Up
                         </v-list-item-subtitle>
                       </v-list-item>
                       <v-list-item
@@ -327,12 +327,12 @@
                         :disabled="isMoveDisabled(row.index, 'down', index)"
                       >
                         <v-list-item-subtitle class="move-down-selector">
-                          <v-icon>mdi-arrow-down</v-icon> Move Down
+                          <v-icon color="primary">mdi-arrow-down</v-icon> Move Down
                         </v-list-item-subtitle>
                       </v-list-item>
                       <v-list-item class="actions-dropdown_item" @click="removeSeries(index, row.index)">
                         <v-list-item-subtitle>
-                          <v-icon>mdi-delete</v-icon> Remove
+                          <v-icon color="primary">mdi-delete</v-icon> Remove
                         </v-list-item-subtitle>
                       </v-list-item>
                     </v-list>
@@ -461,7 +461,9 @@ export default class ShareStructure extends Mixins(ShareMixin) {
 
   // Local Properties
   private activeIndex: number = -1
+  private classDropdown: Array<boolean> = []
   private parentIndex: number = -1
+  private seriesDropdown: Array<boolean> = this.mapEmpty2dArray()
   private shareId: string = ''
   private showAddShareStructureForm = false
   private showClassEditForm: Array<boolean> = [false]
@@ -531,6 +533,22 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   /** True if we have any changes (from original IA). */
   private get hasSeriesChanges (): boolean {
     return !!this.shareClasses.find(shareClass => shareClass.series.some(x => x.action))
+  }
+
+  /**
+   * Format the display par value with cents value, if it doesn't already contain it.
+   * @param parValue The value to evaluate and format.
+   * @returns A formatted par value string
+   * */
+  private formatParValue (parValue: string): string {
+    const hasParCents = (parValue.toString()).includes('.')
+    return hasParCents ? parValue : `${parValue}.00`
+  }
+
+  /** Set dropdown models to root state. */
+  private clearDropdowns (): void {
+    this.classDropdown = []
+    this.seriesDropdown = this.mapEmpty2dArray()
   }
 
   /** Helper function to handle the various display states of the nested series rows. */
@@ -792,6 +810,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
       this.shareClasses[indexTo].priority = indexFrom;
       (this.shareClasses as any).move(indexFrom, indexTo)
     }
+    this.clearDropdowns()
   }
 
   /**
@@ -849,6 +868,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
         isClass ? this.restoreShareClass(index) : this.restoreShareSeries(index, parentIndex, parentId, seriesId)
         break
     }
+    this.clearDropdowns()
   }
 
   /**
@@ -865,6 +885,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
     this.parentIndex = -1
     this.shareId = ''
     this.scrollToTop(this.$el)
+    this.clearDropdowns()
   }
 
   private confirmShareRemoval (index: number): void {
@@ -983,22 +1004,23 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   td {
     height: 4rem !important;
     color: $gray9;
-    font-size: .875rem;
     font-weight: bold;
     padding: 10px
   }
 
   .series-name {
     padding-left: 40px;
+    margin-left: 40px;
   }
 
   td:not(:last-child) {
     border-bottom: thin dashed rgba(0, 0, 0, 0.12)!important;
+    box-sizing:border-box;
   }
 
   td:not(:first-child){
     color: $gray7;
-    font-size: .875rem;
+    font-size: 1rem;
     font-weight: normal;
   }
 }
@@ -1013,7 +1035,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   display: flex;
   justify-content: flex-end;
 
-  .edit-action, .undo-action {
+  .edit-action {
     border-right: 1px solid $gray1;
   }
 
@@ -1045,7 +1067,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
 }
 
 ::v-deep .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
-  box-shadow: 1px 1px 2px 0 rgba(0,0,0,0.25);
+  box-shadow: 1px 1px 0 0 rgba(0,0,0,0.25);
   border: none !important;
 }
 
