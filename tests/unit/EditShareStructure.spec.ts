@@ -61,7 +61,8 @@ function createComponent (
       activeIndex: activeIndex,
       nextId: nextId,
       parentIndex: parentIndex,
-      shareClasses: shareClasses
+      shareClasses: shareClasses,
+      resolutionRequired: false
     },
     vuetify
   })

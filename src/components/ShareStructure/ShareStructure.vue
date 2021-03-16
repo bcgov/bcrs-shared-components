@@ -222,7 +222,7 @@
             class="series-row"
             :class="[
               { 'series-row-last': index === row.item.series.length - 1},
-              { 'removed' : seriesItem.action === ActionTypes.REMOVED }
+              { 'removed' : row.item.action === ActionTypes.REMOVED || seriesItem.action === ActionTypes.REMOVED }
             ]"
           >
             <td class="series-name">
@@ -290,13 +290,13 @@
 
                 <!-- Share Series Dropdown Actions -->
                 <span v-if="seriesItem.action !== ActionTypes.REMOVED">
-                  <v-menu offset-y left v-model="seriesDropdown[index]">
+                  <v-menu offset-y left v-model="seriesDropdown[row.index][index]">
                     <template v-slot:activator="{ on }">
                       <v-btn text color="primary"
                              class="actions__more-actions__btn" v-on="on"
                              :disabled="addEditInProgress"
                       >
-                        <v-icon>{{seriesDropdown[index] ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
+                        <v-icon>{{seriesDropdown[row.index][index] ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
                       </v-btn>
                     </template>
                     <v-list class="more-actions">
@@ -463,7 +463,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   private activeIndex: number = -1
   private classDropdown: Array<boolean> = []
   private parentIndex: number = -1
-  private seriesDropdown: Array<boolean> = []
+  private seriesDropdown: Array<boolean> = this.mapEmpty2dArray()
   private shareId: string = ''
   private showAddShareStructureForm = false
   private showClassEditForm: Array<boolean> = [false]
@@ -541,14 +541,14 @@ export default class ShareStructure extends Mixins(ShareMixin) {
    * @returns A formatted par value string
    * */
   private formatParValue (parValue: string): string {
-    const hasParCents = (parValue.toString()).includes(".")
+    const hasParCents = (parValue.toString()).includes('.')
     return hasParCents ? parValue : `${parValue}.00`
   }
 
   /** Set dropdown models to root state. */
   private clearDropdowns (): void {
     this.classDropdown = []
-    this.seriesDropdown = []
+    this.seriesDropdown = this.mapEmpty2dArray()
   }
 
   /** Helper function to handle the various display states of the nested series rows. */

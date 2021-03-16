@@ -59,7 +59,7 @@ export default class Certify extends Vue {
   @Prop({ default: false })
   private isStaff: boolean
 
-/** Certified By prop. */
+  /** Certified By prop. */
   @Prop({ default: '' })
   private certifiedBy: string
 
