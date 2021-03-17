@@ -53,6 +53,7 @@ describe('Court Order and Plan of Arrangement component', () => {
     await Vue.nextTick()
 
     expect(wrapper.find('#court-num-form').text()).toContain('A Court Order number is required')
+    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
 
     wrapper.destroy()
   })
@@ -68,6 +69,7 @@ describe('Court Order and Plan of Arrangement component', () => {
     await Vue.nextTick()
 
     expect(wrapper.find('#court-num-form').text()).toBe('Court Order Number')
+    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(true)
 
     wrapper.destroy()
   })
@@ -96,6 +98,7 @@ describe('Court Order and Plan of Arrangement component', () => {
     await Vue.nextTick()
 
     expect(wrapper.find('#court-num-form').text()).toContain('Court order number is invalid')
+    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
 
     wrapper.destroy()
   })
@@ -124,6 +127,7 @@ describe('Court Order and Plan of Arrangement component', () => {
     await Vue.nextTick()
 
     expect(wrapper.find('#court-num-form').text()).toContain('Court order number is invalid')
+    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
 
     wrapper.destroy()
   })
