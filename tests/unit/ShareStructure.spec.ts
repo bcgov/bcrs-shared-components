@@ -328,13 +328,13 @@ describe('Share Structure component', () => {
   })
 
   it('checks for the Action chips on modified Class shares', async () => {
-    expect(wrapper.find(ActionChip).exists()).toBe(true)
+    expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
     wrapper.setProps({ editedLabel: 'CORRECTED' })
     await Vue.nextTick()
 
-    const classSharesEdited = wrapper.findAll(ActionChip).at(4)
-    const classSharesRemoved = wrapper.findAll(ActionChip).at(5)
-    const classSharesAdded = wrapper.findAll(ActionChip).at(6)
+    const classSharesEdited = wrapper.findAllComponents(ActionChip).at(4)
+    const classSharesRemoved = wrapper.findAllComponents(ActionChip).at(5)
+    const classSharesAdded = wrapper.findAllComponents(ActionChip).at(6)
 
     expect(classSharesEdited.text()).toContain('CORRECTED')
     expect(classSharesRemoved.text()).toContain('REMOVED')
@@ -343,13 +343,13 @@ describe('Share Structure component', () => {
   })
 
   it('checks for the Action chips on modified Series shares', async () => {
-    expect(wrapper.find(ActionChip).exists()).toBe(true)
+    expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
     wrapper.setProps({ editedLabel: 'CORRECTED' })
     await Vue.nextTick()
 
-    const seriesSharesRemoved = wrapper.findAll(ActionChip).at(0)
-    const seriesSharesEdited = wrapper.findAll(ActionChip).at(1)
-    const seriesSharesAdded = wrapper.findAll(ActionChip).at(2)
+    const seriesSharesRemoved = wrapper.findAllComponents(ActionChip).at(0)
+    const seriesSharesEdited = wrapper.findAllComponents(ActionChip).at(1)
+    const seriesSharesAdded = wrapper.findAllComponents(ActionChip).at(2)
 
     expect(seriesSharesRemoved.text()).toContain('REMOVED')
     expect(seriesSharesEdited.text()).toContain('CORRECTED')
@@ -449,11 +449,11 @@ describe('Share Structure component', () => {
     wrapper.setProps({ editedLabel: 'CHANGED' })
     await Vue.nextTick()
 
-    expect(wrapper.find(ActionChip).exists()).toBe(true)
+    expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
 
-    const classSharesEdited = wrapper.findAll(ActionChip).at(4)
-    const classSharesRemoved = wrapper.findAll(ActionChip).at(5)
-    const classSharesAdded = wrapper.findAll(ActionChip).at(6)
+    const classSharesEdited = wrapper.findAllComponents(ActionChip).at(4)
+    const classSharesRemoved = wrapper.findAllComponents(ActionChip).at(5)
+    const classSharesAdded = wrapper.findAllComponents(ActionChip).at(6)
 
     expect(classSharesEdited.text()).toContain('CHANGED')
     expect(classSharesRemoved.text()).toContain('REMOVED')
@@ -465,11 +465,11 @@ describe('Share Structure component', () => {
     wrapper.setProps({ editedLabel: 'CHANGED' })
     await Vue.nextTick()
 
-    expect(wrapper.find(ActionChip).exists()).toBe(true)
+    expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
 
-    const seriesSharesRemoved = wrapper.findAll(ActionChip).at(0)
-    const seriesSharesEdited = wrapper.findAll(ActionChip).at(1)
-    const seriesSharesAdded = wrapper.findAll(ActionChip).at(2)
+    const seriesSharesRemoved = wrapper.findAllComponents(ActionChip).at(0)
+    const seriesSharesEdited = wrapper.findAllComponents(ActionChip).at(1)
+    const seriesSharesAdded = wrapper.findAllComponents(ActionChip).at(2)
 
     expect(seriesSharesRemoved.text()).toContain('ADDED')
     expect(seriesSharesEdited.text()).toContain('REMOVED')
