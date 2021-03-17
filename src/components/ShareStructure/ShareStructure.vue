@@ -409,10 +409,10 @@ import EditShareStructure from './EditShareStructure.vue'
 import ShareMixin from './share-mixin'
 
 import {
-  BusinessSnapshotIF,
   ConfirmDialogType,
   IncorporationFilingIF,
-  ShareClassIF
+  ShareClassIF,
+  ShareStructureIF
 } from '@/interfaces'
 
 // Interfaces or Enums
@@ -434,30 +434,30 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   // Props
   /** Edit Mode */
   @Prop({ default: true })
-  private isEditMode!: boolean
-
-  @Prop()
-  private isCorrection: boolean
-
-  @Prop({ default: null })
-  private incorporationApplication: IncorporationFilingIF
-
-  @Prop({ default: null })
-  private businessSnapshot: BusinessSnapshotIF[]
-
-  @Prop({ default: [] })
-  private shareClasses: ShareClassIF[]
+  readonly isEditMode!: boolean
 
   @Prop({ default: false })
-  private resolutionRequired: boolean
+  readonly isCorrection: boolean
+
+  @Prop({ default: null })
+  readonly incorporationApplication: IncorporationFilingIF
+
+  @Prop({ default: null })
+  readonly originalShareStructure: ShareStructureIF
+
+  @Prop({ default: [] })
+  readonly shareClasses: ShareClassIF[]
+
+  @Prop({ default: false })
+  readonly resolutionRequired: boolean
 
   /** Edit label name (ie 'Change' or 'Correct') */
   @Prop({ default: 'Edit' })
-  private editLabel!: string
+  readonly editLabel!: string
 
   /** Edited label name (ie 'Changed' or 'Corrected') */
   @Prop({ default: 'EDITED' })
-  private editedLabel!: string
+  readonly editedLabel!: string
 
   // Local Properties
   private activeIndex: number = -1
@@ -471,7 +471,6 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   private showSeriesEditForm: Array<any> = this.mapEmpty2dArray()
   private addEditInProgress = false
   private currentShareStructure: ShareClassIF = null
-  private originalSnapshot: BusinessSnapshotIF[]
   private originalIA: IncorporationFilingIF
 
   // Declaration for template
@@ -522,7 +521,6 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   // Initialize data sets
   mounted () {
     this.updateOriginalIA()
-    this.updateSnapshot()
   }
 
   /** True if we have any changes (from original IA). */
@@ -614,9 +612,9 @@ export default class ShareStructure extends Mixins(ShareMixin) {
    * @params shareClass The Share class to compare
    */
   private isShareClassEdited (shareClass: ShareClassIF): boolean {
-    const originalShareClasses: any = this.isCorrection
+    const originalShareClasses = this.isCorrection
       ? cloneDeep(this.originalIA.incorporationApplication.shareStructure.shareClasses)
-      : cloneDeep(this.originalSnapshot[4].shareClasses)
+      : cloneDeep(this.originalShareStructure.shareClasses)
 
     const originalShareClass = originalShareClasses.find(
       share => share.id === shareClass.id
@@ -654,9 +652,9 @@ export default class ShareStructure extends Mixins(ShareMixin) {
    * @param index The share class identifier
    */
   private restoreShareClass (index: number): void {
-    const originalShareClasses: any = this.isCorrection
+    const originalShareClasses = this.isCorrection
       ? cloneDeep(this.originalIA.incorporationApplication.shareStructure.shareClasses)
-      : cloneDeep(this.originalSnapshot[4].shareClasses)
+      : cloneDeep(this.originalShareStructure.shareClasses)
 
     // Fetch and identify the ShareClass to restore
     const shareClassToRestore = originalShareClasses.find(
@@ -765,9 +763,9 @@ export default class ShareStructure extends Mixins(ShareMixin) {
    * @param seriesId The Series Id
    */
   private restoreShareSeries (seriesIndex: number, parentIndex: number, parentId: string, seriesId: string): void {
-    const originalShareClasses: any = this.isCorrection
+    const originalShareClasses = this.isCorrection
       ? cloneDeep(this.originalIA.incorporationApplication.shareStructure.shareClasses)
-      : cloneDeep(this.originalSnapshot[4].shareClasses)
+      : cloneDeep(this.originalShareStructure.shareClasses)
 
     // Fetch the original Share class ( In the event the list is moved up or down, find the original by ID )
     const originalShareClass = Object.assign({},
@@ -919,11 +917,6 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   /** Map an empty 2d array to handle the unknown size of nested Share Classes and Series */
   private mapEmpty2dArray (): Array<any> {
     return new Array(50).fill(null).map(() => new Array(50).fill(null))
-  }
-
-  @Watch('businessSnapshot')
-  private updateSnapshot (): void {
-    this.originalSnapshot = cloneDeep(this.businessSnapshot)
   }
 
   @Watch('incorporationApplication')
