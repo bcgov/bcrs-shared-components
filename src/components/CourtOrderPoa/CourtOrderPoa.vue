@@ -1,10 +1,10 @@
 <template>
   <v-card flat class="mt-4 pa-8">
     <v-row no-gutters align="start">
-      <v-col cols="3">
+      <v-col cols="2">
         <label>Court Order <br>Number</label>
       </v-col>
-      <v-col cols="9">
+      <v-col cols="10">
         <v-form ref="courtNumRef" id="court-num-form" v-model="valid">
           <v-text-field
             id="court-order-number-input"
@@ -17,10 +17,10 @@
       </v-col>
     </v-row>
     <v-row no-gutters align="end">
-      <v-col cols="3">
+      <v-col cols="2">
         <label>Plan of <br>Arrangement</label>
       </v-col>
-      <v-col cols="9">
+      <v-col cols="10">
         <v-checkbox
           id="plan-of-arrangement-checkbox"
           v-model="planOfArrangement"
