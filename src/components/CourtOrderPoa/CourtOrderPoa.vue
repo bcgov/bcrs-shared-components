@@ -6,11 +6,12 @@
       </v-col>
       <v-col cols="9">
         <v-form ref="courtNumRef" id="court-num-form" v-model="valid">
-          <v-text-field id="court-order-number-input"
-                        v-model="courtOrderNumber"
-                        label="Court Order Number"
-                        :rules="courtOrderNumRules"
-                        filled
+          <v-text-field
+            id="court-order-number-input"
+            v-model="courtOrderNumber"
+            label="Court Order Number"
+            :rules="courtOrderNumRules"
+            filled
           />
         </v-form>
       </v-col>
@@ -20,9 +21,10 @@
         <label>Plan of <br>Arrangement</label>
       </v-col>
       <v-col cols="9">
-        <v-checkbox id="plan-of-arrangement-checkbox"
-                    v-model="planOfArrangement"
-                    label="This filing is pursuant to a Plan of Arrangement"
+        <v-checkbox
+          id="plan-of-arrangement-checkbox"
+          v-model="planOfArrangement"
+          label="This filing is pursuant to a Plan of Arrangement"
         />
       </v-col>
     </v-row>
@@ -50,9 +52,20 @@ export default class CourtOrderPoa extends Vue {
   private planOfArrangement = false
   private valid = false
 
-  @Watch('validate')
+  /** Clear rules and reset validations. */
+  private clearValidations (): void {
+    this.courtOrderNumRules = []
+    this.$refs.courtNumRef.resetValidation()
+  }
+
+  /** Local getter to know when to validate. */
+  private get validateForm (): boolean {
+    return this.validate && this.planOfArrangement
+  }
+
+  @Watch('validateForm')
   validateCourtNum (): void {
-    if (this.planOfArrangement) {
+    if (this.validateForm) {
       // Apply TextField rules
       this.courtOrderNumRules = [
         (v: string) => !!v || 'A Court Order number is required',
@@ -62,7 +75,7 @@ export default class CourtOrderPoa extends Vue {
         (v: string) => !(v.length > 20) || 'Court order number is invalid'
       ]
       this.$refs.courtNumRef.validate()
-    } else this.$refs.courtNumRef.resetValidation()
+    } else this.clearValidations()
   }
 
   /** Emit court order number. */
@@ -74,7 +87,7 @@ export default class CourtOrderPoa extends Vue {
   @Watch('planOfArrangement')
   @Emit('emitPoa')
   private emitPoa (): boolean {
-    if (!this.planOfArrangement) this.$refs.courtNumRef.resetValidation()
+    if (!this.planOfArrangement) this.clearValidations()
     return this.planOfArrangement
   }
 

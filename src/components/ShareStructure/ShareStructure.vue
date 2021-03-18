@@ -102,7 +102,7 @@
               <!-- Share Class Undo Btn -->
               <span
                 v-if="row.item.action === ActionTypes.EDITED || row.item.action === ActionTypes.REMOVED"
-                class="undo-action"
+                :class="{ 'undo-action': row.item.action !== ActionTypes.REMOVED }"
               >
                 <v-btn text color="primary"
                        :id="'class-' + row.index + '-undo-btn'"
@@ -263,7 +263,7 @@
                 <!-- Series Undo btn -->
                 <span
                   v-else-if="row.item.hasRightsOrRestrictions && seriesItem.action !== ActionTypes.ADDED"
-                  class="undo-action"
+                  :class="{ 'undo-action': seriesItem.action !== ActionTypes.REMOVED }"
                 >
                   <v-btn text color="primary"
                          :id="'series-' + index + '-undo-btn'"
@@ -967,6 +967,8 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   display: flex;
   background-color: $BCgovBlue5O;
   padding: 1.25rem;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 
   .share-summary-header-title {
     padding-left: .5rem;
@@ -990,7 +992,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
 }
 
 .class-row-has-series td:not(:last-child) {
-  border-bottom: thin dashed rgba(0, 0, 0, 0.12)!important;
+  border-bottom: thin dashed rgba(0, 0, 0, 0.12) !important;
 }
 
 .series-row {
@@ -1007,14 +1009,19 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   }
 
   td:not(:last-child) {
-    border-bottom: thin dashed rgba(0, 0, 0, 0.12)!important;
-    box-sizing:border-box;
+    border-bottom: thin dashed rgba(0, 0, 0, 0.12) !important;
   }
 
   td:not(:first-child){
     color: $gray7;
     font-size: 1rem;
     font-weight: normal;
+  }
+}
+
+.series-row-last {
+  td:not(:last-child) {
+    border-bottom: thin solid rgba(0, 0, 0, 0.12) !important;
   }
 }
 
@@ -1028,7 +1035,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   display: flex;
   justify-content: flex-end;
 
-  .edit-action {
+  .edit-action, .undo-action {
     border-right: 1px solid $gray1;
   }
 
@@ -1060,7 +1067,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
 }
 
 ::v-deep .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
-  box-shadow: 1px 1px 0 0 rgba(0,0,0,0.25);
+  box-shadow: 1px 2px 0 0 rgba(0,0,0,0.1);
   border: none !important;
 }
 
@@ -1091,3 +1098,4 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   font-weight: normal;
 }
 </style>
+
