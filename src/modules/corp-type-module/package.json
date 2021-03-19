@@ -1,6 +1,6 @@
 {
     "name": "@bcrs-shared-components/corp-type-module",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "publishConfig": {
         "access": "public"
     }
