@@ -110,7 +110,7 @@ export default class Certify extends Vue {
 </script>
 
 <style lang="scss" scoped>
-// @import '@/assets/styles/theme.scss';
+@import '@/assets/styles/theme.scss';
 
 #AR-step-4-container {
   margin-top: 1rem;
@@ -149,13 +149,18 @@ export default class Certify extends Vue {
 
 .certify-clause {
   padding-left: 2rem;
-  color: black;
+  color: $gray7;
   font-size: 0.875rem;
 }
 
 .certify-stmt {
   display: inline;
   font-size: 0.875rem;
-  color: black;
+  color: $gray7;
+  font-weight: normal;
+}
+::v-deep .v-application--is-ltr .v-text-field .v-label {
+  color: $gray7;
+  font-weight: normal;
 }
 </style>
