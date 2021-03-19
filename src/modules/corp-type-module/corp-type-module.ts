@@ -16,7 +16,7 @@ export enum CorpTypeCd {
   CCC_CONTINUE_IN = 'CCC',
   CEMETARY = 'CEM',
   COOP = 'CP',
-  BC_CORPORATION = 'CR', // SPECIAL NAME REQUEST ENTITY TYPE
+  BC_CORPORATION = 'CR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   CONT_IN_SOCIETY = 'CS',
   ULC_CONTINUE_IN = 'CUL',
   EXTRA_PRO_REG = 'EPR',
@@ -132,10 +132,10 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     colinInd: false,
     corpClass: CorpClass.OT,
     shortDesc: 'COOP',
-    fullDesc: 'Cooperative Association',
+    fullDesc: 'BC Cooperative Association',
     numberedDesc: 'Numbered Cooperative Association'
   }, {
-    // SPECIAL NAME REQUEST ENTITY TYPE
+    // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
     corpTypeCd: CorpTypeCd.BC_CORPORATION,
     colinInd: true,
     corpClass: CorpClass.BC,
