@@ -1,21 +1,28 @@
 <template>
   <v-card flat id="AR-step-4-container">
     <div class="pl-8 pt-8 pr-8">
-      <v-layout row>
-        <v-flex xs3 md2>
-          <label><strong>Legal Name</strong></label>
-        </v-flex>
-        <v-flex xs9 md10>
-          <div class="value certified-by">
-            <v-text-field
-              filled
-              persistent-hint
-              id="certified-by-textfield"
-              label="Legal name of authorized person"
-              :value="certifiedBy"
-              :rules="[(v) => !!v || 'A person\'s legal name is required.']"
-              @input="emitCertifiedBy($event)"
-            />
+      <v-container>
+        <v-row class="pl-4">
+          <v-col :cols="firstColumn" class="px-0">
+            <label><strong>Legal Name</strong></label>
+          </v-col>
+          <v-col :cols="secondColumn" class="px-0">
+            <div class="value certified-by">
+              <v-text-field
+                filled
+                persistent-hint
+                id="certified-by-textfield"
+                label="Legal name of authorized person"
+                :value="certifiedBy"
+                :rules="[(v) => !!v || 'A person\'s legal name is required.']"
+                @input="emitCertifiedBy($event)"
+              />
+            </div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col :cols="firstColumn" />
+          <v-col :cols="secondColumn">
             <v-checkbox
               hide-details
               :value="isCertified"
@@ -40,9 +47,9 @@
             </v-checkbox>
             <p class="certify-clause py-3"><strong>Date:</strong> {{ currentDate }}</p>
             <p class="certify-clause">{{ message }}</p>
-          </div>
-        </v-flex>
-      </v-layout>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
   </v-card>
 </template>
@@ -74,6 +81,14 @@ export default class Certify extends Vue {
   /** Entity Display prop. */
   @Prop({ default: '' })
   private entityDisplay: string
+
+  /** First column columns. */
+  @Prop({ default: 2 })
+  private firstColumn: number
+
+  /** Second column columns. */
+  @Prop({ default: 10 })
+  private secondColumn: number
 
   /** Called when component is created. */
   private created (): void {
@@ -110,7 +125,7 @@ export default class Certify extends Vue {
 </script>
 
 <style lang="scss" scoped>
-// @import '@/assets/styles/theme.scss';
+@import '@/assets/styles/theme.scss';
 
 #AR-step-4-container {
   margin-top: 1rem;
@@ -149,13 +164,19 @@ export default class Certify extends Vue {
 
 .certify-clause {
   padding-left: 2rem;
-  color: black;
+  color: $gray7;
   font-size: 0.875rem;
 }
 
 .certify-stmt {
   display: inline;
   font-size: 0.875rem;
-  color: black;
+  color: $gray7;
+  font-weight: normal;
+}
+
+::v-deep .v-application--is-ltr .v-text-field .v-label {
+  color: $gray7;
+  font-weight: normal;
 }
 </style>
