@@ -1,6 +1,6 @@
 <template>
   <v-card flat id="AR-step-4-container">
-    <div class="pl-8 pt-8 pr-8">
+    <div class="pr-8">
       <v-container>
         <v-row class="pl-4">
           <v-col :cols="firstColumn" class="px-0">
