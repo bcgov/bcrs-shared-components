@@ -2,7 +2,7 @@
   <v-card flat id="AR-step-4-container">
     <div class="pr-8">
       <v-container>
-        <v-row class="pl-4">
+        <v-row class="pl-4" no-gutters>
           <v-col :cols="firstColumn" class="px-0">
             <label><strong>Legal Name</strong></label>
           </v-col>
@@ -20,7 +20,7 @@
             </div>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row no-gutters>
           <v-col :cols="firstColumn" />
           <v-col :cols="secondColumn">
             <v-checkbox
@@ -175,7 +175,7 @@ export default class Certify extends Vue {
   font-weight: normal;
 }
 
-::v-deep .v-application--is-ltr .v-text-field .v-label {
+::v-deep .v-label {
   color: $gray7;
   font-weight: normal;
 }
