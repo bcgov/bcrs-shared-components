@@ -1,5 +1,5 @@
 import {
-  BusinessIF, NameRequestIF, NameTranslationIF, ShareStructureIF, ContactPointIF
+  BusinessIF, NameRequestIF, NameTranslationIF, ShareStructureIF, ContactPointIF, CourtOrderIF
 } from './'
 
 /**
@@ -13,5 +13,6 @@ export interface AlterationIF {
   nameTranslations: NameTranslationIF[]
   shareStructure: ShareStructureIF
   contactPoint: ContactPointIF
+  courtOrder: CourtOrderIF
   [propName: string]: any // excess properties
 }
