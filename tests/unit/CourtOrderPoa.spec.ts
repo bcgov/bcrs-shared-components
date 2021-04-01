@@ -16,11 +16,21 @@ localVue.use(VueRouter)
  * Creates and mounts a component, so that it can be tested.
  *
  * @param validate The validation prompt.
+ * @param draftCourtOrderNumber The draft court number.
+ * @param draftPlanOfArrangement The draft plan of arrangement.
  * @returns a Wrapper<CourtOrderPoa> object with the given parameters.
  */
-function createComponent (validate: boolean = false): Wrapper<CourtOrderPoa> {
+function createComponent (
+  validate: boolean = false,
+  draftCourtOrderNumber: string = '',
+  hasDraftPlanOfArrangement: boolean = false
+): Wrapper<CourtOrderPoa> {
   return mount(CourtOrderPoa, {
-    propsData: { validate: validate },
+    propsData: {
+      validate,
+      draftCourtOrderNumber,
+      hasDraftPlanOfArrangement
+    },
     vuetify,
     localVue
   })
@@ -158,6 +168,19 @@ describe('Court Order and Plan of Arrangement component', () => {
     expect(wrapper.find('#court-num-form').text()).toContain('Court Order Number')
     expect(wrapper.vm.$data.valid).toBe(true)
     expect(wrapper.emitted('emitValid').pop()[0]).toEqual(true)
+
+    wrapper.destroy()
+  })
+
+  it('loads draft data correctly', async () => {
+    const wrapper: Wrapper<CourtOrderPoa> = createComponent(null, '1234-567890', true)
+    await Vue.nextTick()
+
+    // Verify draft num
+    expect(wrapper.vm.$data.courtOrderNumber).toBe('1234-567890')
+
+    // Verify checkbox is selected
+    expect(wrapper.vm.$data.planOfArrangement).toBe(true)
 
     wrapper.destroy()
   })

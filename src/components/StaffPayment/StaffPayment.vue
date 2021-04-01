@@ -1,72 +1,76 @@
 <template>
-  <v-card flat id="AR-step-5-container">
-    <div class="payment-container">
-      <label>Payment</label>
-      <v-radio-group class="payment-group" v-model="paymentOption">
-        <!-- Cash or Cheque radio button and form -->
-        <v-radio id="fas-radio" label="Cash or Cheque" :value="StaffPaymentOptions.FAS" />
-        <v-form class="ml-8" ref="fasForm" v-model="fasFormValid">
-          <v-text-field
-            filled
-            id="routing-slip-number-textfield"
-            label="Routing Slip Number"
-            :value="staffPaymentData.routingSlipNumber"
-            :rules="routingSlipNumberRules"
-            :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
-            @focus="paymentOption = StaffPaymentOptions.FAS"
-            @input="emitStaffPaymentData({ option: StaffPaymentOptions.FAS, routingSlipNumber: $event })"
-          />
-        </v-form>
+  <v-card flat id="staff-payment-container" class="mt-4 pa-8">
+    <v-row no-gutters>
+      <v-col cols="3">
+        <label>Payment</label>
+      </v-col>
+      <v-col cols="9">
+        <v-radio-group class="payment-group" v-model="paymentOption">
+          <!-- Cash or Cheque radio button and form -->
+          <v-radio id="fas-radio" label="Cash or Cheque" :value="StaffPaymentOptions.FAS" />
+          <v-form class="ml-8" ref="fasForm" v-model="fasFormValid">
+            <v-text-field
+              filled
+              id="routing-slip-number-textfield"
+              label="Routing Slip Number"
+              :value="staffPaymentData.routingSlipNumber"
+              :rules="routingSlipNumberRules"
+              :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
+              @focus="paymentOption = StaffPaymentOptions.FAS"
+              @input="emitStaffPaymentData({ option: StaffPaymentOptions.FAS, routingSlipNumber: $event })"
+            />
+          </v-form>
 
-        <!-- BC Online radio button and form -->
-        <v-radio id="bcol-radio" label="BC Online" :value="StaffPaymentOptions.BCOL" />
-        <v-form class="ml-8" ref="bcolForm" v-model="bcolFormValid">
-          <v-text-field
-            filled
-            id="bcol-account-number-textfield"
-            label="BC Online Account Number"
-            :value="staffPaymentData.bcolAccountNumber"
-            :rules="bcolAccountNumberRules"
-            :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
-            @focus="paymentOption = StaffPaymentOptions.BCOL"
-            @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, bcolAccountNumber: $event })"
-          />
-          <v-text-field
-            filled
-            id="dat-number-textfield"
-            label="DAT Number"
-            :value="staffPaymentData.datNumber"
-            :rules="datNumberRules"
-            :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
-            @focus="paymentOption = StaffPaymentOptions.BCOL"
-            @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, datNumber: $event })"
-          />
-          <v-text-field
-            filled
-            id="folio-number-textfield"
-            label="Folio Number"
-            :value="staffPaymentData.folioNumber"
-            :rules="folioNumberRules"
-            :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
-            @focus="paymentOption = StaffPaymentOptions.BCOL"
-            @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, folioNumber: $event })"
-          />
-        </v-form>
+          <!-- BC Online radio button and form -->
+          <v-radio id="bcol-radio" label="BC Online" :value="StaffPaymentOptions.BCOL" />
+          <v-form class="ml-8" ref="bcolForm" v-model="bcolFormValid">
+            <v-text-field
+              filled
+              id="bcol-account-number-textfield"
+              label="BC Online Account Number"
+              :value="staffPaymentData.bcolAccountNumber"
+              :rules="bcolAccountNumberRules"
+              :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              @focus="paymentOption = StaffPaymentOptions.BCOL"
+              @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, bcolAccountNumber: $event })"
+            />
+            <v-text-field
+              filled
+              id="dat-number-textfield"
+              label="DAT Number"
+              :value="staffPaymentData.datNumber"
+              :rules="datNumberRules"
+              :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              @focus="paymentOption = StaffPaymentOptions.BCOL"
+              @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, datNumber: $event })"
+            />
+            <v-text-field
+              filled
+              id="folio-number-textfield"
+              label="Folio Number"
+              :value="staffPaymentData.folioNumber"
+              :rules="folioNumberRules"
+              :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              @focus="paymentOption = StaffPaymentOptions.BCOL"
+              @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, folioNumber: $event })"
+            />
+          </v-form>
 
-        <!-- No Fee radio button -->
-        <v-radio id="no-fee-radio" label="No Fee" :value="StaffPaymentOptions.NO_FEE" />
+          <!-- No Fee radio button -->
+          <v-radio id="no-fee-radio" label="No Fee" :value="StaffPaymentOptions.NO_FEE" />
 
-        <!-- Priority checkbox -->
-        <v-checkbox
-          class="mt-2"
-          id="priority-checkbox"
-          label="Priority (add $100.00)"
-          :input-value="staffPaymentData.isPriority"
-          :disabled="paymentOption === StaffPaymentOptions.NO_FEE"
-          @change="emitStaffPaymentData({ isPriority: !!$event })"
-        />
-      </v-radio-group>
-    </div>
+          <!-- Priority checkbox -->
+          <v-checkbox
+            class="mt-2"
+            id="priority-checkbox"
+            label="Priority (add $100.00)"
+            :input-value="staffPaymentData.isPriority"
+            :disabled="paymentOption === StaffPaymentOptions.NO_FEE"
+            @change="emitStaffPaymentData({ isPriority: !!$event })"
+          />
+        </v-radio-group>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
@@ -222,26 +226,9 @@ export default class StaffPayment extends Vue {
 }
 
 .payment-container {
-  display: flex;
-  flex-flow: column nowrap;
-  position: relative;
-  padding: 1.25rem;
-
   > label:first-child {
     font-weight: 700;
     margin-bottom: 2rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .payment-container {
-    flex-flow: row nowrap;
-
-    > label:first-child {
-      flex: 0 0 auto;
-      padding-right: 2rem;
-      width: 12rem;
-    }
   }
 }
 
