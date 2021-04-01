@@ -46,11 +46,25 @@ export default class CourtOrderPoa extends Vue {
   @Prop({ default: false })
   private validate
 
+  /** Draft court order number. */
+  @Prop({ default: '' })
+  private draftCourtOrderNumber
+
+  /** Draft plan of arrangement. */
+  @Prop({ default: false })
+  private draftPlanOfArrangement
+
   // Local properties
   private courtOrderNumber = ''
   private courtOrderNumRules = []
   private planOfArrangement = false
   private valid = false
+
+  mounted () {
+    // Set default draft values if they exist
+    if (this.draftCourtOrderNumber) this.courtOrderNumber = this.draftCourtOrderNumber
+    if (this.draftPlanOfArrangement) this.planOfArrangement = this.draftPlanOfArrangement
+  }
 
   /** Clear rules and reset validations. */
   private clearValidations (): void {
