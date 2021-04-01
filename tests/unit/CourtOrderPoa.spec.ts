@@ -4,7 +4,6 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 
 import { CourtOrderPoa } from '@/components/CourtOrderPoa'
 import VueRouter from 'vue-router'
-import flushPromises from "flush-promises";
 
 Vue.use(Vuetify)
 
@@ -24,13 +23,13 @@ localVue.use(VueRouter)
 function createComponent (
   validate: boolean = false,
   draftCourtOrderNumber: string = '',
-  draftPlanOfArrangement: boolean = false
+  hasDraftPlanOfArrangement: boolean = false
 ): Wrapper<CourtOrderPoa> {
   return mount(CourtOrderPoa, {
     propsData: {
       validate,
       draftCourtOrderNumber,
-      draftPlanOfArrangement
+      hasDraftPlanOfArrangement
     },
     vuetify,
     localVue

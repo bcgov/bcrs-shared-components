@@ -52,7 +52,7 @@ export default class CourtOrderPoa extends Vue {
 
   /** Draft plan of arrangement. */
   @Prop({ default: false })
-  private draftPlanOfArrangement
+  private hasDraftPlanOfArrangement
 
   // Local properties
   private courtOrderNumber = ''
@@ -63,7 +63,7 @@ export default class CourtOrderPoa extends Vue {
   mounted () {
     // Set default draft values if they exist
     if (this.draftCourtOrderNumber) this.courtOrderNumber = this.draftCourtOrderNumber
-    if (this.draftPlanOfArrangement) this.planOfArrangement = this.draftPlanOfArrangement
+    if (this.hasDraftPlanOfArrangement) this.planOfArrangement = this.hasDraftPlanOfArrangement
   }
 
   /** Clear rules and reset validations. */
