@@ -26,6 +26,7 @@
                       v-on="on"
                       v-on:keydown="$event.preventDefault()"
                       v-on:keyup.enter="emitDate(dateText)"
+                      v-on:click:append="on.click"
                       filled
         />
       </template>
@@ -142,5 +143,13 @@ export default class DatePicker extends Vue {
   background-color: $app-blue !important;
   border-color: $app-blue !important;
   color: white !important;
+}
+
+::v-deep .v-btn:not(.v-btn--text):not(.v-btn--outlined).v-btn--active:before {
+  opacity: 0;
+}
+
+::v-deep .v-icon.v-icon.v-icon--link {
+  cursor: text;
 }
 </style>
