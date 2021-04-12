@@ -449,7 +449,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
           no: null,
           cancel: 'Cancel'
         }
-      ).then(() => {
+      ).then(async () => {
         // if we get here, Yes was clicked
         this.shareStructure.hasRightsOrRestrictions = false
       }).catch(() => {

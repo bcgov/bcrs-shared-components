@@ -16,7 +16,7 @@
       </div>
 
       <!-- Instructional Text -->
-      <div class="share-info-container info-text pt-6 px-4">
+      <div class="share-info-container info-text pt-6 px-4" v-if="hasRightsOrRestrictions">
         Your share structure contains a class or series of shares with special rights or restrictions. You must have
         passed a resolution or have a court order to change your share structure. <strong>Note:</strong> All changes
         must have the same Resolution or Court Order Date. If you need to enter changes that occurred on multiple dates
@@ -458,6 +458,9 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   /** Edited label name (ie 'Changed' or 'Corrected') */
   @Prop({ default: 'EDITED' })
   readonly editedLabel!: string
+
+  @Prop({ default: false })
+  readonly hasRightsOrRestrictions!: boolean
 
   // Local Properties
   private activeIndex: number = -1
@@ -991,7 +994,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   color: rgba(73, 80, 87, .40) !important;
 }
 
-.class-row-has-series td:not(:last-child) {
+.class-row-has-series td {
   border-bottom: thin dashed rgba(0, 0, 0, 0.12) !important;
 }
 
@@ -1000,16 +1003,13 @@ export default class ShareStructure extends Mixins(ShareMixin) {
     height: 4rem !important;
     color: $gray9;
     font-weight: bold;
-    padding: 10px
+    padding: 10px;
+    border-bottom: thin dashed rgba(0, 0, 0, 0.12) !important;
   }
 
   .series-name {
     padding-left: 40px;
     margin-left: 40px;
-  }
-
-  td:not(:last-child) {
-    border-bottom: thin dashed rgba(0, 0, 0, 0.12) !important;
   }
 
   td:not(:first-child){
@@ -1020,8 +1020,8 @@ export default class ShareStructure extends Mixins(ShareMixin) {
 }
 
 .series-row-last {
-  td:not(:last-child) {
-    border-bottom: thin solid rgba(0, 0, 0, 0.12) !important;
+  td {
+    border-bottom: thin solid rgba(0, 0, 0, 0.12);
   }
 }
 
