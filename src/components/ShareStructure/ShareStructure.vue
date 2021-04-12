@@ -1021,14 +1021,14 @@ export default class ShareStructure extends Mixins(ShareMixin) {
 
 .series-row-last {
   td {
-    border-bottom: thin solid rgba(0, 0, 0, 0.12);
+    border-bottom: thin solid rgba(0, 0, 0, 0.12) !important;
   }
 }
 
 .actions-cell {
   position: absolute;
   right: 0;
-  border-bottom: none !important;
+  border: none !important;
 }
 
 .actions {
