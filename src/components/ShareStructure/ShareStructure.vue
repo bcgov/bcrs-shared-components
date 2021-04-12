@@ -190,6 +190,8 @@
               </span>
             </div>
           </td>
+          <!-- Placeholder template to preserve table cell and stylings-->
+          <template v-else><span></span></template>
         </tr>
 
         <!-- Share Class Edit Form -->
@@ -340,6 +342,8 @@
                 </span>
               </div>
             </td>
+            <!-- Placeholder template to preserve table cell and stylings-->
+            <template v-else><span></span></template>
           </tr>
           <!-- Series Share Edit Form -->
           <tr
@@ -978,11 +982,11 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   }
 }
 
-.class-row td{
+.class-row td {
   height: 4rem !important;
   color: $gray9;
   font-size: 1rem !important;
-  padding: 10px
+  padding: 10px;
 }
 
 .class-row td:not(:first-child) {
@@ -994,7 +998,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   color: rgba(73, 80, 87, .40) !important;
 }
 
-.class-row-has-series td {
+.class-row-has-series td:not(:last-child) {
   border-bottom: thin dashed rgba(0, 0, 0, 0.12) !important;
 }
 
@@ -1004,6 +1008,9 @@ export default class ShareStructure extends Mixins(ShareMixin) {
     color: $gray9;
     font-weight: bold;
     padding: 10px;
+  }
+
+  td:not(:last-child) {
     border-bottom: thin dashed rgba(0, 0, 0, 0.12) !important;
   }
 
@@ -1020,7 +1027,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
 }
 
 .series-row-last {
-  td {
+  td:not(:last-child) {
     border-bottom: thin solid rgba(0, 0, 0, 0.12) !important;
   }
 }
@@ -1028,7 +1035,7 @@ export default class ShareStructure extends Mixins(ShareMixin) {
 .actions-cell {
   position: absolute;
   right: 0;
-  border: none !important;
+  border-bottom: none !important;
 }
 
 .actions {
