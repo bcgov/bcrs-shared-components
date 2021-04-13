@@ -73,18 +73,13 @@ export default class FeeSummary extends Vue {
   @Prop({ default: false })
   readonly isBusySaving: boolean
 
-  /** Indicator that the client is in Summary mode. */
-  @Prop({ default: false })
-  readonly isSummaryMode: boolean
+  /** Label for Confirm button. */
+  @Prop({ default: 'Confirm' })
+  readonly confirmLabel: boolean
 
   /** Message to display if there is an error. */
   @Prop({ default: '' })
   readonly errorMessage: string
-
-  /** Returns the correct btn label according to state. */
-  private get confirmLabel (): string {
-    return this.isSummaryMode ? 'File and Pay' : 'Review and Certify'
-  }
 
   /** Emit action event. */
   @Emit('action')

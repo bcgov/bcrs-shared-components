@@ -19,7 +19,7 @@ describe('DetailComment', () => {
     payApiUrl: 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/',
     hasConflicts: true,
     isBusySaving: true,
-    isSummaryMode: true,
+    confirmLabel: 'Continue',
     errorMessage: 'Some error'
   }
 
@@ -41,7 +41,7 @@ describe('DetailComment', () => {
     expect(vm.payApiUrl).toBe('')
     expect(vm.hasConflicts).toBe(false)
     expect(vm.isBusySaving).toBe(false)
-    expect(vm.isSummaryMode).toBe(false)
+    expect(vm.confirmLabel).toBe('Confirm')
     expect(vm.errorMessage).toBe('')
 
     // verify that v-model was not updated
@@ -64,7 +64,7 @@ describe('DetailComment', () => {
 
     const confirmBtn = wrapper.find('#confirm-btn')
     expect(confirmBtn.attributes('disabled')).toBeUndefined()
-    expect(confirmBtn.text()).toBe('Review and Certify')
+    expect(confirmBtn.text()).toBe('Confirm')
 
     const errorMsg = wrapper.find('.error-msg')
     expect(errorMsg.exists()).toBe(false)
@@ -74,12 +74,12 @@ describe('DetailComment', () => {
     const wrapper = wrapperFactory(propsData)
     const vm: any = wrapper.vm
 
-    // verify default properties
+    // verify properties
     expect(vm.filingData).toEqual(propsData.filingData)
     expect(vm.payApiUrl).toEqual(propsData.payApiUrl)
     expect(vm.hasConflicts).toEqual(propsData.hasConflicts)
     expect(vm.isBusySaving).toEqual(propsData.isBusySaving)
-    expect(vm.isSummaryMode).toEqual(propsData.isSummaryMode)
+    expect(vm.confirmLabel).toEqual(propsData.confirmLabel)
     expect(vm.errorMessage).toEqual(propsData.errorMessage)
   })
 
@@ -92,11 +92,11 @@ describe('DetailComment', () => {
   })
 
   it('displays the alternate Confirm btn text in summary mode', async () => {
-    const propsModified = { isSummaryMode: true }
+    const propsModified = { confirmLabel: 'Click me' }
     const wrapper = wrapperFactory(propsModified)
 
     const confirmBtn = wrapper.find('#confirm-btn')
     expect(confirmBtn.attributes('disabled')).toBeUndefined()
-    expect(confirmBtn.text()).toBe('File and Pay')
+    expect(confirmBtn.text()).toBe('Click me')
   })
 })
