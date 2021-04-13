@@ -10,13 +10,17 @@ Vue.use(Affix)
 const vuetify = new Vuetify({})
 
 describe('DetailComment', () => {
-  let propsData = {
-    showFeeSummary: true,
-    filingData: { 'filingTypeCode': 'ALTER', 'entityType': 'BC', 'priority': false },
+  const propsData = {
+    filingData: {
+      filingTypeCode: 'ALTER',
+      entityType: 'BC',
+      priority: false
+    },
     payApiUrl: 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/',
-    hasConflicts: false,
-    isBusySaving: false,
-    isSummaryMode: false
+    hasConflicts: true,
+    isBusySaving: true,
+    isSummaryMode: true,
+    errorMessage: 'Some error'
   }
 
   const wrapperFactory = (propsData: any) => {
@@ -33,61 +37,62 @@ describe('DetailComment', () => {
     const vm: any = wrapper.vm
 
     // verify default properties
-    expect(vm.showFeeSummary).toBe(false)
     expect(vm.filingData).toBeNull()
     expect(vm.payApiUrl).toBe('')
     expect(vm.hasConflicts).toBe(false)
     expect(vm.isBusySaving).toBe(false)
     expect(vm.isSummaryMode).toBe(false)
+    expect(vm.errorMessage).toBe('')
 
-    // verify that v-model is not updated
+    // verify that v-model was not updated
     expect(wrapper.emitted('action')).toBeUndefined()
 
-    // verify that component mounts
-    expect(wrapper.find(FeeSummary).exists()).toBe(true)
+    // verify that component was mounted
+    expect(wrapper.findComponent(FeeSummary).exists()).toBe(true)
+  })
+
+  it('displays default btn states and text correctly', async () => {
+    const wrapper = wrapperFactory(null)
+
+    const saveResumeBtn = wrapper.find('#save-resume-btn')
+    expect(saveResumeBtn.attributes('disabled')).toBeUndefined()
+    expect(saveResumeBtn.text()).toBe('Save and Resume Later')
+
+    const deleteAllBtn = wrapper.find('#delete-all-btn')
+    expect(deleteAllBtn.attributes('disabled')).toBeUndefined()
+    expect(deleteAllBtn.text()).toBe('Delete All')
+
+    const confirmBtn = wrapper.find('#confirm-btn')
+    expect(confirmBtn.attributes('disabled')).toBeUndefined()
+    expect(confirmBtn.text()).toBe('Review and Certify')
+
+    const errorMsg = wrapper.find('.error-msg')
+    expect(errorMsg.exists()).toBe(false)
   })
 
   it('handles props correctly', () => {
     const wrapper = wrapperFactory(propsData)
     const vm: any = wrapper.vm
 
-    expect(wrapper.find('#fee-summary').exists()).toBe(true)
+    // verify default properties
+    expect(vm.filingData).toEqual(propsData.filingData)
+    expect(vm.payApiUrl).toEqual(propsData.payApiUrl)
+    expect(vm.hasConflicts).toEqual(propsData.hasConflicts)
+    expect(vm.isBusySaving).toEqual(propsData.isBusySaving)
+    expect(vm.isSummaryMode).toEqual(propsData.isSummaryMode)
+    expect(vm.errorMessage).toEqual(propsData.errorMessage)
   })
 
-  it('does not render when showFeeSummary is false', () => {
-    const propsModified = { ...propsData, showFeeSummary: false }
-
-    const wrapper = wrapperFactory(propsModified)
-
-    expect(wrapper.find('#fee-summary').exists()).toBe(false)
-  })
-
-  it('disables the confirm btn when there are conflicts', () => {
-    const propsModified = { ...propsData, hasConflicts: true }
+  it('disables the Confirm btn when there are conflicts', () => {
+    const propsModified = { hasConflicts: true }
 
     const wrapper = wrapperFactory(propsModified)
 
     expect(wrapper.find('#confirm-btn').attributes('disabled')).toBeTruthy()
   })
 
-  it('displays the btns text and state correctly', async () => {
-    const wrapper = wrapperFactory(propsData)
-
-    const saveResumeBtn = wrapper.find('#save-resume-btn')
-    expect(saveResumeBtn.attributes('disabled')).toBeUndefined()
-    expect(saveResumeBtn.text()).toBe('Resume Later')
-
-    const cancelBtn = wrapper.find('#cancel-btn')
-    expect(cancelBtn.attributes('disabled')).toBeUndefined()
-    expect(cancelBtn.text()).toBe('Cancel')
-
-    const confirmBtn = wrapper.find('#confirm-btn')
-    expect(confirmBtn.attributes('disabled')).toBeUndefined()
-    expect(confirmBtn.text()).toBe('Review and Certify')
-  })
-
-  it('displays the updated confirm text when in summary mode.', async () => {
-    const propsModified = { ...propsData, isSummaryMode: true }
+  it('displays the alternate Confirm btn text in summary mode', async () => {
+    const propsModified = { isSummaryMode: true }
     const wrapper = wrapperFactory(propsModified)
 
     const confirmBtn = wrapper.find('#confirm-btn')

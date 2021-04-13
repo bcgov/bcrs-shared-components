@@ -1,44 +1,51 @@
 <template>
-  <aside id="fee-summary" v-if="showFeeSummary">
-    <affix
-      relative-element-selector=".col-lg-9"
-      :offset="{ top: 86, bottom: 12 }">
-      <sbc-fee-summary
-        :filingData="[...filingData]"
-        :payURL="payApiUrl"
-      />
-      <template>
-        <v-row class="mt-1">
-          <v-col cols="6" class="pr-2">
-            <v-btn id="save-resume-btn" large
-                   :loading="isBusySaving"
-                   @click="emitAction('resume')">
-              <span>Resume Later</span>
-            </v-btn>
-          </v-col>
-          <v-col cols="6" class="pl-2">
-            <v-btn id="cancel-btn" large
-                   @click="emitAction('cancel')">
-              <span>Cancel</span>
-            </v-btn>
-          </v-col>
-          <v-col cols="12" class="py-1">
-            <v-btn id="confirm-btn" large
-                   :disabled="hasConflicts"
-                   @click="emitAction('confirm')">
-              <span>{{confirmLabel}}</span>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </template>
-    </affix>
+  <aside id="fee-summary">
+    <sbc-fee-summary
+      :filingData="[...filingData]"
+      :payURL="payApiUrl"
+    />
+
+    <v-row class="mt-1">
+      <v-col cols="8" class="pr-2">
+        <v-btn
+          id="save-resume-btn"
+          large
+          :loading="isBusySaving"
+          @click="emitAction(SummaryActions.SAVE_RESUME_LATER)"
+        >
+          <span>Save and Resume Later</span>
+        </v-btn>
+      </v-col>
+      <v-col cols="4" class="pl-2">
+        <v-btn
+          id="delete-all-btn"
+          large
+          @click="emitAction(SummaryActions.DELETE_ALL)"
+        >
+          <span>Delete All</span>
+        </v-btn>
+      </v-col>
+      <v-col cols="12" class="py-1">
+        <v-btn
+          id="confirm-btn"
+          large
+          :disabled="hasConflicts"
+          @click="emitAction(SummaryActions.CONFIRM)"
+        >
+          <span>{{confirmLabel}}</span>
+        </v-btn>
+      </v-col>
+    </v-row>
+
+    <div v-if="errorMessage" v-html="errorMessage" class="error-msg pre-wrap mt-1" />
   </aside>
 </template>
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
 
-// Interfaces
+// Enums and Interfaces
+import { SummaryActions } from '@bcrs-shared-components/enums'
 import { FilingDataIF } from '@bcrs-shared-components/interfaces'
 
 // Component Dependency
@@ -48,19 +55,17 @@ import SbcFeeSummary from 'sbc-common-components/src/components/SbcFeeSummary.vu
   components: { SbcFeeSummary }
 })
 export default class FeeSummary extends Vue {
-  /** To hide or show the action summary. */
-  @Prop({ default: false })
-  readonly showFeeSummary: boolean
+  readonly SummaryActions = SummaryActions
 
   /** Filing information to calculate fees. */
   @Prop({ default: null })
   readonly filingData: FilingDataIF
 
-  /** Url at which to request fee calculations. */
+  /** URL for Sbc Fee Summary component to get fees. */
   @Prop({ default: '' })
   readonly payApiUrl: string
 
-  /** Indicating something isn't valid. */
+  /** Indicator that something isn't valid. */
   @Prop({ default: false })
   readonly hasConflicts: boolean
 
@@ -72,16 +77,18 @@ export default class FeeSummary extends Vue {
   @Prop({ default: false })
   readonly isSummaryMode: boolean
 
-  /** Return the correct btn label according to state. */
+  /** Message to display if there is an error. */
+  @Prop({ default: '' })
+  readonly errorMessage: string
+
+  /** Returns the correct btn label according to state. */
   private get confirmLabel (): string {
     return this.isSummaryMode ? 'File and Pay' : 'Review and Certify'
   }
 
   /** Emit action event. */
   @Emit('action')
-  private emitAction (action: string): void {
-    console.log()
-  }
+  private emitAction (action: string): void {}
 }
 </script>
 
@@ -107,6 +114,12 @@ export default class FeeSummary extends Vue {
     color: white !important;
     background-color: $app-blue !important;
     opacity: 0.2;
+  }
+
+  .error-msg {
+    font-size: 0.75rem;
+    color: $app-red;
+    text-align: center;
   }
 }
 </style>
