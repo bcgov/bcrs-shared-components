@@ -6,8 +6,7 @@ import { CorpTypeCd } from '@bcrs-shared-components/enums'
 export default {
   title: 'component/FeeSummary',
   component: FeeSummary,
-  argTypes: {
-  }
+  argTypes: {}
 }
 
 const Template = (args, { argTypes }) => ({
@@ -24,10 +23,10 @@ const filingData: FilingDataIF = {
 
 export const Default = Template.bind({})
 Default.args = {
-  showFeeSummary: true,
   filingData: filingData,
   payApiUrl: 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/',
   hasConflicts: false,
   isBusySaving: false,
-  isSummaryMode: false
+  isSummaryMode: false,
+  errorMessage: ''
 }
