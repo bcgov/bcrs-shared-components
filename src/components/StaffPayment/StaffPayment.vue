@@ -2,7 +2,7 @@
   <v-card flat id="staff-payment-container" class="mt-4 pa-8">
     <v-row no-gutters>
       <v-col cols="3">
-        <label>Payment</label>
+        <label :class="{'error-text': invalidSection}">Payment</label>
       </v-col>
       <v-col cols="9">
         <v-radio-group class="payment-group" v-model="paymentOption">
@@ -91,6 +91,10 @@ export default class StaffPayment extends Vue {
 
   /** Enum for template. */
   readonly StaffPaymentOptions = StaffPaymentOptions
+
+  /** Prompt Error. */
+  @Prop({ default: false })
+  private invalidSection: boolean
 
   /** Staff Payment Data prop. */
   @Prop({

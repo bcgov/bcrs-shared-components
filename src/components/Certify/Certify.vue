@@ -4,7 +4,7 @@
       <v-container>
         <v-row class="pl-4" no-gutters>
           <v-col :cols="firstColumn" class="px-0">
-            <label><strong>Legal Name</strong></label>
+            <label :class="{'error-text': invalidSection}"><strong>Legal Name</strong></label>
           </v-col>
           <v-col :cols="secondColumn" class="px-0">
             <div class="value certified-by">
@@ -89,6 +89,10 @@ export default class Certify extends Vue {
   /** Second column columns. */
   @Prop({ default: 10 })
   private secondColumn: number
+
+  /** Promp Error. */
+  @Prop({ default: false })
+  private invalidSection: boolean
 
   /** Called when component is created. */
   private created (): void {
