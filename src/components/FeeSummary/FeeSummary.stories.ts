@@ -27,6 +27,6 @@ Default.args = {
   payApiUrl: 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/',
   hasConflicts: false,
   isBusySaving: false,
-  isSummaryMode: false,
+  confirmLabel: 'Continue',
   errorMessage: ''
 }
