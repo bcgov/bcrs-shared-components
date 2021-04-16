@@ -16,8 +16,8 @@
       </div>
 
       <!-- Instructional Text -->
-      <div class="share-info-container info-text pt-6 px-4" v-if="hasRightsOrRestrictions">
-        Your share structure contains a class or series of shares with special rights or restrictions. You must have
+      <div class="share-info-container info-text pt-6 px-4">
+        If your share structure contains a class or series of shares with special rights or restrictions, you must have
         passed a resolution or have a court order to change your share structure. <strong>Note:</strong> All changes
         must have the same Resolution or Court Order Date. If you need to enter changes that occurred on multiple dates
         you must file and pay for each change separately.
@@ -38,20 +38,23 @@
       </div>
     </template>
 
-    <v-expand-transition>
-      <v-card flat class="add-share-structure-container" v-if="showAddShareStructureForm">
-        <edit-share-structure
-          :initialValue="currentShareStructure"
-          :activeIndex="activeIndex"
-          :shareId="shareId"
-          :parentIndex="parentIndex"
-          :shareClasses="shareClasses"
-          :resolution-required="resolutionRequired"
-          @addEditClass="addEditShareClass($event)"
-          @resolutionPrompt="emitResolutionPrompt($event)"
-          @resetEvent="resetData()"/>
-      </v-card>
-    </v-expand-transition>
+    <div :class="{'invalid-section': invalidSection}">
+      <v-expand-transition>
+        <v-card flat class="add-share-structure-container" v-if="showAddShareStructureForm">
+          <edit-share-structure
+            :initialValue="currentShareStructure"
+            :activeIndex="activeIndex"
+            :shareId="shareId"
+            :parentIndex="parentIndex"
+            :shareClasses="shareClasses"
+            :resolutionRequired="resolutionRequired"
+            :invalidSection="invalidSection"
+            @addEditClass="addEditShareClass($event)"
+            @resolutionPrompt="emitResolutionPrompt($event)"
+            @resetEvent="resetData()"/>
+        </v-card>
+      </v-expand-transition>
+    </div>
 
     <v-data-table
       class="share-structure-table"
@@ -196,7 +199,7 @@
 
         <!-- Share Class Edit Form -->
         <tr v-if="showClassEditForm[row.index]">
-          <td colspan="6">
+          <td colspan="6" :class="{'invalid-section': invalidSection}">
             <v-expand-transition>
               <div class="edit-share-structure-container">
                 <edit-share-structure
@@ -205,7 +208,8 @@
                   :shareId="shareId"
                   :parentIndex="parentIndex"
                   :shareClasses="shareClasses"
-                  :resolution-required="resolutionRequired"
+                  :resolutionRequired="resolutionRequired"
+                  :invalidSection="invalidSection"
                   @addEditClass="addEditShareClass($event)"
                   @addEditSeries="addEditShareSeries($event)"
                   @removeClass="confirmShareRemoval($event)"
@@ -350,7 +354,7 @@
             v-if="showSeriesEditForm[row.index] && showSeriesEditForm[row.index][index]"
             :key="`class:${row.index}-Series:${index}-edit-form`"
           >
-            <td colspan="6">
+            <td colspan="6" :class="{'invalid-section': invalidSection}">
               <v-expand-transition>
                 <div class="edit-share-structure-container">
                   <edit-share-structure
@@ -359,7 +363,8 @@
                     :shareId="shareId"
                     :parentIndex="parentIndex"
                     :shareClasses="shareClasses"
-                    :resolution-required="resolutionRequired"
+                    :resolutionRequired="resolutionRequired"
+                    :invalidSection="invalidSection"
                     @addEditClass="addEditShareClass($event)"
                     @addEditSeries="addEditShareSeries($event)"
                     @removeSeries="removeSeries($event, row.index)"
@@ -373,7 +378,7 @@
 
         <!-- Series Share Add Form -->
         <tr v-if="showSeriesAddForm[row.index]">
-          <td colspan="6">
+          <td colspan="6" :class="{'invalid-section': invalidSection}">
             <v-expand-transition>
               <div class="edit-share-structure-container">
                 <edit-share-structure
@@ -382,7 +387,8 @@
                   :shareId="shareId"
                   :parentIndex="parentIndex"
                   :shareClasses="shareClasses"
-                  :resolution-required="resolutionRequired"
+                  :resolutionRequired="resolutionRequired"
+                  :invalidSection="invalidSection"
                   @addEditClass="addEditShareClass($event)"
                   @addEditSeries="addEditShareSeries($event)"
                   @removeSeries="removeSeries($event, row.index)"
@@ -465,6 +471,10 @@ export default class ShareStructure extends Mixins(ShareMixin) {
 
   @Prop({ default: false })
   readonly hasRightsOrRestrictions!: boolean
+
+  /** Prompt Error. */
+  @Prop({ default: false })
+  readonly invalidSection!: boolean
 
   // Local Properties
   private activeIndex: number = -1

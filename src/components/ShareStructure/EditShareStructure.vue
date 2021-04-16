@@ -10,7 +10,7 @@
       <ul class="list add-share-structure">
         <li class="add-share-structure-container">
           <div class="meta-container">
-            <label class="add-share-structure-header">
+            <label class="add-share-structure-header" :class="{'error-text': invalidSection}">
               <span v-if="activeIndex === -1" class="pl-5" :class="{'pl-10 text-body-3': isSeries}">
                 Add Share {{ shareStructure.type }}
               </span>
@@ -206,6 +206,10 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
 
   @Prop({ default: false })
   private resolutionRequired: boolean
+
+  /** Prompt Error. */
+  @Prop({ default: false })
+  readonly invalidSection!: boolean
 
   // Text-field Rules
   private nameRules = []

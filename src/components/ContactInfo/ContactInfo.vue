@@ -105,7 +105,7 @@
     <template v-else id="edit-contact-form">
       <v-layout row class="mx-0">
         <v-flex xs3>
-          <label>Registered Office <br>Contact Information</label>
+          <label :class="{'error-text': invalidSection}">Registered Office <br>Contact Information</label>
         </v-flex>
       </v-layout>
 
@@ -240,29 +240,33 @@ export default class ContactInfo extends Vue {
     editContactForm: FormIF,
   }
 
-  /** The current business contact information */
+  /** The current business contact information. */
   @Prop()
   private businessContact!: ContactPointIF
 
-  /** The baseline contact information */
+  /** The baseline contact information. */
   @Prop()
   private originalBusinessContact!: ContactPointIF
 
-  /** Flag for identifying changes */
+  /** Flag for identifying changes. */
   @Prop()
   private hasBusinessContactInfoChange!: boolean
 
-  /** Edit label name (ie 'Change' or 'Correct') */
+  /** Edit label name (ie 'Change' or 'Correct'). */
   @Prop()
   private editLabel!: string
 
-  /** Edited label name (ie 'Changed' or 'Corrected') */
+  /** Edited label name (ie 'Changed' or 'Corrected'). */
   @Prop()
   private editedLabel!: string
 
-  /** Option to disable the edit actions */
+  /** Option to disable the edit actions. */
   @Prop({ default: false })
   private disableActions!: boolean
+
+  /** Prompt error handling. */
+  @Prop({ default: false })
+  private invalidSection!: boolean
 
   // Local Properties
   private isEditing: boolean = false
@@ -330,6 +334,11 @@ export default class ContactInfo extends Vue {
   private initializeContactInfo () {
     this.contactInfo = { ...this.businessContact }
   }
+
+  /** Inform the parent of the current edit state. */
+  @Watch('isEditing', { immediate: true })
+  @Emit('isEditingContact')
+  private emitIsEditing (isEditing: boolean): void { }
 
   @Emit('contactInfoChange')
   private emitContactInfo (contactInfo: ContactPointIF): void { }

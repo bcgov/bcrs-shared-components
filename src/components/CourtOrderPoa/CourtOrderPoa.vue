@@ -2,7 +2,7 @@
   <v-card flat class="mt-4 pa-8">
     <v-row no-gutters align="start">
       <v-col cols="3">
-        <label>Court Order <br>Number</label>
+        <label :class="{'error-text': invalidSection}">Court Order <br>Number</label>
       </v-col>
       <v-col cols="9">
         <v-form ref="courtNumRef" id="court-num-form" v-model="valid">
@@ -53,6 +53,10 @@ export default class CourtOrderPoa extends Vue {
   /** Draft plan of arrangement. */
   @Prop({ default: false })
   private hasDraftPlanOfArrangement
+
+  /** Prompt Error. */
+  @Prop({ default: false })
+  private invalidSection: boolean
 
   // Local properties
   private courtOrderNumber = ''
