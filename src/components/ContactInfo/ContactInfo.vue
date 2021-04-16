@@ -264,7 +264,7 @@ export default class ContactInfo extends Vue {
   @Prop({ default: false })
   private disableActions!: boolean
 
-  /** Prompt Error. */
+  /** Prompt error handling. */
   @Prop({ default: false })
   private invalidSection!: boolean
 
@@ -335,10 +335,10 @@ export default class ContactInfo extends Vue {
     this.contactInfo = { ...this.businessContact }
   }
 
-  /** Inform the parent of the current validity state of the component. */
+  /** Inform the parent of the current edit state. */
   @Watch('isEditing', { immediate: true })
-  @Emit('isEditingChange')
-  private emitIsEditing (isEditing: boolean): boolean { return !isEditing }
+  @Emit('isEditingContact')
+  private emitIsEditing (isEditing: boolean): void { }
 
   @Emit('contactInfoChange')
   private emitContactInfo (contactInfo: ContactPointIF): void { }
