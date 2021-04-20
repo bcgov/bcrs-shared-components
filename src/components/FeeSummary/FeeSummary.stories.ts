@@ -26,7 +26,7 @@ Default.args = {
   filingData: filingData,
   payApiUrl: 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/',
   hasConflicts: false,
-  isBusySaving: false,
+  isLoading: false,
   confirmLabel: 'Continue',
   errorMessage: ''
 }
