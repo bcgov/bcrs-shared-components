@@ -18,7 +18,7 @@ describe('DetailComment', () => {
     },
     payApiUrl: 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/',
     hasConflicts: true,
-    isBusySaving: true,
+    isLoading: true,
     confirmLabel: 'Continue',
     errorMessage: 'Some error'
   }
@@ -40,7 +40,7 @@ describe('DetailComment', () => {
     expect(vm.filingData).toBeNull()
     expect(vm.payApiUrl).toBe('')
     expect(vm.hasConflicts).toBe(false)
-    expect(vm.isBusySaving).toBe(false)
+    expect(vm.isLoading).toBe(false)
     expect(vm.confirmLabel).toBe('Confirm')
     expect(vm.errorMessage).toBe('')
 
@@ -78,7 +78,7 @@ describe('DetailComment', () => {
     expect(vm.filingData).toEqual(propsData.filingData)
     expect(vm.payApiUrl).toEqual(propsData.payApiUrl)
     expect(vm.hasConflicts).toEqual(propsData.hasConflicts)
-    expect(vm.isBusySaving).toEqual(propsData.isBusySaving)
+    expect(vm.isLoading).toEqual(propsData.isLoading)
     expect(vm.confirmLabel).toEqual(propsData.confirmLabel)
     expect(vm.errorMessage).toEqual(propsData.errorMessage)
   })

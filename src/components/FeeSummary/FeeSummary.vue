@@ -10,7 +10,7 @@
         <v-btn
           id="save-resume-btn"
           large
-          :loading="isBusySaving"
+          :loading="isLoading"
           @click="emitAction(SummaryActions.SAVE_RESUME_LATER)"
         >
           <span>Save and Resume Later</span>
@@ -20,6 +20,7 @@
         <v-btn
           id="delete-all-btn"
           large
+          :loading="isLoading"
           @click="emitAction(SummaryActions.DELETE_ALL)"
         >
           <span>Delete All</span>
@@ -30,6 +31,7 @@
           id="confirm-btn"
           large
           :disabled="hasConflicts"
+          :loading="isLoading"
           @click="emitAction(SummaryActions.CONFIRM)"
         >
           <span>{{confirmLabel}}</span>
@@ -71,11 +73,11 @@ export default class FeeSummary extends Vue {
 
   /** Indicator that there is a request in progress. */
   @Prop({ default: false })
-  readonly isBusySaving: boolean
+  readonly isLoading: boolean
 
   /** Label for Confirm button. */
   @Prop({ default: 'Confirm' })
-  readonly confirmLabel: boolean
+  readonly confirmLabel: string
 
   /** Message to display if there is an error. */
   @Prop({ default: '' })
