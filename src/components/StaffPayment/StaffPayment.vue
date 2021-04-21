@@ -1,18 +1,20 @@
 <template>
-  <v-card flat id="staff-payment-container" class="mt-4 pa-8">
-    <v-row no-gutters>
-      <v-col cols="3">
+  <v-card flat id="staff-payment-container" class="mt-4 py-8 pr-6">
+    <v-row no-gutters class="mt-3">
+      <v-col cols="3" class="pl-5">
         <label :class="{'error-text': invalidSection}">Payment</label>
       </v-col>
-      <v-col cols="9">
+      <v-col cols="9" class="pl-2">
         <v-radio-group class="payment-group" v-model="paymentOption">
           <!-- Cash or Cheque radio button and form -->
           <v-radio id="fas-radio" label="Cash or Cheque" :value="StaffPaymentOptions.FAS" />
           <v-form class="ml-8" ref="fasForm" v-model="fasFormValid">
             <v-text-field
               filled
+              persistent-hint
               id="routing-slip-number-textfield"
               label="Routing Slip Number"
+              hint="FAS Routing Slip Number (9 digits)"
               :value="staffPaymentData.routingSlipNumber"
               :rules="routingSlipNumberRules"
               :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
@@ -47,7 +49,7 @@
             <v-text-field
               filled
               id="folio-number-textfield"
-              label="Folio Number"
+              label="Folio Number (Optional)"
               :value="staffPaymentData.folioNumber"
               :rules="folioNumberRules"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
@@ -58,6 +60,8 @@
 
           <!-- No Fee radio button -->
           <v-radio id="no-fee-radio" label="No Fee" :value="StaffPaymentOptions.NO_FEE" />
+
+          <v-divider class="mt-5"></v-divider>
 
           <!-- Priority checkbox -->
           <v-checkbox
@@ -131,13 +135,13 @@ export default class StaffPayment extends Vue {
 
   /** Validation rules for BCOL Account Number. */
   private readonly bcolAccountNumberRules: Array<Function> = [
-    v => !!v || 'BC Online Account Number is required',
+    v => !!v || 'Enter BC Online Account Number',
     v => /^\d{6}$/.test(v) || 'BC Online Account Number must be 6 digits'
   ]
 
   /** Validation rules for DAT Number. */
   private readonly datNumberRules: Array<Function> = [
-    v => !!v || 'DAT Number is required',
+    v => !!v || 'Enter DAT Number',
     v => /^[A-Z]{1}[0-9]{7,9}$/.test(v) || 'DAT Number must be in standard format (eg, C1234567)'
   ]
 
