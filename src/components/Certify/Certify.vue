@@ -1,9 +1,9 @@
 <template>
-  <v-card flat id="AR-step-4-container">
-    <div class="pr-8">
+  <v-card flat id="AR-step-4-container" class="pr-5">
+    <div class="mt-4">
       <v-container>
-        <v-row class="pl-4" no-gutters>
-          <v-col :cols="firstColumn" class="px-0">
+        <v-row class="pl-2" no-gutters>
+          <v-col :cols="firstColumn">
             <label :class="{'error-text': invalidSection}"><strong>Legal Name</strong></label>
           </v-col>
           <v-col :cols="secondColumn" class="px-0">
@@ -20,7 +20,7 @@
             </div>
           </v-col>
         </v-row>
-        <v-row no-gutters>
+        <v-row no-gutters class="pl-1">
           <v-col :cols="firstColumn" />
           <v-col :cols="secondColumn">
             <v-checkbox
