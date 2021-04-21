@@ -13,6 +13,7 @@
               filled
               id="routing-slip-number-textfield"
               label="Routing Slip Number"
+              hint="FAS Routing Slip Number (9 digits)"
               :value="staffPaymentData.routingSlipNumber"
               :rules="routingSlipNumberRules"
               :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
@@ -47,7 +48,7 @@
             <v-text-field
               filled
               id="folio-number-textfield"
-              label="Folio Number"
+              label="Folio Number (Optional)"
               :value="staffPaymentData.folioNumber"
               :rules="folioNumberRules"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
@@ -58,6 +59,8 @@
 
           <!-- No Fee radio button -->
           <v-radio id="no-fee-radio" label="No Fee" :value="StaffPaymentOptions.NO_FEE" />
+
+          <hr>
 
           <!-- Priority checkbox -->
           <v-checkbox
