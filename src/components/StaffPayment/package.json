@@ -1,6 +1,6 @@
 {
     "name": "@bcrs-shared-components/staff-payment",
-    "version": "1.0.19",
+    "version": "1.0.20",
     "publishConfig": {
         "access": "public"
     },
