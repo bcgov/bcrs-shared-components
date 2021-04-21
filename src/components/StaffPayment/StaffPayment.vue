@@ -83,9 +83,7 @@ import { Component, Vue, Prop, Watch, Emit } from 'vue-property-decorator'
 import { StaffPaymentOptions } from '@bcrs-shared-components/enums'
 import { FormIF, StaffPaymentIF } from '@bcrs-shared-components/interfaces'
 
-@Component({
-  components: {}
-})
+@Component({})
 export default class StaffPayment extends Vue {
   // To fix "property X does not exist on type Y" errors, annotate types for referenced components.
   // ref: https://github.com/vuejs/vetur/issues/1414
