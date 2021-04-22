@@ -289,3 +289,8 @@ ul.list {
   line-height: 1.0625rem;
   letter-spacing: 0;
 }
+
+// Error Border
+.invalid-section {
+  border-left: 3px solid $app-red;
+}
