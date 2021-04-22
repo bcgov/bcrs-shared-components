@@ -487,4 +487,12 @@ describe('Share Structure component', () => {
     expect(classRows[3].querySelector('#class-3-undo-btn').textContent).toContain('Undo')
     expect(classRows[4].querySelector('#class-4-change-added-btn').textContent).toContain('Edit')
   })
+
+  it('displays the error message when invalid minimum Share Classes', async () => {
+    wrapper.setProps({ invalidMinimumShareClass: true })
+    await Vue.nextTick()
+
+    expect(wrapper.find('.share-info-container').text())
+      .toContain('Your share structure must contain at least one share class.')
+  })
 })
