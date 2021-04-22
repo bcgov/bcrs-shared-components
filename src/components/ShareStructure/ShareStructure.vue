@@ -21,6 +21,10 @@
         passed a resolution or have a court order to change your share structure. <strong>Note:</strong> All changes
         must have the same Resolution or Court Order Date. If you need to enter changes that occurred on multiple dates
         you must file and pay for each change separately.
+
+        <p v-if="invalidMinimumShareClass" class="error-text small-text mt-6">
+          Your share structure must contain at least one share class.
+        </p>
       </div>
 
       <!-- Add Buttons -->
@@ -76,7 +80,13 @@
             { 'removed' : row.item.action === ActionTypes.REMOVED }
           ]"
         >
-          <td :class="{ 'list-item__subtitle' : row.item.action === ActionTypes.REMOVED }" class="list-item__title">
+          <td
+            class="list-item__title"
+            :class="[
+              { 'invalid-section': invalidMinimumShareClass },
+              { 'list-item__subtitle' : row.item.action === ActionTypes.REMOVED }
+            ]"
+          >
             {{ row.item.name }}
             <action-chip v-if="row.item.action && isEditMode" :actionable-item="row.item" :edited-label="editedLabel" />
           </td>
@@ -231,7 +241,7 @@
               { 'removed' : row.item.action === ActionTypes.REMOVED || seriesItem.action === ActionTypes.REMOVED }
             ]"
           >
-            <td class="series-name">
+            <td class="series-name" :class="{ 'invalid-section': invalidMinimumShareClass }">
               <li>
                 <span class="h3 ml-n2" :class="{'list-item__subtitle' : row.item.action === ActionTypes.REMOVED ||
                 seriesItem.action === ActionTypes.REMOVED }">
@@ -247,7 +257,9 @@
             <td class="text-right">
               {{ seriesItem.maxNumberOfShares ? (+seriesItem.maxNumberOfShares).toLocaleString() : 'No Maximum' }}
             </td>
-            <td class="text-right">{{ row.item.parValue ? `$${formatParValue(row.item.parValue)}` : 'No Par Value' }}</td>
+            <td class="text-right">
+              {{ row.item.parValue ? `$${formatParValue(row.item.parValue)}` : 'No Par Value' }}
+            </td>
             <td>{{ row.item.currency }}</td>
             <td>{{ seriesItem.hasRightsOrRestrictions ? 'Yes' : 'No' }}</td>
 
@@ -475,6 +487,10 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   /** Prompt Error. */
   @Prop({ default: false })
   readonly invalidSection!: boolean
+
+  /** Verification the Share Structure contains the minimum required Share Classes. */
+  @Prop({ default: false })
+  readonly invalidMinimumShareClass!: boolean
 
   // Local Properties
   private activeIndex: number = -1
