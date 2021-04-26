@@ -73,12 +73,6 @@ function createComponent (
 }
 
 describe('Certify', () => {
-  let mockValidate
-
-  beforeAll(() => {
-    mockValidate = { validateFields: jest.fn() } as any
-  })
-
   it('has date displayed', () => {
     const wrapper: Wrapper<Certify> = createComponent()
 
