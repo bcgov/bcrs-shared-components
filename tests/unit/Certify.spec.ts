@@ -56,7 +56,8 @@ function createComponent (
   isCertified: boolean = undefined,
   isStaff: boolean = undefined,
   currentDate: string = defaultDate,
-  invalidSection: boolean = false
+  validate: boolean = false,
+  invalidSection: boolean = false,
 ): Wrapper<Certify> {
   return mount(Certify, {
     sync: false,
@@ -65,12 +66,19 @@ function createComponent (
       certifiedBy,
       isCertified,
       isStaff,
+      validate,
       invalidSection
     }
   })
 }
 
 describe('Certify', () => {
+  let mockValidate
+
+  beforeAll(() => {
+    mockValidate = { validateFields: jest.fn() } as any
+  })
+
   it('has date displayed', () => {
     const wrapper: Wrapper<Certify> = createComponent()
 
@@ -131,9 +139,20 @@ describe('Certify', () => {
 
   it('applies error class when invalid', () => {
     const wrapper: Wrapper<Certify> =
-      createComponent(null, true, false, null, true)
+      createComponent(null, true, false, null, false, true)
 
     expect(wrapper.find('.error-text').exists()).toBe(true)
+  })
+
+  it('calls validateFields when prompted by prop', async () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(null, true, false, null, false, true)
+    expect(wrapper.vm.validate).toBe(false)
+
+    wrapper.setProps({ validate: true })
+    await Vue.nextTick()
+
+    expect(wrapper.vm.validate).toBe(true)
   })
 
   it('is valid when both certifiedBy, isCertified, and is staff are defined', () => {

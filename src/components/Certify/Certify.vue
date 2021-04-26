@@ -95,7 +95,7 @@ export default class Certify extends Vue {
   @Prop({ default: false })
   private validate: boolean
 
-  /** Promp Error. */
+  /** Prompt Error. */
   @Prop({ default: false })
   private invalidSection: boolean
 
@@ -114,7 +114,7 @@ export default class Certify extends Vue {
     return this.certifiedBy && this.certifiedBy.replace(/\s+/g, ' ').trim()
   }
 
-  /** Promp the field validations. */
+  /** Prompt the field validations. */
   @Watch('validate')
   private validateFields (): void {
     this.$refs.certifyForm.validate()

@@ -25,7 +25,8 @@ describe('StaffPayment', () => {
     expect(vm.staffPaymentData.isPriority).toBe(false)
 
     // verify displayed elements
-    expect(wrapper.find('.payment-container label').text()).toBe('Payment')
+    expect(wrapper.findComponent(StaffPayment).exists()).toBe(true)
+    expect(wrapper.find('#staff-payment-container label').text()).toBe('Payment')
 
     // verify control states
     expect(wrapper.find('#fas-radio').attributes('aria-checked')).toBe('false')
@@ -345,4 +346,59 @@ describe('StaffPayment', () => {
 
     wrapper.destroy()
   })
+
+  it('applies error class when invalid', async () => {
+    const wrapper = mount(StaffPayment, {
+      vuetify,
+      propsData: {
+        staffPaymentData: {
+          option: 1, // FAS
+          routingSlipNumber: null,
+          isPriority: true
+        },
+        validate: false,
+        invalidSection: true
+      }
+    })
+
+    await Vue.nextTick()
+
+    expect(wrapper.find('.error-text').exists()).toBe(true)
+  })
+
+  it('applies error class when invalid', async () => {
+    const wrapper = mount(StaffPayment, {
+      vuetify,
+      propsData: {
+        staffPaymentData: {
+          option: 1, // FAS
+          routingSlipNumber: null,
+          isPriority: true
+        },
+        validate: false,
+        invalidSection: false
+      }
+    })
+
+    // Confirm pre-validate
+    expect(wrapper.vm.validate).toBe(false)
+
+    // Update Prop
+    wrapper.setProps({ validate: true })
+    await Vue.nextTick()
+
+    // Confirm validation
+    expect(wrapper.vm.validate).toBe(true)
+  })
+
+  // it('calls validateFields when prompted by prop', async () => {
+  //   const wrapper: Wrapper<Certify> =
+  //     createComponent(null, true, false, null, false, true)
+  //   expect(wrapper.vm.validate).toBe(false)
+  //
+  //   wrapper.setProps({ validate: true })
+  //   await Vue.nextTick()
+  //
+  //   expect(wrapper.vm.validate).toBe(true)
+  // })
 })
