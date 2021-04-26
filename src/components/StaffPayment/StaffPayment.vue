@@ -160,7 +160,7 @@ export default class StaffPayment extends Vue {
     this.$nextTick(() => { this.isMounted = true })
   }
 
-  /** Promp the field validations. */
+  /** Prompt the field validations. */
   @Watch('validate')
   private validateFields (): void {
     this.$refs.fasForm.validate()
