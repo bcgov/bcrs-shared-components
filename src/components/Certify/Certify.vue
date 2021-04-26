@@ -1,6 +1,6 @@
 <template>
   <v-card flat id="AR-step-4-container" class="pr-5">
-    <div class="mt-4">
+    <v-form id="certify-form" ref="certifyForm" lazy-validation class="mt-4" v-on:submit.prevent>
       <v-container>
         <v-row class="pl-2" no-gutters>
           <v-col :cols="firstColumn">
@@ -30,13 +30,13 @@
               id="isCertified-checkbox"
             >
               <template slot="label">
-                <div class="certify-stmt" v-if="isStaff">
+                <div class="certify-stmt" :class="{'error-text': invalidSection}" v-if="isStaff">
                   <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
                   certifies that they have relevant knowledge of the
                   {{ entityDisplay || "association" }} and is authorized to
                   make this filing.
                 </div>
-                <div class="certify-stmt" v-else>
+                <div class="certify-stmt" :class="{'error-text': invalidSection}" v-else>
                   I,
                   <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
                   , certify that I have relevant knowledge of the
@@ -50,12 +50,13 @@
           </v-col>
         </v-row>
       </v-container>
-    </div>
+    </v-form>
   </v-card>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
+import { Component, Vue, Prop, Emit, Watch } from 'vue-property-decorator'
+import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
 export default class Certify extends Vue {
@@ -90,9 +91,16 @@ export default class Certify extends Vue {
   @Prop({ default: 10 })
   private secondColumn: number
 
-  /** Promp Error. */
+  /** Call field validations. */
+  @Prop({ default: false })
+  private validate: boolean
+
+  /** Prompt Error. */
   @Prop({ default: false })
   private invalidSection: boolean
+
+  // Form Ref
+  $refs: { certifyForm: FormIF }
 
   /** Called when component is created. */
   private created (): void {
@@ -104,6 +112,12 @@ export default class Certify extends Vue {
   private get trimmedCertifiedBy (): string {
     // remove repeated inline whitespace, and leading/trailing whitespace
     return this.certifiedBy && this.certifiedBy.replace(/\s+/g, ' ').trim()
+  }
+
+  /** Prompt the field validations. */
+  @Watch('validate')
+  private validateFields (): void {
+    this.$refs.certifyForm.validate()
   }
 
   /** Emits an event to update the Certified By prop. */

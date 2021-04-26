@@ -55,7 +55,9 @@ function createComponent (
   certifiedBy: string = undefined,
   isCertified: boolean = undefined,
   isStaff: boolean = undefined,
-  currentDate: string = defaultDate
+  currentDate: string = defaultDate,
+  validate: boolean = false,
+  invalidSection: boolean = false,
 ): Wrapper<Certify> {
   return mount(Certify, {
     sync: false,
@@ -63,7 +65,9 @@ function createComponent (
       currentDate,
       certifiedBy,
       isCertified,
-      isStaff
+      isStaff,
+      validate,
+      invalidSection
     }
   })
 }
@@ -125,6 +129,24 @@ describe('Certify', () => {
 
     // The last "valid" event should indicate that the form is valid.
     expect(getLastEvent(wrapper, 'valid')).toBe(true)
+  })
+
+  it('applies error class when invalid', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(null, true, false, null, false, true)
+
+    expect(wrapper.find('.error-text').exists()).toBe(true)
+  })
+
+  it('calls validateFields when prompted by prop', async () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(null, true, false, null, false, true)
+    expect(wrapper.vm.validate).toBe(false)
+
+    wrapper.setProps({ validate: true })
+    await Vue.nextTick()
+
+    expect(wrapper.vm.validate).toBe(true)
   })
 
   it('is valid when both certifiedBy, isCertified, and is staff are defined', () => {
