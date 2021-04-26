@@ -96,6 +96,10 @@ export default class StaffPayment extends Vue {
   /** Enum for template. */
   readonly StaffPaymentOptions = StaffPaymentOptions
 
+  /** Call field validations. */
+  @Prop({ default: false })
+  private validate: boolean
+
   /** Prompt Error. */
   @Prop({ default: false })
   private invalidSection: boolean
@@ -156,9 +160,17 @@ export default class StaffPayment extends Vue {
     this.$nextTick(() => { this.isMounted = true })
   }
 
+  /** Promp the field validations. */
+  @Watch('validate')
+  private validateFields (): void {
+    this.$refs.fasForm.validate()
+    this.$refs.bcolForm.validate()
+  }
+
   /** Called when payment option (radio group item) has changed. */
   @Watch('paymentOption')
   private onPaymentOptionChanged (val: number): void {
+    this.validateFields()
     switch (val) {
       case StaffPaymentOptions.FAS:
         // reset other form and update data
