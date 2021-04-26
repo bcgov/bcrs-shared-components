@@ -390,15 +390,4 @@ describe('StaffPayment', () => {
     // Confirm validation
     expect(wrapper.vm.validate).toBe(true)
   })
-
-  // it('calls validateFields when prompted by prop', async () => {
-  //   const wrapper: Wrapper<Certify> =
-  //     createComponent(null, true, false, null, false, true)
-  //   expect(wrapper.vm.validate).toBe(false)
-  //
-  //   wrapper.setProps({ validate: true })
-  //   await Vue.nextTick()
-  //
-  //   expect(wrapper.vm.validate).toBe(true)
-  // })
 })
