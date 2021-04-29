@@ -1131,4 +1131,3 @@ export default class ShareStructure extends Mixins(ShareMixin) {
   font-weight: normal;
 }
 </style>
-

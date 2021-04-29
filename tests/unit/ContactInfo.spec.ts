@@ -7,8 +7,10 @@ import { ContactPointIF } from '@/interfaces'
 import VueRouter from 'vue-router'
 
 Vue.use(Vuetify)
-
 let vuetify = new Vuetify({})
+
+const localVue = createLocalVue()
+localVue.use(VueRouter)
 
 // Input field selectors to test changes to the DOM elements.
 const emailSelector: string = '#txt-email'
@@ -22,8 +24,6 @@ const correctButtonSelector: string = '#btn-correct-contact-info'
 const undoButtonSelector: string = '#btn-undo-contact-info'
 const doneButtonSelector: string = '#done-btn'
 const cancelBtnSelector: string = '#cancel-btn'
-const localVue = createLocalVue()
-localVue.use(VueRouter)
 
 const originalBusinessContactInfo: ContactPointIF = {
   email: 'abc@test.com',

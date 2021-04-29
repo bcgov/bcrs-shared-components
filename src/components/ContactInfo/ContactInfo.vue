@@ -307,6 +307,7 @@ export default class ContactInfo extends Vue {
     this.emailRules = [
       (v: string) => !!v || 'Email address is required',
       (v: string) => {
+        // eslint-disable-next-line max-len
         const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         return pattern.test(v) || 'Valid email is required'
       }
