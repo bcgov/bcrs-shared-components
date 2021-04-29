@@ -17,8 +17,7 @@ import { mount, Wrapper } from '@vue/test-utils'
 import { Certify } from '@/components/Certify'
 
 Vue.use(Vuetify)
-
-// const store = getVuexStore()
+let vuetify = new Vuetify({})
 
 // Input field selectors to test changes to the DOM elements.
 const certifiedBySelector: string = 'input[type=text]'
@@ -57,10 +56,9 @@ function createComponent (
   isStaff: boolean = undefined,
   currentDate: string = defaultDate,
   validate: boolean = false,
-  invalidSection: boolean = false,
+  invalidSection: boolean = false
 ): Wrapper<Certify> {
   return mount(Certify, {
-    sync: false,
     propsData: {
       currentDate,
       certifiedBy,
@@ -68,7 +66,8 @@ function createComponent (
       isStaff,
       validate,
       invalidSection
-    }
+    },
+    vuetify
   })
 }
 
@@ -141,12 +140,14 @@ describe('Certify', () => {
   it('calls validateFields when prompted by prop', async () => {
     const wrapper: Wrapper<Certify> =
       createComponent(null, true, false, null, false, true)
-    expect(wrapper.vm.validate).toBe(false)
+    const vm: any = wrapper.vm
+
+    expect(vm.validate).toBe(false)
 
     wrapper.setProps({ validate: true })
     await Vue.nextTick()
 
-    expect(wrapper.vm.validate).toBe(true)
+    expect(vm.validate).toBe(true)
   })
 
   it('is valid when both certifiedBy, isCertified, and is staff are defined', () => {

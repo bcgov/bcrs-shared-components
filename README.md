@@ -4,12 +4,6 @@ This library is based on https://github.com/bcgov/entity/blob/master/rfcs/rfc-sh
 
 The Storybook (sample) pages for this library are at https://bcgov.github.io/bcrs-shared-components/.
 
-## How to Publish New or Upgraded Component to npm?
-
-- run `lerna bootstrap --hoist` to update depencency (for local development)
-- run `lerna version --include-merged-tags` and select a version (Do not run this from fork. It depends on git tags to identify changes)
-- run `lerna publish from-package` to publish to npm
-
 # Workflow
 
 ### 1. Clone this repo to your workstation

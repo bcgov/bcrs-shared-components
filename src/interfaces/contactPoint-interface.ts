@@ -2,9 +2,16 @@
  * See:
  * https://github.com/bcgov/business-schemas/blob/master/src/registry_schemas/schemas/contact_point.json
  */
-export interface ContactPointIF{
+export interface ContactPointIF {
   email: string
   confirmEmail?: string
   phone: string
   extension: string
+}
+
+export const EmptyContactPoint: ContactPointIF = {
+  email: '',
+  confirmEmail: '',
+  phone: '',
+  extension: ''
 }
