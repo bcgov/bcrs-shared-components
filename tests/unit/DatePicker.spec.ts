@@ -25,13 +25,15 @@ localVue.use(VueRouter)
 function createComponent (
   title: string = '',
   errorMsg: string = '',
-  disablePicker: boolean = false
+  disablePicker: boolean = false,
+  inputRules = [(v: string) => v === 'Valid text' || 'Invalid']
 ): Wrapper<DatePicker> {
   return mount(DatePicker, {
     propsData: {
       title,
       errorMsg,
-      disablePicker
+      disablePicker,
+      inputRules
     },
     vuetify,
     localVue
@@ -127,5 +129,38 @@ describe('DatePicker component', () => {
     await Vue.nextTick()
 
     expect(wrapper.emitted('emitDate').pop()[0]).toEqual('2020-12-01')
+  })
+
+  it('should have a validateForm public method', async () => {
+    wrapper = createComponent()
+    await Vue.nextTick()
+
+    const datePicker = wrapper.vm as any // wrapper.vm type is Vue
+    const validateFormMethod = datePicker.validateForm
+    expect(validateFormMethod).toBeDefined()
+    expect(typeof validateFormMethod).toBe('function')
+
+    expect(validateFormMethod()).toBe(false)
+
+    wrapper.vm.$data.dateText = 'Valid text'
+    await Vue.nextTick()
+    expect(validateFormMethod()).toBe(true)
+  })
+
+  it('should have a clearDate public method', async () => {
+    wrapper = createComponent()
+    await Vue.nextTick()
+
+    const datePicker = wrapper.vm as any // wrapper.vm type is Vue
+    const clearDateMethod = datePicker.clearDate
+    expect(clearDateMethod).toBeDefined()
+    expect(typeof clearDateMethod).toBe('function')
+
+    wrapper.vm.$data.dateText = '2021-04-30'
+    wrapper.vm.$data.displayPicker = true
+    await Vue.nextTick()
+    clearDateMethod()
+    expect(wrapper.vm.$data.dateText).toBe('')
+    expect(wrapper.vm.$data.displayPicker).toBe(false)
   })
 })
