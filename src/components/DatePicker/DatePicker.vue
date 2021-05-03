@@ -44,9 +44,15 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator'
+import { FormIF } from '@/interfaces'
 
 @Component({})
 export default class DatePicker extends Vue {
+
+  // Add element types to refs
+  $refs!: {
+    form: FormIF
+  }
   @Prop({ default: null })
   readonly attach: string
 
@@ -84,9 +90,14 @@ export default class DatePicker extends Vue {
   private displayPicker = false
 
   /** Clear local model after each action. */
-  private clearDate (): void {
+  public clearDate (): void {
     this.dateText = ''
     this.displayPicker = false
+  }
+
+  /** Triggers the form validation. */
+  public validateForm (): boolean {
+    return this.$refs.form.validate()
   }
 
   /** Emit date to add or remove. */
