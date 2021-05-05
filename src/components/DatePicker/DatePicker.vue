@@ -168,7 +168,7 @@ export default class DatePicker extends Vue {
   color: $app-blue !important;
 }
 
-::v-deep .theme--light.v-input--is-disabled {
+::v-deep .v-input--is-disabled {
   opacity: 0.4;
 }
 
