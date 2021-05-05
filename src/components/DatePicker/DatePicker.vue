@@ -163,4 +163,16 @@ export default class DatePicker extends Vue {
 ::v-deep .v-icon.v-icon.v-icon--link {
   cursor: text;
 }
+
+::v-deep .theme--light.v-icon.v-icon.v-icon--disabled {
+  color: $app-blue !important;
+}
+
+::v-deep .v-input--is-disabled {
+  opacity: 0.4;
+}
+
+::v-deep .theme--light.v-text-field.v-input--is-disabled .v-input__slot:before {
+  border-image: none;
+}
 </style>
