@@ -234,7 +234,7 @@ describe('Edit Share Structure component', () => {
     wrapper.destroy()
   })
 
-  it('Shows error message if class name contains the word value', async () => {
+  it('Shows error message if class name contains the word "value"', async () => {
     const existingShareClass = createShareStructure(null, 1, 'Class', 'Class A', true, 100, true, 0.50, 'CAD', true)
     const shareClass = createShareStructure(null, 1, 'Class', 'Class B', true, 100, true, 0.50, 'CAD', true)
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareClass, -1, 1, null, [existingShareClass])
@@ -250,7 +250,7 @@ describe('Edit Share Structure component', () => {
     wrapper.destroy()
   })
 
-  it('Shows error message if series name contains the word share', async () => {
+  it('Shows error message if series name contains the word "share"', async () => {
     const shareClass = createShareStructure(null, 1, 'Class', 'Class A', true, 100, true, 0.50, 'CAD', true)
     const shareSeries = createShareStructure(null, 1, 'Series', 'Series A', true, 100, true, 0.50, 'CAD', true)
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareSeries, -1, 1, 0, [shareClass])
@@ -314,17 +314,66 @@ describe('Edit Share Structure component', () => {
     wrapper.destroy()
   })
 
-  it('Shows error message if maximum shares is not valid', async () => {
+  it('Shows error message if maximum shares is not entered', async () => {
     const existingShareClass = createShareStructure(null, 1, 'Class', 'Class A', true, 100, true, 0.50, 'CAD', true)
     const shareClass = createShareStructure(null, 1, 'Class', 'Class B', true, 100, true, 0.50, 'CAD', true)
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareClass, -1, 1, null, [existingShareClass])
     const inputElement: Wrapper<Vue> = wrapper.find(txtMaxShares)
 
-    inputElement.setValue(0.11)
+    // before entering anything
+    inputElement.setValue(null)
     wrapper.find(doneButtonSelector).trigger('click')
     await Vue.nextTick()
 
-    expect(wrapper.find(formSelector).text()).toContain('Must be a number greater than 0')
+    expect(wrapper.find(formSelector).text()).toContain('Number of shares is required')
+    expect(wrapper.vm.$data.formValid).toBe(false)
+
+    // after entering and deleting value
+    inputElement.setValue('')
+    wrapper.find(doneButtonSelector).trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.find(formSelector).text()).toContain('Number of shares is required')
+    expect(wrapper.vm.$data.formValid).toBe(false)
+    wrapper.destroy()
+  })
+
+  it('Shows error message if maximum shares is not a whole number', async () => {
+    const existingShareClass = createShareStructure(null, 1, 'Class', 'Class A', true, 100, true, 0.50, 'CAD', true)
+    const shareClass = createShareStructure(null, 1, 'Class', 'Class B', true, 100, true, 0.50, 'CAD', true)
+    const wrapper: Wrapper<EditShareStructure> = createComponent(shareClass, -1, 1, null, [existingShareClass])
+    const inputElement: Wrapper<Vue> = wrapper.find(txtMaxShares)
+
+    // try decimal number
+    inputElement.setValue(0.5)
+    wrapper.find(doneButtonSelector).trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.find(formSelector).text()).toContain('Must be a whole number')
+    expect(wrapper.vm.$data.formValid).toBe(false)
+    wrapper.destroy()
+  })
+
+  it('Shows error message if maximum shares is not greater than 0', async () => {
+    const existingShareClass = createShareStructure(null, 1, 'Class', 'Class A', true, 100, true, 0.50, 'CAD', true)
+    const shareClass = createShareStructure(null, 1, 'Class', 'Class B', true, 100, true, 0.50, 'CAD', true)
+    const wrapper: Wrapper<EditShareStructure> = createComponent(shareClass, -1, 1, null, [existingShareClass])
+    const inputElement: Wrapper<Vue> = wrapper.find(txtMaxShares)
+
+    // try 0
+    inputElement.setValue(0)
+    wrapper.find(doneButtonSelector).trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.find(formSelector).text()).toContain('Number must be greater than 0')
+    expect(wrapper.vm.$data.formValid).toBe(false)
+
+    // try negative number
+    inputElement.setValue(-1)
+    wrapper.find(doneButtonSelector).trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.find(formSelector).text()).toContain('Number must be greater than 0')
     expect(wrapper.vm.$data.formValid).toBe(false)
     wrapper.destroy()
   })
