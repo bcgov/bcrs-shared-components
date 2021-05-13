@@ -19,7 +19,7 @@ cd bcrs-shared-components
 
 ```
 git fetch --all
-git reset --hard origin/master
+git reset --hard origin/main
 ```
 Warning: this overwrites any uncommitted changes on your branch! Stash first if needed.
 
@@ -75,16 +75,16 @@ including all other recent changes in the repo).
 git push --set-upstream origin my-feature-branch
 ```
 
-### 12. Create a PR from your branch to "master" in GitHub
+### 12. Create a PR from your branch to "main" in GitHub
 
 ### 13. After reviews/fixes, merge your PR
 
-### 14. Update your master branch and have Lerna update the versions of the affected components
+### 14. Update your main branch and have Lerna update the versions of the affected components
 
 ```
-git co master
+git co main
 git fetch origin
-git reset --hard origin/master
+git reset --hard origin/main
 lerna version --include-merged-tags
 ```
 
