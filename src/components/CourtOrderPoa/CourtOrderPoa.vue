@@ -1,10 +1,10 @@
 <template>
   <v-card flat class="mt-4 py-8 pr-6">
     <v-row no-gutters align="start" class="mt-4">
-      <v-col cols="3" class="px-6">
-        <label :class="{'error-text': invalidSection}">Court Order <br>Number</label>
+      <v-col cols="3" class="px-6" v-if="displaySideLabels">
+        <label :class="{'error-text': invalidSection}" id="court-order-label">Court Order <br>Number</label>
       </v-col>
-      <v-col cols="9" class="pl-2">
+      <v-col :cols="displaySideLabels ? 9 : 12" class="pl-2">
         <v-form ref="courtNumRef" id="court-num-form" v-model="valid">
           <v-text-field
             id="court-order-number-input"
@@ -17,10 +17,10 @@
       </v-col>
     </v-row>
     <v-row no-gutters align="end">
-      <v-col cols="3" class="px-6">
-        <label>Plan of <br>Arrangement</label>
+      <v-col cols="3" class="px-6" v-if="displaySideLabels">
+        <label id="poa-label">Plan of <br>Arrangement</label>
       </v-col>
-      <v-col cols="9" class="pl-2">
+      <v-col :cols="displaySideLabels ? 9 : 12" class="pl-2">
         <v-checkbox
           id="plan-of-arrangement-checkbox"
           v-model="planOfArrangement"
@@ -44,7 +44,7 @@ export default class CourtOrderPoa extends Vue {
 
   /** Prompt the validations. Used for global validations. */
   @Prop({ default: false })
-  private validate
+  private autoValidation
 
   /** Draft court order number. */
   @Prop({ default: '' })
@@ -57,6 +57,10 @@ export default class CourtOrderPoa extends Vue {
   /** Prompt Error. */
   @Prop({ default: false })
   private invalidSection: boolean
+
+  /** Display side labels. */
+  @Prop({ default: true })
+  private displaySideLabels: boolean
 
   // Local properties
   private courtOrderNumber = ''
@@ -76,22 +80,26 @@ export default class CourtOrderPoa extends Vue {
     this.$refs.courtNumRef.resetValidation()
   }
 
-  /** Local getter to know when to validate. */
-  private get validateForm (): boolean {
-    return this.validate && this.planOfArrangement
+  /** Triggers the form validation. */
+  public validate (): boolean {
+    return this.$refs.courtNumRef.validate()
   }
 
-  @Watch('validateForm')
+  @Watch('courtOrderNumber')
+  @Watch('planOfArrangement')
+  @Watch('autoValidation')
   validateCourtNum (): void {
-    if (this.validateForm) {
+    if (this.autoValidation) {
       // Apply TextField rules
       this.courtOrderNumRules = [
-        (v: string) => !!v || 'A Court Order number is required',
-        (v: string) => !/^\s/g.test(v) || 'Invalid spaces', // leading spaces
-        (v: string) => !/\s$/g.test(v) || 'Invalid spaces', // trailing spaces
-        (v: string) => !(v.length < 5) || 'Court order number is invalid',
-        (v: string) => !(v.length > 20) || 'Court order number is invalid'
+        (v: string) => (!v || !/^\s/g.test(v)) || 'Invalid spaces', // leading spaces
+        (v: string) => (!v || !/\s$/g.test(v)) || 'Invalid spaces', // trailing spaces
+        (v: string) => (!v || !(v.length < 5)) || 'Court order number is invalid',
+        (v: string) => (!v || !(v.length > 20)) || 'Court order number is invalid'
       ]
+      if (this.planOfArrangement) {
+        this.courtOrderNumRules.splice(0, 0, (v: string) => (!!v && this.planOfArrangement) || 'A Court Order number is required')
+      }
       this.$refs.courtNumRef.validate()
     } else this.clearValidations()
   }
@@ -105,7 +113,6 @@ export default class CourtOrderPoa extends Vue {
   @Watch('planOfArrangement')
   @Emit('emitPoa')
   private emitPoa (): boolean {
-    if (!this.planOfArrangement) this.clearValidations()
     return this.planOfArrangement
   }
 
