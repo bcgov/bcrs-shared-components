@@ -15,21 +15,23 @@ localVue.use(VueRouter)
 /**
  * Creates and mounts a component, so that it can be tested.
  *
- * @param validate The validation prompt.
+ * @param autoValidation The validation prompt.
  * @param draftCourtOrderNumber The draft court number.
  * @param draftPlanOfArrangement The draft plan of arrangement.
  * @returns a Wrapper<CourtOrderPoa> object with the given parameters.
  */
 function createComponent (
-  validate: boolean = false,
+  autoValidation: boolean = false,
   draftCourtOrderNumber: string = '',
-  hasDraftPlanOfArrangement: boolean = false
+  hasDraftPlanOfArrangement: boolean = false,
+  displaySideLabels: boolean = undefined
 ): Wrapper<CourtOrderPoa> {
   return mount(CourtOrderPoa, {
     propsData: {
-      validate,
+      autoValidation,
       draftCourtOrderNumber,
-      hasDraftPlanOfArrangement
+      hasDraftPlanOfArrangement,
+      displaySideLabels
     },
     vuetify,
     localVue
@@ -44,8 +46,12 @@ describe('Court Order and Plan of Arrangement component', () => {
     wrapper.destroy()
   })
 
-  it('validates if poa is selected', async () => {
+  it('validates if poa is selected and court order number is empty', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
+
+    // Prompt validates through prop
+    wrapper.setProps({ autoValidation: true })
+    await Vue.nextTick()
 
     // Verify checkbox is NOT selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(false)
@@ -57,25 +63,20 @@ describe('Court Order and Plan of Arrangement component', () => {
 
     // Verify checkbox is selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(true)
-
-    // Prompt validates through prop
-    wrapper.setProps({ validate: true })
-    await Vue.nextTick()
-
     expect(wrapper.find('#court-num-form').text()).toContain('A Court Order number is required')
     expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
 
     wrapper.destroy()
   })
 
-  it('does NOT validate if poa is NOT selected', async () => {
+  it('does NOT validate for required court order number if poa is NOT selected', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
 
     // Verify checkbox is NOT selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(false)
 
     // Prompt validates through prop
-    wrapper.setProps({ validate: true })
+    wrapper.setProps({ autoValidation: true })
     await Vue.nextTick()
 
     expect(wrapper.find('#court-num-form').text()).toBe('Court Order Number')
@@ -87,8 +88,19 @@ describe('Court Order and Plan of Arrangement component', () => {
   it('validates if the court number is too small', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
 
+    // Prompt validates through prop
+    wrapper.setProps({ autoValidation: true })
+    await Vue.nextTick()
+
+    // Input text into text-field
+    const input = wrapper.find('#court-order-number-input')
+    input.setValue('Test')
+    await Vue.nextTick()
+
     // Verify checkbox is NOT selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(false)
+    expect(wrapper.find('#court-num-form').text()).toContain('Court order number is invalid')
+    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
 
     // Select checkbox
     const checkBox = wrapper.find('#plan-of-arrangement-checkbox')
@@ -98,17 +110,9 @@ describe('Court Order and Plan of Arrangement component', () => {
     // Verify checkbox is selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(true)
 
-    // Input text into text-field
-    const input = wrapper.find('#court-order-number-input')
-    input.setValue('Test')
-    await Vue.nextTick()
-
-    // Prompt validates through prop
-    wrapper.setProps({ validate: true })
-    await Vue.nextTick()
-
+    // Verify it continues invalid
     expect(wrapper.find('#court-num-form').text()).toContain('Court order number is invalid')
-    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
+    expect(wrapper.emitted().emitValid.length).toBe(1)
 
     wrapper.destroy()
   })
@@ -116,8 +120,19 @@ describe('Court Order and Plan of Arrangement component', () => {
   it('validates if the court number is too large', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
 
+    // Prompt validates through prop
+    wrapper.setProps({ autoValidation: true })
+    await Vue.nextTick()
+
+    // Input text into text-field
+    const input = wrapper.find('#court-order-number-input')
+    input.setValue('Testing for an invalid character length court order number')
+    await Vue.nextTick()
+
     // Verify checkbox is NOT selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(false)
+    expect(wrapper.find('#court-num-form').text()).toContain('Court order number is invalid')
+    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
 
     // Select checkbox
     const checkBox = wrapper.find('#plan-of-arrangement-checkbox')
@@ -127,17 +142,9 @@ describe('Court Order and Plan of Arrangement component', () => {
     // Verify checkbox is selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(true)
 
-    // Input text into text-field
-    const input = wrapper.find('#court-order-number-input')
-    input.setValue('Testing for an invalid character length court order number')
-    await Vue.nextTick()
-
-    // Prompt validates through prop
-    wrapper.setProps({ validate: true })
-    await Vue.nextTick()
-
+    // Verify it continues invalid
     expect(wrapper.find('#court-num-form').text()).toContain('Court order number is invalid')
-    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
+    expect(wrapper.emitted().emitValid.length).toBe(1)
 
     wrapper.destroy()
   })
@@ -162,7 +169,7 @@ describe('Court Order and Plan of Arrangement component', () => {
     await Vue.nextTick()
 
     // Prompt validates through prop
-    wrapper.setProps({ validate: true })
+    wrapper.setProps({ autoValidation: true })
     await Vue.nextTick()
 
     expect(wrapper.find('#court-num-form').text()).toContain('Court Order Number')
@@ -181,6 +188,21 @@ describe('Court Order and Plan of Arrangement component', () => {
 
     // Verify checkbox is selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('validates it does not show side labes when disabled', async () => {
+    const wrapper: Wrapper<CourtOrderPoa> = createComponent()
+
+    expect(wrapper.find('#court-order-label').exists()).toBeTruthy()
+    expect(wrapper.find('#poa-label').exists()).toBeTruthy()
+
+    wrapper.setProps({ displaySideLabels: false })
+    await Vue.nextTick()
+
+    expect(wrapper.find('#court-order-label').exists()).toBeFalsy()
+    expect(wrapper.find('#poa-label').exists()).toBeFalsy()
 
     wrapper.destroy()
   })
