@@ -63,8 +63,6 @@ describe('Court Order and Plan of Arrangement component', () => {
 
     // Verify checkbox is selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(true)
-    await Vue.nextTick()
-
     expect(wrapper.find('#court-num-form').text()).toContain('A Court Order number is required')
     expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
 

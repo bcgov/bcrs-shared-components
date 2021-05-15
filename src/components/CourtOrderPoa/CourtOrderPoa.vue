@@ -44,23 +44,23 @@ export default class CourtOrderPoa extends Vue {
 
   /** Prompt the validations. Used for global validations. */
   @Prop({ default: false })
-  private autoValidation
+  readonly autoValidation: boolean
 
   /** Draft court order number. */
   @Prop({ default: '' })
-  private draftCourtOrderNumber
+  readonly draftCourtOrderNumber: string
 
   /** Draft plan of arrangement. */
   @Prop({ default: false })
-  private hasDraftPlanOfArrangement
+  readonly hasDraftPlanOfArrangement: boolean
 
   /** Prompt Error. */
   @Prop({ default: false })
-  private invalidSection: boolean
+  readonly invalidSection: boolean
 
   /** Display side labels. */
   @Prop({ default: true })
-  private displaySideLabels: boolean
+  readonly displaySideLabels: boolean
 
   // Local properties
   private courtOrderNumber = ''
@@ -98,7 +98,7 @@ export default class CourtOrderPoa extends Vue {
         (v: string) => (!v || !(v.length > 20)) || 'Court order number is invalid'
       ]
       if (this.planOfArrangement) {
-        this.courtOrderNumRules.splice(0, 0, (v: string) => (!!v && this.planOfArrangement) || 'A Court Order number is required')
+        this.courtOrderNumRules.push((v: string) => (!!v && this.planOfArrangement) || 'A Court Order number is required')
       }
       this.$refs.courtNumRef.validate()
     } else this.clearValidations()
