@@ -1,10 +1,10 @@
 <template>
   <v-card flat id="staff-payment-container" class="mt-4 py-8 pr-6">
     <v-row no-gutters class="mt-3">
-      <v-col cols="3" class="pl-5">
-        <label :class="{'error-text': invalidSection}">Payment</label>
+      <v-col cols="3" class="pl-5" v-if="displaySideLabel">
+        <label class="side-label" :class="{'error-text': invalidSection}">Payment</label>
       </v-col>
-      <v-col cols="9" class="pl-2">
+      <v-col :cols="displaySideLabel ? 9 : 12" class="pl-2">
         <v-radio-group class="payment-group" v-model="paymentOption">
           <!-- Cash or Cheque radio button and form -->
           <v-radio id="fas-radio" label="Cash or Cheque" :value="StaffPaymentOptions.FAS" />
@@ -61,17 +61,19 @@
           <!-- No Fee radio button -->
           <v-radio id="no-fee-radio" label="No Fee" :value="StaffPaymentOptions.NO_FEE" />
 
-          <v-divider class="mt-5"></v-divider>
+          <template v-if="displayPriorityCheckbox">
+            <v-divider class="mt-5"></v-divider>
 
-          <!-- Priority checkbox -->
-          <v-checkbox
-            class="mt-2"
-            id="priority-checkbox"
-            label="Priority (add $100.00)"
-            :input-value="staffPaymentData.isPriority"
-            :disabled="paymentOption === StaffPaymentOptions.NO_FEE"
-            @change="emitStaffPaymentData({ isPriority: !!$event })"
-          />
+            <!-- Priority checkbox -->
+            <v-checkbox
+              class="mt-2"
+              id="priority-checkbox"
+              label="Priority (add $100.00)"
+              :input-value="staffPaymentData.isPriority"
+              :disabled="paymentOption === StaffPaymentOptions.NO_FEE"
+              @change="emitStaffPaymentData({ isPriority: !!$event })"
+            />
+          </template>
         </v-radio-group>
       </v-col>
     </v-row>
@@ -96,11 +98,19 @@ export default class StaffPayment extends Vue {
   /** Enum for template. */
   readonly StaffPaymentOptions = StaffPaymentOptions
 
-  /** Call field validations. */
+  /** Whether to display side label. */
+  @Prop({ default: true })
+  readonly displaySideLabel: boolean
+
+  /** Whether to display priority checkbox. */
+  @Prop({ default: true })
+  readonly displayPriorityCheckbox: boolean
+
+  /** Whether to validate the fields. */
   @Prop({ default: false })
   private validate: boolean
 
-  /** Prompt Error. */
+  /** Whether to show invalid section styling. */
   @Prop({ default: false })
   private invalidSection: boolean
 
@@ -237,7 +247,7 @@ export default class StaffPayment extends Vue {
 </script>
 
 <style lang="scss" scoped>
-#AR-step-5-container {
+#staff-payment-container {
   margin-top: 1rem;
   padding-bottom: 0.5rem;
   padding-top: 1rem;
