@@ -102,10 +102,8 @@ export default class CourtOrderPoa extends Vue {
         (v: string) => (!v || !(v.length < 5)) || 'Court order number is invalid',
         (v: string) => (!v || !(v.length > 20)) || 'Court order number is invalid'
       ]
-      if (this.courtOrderNumberRequired) {
+      if (this.courtOrderNumberRequired || this.planOfArrangement) {
         this.courtOrderNumRules.push((v: string) => !!v || 'A Court Order number is required')
-      } else if (this.planOfArrangement) {
-        this.courtOrderNumRules.push((v: string) => (!!v && this.planOfArrangement) || 'A Court Order number is required')
       }
       this.$refs.courtNumRef.validate()
     } else this.clearValidations()
