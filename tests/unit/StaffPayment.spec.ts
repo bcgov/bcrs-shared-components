@@ -26,7 +26,12 @@ describe('StaffPayment', () => {
 
     // verify displayed elements
     expect(wrapper.findComponent(StaffPayment).exists()).toBe(true)
-    expect(wrapper.find('#staff-payment-container label').text()).toBe('Payment')
+    expect(wrapper.find('#staff-payment-container .side-label').text()).toBe('Payment')
+    expect(wrapper.find('#routing-slip-number-textfield').exists()).toBe(true)
+    expect(wrapper.find('#bcol-account-number-textfield').exists()).toBe(true)
+    expect(wrapper.find('#dat-number-textfield').exists()).toBe(true)
+    expect(wrapper.find('#folio-number-textfield').exists()).toBe(true)
+    expect(wrapper.find('#priority-checkbox').exists()).toBe(true)
 
     // verify control states
     expect(wrapper.find('#fas-radio').attributes('aria-checked')).toBe('false')
@@ -37,6 +42,28 @@ describe('StaffPayment', () => {
     // verify that component is not valid
     const valid = vm.fasFormValid || vm.bcolFormValid || (vm.staffPaymentData.option === 0)
     expect(valid).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('displays correctly with no side label or priority checkbox', async () => {
+    const wrapper = mount(StaffPayment, {
+      vuetify,
+      propsData: {
+        displaySideLabel: false,
+        displayPriorityCheckbox: false
+      }
+    })
+    await Vue.nextTick()
+
+    // verify displayed elements
+    expect(wrapper.findComponent(StaffPayment).exists()).toBe(true)
+    expect(wrapper.find('#staff-payment-container .side-label').exists()).toBe(false)
+    expect(wrapper.find('#routing-slip-number-textfield').exists()).toBe(true)
+    expect(wrapper.find('#bcol-account-number-textfield').exists()).toBe(true)
+    expect(wrapper.find('#dat-number-textfield').exists()).toBe(true)
+    expect(wrapper.find('#folio-number-textfield').exists()).toBe(true)
+    expect(wrapper.find('#priority-checkbox').exists()).toBe(false)
 
     wrapper.destroy()
   })
