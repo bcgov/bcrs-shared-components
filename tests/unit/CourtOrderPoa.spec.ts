@@ -39,7 +39,7 @@ function createComponent (
 }
 
 describe('Court Order and Plan of Arrangement component', () => {
-  it('Loads the component', async () => {
+  it('loads the component', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
     expect(wrapper.findComponent(CourtOrderPoa).exists()).toBe(true)
 
@@ -81,6 +81,24 @@ describe('Court Order and Plan of Arrangement component', () => {
 
     expect(wrapper.find('#court-num-form').text()).toBe('Court Order Number')
     expect(wrapper.emitted('emitValid').pop()[0]).toEqual(true)
+
+    wrapper.destroy()
+  })
+
+  it('validates if courtOrderNumberRequired and court order number is empty', async () => {
+    const wrapper: Wrapper<CourtOrderPoa> = createComponent()
+
+    // Prompt validates through prop
+    wrapper.setProps({
+      autoValidation: true,
+      courtOrderNumberRequired: true
+    })
+    await Vue.nextTick()
+
+    // Verify checkbox is NOT selected
+    expect(wrapper.vm.$data.planOfArrangement).toBe(false)
+    expect(wrapper.find('#court-num-form').text()).toContain('A Court Order number is required')
+    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(false)
 
     wrapper.destroy()
   })

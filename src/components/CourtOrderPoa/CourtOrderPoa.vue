@@ -62,6 +62,10 @@ export default class CourtOrderPoa extends Vue {
   @Prop({ default: true })
   readonly displaySideLabels: boolean
 
+  /** Wether court order number is required regardless plan of arrangement. */
+  @Prop({ default: false })
+  readonly courtOrderNumberRequired: boolean
+
   // Local properties
   private courtOrderNumber = ''
   private courtOrderNumRules = []
@@ -85,9 +89,10 @@ export default class CourtOrderPoa extends Vue {
     return this.$refs.courtNumRef.validate()
   }
 
-  @Watch('courtOrderNumber')
-  @Watch('planOfArrangement')
   @Watch('autoValidation')
+  @Watch('planOfArrangement')
+  @Watch('courtOrderNumber')
+  @Watch('courtOrderNumberRequired')
   validateCourtNum (): void {
     if (this.autoValidation) {
       // Apply TextField rules
@@ -97,8 +102,8 @@ export default class CourtOrderPoa extends Vue {
         (v: string) => (!v || !(v.length < 5)) || 'Court order number is invalid',
         (v: string) => (!v || !(v.length > 20)) || 'Court order number is invalid'
       ]
-      if (this.planOfArrangement) {
-        this.courtOrderNumRules.push((v: string) => (!!v && this.planOfArrangement) || 'A Court Order number is required')
+      if (this.courtOrderNumberRequired || this.planOfArrangement) {
+        this.courtOrderNumRules.push((v: string) => !!v || 'A Court Order number is required')
       }
       this.$refs.courtNumRef.validate()
     } else this.clearValidations()
