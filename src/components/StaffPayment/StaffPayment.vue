@@ -1,6 +1,6 @@
 <template>
-  <v-card flat id="staff-payment-container" class="mt-4 py-8 pr-6">
-    <v-row no-gutters class="mt-3">
+  <v-card flat id="staff-payment-container" class="mt-4 py-8 pr-6 rounded-0">
+    <v-row no-gutters>
       <v-col cols="3" class="pl-5" v-if="displaySideLabel">
         <label class="side-label" :class="{'error-text': invalidSection}">Payment</label>
       </v-col>
@@ -11,10 +11,8 @@
           <v-form class="ml-8" ref="fasForm" v-model="fasFormValid">
             <v-text-field
               filled
-              persistent-hint
               id="routing-slip-number-textfield"
               label="Routing Slip Number"
-              hint="FAS Routing Slip Number (9 digits)"
               :value="staffPaymentData.routingSlipNumber"
               :rules="routingSlipNumberRules"
               :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
@@ -143,7 +141,7 @@ export default class StaffPayment extends Vue {
 
   /** Validation rules for Routing Slip Number. */
   private readonly routingSlipNumberRules: Array<Function> = [
-    v => !!v || 'Routing Slip Number is required',
+    v => !!v || 'Enter FAS Routing Slip Number',
     v => /^\d{9}$/.test(v) || 'Routing Slip Number must be 9 digits'
   ]
 
@@ -172,30 +170,31 @@ export default class StaffPayment extends Vue {
 
   /** Prompt the field validations. */
   @Watch('validate')
-  private validateFields (): void {
-    this.$refs.fasForm.validate()
-    this.$refs.bcolForm.validate()
+  private validateFields (val: boolean): void {
+    if (val) {
+      if (this.paymentOption === StaffPaymentOptions.FAS) this.$refs.fasForm.validate()
+      if (this.paymentOption === StaffPaymentOptions.BCOL) this.$refs.bcolForm.validate()
+    }
   }
 
   /** Called when payment option (radio group item) has changed. */
   @Watch('paymentOption')
   private onPaymentOptionChanged (val: number): void {
-    this.validateFields()
     switch (val) {
       case StaffPaymentOptions.FAS:
         // reset other form and update data
-        this.$refs.bcolForm.reset()
+        this.$refs.bcolForm.resetValidation()
         this.emitStaffPaymentData({ option: StaffPaymentOptions.FAS })
         break
       case StaffPaymentOptions.BCOL:
         // reset other form and update data
-        this.$refs.fasForm.reset()
+        this.$refs.fasForm.resetValidation()
         this.emitStaffPaymentData({ option: StaffPaymentOptions.BCOL })
         break
       case StaffPaymentOptions.NO_FEE:
         // reset forms and update data
-        this.$refs.fasForm.reset()
-        this.$refs.bcolForm.reset()
+        this.$refs.fasForm.resetValidation()
+        this.$refs.bcolForm.resetValidation()
         this.emitStaffPaymentData({ option: StaffPaymentOptions.NO_FEE, isPriority: false })
         break
     }
@@ -204,7 +203,7 @@ export default class StaffPayment extends Vue {
   /** Watched for change to FAS form validity. */
   @Watch('fasFormValid')
   private onFasFormValid (val: boolean) {
-    // ignore initial valid condition
+    // ignore initial condition
     if (!this.isMounted) return
     this.emitValid()
   }
@@ -212,7 +211,7 @@ export default class StaffPayment extends Vue {
   /** Watches for change to BCOL form validity. */
   @Watch('bcolFormValid')
   private onBcolFormValid (val: boolean) {
-    // ignore initial valid condition
+    // ignore initial condition
     if (!this.isMounted) return
     this.emitValid()
   }

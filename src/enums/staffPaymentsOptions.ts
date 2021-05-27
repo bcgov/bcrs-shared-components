@@ -1,5 +1,5 @@
 export enum StaffPaymentOptions {
-    NONE = NaN,
+    NONE = -1,
     NO_FEE = 0,
     FAS = 1,
     BCOL = 2,

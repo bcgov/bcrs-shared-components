@@ -17,7 +17,7 @@ describe('StaffPayment', () => {
 
     // verify properties
     const vm: any = wrapper.vm
-    expect(vm.staffPaymentData.option).toBeNaN()
+    expect(vm.staffPaymentData.option).toBe(-1) // "NONE"
     expect(vm.staffPaymentData.routingSlipNumber).toBeNull()
     expect(vm.staffPaymentData.bcolAccountNumber).toBeNull()
     expect(vm.staffPaymentData.datNumber).toBeNull()
