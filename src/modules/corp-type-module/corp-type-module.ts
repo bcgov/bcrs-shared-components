@@ -44,6 +44,7 @@ export enum CorpTypeCd {
   SOLE_PROP = 'SP',
   TRUST = 'T',
   TRAMWAYS = 'TMY',
+  BC_UNLIMITED = 'UL', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   BC_ULC_COMPANY = 'ULC',
   ULC_CO_1860 = 'UQA',
   ULC_CO_1862 = 'UQB',
