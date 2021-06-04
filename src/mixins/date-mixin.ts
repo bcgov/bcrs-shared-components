@@ -1,51 +1,81 @@
 import { Component, Vue } from 'vue-property-decorator'
+import { isDate } from 'lodash'
 
-//
-// This mixin contains only the methods needed for the shared components.
-//
+/**
+ * This is a local, minimal mixin containing only the methods needed for the shared
+ * components when they run within this project (ie, in Storybook).
+ *
+ * When imported into an app project, the shared components should use the mixins
+ * local to that project.
+ */
 @Component({})
 export default class DateMixin extends Vue {
   /**
-   * Converts an API datetime string (in UTC) to a simple date-time string (YYYY-MM-DD HH:MM:SS AM/PM)
-   * in Pacific timezone.
-   * @example "2021-01-01T00:00:00.000000+00:00" -> "2020-12-31 04:00:00 PM" (PST)
-   * @example "2021-07-01T00:00:00.000000+00:00" -> "2021-06-30 05:00:00 PM" (PDT)
+   * Converts an API datetime string (in UTC) to a Date object.
    */
-  apiToSimpleDateTime (date: string): string {
-    // safety check
-    if (!date) return null
+   apiToDate (dateTimeString: string): Date {
+    // chop off the milliseconds and append "Zulu" timezone abbreviation
+    // eg, 2020-08-28T21:53:58Z
+    dateTimeString = dateTimeString.slice(0, 19) + 'Z'
+    return new Date(dateTimeString)
+  }
 
-    // convert from API format
-    const utc = new Date(date.replace('+00:00', 'Z'))
-
-    const options = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true,
-      timeZone: 'America/Vancouver'
+    /**
+   * Converts a Date object to a date string (Month Day, Year) in Pacific timezone.
+   * @example "2021-01-01 07:00:00 GMT" -> "Dec 31, 2020"
+   * @example "2021-01-01 08:00:00 GMT" -> "Jan 1, 2021"
+   */
+     dateToPacificDate (date: Date): string {
+      // safety check
+      if (!isDate(date) || isNaN(date.getTime())) return null
+  
+      let dateStr = date.toLocaleDateString('en-CA', {
+        timeZone: 'America/Vancouver',
+        month: 'short', // Dec.
+        day: 'numeric', // 31
+        year: 'numeric' // 2020
+      })
+  
+      // remove period after month
+      dateStr = dateStr.replace('.', '')
+      return dateStr
+    }
+  
+    /**
+     * Converts a Date object to a time string (HH:MM am/pm) in Pacific timezone.
+     * @example "2021-01-01 07:00:00 GMT" -> "11:00 pm"
+     * @example "2021-01-01 08:00:00 GMT" -> "12:00 am"
+     */
+    dateToPacificTime (date: Date): string {
+      // safety check
+      if (!isDate(date) || isNaN(date.getTime())) return null
+  
+      let timeStr = date.toLocaleTimeString('en-CA', {
+        timeZone: 'America/Vancouver',
+        hour: 'numeric', // 11
+        minute: '2-digit', // 00
+        hour12: true // a.m./p.m.
+      })
+  
+      // replace a.m. with am and p.m. with pm
+      timeStr = timeStr.replace('a.m.', 'am').replace('p.m.', 'pm')
+  
+      return timeStr
     }
 
-    // NB: locale 'en-CA' is the only one consistent between IE11 and other browsers
-    // eg, "2019-12-31 04:00:00 PM"
-    let pacific = new Intl.DateTimeFormat('en-CA', options).format(utc)
+  /**
+   * Converts an API datetime string (in UTC) to a date and time string (Month Day, Year at HH:MM am/pm
+   * Pacific time).
+   * @example "2021-01-01T00:00:00.000000+00:00" -> "Dec 31, 2020 at 04:00 pm Pacific time" (PST example)
+   * @example "2021-07-01T00:00:00.000000+00:00" -> "Jun 30, 2021 at 05:00 pm Pacific time" (PDT example)
+   */
+   apiToPacificDateTime (dateTimeString: string): string {
+    if (!dateTimeString) return null // safety check
 
-    // misc cleanup
-    pacific = pacific.replace(',', '')
-    pacific = pacific.replace('a.m.', 'AM')
-    pacific = pacific.replace('p.m.', 'PM')
+    const date = this.apiToDate(dateTimeString)
+    const dateStr = this.dateToPacificDate(date)
+    const timeStr = this.dateToPacificTime(date)
 
-    // fix for Jest (which outputs MM/DD/YYYY no matter which 'en' locale is used)
-    if (pacific.indexOf('/') >= 0) {
-      const date = pacific.substr(0, 10).split('/')
-      const time = pacific.slice(11)
-      // set as YYYY-MM-DD HH:MM:SS AM/PM
-      pacific = `${date[2]}-${date[0]}-${date[1]} ${time}`
-    }
-
-    return pacific
+    return `${dateStr} at ${timeStr} Pacific time`
   }
 }
