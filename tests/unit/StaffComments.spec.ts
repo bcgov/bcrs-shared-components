@@ -80,6 +80,8 @@ describe('Staff Comments', () => {
     // verify comment in div
     expect(wrapper.findAll('#existing-comments > div').length).toBe(1)
     expect(wrapper.find('#existing-comments > div').text()).toContain('A comment')
+    expect(wrapper.find('#existing-comments > div').text()).toContain('Tester')
+    expect(wrapper.find('#existing-comments > div').text()).toContain('Feb 4, 2021 at 2:08 pm Pacific time')
 
     wrapper.destroy()
     sinon.restore()
