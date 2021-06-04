@@ -79,7 +79,7 @@
               <p class="font-italic">
                 {{ comment.submitterDisplayName }}
                 &hyphen;
-                {{apiToSimpleDateTime(comment.timestamp)}}
+                {{apiToPacificDateTime(comment.timestamp)}}
               </p>
             </div>
           </div>
