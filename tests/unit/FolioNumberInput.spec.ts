@@ -36,7 +36,7 @@ describe('Folio Number Input component', () => {
     await flushPromises()
     // Should emit the new value
     expect(wrapper.emitted('emitFolioNumber').pop()[0]).toEqual('012345678901234567890123456789012345678901234567891')
-    // Should not validate
+    // Should not display validation message
     expect(wrapper.find('#folio-number-form').text()).not.toContain('Cannot exceed 50 characters')
 
     wrapper.destroy()
@@ -54,9 +54,9 @@ describe('Folio Number Input component', () => {
     // Set an invalid text
     wrapper.find('#folio-number-textfield').setValue('012345678901234567890123456789012345678901234567891')
     await flushPromises()
-    // Should now validate
+    // Should display validation message
     expect(wrapper.find('#folio-number-form').text()).toContain('Cannot exceed 50 characters')
-    // Verify that component is not valid
+    // Should emit valid as false
     expect(wrapper.emitted('valid').pop()).toEqual([false])
 
     wrapper.destroy()
@@ -75,9 +75,9 @@ describe('Folio Number Input component', () => {
     // Set a valid text
     wrapper.find('#folio-number-textfield').setValue('0123456789012345678901234567890123456789!@#$%^&*()')
     await flushPromises()
-    // Should remove validation
+    // Should not show validation message
     expect(wrapper.find('#folio-number-form').text()).not.toContain('Cannot exceed 50 characters')
-    // verify that component is valid
+    // Should emit valid
     expect(wrapper.emitted('valid').pop()).toEqual([true])
     // Should emit the new value
     expect(wrapper.emitted('emitFolioNumber').pop()[0]).toEqual('0123456789012345678901234567890123456789!@#$%^&*()')
