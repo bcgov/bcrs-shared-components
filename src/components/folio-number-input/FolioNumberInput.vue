@@ -62,7 +62,7 @@ export default class FolioNumberInput extends Vue {
   /** Prompt the field validations. */
   @Watch('folioFormValid')
   @Watch('validate')
-  private validateAndEmitValid (): void {
+  private validateField (): void {
     if (this.validate) {
       this.$refs.folioForm.validate()
       this.emitValid()
