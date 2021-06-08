@@ -1,5 +1,5 @@
 <template>
-    <v-form id="folio-number-form" class="ml-8" ref="folioForm" v-model="folioFormValid">
+    <v-form id="folio-number-form" ref="folioForm" v-model="folioFormValid">
       <v-text-field
         filled
         id="folio-number-textfield"
@@ -8,6 +8,8 @@
         :rules="folioNumberRules"
         :disabled="disabled"
         @input="emitFolioNumber($event)"
+        autocomplete="chrome-off"
+        :name="Math.random()"
       />
     </v-form>
 </template>
@@ -24,11 +26,11 @@ export default class FolioNumberInput extends Vue {
 
   /** Whether to validate the fields. */
   @Prop({ default: false })
-  private validate: boolean
+  readonly validate: boolean
 
   /** Folio Number prop. */
   @Prop({ default: null })
-  private folioNumber: string
+  readonly folioNumber: string
 
   /** Folio form model property. */
   private folioFormValid = false
@@ -55,11 +57,6 @@ export default class FolioNumberInput extends Vue {
   }
   /** Emits an event to update the Folio Number. */
   @Emit('emitFolioNumber')
-  private emitFolioNumber (val: string): string {
-    return val
-  }
+  private emitFolioNumber (val: string): void {}
 }
 </script>
-
-<style lang="scss" scoped>
-</style>
