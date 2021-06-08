@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
-import { FolioNumberInput } from '@/components/FolioNumberInput'
+import { FolioNumberInput } from '@/components/folio-number-input'
 
 Vue.use(Vuetify)
 const vuetify = new Vuetify({})
