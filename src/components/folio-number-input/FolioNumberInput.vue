@@ -64,7 +64,7 @@ export default class FolioNumberInput extends Vue {
   @Watch('validate')
   private validateField (): void {
     if (this.validate) {
-      this.$refs.folioForm.validate()
+      this.validateFolioNumber()
       this.emitValid()
     }
   }
@@ -76,6 +76,15 @@ export default class FolioNumberInput extends Vue {
   */
   public resetFolioNumberValidation (): void {
     this.$refs.folioForm.resetValidation()
+  }
+
+  /** Validate Folio Number validation method
+  *
+  *  This can be used through $refs from a parent
+  *  component to trigger folio number validation
+  */
+  public validateFolioNumber (): boolean {
+    return this.$refs.folioForm.validate()
   }
 }
 </script>
