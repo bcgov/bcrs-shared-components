@@ -50,7 +50,6 @@
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
               @emitFolioNumber="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, folioNumber: $event })"
-              @valid="folioNumberValid = $event"
               validate="true"
             />
           </v-form>
@@ -138,9 +137,6 @@ export default class StaffPayment extends Vue {
 
   /** BCOL form model property. */
   private bcolFormValid = false
-
-  /** Whether folio number is valid */
-  private folioNumberValid = false
 
   /** Whether this component has been mounted. */
   private isMounted = false
@@ -241,7 +237,7 @@ export default class StaffPayment extends Vue {
   /** Emits an event indicating whether or not this component is valid. */
   @Emit('valid')
   private emitValid (): boolean {
-    return (this.fasFormValid || (this.bcolFormValid && this.folioNumberValid) ||
+    return (this.fasFormValid || (this.bcolFormValid && this.$refs.folioNumberInputRef.validateFolioNumber()) ||
       (this.staffPaymentData.option === StaffPaymentOptions.NO_FEE))
   }
 }
