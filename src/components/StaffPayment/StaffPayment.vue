@@ -44,15 +44,14 @@
               @focus="paymentOption = StaffPaymentOptions.BCOL"
               @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, datNumber: $event })"
             />
-            <v-text-field
-              filled
-              id="folio-number-textfield"
-              label="Folio Number (Optional)"
-              :value="staffPaymentData.folioNumber"
-              :rules="folioNumberRules"
+            <FolioNumberInput
+              ref="folioNumberInputRef"
+              :folioNumber="staffPaymentData.folioNumber"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
-              @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, folioNumber: $event })"
+              @emitFolioNumber="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, folioNumber: $event })"
+              @valid="folioNumberValid = $event"
+              validate="true"
             />
           </v-form>
 
@@ -81,16 +80,20 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch, Emit } from 'vue-property-decorator'
 import { StaffPaymentOptions } from '@bcrs-shared-components/enums'
+import { FolioNumberInput } from '@bcrs-shared-components/folio-number-input'
 import { FormIF, StaffPaymentIF } from '@bcrs-shared-components/interfaces'
 
-@Component({})
+@Component({
+  components: { FolioNumberInput }
+})
 export default class StaffPayment extends Vue {
   // To fix "property X does not exist on type Y" errors, annotate types for referenced components.
   // ref: https://github.com/vuejs/vetur/issues/1414
   // ref: https://github.com/vuejs/vue-class-component/issues/94
   $refs!: Vue['$refs'] & {
     fasForm: FormIF,
-    bcolForm: FormIF
+    bcolForm: FormIF,
+    folioNumberInputRef: FolioNumberInput
   }
 
   /** Enum for template. */
@@ -136,6 +139,9 @@ export default class StaffPayment extends Vue {
   /** BCOL form model property. */
   private bcolFormValid = false
 
+  /** Whether folio number is valid */
+  private folioNumberValid = false
+
   /** Whether this component has been mounted. */
   private isMounted = false
 
@@ -155,12 +161,6 @@ export default class StaffPayment extends Vue {
   private readonly datNumberRules: Array<Function> = [
     v => !!v || 'Enter DAT Number',
     v => /^[A-Z]{1}[0-9]{7,9}$/.test(v) || 'DAT Number must be in standard format (eg, C1234567)'
-  ]
-
-  /** Validation rules for Folio Number. */
-  private readonly folioNumberRules: Array<Function> = [
-    v => /^[0-9A-Za-z]*$/.test(v) || 'Invalid character', // numbers and letters only
-    v => (!v || v.length <= 50) || 'Cannot exceed 50 characters' // maximum character count
   ]
 
   /** Called when this component is mounted. */
@@ -184,6 +184,7 @@ export default class StaffPayment extends Vue {
       case StaffPaymentOptions.FAS:
         // reset other form and update data
         this.$refs.bcolForm.resetValidation()
+        this.$refs.folioNumberInputRef.resetFolioNumberValidation()
         this.emitStaffPaymentData({ option: StaffPaymentOptions.FAS })
         break
       case StaffPaymentOptions.BCOL:
@@ -195,6 +196,7 @@ export default class StaffPayment extends Vue {
         // reset forms and update data
         this.$refs.fasForm.resetValidation()
         this.$refs.bcolForm.resetValidation()
+        this.$refs.folioNumberInputRef.resetFolioNumberValidation()
         this.emitStaffPaymentData({ option: StaffPaymentOptions.NO_FEE, isPriority: false })
         break
     }
@@ -239,7 +241,7 @@ export default class StaffPayment extends Vue {
   /** Emits an event indicating whether or not this component is valid. */
   @Emit('valid')
   private emitValid (): boolean {
-    return (this.fasFormValid || this.bcolFormValid ||
+    return (this.fasFormValid || (this.bcolFormValid && this.folioNumberValid) ||
       (this.staffPaymentData.option === StaffPaymentOptions.NO_FEE))
   }
 }
