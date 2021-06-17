@@ -220,7 +220,7 @@ export default class Certify extends Vue {
   width: 100%;
 }
 
-.certify-clause, .emails-line {
+.certify-clause {
   padding-left: 2rem;
   color: $gray7;
   font-size: 0.875rem;
