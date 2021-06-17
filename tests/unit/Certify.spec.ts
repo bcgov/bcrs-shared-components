@@ -56,7 +56,11 @@ function createComponent (
   isStaff: boolean = undefined,
   currentDate: string = defaultDate,
   validate: boolean = false,
-  invalidSection: boolean = false
+  invalidSection: boolean = false,
+  statements: Array<string> = [],
+  enableMailTo: boolean = false,
+  businessEmail: string = '',
+  completingPartyEmail: string = ''
 ): Wrapper<Certify> {
   return mount(Certify, {
     propsData: {
@@ -65,7 +69,11 @@ function createComponent (
       isCertified,
       isStaff,
       validate,
-      invalidSection
+      invalidSection,
+      statements,
+      enableMailTo,
+      businessEmail,
+      completingPartyEmail
     },
     vuetify
   })
@@ -205,5 +213,21 @@ describe('Certify', () => {
 
     // The last "update:isCertified" event should indicate that the checkbox is checked.
     expect(getLastEvent(wrapper, 'update:isCertified')).toBe(true)
+  })
+
+  it('hides the mail-to section by default', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(null, true, false, null, false, true, [])
+
+    expect(wrapper.find('.email-addresses').exists()).toBe(false)
+  })
+
+  it('displays the mail-to section', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(null, true, false, null, false, true, [], true, 'mockBusinessEmail', 'mockPartyEmail')
+
+    expect(wrapper.find('.email-addresses').exists()).toBe(true)
+    expect(wrapper.find('#business-email').text()).toContain('mockBusinessEmail')
+    expect(wrapper.find('#completing-party-email').text()).toContain('mockPartyEmail')
   })
 })
