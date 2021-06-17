@@ -45,8 +45,32 @@
                 </div>
               </template>
             </v-checkbox>
+            <ul class="certify-statements mt-4">
+              <li v-for="(statement, index) in statements" :key="`statement-${index}`" class="pt-2">
+                {{ statement }}
+              </li>
+            </ul>
             <p class="certify-clause py-3"><strong>Date:</strong> {{ currentDate }}</p>
             <p class="certify-clause">{{ message }}</p>
+
+            <!-- Incorporation MailTo Section -->
+            <template v-if="enableMailTo">
+              <p class="mt-4">
+                Copies of the incorporation documents will be sent to the following email addresses:
+              </p>
+              <ul class="email-addresses">
+                <li>
+                  <span>Registered office email address:</span>&nbsp;
+                  <a v-if="businessEmail" :href="`mailto:${businessEmail}`">{{ businessEmail }}</a>
+                  <span v-else>(Not entered)</span>
+                </li>
+                <li>
+                  <span>Completing party email address:</span>&nbsp;
+                  <a v-if="completingPartyEmail" :href="`mailto:${completingPartyEmail}`">{{ completingPartyEmail }}</a>
+                  <span v-else>(Not entered)</span>
+                </li>
+              </ul>
+            </template>
           </v-col>
         </v-row>
       </v-container>
@@ -75,6 +99,10 @@ export default class Certify extends Vue {
   @Prop({ default: false })
   private isCertified: boolean
 
+  /** Certified Company statements . */
+  @Prop({ default: [] })
+  private statements: []
+
   /** Message prop. */
   @Prop({ default: '' })
   private message: string
@@ -82,6 +110,18 @@ export default class Certify extends Vue {
   /** Entity Display prop. */
   @Prop({ default: '' })
   private entityDisplay: string
+
+  /** Enable MailTo prop. */
+  @Prop({ default: false })
+  private enableMailTo: boolean
+
+  /** Business Email address. */
+  @Prop({ default: '' })
+  private businessEmail: string
+
+  /** Completing Party Email address. */
+  @Prop({ default: '' })
+  private completingPartyEmail: string
 
   /** First column columns. */
   @Prop({ default: 2 })
@@ -180,7 +220,7 @@ export default class Certify extends Vue {
   width: 100%;
 }
 
-.certify-clause {
+.certify-clause, .emails-line {
   padding-left: 2rem;
   color: $gray7;
   font-size: 0.875rem;
