@@ -59,12 +59,12 @@
                 Copies of the incorporation documents will be sent to the following email addresses:
               </p>
               <ul class="email-addresses">
-                <li>
-                  <span>Registered office email address:</span>&nbsp;
+                <li id="business-email">
+                  <span>Registered office email address:</span>
                   <a v-if="businessEmail" :href="`mailto:${businessEmail}`">{{ businessEmail }}</a>
                   <span v-else>(Not entered)</span>
                 </li>
-                <li>
+                <li id="completing-party-email">
                   <span>Completing party email address:</span>&nbsp;
                   <a v-if="completingPartyEmail" :href="`mailto:${completingPartyEmail}`">{{ completingPartyEmail }}</a>
                   <span v-else>(Not entered)</span>
