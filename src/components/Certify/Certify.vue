@@ -140,7 +140,7 @@ export default class Certify extends Vue {
   @Prop({ default: false })
   private invalidSection: boolean
 
-  /** Disble Edit. */
+  /** Disable Text Input field. */
   @Prop({ default: false })
   private disableEdit: boolean
 
