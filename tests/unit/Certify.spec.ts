@@ -60,7 +60,8 @@ function createComponent (
   statements: Array<string> = [],
   enableMailTo: boolean = false,
   businessEmail: string = '',
-  completingPartyEmail: string = ''
+  completingPartyEmail: string = '',
+  disableEdit: boolean = false
 ): Wrapper<Certify> {
   return mount(Certify, {
     propsData: {
@@ -73,7 +74,8 @@ function createComponent (
       statements,
       enableMailTo,
       businessEmail,
-      completingPartyEmail
+      completingPartyEmail,
+      disableEdit
     },
     vuetify
   })
@@ -93,6 +95,13 @@ describe('Certify', () => {
 
     // The text should contain the certifier name.
     expect(statement.text()).toContain(trimmedCertifier)
+  })
+
+  it('does not disable the input field by default', () => {
+    const wrapper: Wrapper<Certify> = createComponent()
+
+    expect(wrapper.find('#certified-by-textfield').exists()).toBe(true)
+    expect(wrapper.find('#certified-by-textfield').attributes('disabled')).toBeUndefined()
   })
 
   it('has statement with trimmed certifier', () => {
@@ -229,5 +238,12 @@ describe('Certify', () => {
     expect(wrapper.find('.email-addresses').exists()).toBe(true)
     expect(wrapper.find('#business-email').text()).toContain('mockBusinessEmail')
     expect(wrapper.find('#completing-party-email').text()).toContain('mockPartyEmail')
+  })
+
+  it('disables input field when prop is passed true', () => {
+    const wrapper: Wrapper<Certify> = createComponent(null, true, false, null, false, false, [], true, 'mockBusinessEmail', 'mockPartyEmail', true)
+
+    expect(wrapper.find('#certified-by-textfield').exists()).toBe(true)
+    expect(wrapper.find('#certified-by-textfield').attributes('disabled')).toBeTruthy()
   })
 })
