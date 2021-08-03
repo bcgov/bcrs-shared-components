@@ -15,6 +15,7 @@
                 label="Legal name of authorized person"
                 :value="certifiedBy"
                 :rules="[(v) => !!v || 'A person\'s legal name is required.']"
+                :disabled="disableEdit"
                 @input="emitCertifiedBy($event)"
               />
             </div>
@@ -138,6 +139,10 @@ export default class Certify extends Vue {
   /** Prompt Error. */
   @Prop({ default: false })
   private invalidSection: boolean
+
+  /** Disable Text Input field. */
+  @Prop({ default: false })
+  private disableEdit: boolean
 
   // Form Ref
   $refs: { certifyForm: FormIF }

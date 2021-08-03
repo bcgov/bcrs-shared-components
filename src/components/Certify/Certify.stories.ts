@@ -21,5 +21,6 @@ Default.args = {
   isCertified: false,
   message: 'Note: It is an offence to make a false or misleading statement in respect of a material fact in a \n' +
   'record submitted to the Corporate Registry for filing. See section 427 of the Business Corporations Act.',
-  entityDisplay: 'BC Company'
+  entityDisplay: 'BC Company',
+  disableEdit: false
 }
