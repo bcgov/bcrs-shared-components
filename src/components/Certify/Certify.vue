@@ -244,7 +244,8 @@ export default class Certify extends Vue {
   font-weight: normal;
 }
 
-::v-deep .v-input--is-disabled input, .v-input--is-disabled textarea {
+::v-deep .v-input--is-disabled input,
+.v-input--is-disabled textarea {
   color: $gray9;
 }
 </style>
