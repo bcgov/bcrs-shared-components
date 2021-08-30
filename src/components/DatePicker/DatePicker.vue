@@ -48,7 +48,6 @@ import { FormIF } from '@/interfaces'
 
 @Component({})
 export default class DatePicker extends Vue {
-
   // Add element types to refs
   $refs!: {
     form: FormIF

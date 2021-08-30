@@ -241,7 +241,8 @@ describe('Certify', () => {
   })
 
   it('disables input field when prop is passed true', () => {
-    const wrapper: Wrapper<Certify> = createComponent(null, true, false, null, false, false, [], true, 'mockBusinessEmail', 'mockPartyEmail', true)
+    const wrapper: Wrapper<Certify> = createComponent(null, true, false, null, false, false, [], true,
+      'mockBusinessEmail', 'mockPartyEmail', true)
 
     expect(wrapper.find('#certified-by-textfield').exists()).toBe(true)
     expect(wrapper.find('#certified-by-textfield').attributes('disabled')).toBeTruthy()
