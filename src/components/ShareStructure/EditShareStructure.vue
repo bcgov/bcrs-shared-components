@@ -48,7 +48,7 @@
                           filled
                           label="Maximum Number of Shares"
                           id="txt-max-shares"
-                          v-model="shareStructure.maxNumberOfShares"
+                          v-model.number="shareStructure.maxNumberOfShares"
                           persistent-hint
                           :hint="'Enter the maximum number of shares in the ' + shareStructure.type.toLowerCase()"
                           :rules="maximumShareRules"
@@ -281,7 +281,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
     let rules: Array<Function> = []
     if (!this.hasNoMaximumShares) {
       rules = [
-        (v: string) => !!v || 'Number of shares is required',
+        (v: string) => (v !== '' && v !== null && v !== undefined) || 'Number of shares is required',
         (v: string) => /^-?\d+$/.test(v) || 'Must be a whole number',
         (v: string) => (+v > 0) || 'Number must be greater than 0',
         (v: string) => (v && v.toString().length < 16) || 'Number must be less than 16 digits'
