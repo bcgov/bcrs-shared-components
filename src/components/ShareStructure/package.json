@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/share-structure",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "publishConfig": {
     "access": "public"
   },
