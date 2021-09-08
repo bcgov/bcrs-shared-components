@@ -74,7 +74,7 @@
                             filled
                             label="Par Value"
                             id="class-par-value"
-                            v-model="shareStructure.parValue"
+                            v-model.number="shareStructure.parValue"
                             :rules="parValueRules"
                             hint="Enter the initial value of each share"
                             persistent-hint/>
@@ -318,7 +318,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
   private get parValueRule (): Array<Function> {
     if (!this.hasNoParValue) {
       return [
-        (v: string) => !!v || 'Par value is required',
+        (v: string) => (v !== '' && v !== null && v !== undefined) || 'Par value is required',
         (v: string) => +v > 0 || 'Amount must be greater than 0',
         (v: string) => (+v < 1)
           ? (/^(\d+(\.\d{0,3})?|\.\d{0,3})$/.test(v) || 'Amounts less than 1 can be entered with up to 3 decimal place')
