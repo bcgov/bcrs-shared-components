@@ -111,7 +111,10 @@
 
       <v-layout row class="mx-0">
         <v-flex xs3></v-flex>
-        <v-flex xs9 class="my-4 info-text">
+        <v-flex v-if="customMsg" xs9 class="my-4 info-text">
+          {{ customMsg }}
+        </v-flex>
+        <v-flex v-else xs9 class="my-4 info-text">
           There is no fee to change Registered Office Contact Information. Any changes made will be applied immediately.
         </v-flex>
       </v-layout>
@@ -251,6 +254,10 @@ export default class ContactInfo extends Vue {
   /** Flag for identifying changes. */
   @Prop()
   private hasBusinessContactInfoChange!: boolean
+
+  /** Custom contact info msg. */
+  @Prop({ default: '' })
+  private customMsg!: string
 
   /** Edit label name (ie 'Change' or 'Correct'). */
   @Prop()
@@ -395,3 +402,4 @@ export default class ContactInfo extends Vue {
   color: $gray9;
 }
 </style>
+
