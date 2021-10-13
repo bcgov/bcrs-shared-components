@@ -48,13 +48,17 @@ const editedBusinessContactInfo: ContactPointIF = {
  * @returns a Wrapper<BusinessContactInfo> object with the given parameters.
  */
 function createComponent (
-  originalContactInfo: ContactPointIF, contactInfo: ContactPointIF, hasBusinessContactInfoChange: boolean = false):
+  originalContactInfo: ContactPointIF,
+  contactInfo: ContactPointIF,
+  hasBusinessContactInfoChange: boolean = false,
+  customMsg: string = null):
   Wrapper<ContactInfo> {
   return mount(ContactInfo, {
     propsData: {
       businessContact: contactInfo,
       originalBusinessContact: originalContactInfo,
-      hasBusinessContactInfoChange: hasBusinessContactInfoChange
+      hasBusinessContactInfoChange: hasBusinessContactInfoChange,
+      customMsg: customMsg
     },
     vuetify,
     localVue
@@ -114,5 +118,33 @@ describe('Business Contact Info component', () => {
       .toEqual(originalBusinessContactInfo.extension)
     expect(wrapper.find(doneButtonSelector).exists()).toBe(true)
     expect(wrapper.find(cancelBtnSelector).exists()).toBe(true)
+  })
+
+  it('Loads the component with the default msg', async () => {
+    const wrapper: Wrapper<ContactInfo> =
+      createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
+    wrapper.find('#btn-correct-contact-info').trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee to change ' +
+      'Registered Office Contact Information. Any changes made will be applied immediately.')
+
+    wrapper.destroy()
+  })
+
+  it('Loads the component with a custom msg', async () => {
+    const wrapper: Wrapper<ContactInfo> =
+      createComponent(
+        originalBusinessContactInfo,
+        originalBusinessContactInfo,
+        null,
+        'mock custom message'
+      )
+    wrapper.find('#btn-correct-contact-info').trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('mock custom message')
+
+    wrapper.destroy()
   })
 })
