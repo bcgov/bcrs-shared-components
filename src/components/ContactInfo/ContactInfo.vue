@@ -111,7 +111,7 @@
 
       <v-layout row class="mx-0">
         <v-flex xs3></v-flex>
-        <v-flex v-if="customMsg" xs9 class="my-4 info-text">
+        <v-flex v-if="customMsg != null" xs9 class="my-4 info-text">
           {{ customMsg }}
         </v-flex>
         <v-flex v-else xs9 class="my-4 info-text">
@@ -256,7 +256,7 @@ export default class ContactInfo extends Vue {
   private hasBusinessContactInfoChange!: boolean
 
   /** Custom contact info msg. */
-  @Prop({ default: '' })
+  @Prop({ default: null })
   private customMsg!: string
 
   /** Edit label name (ie 'Change' or 'Correct'). */
