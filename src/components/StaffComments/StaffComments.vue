@@ -102,6 +102,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
 
   @Prop({ required: true }) readonly axios: any
   @Prop({ required: true }) readonly businessId: string
+  @Prop({ default: 'businessId' }) readonly idLabel: string
   @Prop({ default: 33 }) readonly nudgeTop: number
   @Prop({ default: 20 }) readonly nudgeLeft: number
   @Prop({ default: 4096 }) readonly maxLength: number
@@ -149,7 +150,12 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
   private async fetchStaffComments (): Promise<void> {
     const url = `businesses/${this.businessId}/comments`
     this.comments = await this.axios.get(url)
-      .then(res => this.flattenAndSortComments(res && res.data && res.data.comments))
+      .then(res => {
+        // flatten if needed
+        // TODO fix!
+        if (Array.isArray(res?.data?.comments)) return this.flattenAndSortComments(res.data.comments)
+        else return res?.data?.comments
+      })
       .catch(() => [])
   }
 
@@ -165,8 +171,8 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     const url = `businesses/${this.businessId}/comments`
     const data = {
       comment: {
-        businessId: this.businessId,
         comment: this.comment
+        (this.idLabel): this.businessId
       }
     }
 
