@@ -102,6 +102,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
 
   @Prop({ required: true }) readonly axios: any
   @Prop({ required: true }) readonly businessId: string
+  @Prop({ default: null }) readonly url: string // pass URL if need to override
   @Prop({ default: 33 }) readonly nudgeTop: number
   @Prop({ default: 20 }) readonly nudgeLeft: number
   @Prop({ default: 4096 }) readonly maxLength: number
@@ -139,6 +140,10 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
       val => (val && val.length <= this.maxLength) || 'Maximum characters reached.'
     ]
   }
+  /** get currect URL. */
+  private get getUrl (): string {
+    return this.url ? this.url : `businesses/${this.businessId}/comments`
+  }
 
   /** Called when the component is created. */
   private async created (): Promise<void> {
@@ -147,9 +152,15 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
 
   /** Fetches the staff comments from the API. */
   private async fetchStaffComments (): Promise<void> {
-    const url = `businesses/${this.businessId}/comments`
+    const url = this.getUrl
     this.comments = await this.axios.get(url)
-      .then(res => this.flattenAndSortComments(res && res.data && res.data.comments))
+      .then(res => {
+        // if comments is array of object with comment as key flatten structure
+        if (res.data.comments.length > 0 && res.data.comments[0] && typeof res.data.comments[0].comment !== 'string') {
+          return this.flattenAndSortComments(res && res.data && res.data.comments)
+        }
+        return (res && res.data && res.data.comments) || []
+      })
       .catch(() => [])
   }
 
@@ -162,7 +173,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     if (this.isSaving) return
     this.isSaving = true
 
-    const url = `businesses/${this.businessId}/comments`
+    const url = this.getUrl
     const data = {
       comment: {
         businessId: this.businessId,
