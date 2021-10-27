@@ -152,8 +152,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
 
   /** Fetches the staff comments from the API. */
   private async fetchStaffComments (): Promise<void> {
-    const url = this.getUrl
-    this.comments = await this.axios.get(url)
+    this.comments = await this.axios.get(this.getUrl)
       .then(res => {
         const comments = (res && res.data && res.data.comments) || []
         // if comments is array of object with 'comment as key' flatten structure
@@ -174,7 +173,6 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     if (this.isSaving) return
     this.isSaving = true
 
-    const url = this.getUrl
     const data = {
       comment: {
         businessId: this.businessId,
@@ -183,7 +181,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     }
 
     let success = false
-    await this.axios.post(url, data).then(res => {
+    await this.axios.post(this.getUrl, data).then(res => {
       success = true
     }).catch(error => {
       // eslint-disable-next-line no-console
