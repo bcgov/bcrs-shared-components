@@ -156,7 +156,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
       .then(res => {
         const comments = (res && res.data && res.data.comments) || []
         // if comments is array of object with 'comment as key' flatten structure
-        if (comments && comments[0] && typeof comments[0].comment === 'string') {
+        if (Array.isArray(comments) && comments[0] && typeof comments[0].comment === 'string') {
           return comments
         }
         return this.flattenAndSortComments(comments)
