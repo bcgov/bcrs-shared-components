@@ -85,7 +85,8 @@ describe('Staff Comments', () => {
     expect(wrapper.findAll('#existing-comments > div').length).toBe(1)
     expect(wrapper.find('#existing-comments > div').text()).toContain('A comment')
     expect(wrapper.find('#existing-comments > div').text()).toContain('Tester')
-    expect(wrapper.find('#existing-comments > div').text()).toContain('Feb 4, 2021 at 2:08 pm Pacific time')
+    // to fix MAC VS Windows WSL date pm issue, convetring to lower case
+    expect(wrapper.find('#existing-comments > div').text().toString().toLowerCase()).toContain('Feb 4, 2021 at 2:08 pm Pacific time'.toLowerCase())
   })
 
   it('saves and updates correctly', async () => {
@@ -335,7 +336,8 @@ describe('Staff Comments', () => {
     expect(wrapper.findAll('#existing-comments > div').length).toBe(1)
     expect(wrapper.find('#existing-comments > div').text()).toContain(sampleComments[0].comment.comment)
     expect(wrapper.find('#existing-comments > div').text()).toContain(sampleComments[0].comment.submitterDisplayName)
-    expect(wrapper.find('#existing-comments > div').text()).toContain('Feb 4, 2021 at 2:08 pm Pacific time')
+    // to fix MAC VS Windows WSL date pm issue, convetring to lower case
+    expect(wrapper.find('#existing-comments > div').text().toString().toLowerCase()).toContain('Feb 4, 2021 at 2:08 pm Pacific time'.toLowerCase())
   })
 
   it('saves and updates correctly when URL passing', async () => {
@@ -406,10 +408,8 @@ describe('Staff Comments', () => {
     expect(wrapper.findAll('#existing-comments > div').length).toBe(1)
     expect(wrapper.find('#existing-comments > div').text()).toContain(sampleComments[0].comment.comment)
     expect(wrapper.find('#existing-comments > div').text()).toContain(sampleComments[0].comment.submitterDisplayName)
-    expect(wrapper.find('#existing-comments > div').text()).toContain('Feb 4, 2021 at 2:08 PM Pacific time')
-
-    wrapper.destroy()
-    sinon.restore()
+    // to fix MAC VS Windows WSL date pm issue, convetring to lower case
+    expect(wrapper.find('#existing-comments > div').text().toString().toLowerCase()).toContain('Feb 4, 2021 at 2:08 pm Pacific time'.toLowerCase())
   })
 
   it('saves and updates correctly when URL passing', async () => {
@@ -453,8 +453,5 @@ describe('Staff Comments', () => {
 
     // verify updated comments list
     expect(vm.comments.length).toBe(1)
-
-    wrapper.destroy()
-    sinon.restore()
   })
 })
