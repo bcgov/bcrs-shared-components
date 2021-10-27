@@ -102,6 +102,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
 
   @Prop({ required: true }) readonly axios: any
   @Prop({ required: true }) readonly businessId: string
+  @Prop({ default: null }) readonly url: string // pass URL if need to override
   @Prop({ default: 33 }) readonly nudgeTop: number
   @Prop({ default: 20 }) readonly nudgeLeft: number
   @Prop({ default: 4096 }) readonly maxLength: number
@@ -139,6 +140,10 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
       val => (val && val.length <= this.maxLength) || 'Maximum characters reached.'
     ]
   }
+  /** get Endpoint URL. */
+  private get getUrl (): string {
+    return this.url || `businesses/${this.businessId}/comments`
+  }
 
   /** Called when the component is created. */
   private async created (): Promise<void> {
@@ -147,9 +152,15 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
 
   /** Fetches the staff comments from the API. */
   private async fetchStaffComments (): Promise<void> {
-    const url = `businesses/${this.businessId}/comments`
-    this.comments = await this.axios.get(url)
-      .then(res => this.flattenAndSortComments(res && res.data && res.data.comments))
+    this.comments = await this.axios.get(this.getUrl)
+      .then(res => {
+        const comments = (res && res.data && res.data.comments) || []
+        // if comments is array of object with 'comment as key' flatten structure
+        if (Array.isArray(comments) && comments[0] && typeof comments[0].comment === 'string') {
+          return comments
+        }
+        return this.flattenAndSortComments(comments)
+      })
       .catch(() => [])
   }
 
@@ -162,7 +173,6 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     if (this.isSaving) return
     this.isSaving = true
 
-    const url = `businesses/${this.businessId}/comments`
     const data = {
       comment: {
         businessId: this.businessId,
@@ -171,7 +181,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     }
 
     let success = false
-    await this.axios.post(url, data).then(res => {
+    await this.axios.post(this.getUrl, data).then(res => {
       success = true
     }).catch(error => {
       // eslint-disable-next-line no-console
