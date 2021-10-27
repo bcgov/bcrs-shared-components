@@ -140,9 +140,9 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
       val => (val && val.length <= this.maxLength) || 'Maximum characters reached.'
     ]
   }
-  /** get currect URL. */
+  /** get Endpoint URL. */
   private get getUrl (): string {
-    return this.url ? this.url : `businesses/${this.businessId}/comments`
+    return this.url || `businesses/${this.businessId}/comments`
   }
 
   /** Called when the component is created. */
@@ -155,11 +155,12 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     const url = this.getUrl
     this.comments = await this.axios.get(url)
       .then(res => {
-        // if comments is array of object with comment as key flatten structure
-        if (res.data.comments.length > 0 && res.data.comments[0] && typeof res.data.comments[0].comment !== 'string') {
-          return this.flattenAndSortComments(res && res.data && res.data.comments)
+        const comments = (res && res.data && res.data.comments) || []
+        // if comments is array of object with 'comment as key' flatten structure
+        if (comments && comments[0] && typeof comments[0].comment === 'string') {
+          return comments
         }
-        return (res && res.data && res.data.comments) || []
+        return this.flattenAndSortComments(comments)
       })
       .catch(() => [])
   }
