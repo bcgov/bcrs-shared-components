@@ -6,7 +6,6 @@ import { sleep } from '@/utils/sleep'
 import flushPromises from 'flush-promises'
 
 Vue.use(Vuetify)
-
 const vuetify = new Vuetify({})
 
 describe('DetailComment', () => {

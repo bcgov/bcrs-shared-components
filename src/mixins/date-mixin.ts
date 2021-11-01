@@ -11,6 +11,25 @@ import { isDate } from 'lodash'
 @Component({})
 export default class DateMixin extends Vue {
   /**
+   * Creates and returns a new Date object in UTC, given parameters in Pacific timezone.
+   * (This works regardless of user's local clock/timezone.)
+   * @example "2021, 0, 1, 0, 0" -> "2021-01-01T08:00:00.000Z"
+   * @example "2021, 6, 1, 0, 0" -> "2021-07-01T07:00:00.000Z"
+   */
+  createUtcDate (year: number, month: number, day: number, hours: number = 0, minutes: number = 0): Date {
+    // in this local mixin, use `new Date()`
+    // but in app mixin, get date from server
+    const currentJsDate = new Date()
+    const date = new Date(currentJsDate.toLocaleString('en-US', { timeZone: 'America/Vancouver' }))
+
+    // update all date and time fields
+    date.setFullYear(year, month, day)
+    date.setHours(hours, minutes, 0, 0) // zero out seconds and milliseconds
+
+    return date
+  }
+
+  /**
    * Converts an API datetime string (in UTC) to a Date object.
    */
   apiToDate (dateTimeString: string): Date {
@@ -18,6 +37,25 @@ export default class DateMixin extends Vue {
     // eg, 2020-08-28T21:53:58Z
     dateTimeString = dateTimeString.slice(0, 19) + 'Z'
     return new Date(dateTimeString)
+  }
+
+  /**
+   * Converts a Date object to a date string (YYYY-MM-DD) in Pacific timezone.
+   * @example "2021-01-01 07:00:00 GMT" -> "2020-12-31"
+   * @example "2021-01-01 08:00:00 GMT" -> "2021-01-01"
+   */
+  dateToYyyyMmDd (date: Date): string {
+    // safety check
+    if (!isDate(date) || isNaN(date.getTime())) return null
+
+    let dateStr = date.toLocaleDateString('en-CA', {
+      timeZone: 'America/Vancouver',
+      month: 'numeric', // 12
+      day: 'numeric', // 31
+      year: 'numeric' // 2020
+    })
+
+    return dateStr
   }
 
   /**

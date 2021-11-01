@@ -1,22 +1,18 @@
-// Libraries
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import Vuetify from 'vuetify'
-
-// Utils
 import { createLocalVue, mount } from '@vue/test-utils'
-
-// Components
 import { ShareStructure } from '@/components/ShareStructure'
 import { ActionChip } from '@/components/action-chip'
 
+// suppress the "[Vuetify] Unable to locate target [data-app]" warning
+document.body.setAttribute('data-app', 'true')
+
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
+
 const vuetify = new Vuetify({})
 const localVue = createLocalVue()
-
-// Store
-document.body.setAttribute('data-app', 'true')
 
 describe('Share Structure component', () => {
   let wrapper: any

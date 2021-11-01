@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
-
 import { ContactInfo } from '@/components/ContactInfo'
 import { ContactPointIF } from '@/interfaces'
 import VueRouter from 'vue-router'

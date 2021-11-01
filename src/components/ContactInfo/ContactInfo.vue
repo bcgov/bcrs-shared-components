@@ -402,4 +402,3 @@ export default class ContactInfo extends Vue {
   color: $gray9;
 }
 </style>
-

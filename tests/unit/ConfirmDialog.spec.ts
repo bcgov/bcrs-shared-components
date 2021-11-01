@@ -41,7 +41,7 @@ describe('ConfirmDialog', () => {
     const wrapper = wrapperFactory('')
 
     // verify that component mounts
-    expect(wrapper.find(ConfirmDialog).exists()).toBe(true)
+    expect(wrapper.findComponent(ConfirmDialog).exists()).toBe(true)
   })
 
   it('opens the confirm dialog with the correct data set', async () => {
@@ -52,7 +52,7 @@ describe('ConfirmDialog', () => {
     await Vue.nextTick()
 
     // verify that component mounts
-    expect(wrapper.find(ConfirmDialog).exists()).toBe(true)
+    expect(wrapper.findComponent(ConfirmDialog).exists()).toBe(true)
     expect(wrapper.find('#confirm-title').text()).toBe('Mock Title')
     expect(wrapper.find('#confirm-text').text()).toBe('mock confirm dialog message')
     expect(wrapper.find('#dialog-yes-button').text()).toBe('Yes')
@@ -71,7 +71,7 @@ describe('ConfirmDialog', () => {
     await Vue.nextTick()
 
     // verify that component mounts
-    expect(wrapper.find(ConfirmDialog).exists()).toBe(true)
+    expect(wrapper.findComponent(ConfirmDialog).exists()).toBe(true)
     expect(wrapper.find('#confirm-title').text()).toBe('New Mock Confirm')
     expect(wrapper.find('#confirm-text').text()).toBe('new mock confirm message')
     expect(wrapper.find('#dialog-yes-button').text()).toBe('Confirm')

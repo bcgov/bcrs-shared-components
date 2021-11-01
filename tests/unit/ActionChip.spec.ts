@@ -3,7 +3,6 @@ import Vuetify from 'vuetify'
 import Affix from 'vue-affix'
 import { shallowMount } from '@vue/test-utils'
 import { ActionChip } from '@/components/action-chip'
-import { ActionTypes } from '@bcrs-shared-components/enums'
 
 Vue.use(Vuetify)
 Vue.use(Affix)
@@ -11,7 +10,7 @@ Vue.use(Affix)
 const vuetify = new Vuetify({})
 
 describe('ActionChip', () => {
-  const wrapperFactory = (action: ActionTypes, editedLabel: string = null) => {
+  const wrapperFactory = (action: any, editedLabel: string = null) => {
     return shallowMount(ActionChip, {
       propsData: {
         actionableItem: {
@@ -27,14 +26,14 @@ describe('ActionChip', () => {
     const wrapper = wrapperFactory('added')
 
     // verify that component mounts
-    expect(wrapper.find(ActionChip).exists()).toBe(true)
+    expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
   })
 
   it('displays the added chip correctly', () => {
     const wrapper = wrapperFactory('added')
 
     // verify that component mounts
-    expect(wrapper.find(ActionChip).exists()).toBe(true)
+    expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
     expect(wrapper.find('#added-chip').text()).toBe('ADDED')
   })
 
@@ -42,7 +41,7 @@ describe('ActionChip', () => {
     const wrapper = wrapperFactory('edited', 'CORRECTED')
 
     // verify that component mounts
-    expect(wrapper.find(ActionChip).exists()).toBe(true)
+    expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
     expect(wrapper.find('#edited-chip').text()).toBe('CORRECTED')
   })
 
@@ -50,7 +49,7 @@ describe('ActionChip', () => {
     const wrapper = wrapperFactory('edited', 'CHANGED')
 
     // verify that component mounts
-    expect(wrapper.find(ActionChip).exists()).toBe(true)
+    expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
     expect(wrapper.find('#edited-chip').text()).toBe('CHANGED')
   })
 
@@ -58,7 +57,7 @@ describe('ActionChip', () => {
     const wrapper = wrapperFactory('removed')
 
     // verify that component mounts
-    expect(wrapper.find(ActionChip).exists()).toBe(true)
+    expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
     expect(wrapper.find('#removed-chip').text()).toBe('REMOVED')
   })
 })
