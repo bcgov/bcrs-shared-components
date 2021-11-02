@@ -1,4 +1,4 @@
-import { IncorporationApplicationIF } from './'
+import { IncorporationApplicationIF } from '.'
 
 /** Incorporation Application filing loaded from / saved to the Legal API. */
 export interface IncorporationFilingIF {

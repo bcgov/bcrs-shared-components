@@ -8,7 +8,6 @@ import VueRouter from 'vue-router'
 document.body.setAttribute('data-app', 'true')
 
 Vue.use(Vuetify)
-
 let vuetify = new Vuetify({})
 
 const localVue = createLocalVue()

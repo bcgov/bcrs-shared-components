@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount, Wrapper, createLocalVue } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
-
 import { EditShareStructure } from '@/components/ShareStructure'
 import { ShareClassIF } from '@/interfaces'
 
@@ -53,6 +52,7 @@ function createComponent (
 ): Wrapper<EditShareStructure> {
   const localVue = createLocalVue()
   localVue.use(Vuetify)
+  // suppress the "[Vuetify] Unable to locate target [data-app]" warning
   document.body.setAttribute('data-app', 'true')
   return mount(EditShareStructure, {
     localVue,

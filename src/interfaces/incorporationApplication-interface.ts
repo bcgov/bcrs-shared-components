@@ -1,4 +1,4 @@
-import { IncorporationAddressIf, ShareClassIF, NameTranslationIF } from './'
+import { IncorporationAddressIf, ShareClassIF, NameTranslationIF } from '.'
 
 /** Incorporation Application filing loaded from / saved to the Legal API. */
 export interface IncorporationApplicationIF {

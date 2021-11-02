@@ -1,12 +1,10 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
-
 import { CourtOrderPoa } from '@/components/CourtOrderPoa'
 import VueRouter from 'vue-router'
 
 Vue.use(Vuetify)
-
 let vuetify = new Vuetify({})
 
 const localVue = createLocalVue()
