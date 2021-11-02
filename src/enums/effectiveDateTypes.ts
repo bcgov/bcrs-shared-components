@@ -1,4 +1,4 @@
 export enum EffectiveDateTypes {
-  FUTUREEFFECTIVE = 'futureEffective',
+  FUTURE_EFFECTIVE = 'futureEffective',
   IMMEDIATE = 'immediate'
 }
