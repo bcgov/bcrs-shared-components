@@ -87,7 +87,7 @@ describe('Staff Comments', () => {
     expect(wrapper.find('#existing-comments > div').text()).toContain('Tester')
     // to fix MAC VS Windows WSL date pm issue, convetring to lower case
     expect(wrapper.find('#existing-comments > div').text().toString().toLowerCase())
-      .toContain('Feb 4, 2021 at 2:08 pm Pacific time'.toLowerCase())
+      .toContain('February 4, 2021 at 2:08 pm Pacific time'.toLowerCase())
   })
 
   it('saves and updates correctly', async () => {
@@ -339,7 +339,7 @@ describe('Staff Comments', () => {
     expect(wrapper.find('#existing-comments > div').text()).toContain(sampleComments[0].comment.submitterDisplayName)
     // to fix MAC VS Windows WSL date pm issue, convetring to lower case
     expect(wrapper.find('#existing-comments > div').text().toString().toLowerCase())
-      .toContain('Feb 4, 2021 at 2:08 pm Pacific time'.toLowerCase())
+      .toContain('February 4, 2021 at 2:08 pm Pacific time'.toLowerCase())
   })
 
   it('saves and updates correctly when URL passing', async () => {
@@ -412,7 +412,7 @@ describe('Staff Comments', () => {
     expect(wrapper.find('#existing-comments > div').text()).toContain(sampleComments[0].comment.submitterDisplayName)
     // to fix MAC VS Windows WSL date pm issue, convetring to lower case
     expect(wrapper.find('#existing-comments > div').text().toString().toLowerCase())
-      .toContain('Feb 4, 2021 at 2:08 pm Pacific time'.toLowerCase())
+      .toContain('February 4, 2021 at 2:08 pm Pacific time'.toLowerCase())
   })
 
   it('saves and updates correctly when URL passing', async () => {

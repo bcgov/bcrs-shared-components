@@ -221,7 +221,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
   }
 
   span {
-    color: $primary-blue;
+    color: $app-blue;
     font-size: 0.75rem;
     letter-spacing: normal;
     margin-left: 5px;
