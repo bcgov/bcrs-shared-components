@@ -68,6 +68,9 @@ export default class DatePicker extends Vue {
   readonly disablePicker: boolean
 
   @Prop({ default: '' })
+  readonly initialValue: string
+
+  @Prop({ default: '' })
   readonly minDate: string
 
   @Prop({ default: '' })
@@ -110,6 +113,9 @@ export default class DatePicker extends Vue {
   @Watch('dateText')
   @Emit('emitDateSync')
   private emitDateSync (date: string): string { return this.dateText }
+
+  @Watch('initialValue', { immediate: true })
+  private initialValueSync (): void { this.dateText = this.initialValue }
 }
 </script>
 

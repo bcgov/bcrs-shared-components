@@ -25,14 +25,16 @@ function createComponent (
   title: string = '',
   errorMsg: string = '',
   disablePicker: boolean = false,
-  inputRules = [(v: string) => v === 'Valid text' || 'Invalid']
+  inputRules = [(v: string) => v === 'Valid text' || 'Invalid'],
+  initialValue: string = ''
 ): Wrapper<DatePicker> {
   return mount(DatePicker, {
     propsData: {
       title,
       errorMsg,
       disablePicker,
-      inputRules
+      inputRules,
+      initialValue
     },
     vuetify,
     localVue
@@ -161,5 +163,14 @@ describe('DatePicker component', () => {
     clearDateMethod()
     expect(wrapper.vm.$data.dateText).toBe('')
     expect(wrapper.vm.$data.displayPicker).toBe(false)
+  })
+
+  it('displays the correct initialValue', async () => {
+    wrapper = createComponent(null, null, false, [], '2021-11-18')
+    await Vue.nextTick()
+
+    // Verify model and date text field value is updated to use initialValue
+    expect(wrapper.vm.$data.dateText).toEqual('2021-11-18')
+    expect((<HTMLInputElement>wrapper.find('#date-text-field').element).value).toEqual('2021-11-18')
   })
 })
