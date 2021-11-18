@@ -68,6 +68,9 @@ export default class DatePicker extends Vue {
   readonly disablePicker: boolean
 
   @Prop({ default: '' })
+  readonly initialValue: string
+
+  @Prop({ default: '' })
   readonly minDate: string
 
   @Prop({ default: '' })
@@ -85,7 +88,7 @@ export default class DatePicker extends Vue {
   @Prop({ default: null })
   readonly nudgeLeft: number
 
-  private dateText = ''
+  private dateText = null
   private displayPicker = false
 
   /** Clear local model after each action. */
@@ -97,6 +100,11 @@ export default class DatePicker extends Vue {
   /** Triggers the form validation. */
   public validateForm (): boolean {
     return this.$refs.form.validate()
+  }
+
+  /** Called when component is created. */
+  private created (): void {
+    this.dateText = this.initialValue
   }
 
   /** Emit date to add or remove. */

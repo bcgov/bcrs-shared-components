@@ -32,7 +32,7 @@ function createComponent (
       title,
       errorMsg,
       disablePicker,
-      inputRules
+      inputRules,
     },
     vuetify,
     localVue
@@ -161,5 +161,31 @@ describe('DatePicker component', () => {
     clearDateMethod()
     expect(wrapper.vm.$data.dateText).toBe('')
     expect(wrapper.vm.$data.displayPicker).toBe(false)
+  })
+
+  it('displays the correct initialValue', async () => {
+    wrapper = mount(DatePicker, {
+      propsData: {
+        initialValue: '2021-11-18'
+      },
+      vuetify
+    })
+    await Vue.nextTick()
+
+    // Verify model and date text field value is updated to use initialValue
+    expect(wrapper.vm.$data.dateText).toEqual('2021-11-18')
+    expect((<HTMLInputElement>wrapper.find('#date-text-field').element).value).toEqual('2021-11-18')
+  })
+
+  it('dateText is initialized properly when initialValue prop is not set', async () => {
+    wrapper = mount(DatePicker, {
+      propsData: {},
+      vuetify
+    })
+    await Vue.nextTick()
+
+    // Verify model and date text field value are initialized correctly when initialValue is set as prop
+    expect(wrapper.vm.$data.dateText).toEqual('')
+    expect((<HTMLInputElement>wrapper.find('#date-text-field').element).value).toEqual('')
   })
 })
