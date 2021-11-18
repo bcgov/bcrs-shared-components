@@ -57,3 +57,18 @@ datePickerMinMax.args = {
   nudgeRight: 0,
   nudgeLeft: 0
 }
+
+export const datePickerInitialValue = Template.bind({})
+datePickerInitialValue.args = {
+  title: 'Date with initial value',
+  initialValue: '2021-11-18',
+  errorMsg: '',
+  inputRules: () => [],
+  disablePicker: false,
+  minDate: '',
+  maxDate: '',
+  nudgeTop: 0,
+  nudgeBottom: 0,
+  nudgeRight: 0,
+  nudgeLeft: 0
+}

@@ -88,7 +88,7 @@ export default class DatePicker extends Vue {
   @Prop({ default: null })
   readonly nudgeLeft: number
 
-  private dateText = ''
+  private dateText = null
   private displayPicker = false
 
   /** Clear local model after each action. */
@@ -102,6 +102,11 @@ export default class DatePicker extends Vue {
     return this.$refs.form.validate()
   }
 
+  /** Called when component is created. */
+  private created (): void {
+    this.dateText = this.initialValue
+  }
+
   /** Emit date to add or remove. */
   @Emit('emitDate')
   private emitDate (date: string): void { this.displayPicker = false }
@@ -113,9 +118,6 @@ export default class DatePicker extends Vue {
   @Watch('dateText')
   @Emit('emitDateSync')
   private emitDateSync (date: string): string { return this.dateText }
-
-  @Watch('initialValue', { immediate: true })
-  private initialValueSync (): void { this.dateText = this.initialValue }
 }
 </script>
 
