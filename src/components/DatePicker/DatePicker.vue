@@ -14,6 +14,7 @@
     >
       <template v-slot:activator="{ on }">
         <v-text-field id="date-text-field"
+                      ref="dateTextField"
                       append-icon="mdi-calendar"
                       autocomplete="chrome-off"
                       :error-messages="errorMsg"
@@ -50,7 +51,8 @@ import { FormIF } from '@/interfaces'
 export default class DatePicker extends Vue {
   // Add element types to refs
   $refs!: {
-    form: FormIF
+    form: FormIF,
+    dateTextField: FormIF
   }
   @Prop({ default: null })
   readonly attach: string
@@ -100,6 +102,11 @@ export default class DatePicker extends Vue {
   /** Triggers the form validation. */
   public validateForm (): boolean {
     return this.$refs.form.validate()
+  }
+
+  /** Returns whether date validation passes. */
+  public isDateValid (): boolean {
+    return this.$refs.dateTextField.valid
   }
 
   /** Called when component is created. */
