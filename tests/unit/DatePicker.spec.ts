@@ -188,4 +188,104 @@ describe('DatePicker component', () => {
     expect(wrapper.vm.$data.dateText).toEqual('')
     expect((<HTMLInputElement>wrapper.find('#date-text-field').element).value).toEqual('')
   })
+
+  it('should have a isDateValid public method', async () => {
+    wrapper = createComponent()
+    await Vue.nextTick()
+
+    const datePicker = wrapper.vm as any // wrapper.vm type is Vue
+    const isDateValidMethod = datePicker.isDateValid
+    expect(isDateValidMethod).toBeDefined()
+    expect(typeof isDateValidMethod).toBe('function')
+  })
+
+  it('isDateValid returns false when no date selected and required rule provided', async () => {
+    const validationRules: any[] =
+      [(v: string) => !!v || 'Select date']
+
+    wrapper = createComponent(null, null, null, validationRules)
+    await Vue.nextTick()
+
+    expect(wrapper.vm.isDateValid()).toEqual(false)
+  })
+
+  it('isDateValid returns true when date field populated and required rule provided', async () => {
+    const validationRules: any[] =
+      [(v: string) => !!v || 'Select date']
+    wrapper = createComponent(null, null, null, validationRules)
+    await Vue.nextTick()
+
+    wrapper.vm.$data.dateText = '2020-12-01'
+    await Vue.nextTick()
+
+    expect(wrapper.vm.isDateValid()).toEqual(true)
+  })
+
+  it('isDateValid returns false when invalid date format provided', async () => {
+    const expectedDateFormat = /^(19|20)\d\d[-.](0[1-9]|1[012])[-.](0[1-9]|[12][0-9]|3[01])$/
+    const validationRules: any[] = [
+      (v: string) => !!v || 'Select date',
+      (v: string) => expectedDateFormat.test(v) || 'Date format should be YYYY-MM-DD'
+    ]
+    wrapper = createComponent(null, null, null, validationRules)
+    await Vue.nextTick()
+
+    wrapper.vm.$data.dateText = 'invalid-date-format'
+    await Vue.nextTick()
+
+    expect(wrapper.vm.isDateValid()).toEqual(false)
+  })
+
+  it('isDateValid returns true when valid date format provided', async () => {
+    const expectedDateFormat = /^(19|20)\d\d[-.](0[1-9]|1[012])[-.](0[1-9]|[12][0-9]|3[01])$/
+    const validationRules: any[] = [
+      (v: string) => !!v || 'Select date',
+      (v: string) => expectedDateFormat.test(v) || 'Date format should be YYYY-MM-DD'
+    ]
+    wrapper = createComponent(null, null, null, validationRules)
+    await Vue.nextTick()
+
+    wrapper.vm.$data.dateText = '2020-12-01'
+    await Vue.nextTick()
+
+    expect(wrapper.vm.isDateValid()).toEqual(true)
+  })
+
+  it('isDateValid returns true when date selected from picker and required rule provided', async () => {
+    const validationRules: any[] =
+      [(v: string) => !!v || 'Select date']
+    wrapper = createComponent(null, null, null, validationRules)
+    await Vue.nextTick()
+
+    wrapper.find('#date-text-field').trigger('click')
+    await Vue.nextTick()
+
+    wrapper.vm.$data.dateText = '2020-12-01'
+    await Vue.nextTick()
+
+    // Click OK btn
+    wrapper.find('#date-picker-calendar #btn-done').trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.vm.isDateValid()).toEqual(true)
+  })
+
+  it('isDateValid returns false when date selection cancelled from picker and required rule provided', async () => {
+    const validationRules: any[] =
+      [(v: string) => !!v || 'Select date']
+    wrapper = createComponent(null, null, null, validationRules)
+    await Vue.nextTick()
+
+    wrapper.find('#date-text-field').trigger('click')
+    await Vue.nextTick()
+
+    wrapper.vm.$data.dateText = '2020-12-01'
+    await Vue.nextTick()
+
+    // Click OK btn
+    wrapper.find('#date-picker-calendar #btn-cancel').trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.vm.isDateValid()).toEqual(false)
+  })
 })

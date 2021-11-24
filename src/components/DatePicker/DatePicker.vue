@@ -106,7 +106,7 @@ export default class DatePicker extends Vue {
 
   /** Returns whether date validation passes. */
   public isDateValid (): boolean {
-    return this.$refs.dateTextField.valid
+    return this.$refs?.dateTextField?.valid
   }
 
   /** Called when component is created. */
