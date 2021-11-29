@@ -131,7 +131,10 @@ describe('DatePicker component', () => {
   })
 
   it('should have a validateForm public method', async () => {
-    wrapper = createComponent()
+    const validationRules: any[] =
+      [(v: string) => !!v || 'Select date']
+
+    wrapper = createComponent(null, null, null, validationRules)
     await Vue.nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
@@ -141,7 +144,7 @@ describe('DatePicker component', () => {
 
     expect(validateFormMethod()).toBe(false)
 
-    wrapper.vm.$data.dateText = 'Valid text'
+    wrapper.vm.$data.dateText = '2021-04-30'
     await Vue.nextTick()
     expect(validateFormMethod()).toBe(true)
   })
@@ -174,7 +177,7 @@ describe('DatePicker component', () => {
 
     // Verify model and date text field value is updated to use initialValue
     expect(wrapper.vm.$data.dateText).toEqual('2021-11-18')
-    expect((<HTMLInputElement>wrapper.find('#date-text-field').element).value).toEqual('2021-11-18')
+    expect((<HTMLInputElement>wrapper.find('#date-text-field').element).value).toEqual('Nov 18, 2021')
   })
 
   it('dateText is initialized properly when initialValue prop is not set', async () => {
@@ -239,8 +242,7 @@ describe('DatePicker component', () => {
   it('isDateValid returns true when valid date format provided', async () => {
     const expectedDateFormat = /^(19|20)\d\d[-.](0[1-9]|1[012])[-.](0[1-9]|[12][0-9]|3[01])$/
     const validationRules: any[] = [
-      (v: string) => !!v || 'Select date',
-      (v: string) => expectedDateFormat.test(v) || 'Date format should be YYYY-MM-DD'
+      (v: string) => !!v || 'Select date'
     ]
     wrapper = createComponent(null, null, null, validationRules)
     await Vue.nextTick()

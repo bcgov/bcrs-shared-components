@@ -13,23 +13,24 @@
             min-width="290"
     >
       <template v-slot:activator="{ on }">
-        <v-text-field id="date-text-field"
-                      ref="dateTextField"
-                      append-icon="mdi-calendar"
-                      autocomplete="chrome-off"
-                      :error-messages="errorMsg"
-                      :error="!!errorMsg"
-                      :value="dateText"
-                      :label="title"
-                      :name="Math.random()"
-                      :rules="inputRules"
-                      :disabled="disablePicker"
-                      v-on="on"
-                      v-on:keydown="$event.preventDefault()"
-                      v-on:keyup.enter="emitDate(dateText)"
-                      v-on:click:append="on.click"
-                      filled
-        />
+        <span :class="{'date-text-field-pointer': enableSelector}" v-on="enableSelector && on">
+          <v-text-field id="date-text-field"
+                        ref="dateTextField"
+                        append-icon="mdi-calendar"
+                        autocomplete="chrome-off"
+                        :error-messages="errorMsg"
+                        :error="!!errorMsg"
+                        :value="displayDate"
+                        :label="title"
+                        :name="Math.random()"
+                        :rules="inputRules"
+                        :disabled="disablePicker"
+                        @keydown="$event.preventDefault()"
+                        @keyup.enter="emitDate(dateText)"
+                        readonly
+                        filled
+          />
+        </span>
       </template>
       <v-date-picker id="date-picker-calendar" width="490" v-model="dateText" :min="minDate" :max="maxDate">
         <template v-slot:default>
@@ -44,11 +45,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
 import { FormIF } from '@/interfaces'
+import { DateMixin } from '@/mixins'
 
 @Component({})
-export default class DatePicker extends Vue {
+export default class DatePicker extends Mixins(DateMixin) {
   // Add element types to refs
   $refs!: {
     form: FormIF,
@@ -114,6 +116,16 @@ export default class DatePicker extends Vue {
     this.dateText = this.initialValue
   }
 
+  /** The display Date. */
+  private get displayDate (): string {
+    return this.yyyyMmDdToPacificDate(this.dateText)
+  }
+
+  /** True when the picker is not displayed or disabled. */
+  private get enableSelector (): boolean {
+    return !this.displayPicker && !this.disablePicker
+  }
+
   /** Emit date to add or remove. */
   @Emit('emitDate')
   private emitDate (date: string): void { this.displayPicker = false }
@@ -125,11 +137,20 @@ export default class DatePicker extends Vue {
   @Watch('dateText')
   @Emit('emitDateSync')
   private emitDateSync (date: string): string { return this.dateText }
+
+  @Watch('$route')
+  private hidePicker (): void {
+    this.displayPicker = false
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
+
+.date-text-field-pointer {
+  cursor: pointer;
+}
 
 ::v-deep .v-card__actions {
   justify-content: flex-end;
@@ -188,5 +209,9 @@ export default class DatePicker extends Vue {
 
 ::v-deep .theme--light.v-text-field.v-input--is-disabled .v-input__slot:before {
   border-image: none;
+}
+
+::v-deep .v-text-field.v-input--is-readonly .v-input__slot:before {
+  border-style: solid !important;
 }
 </style>
