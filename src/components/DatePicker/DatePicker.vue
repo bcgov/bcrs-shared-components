@@ -13,23 +13,24 @@
             min-width="290"
     >
       <template v-slot:activator="{ on }">
-        <v-text-field id="date-text-field"
-                      ref="dateTextField"
-                      append-icon="mdi-calendar"
-                      autocomplete="chrome-off"
-                      :error-messages="errorMsg"
-                      :error="!!errorMsg"
-                      :value="displayDate"
-                      :label="title"
-                      :name="Math.random()"
-                      :rules="inputRules"
-                      :disabled="disablePicker"
-                      v-on:keydown="$event.preventDefault()"
-                      v-on:keyup.enter="emitDate(dateText)"
-                      v-on:click:append="on.click"
-                      v-on="on"
-                      filled
-        />
+        <span :class="{'date-text-field-pointer': enableSelector}" v-on="enableSelector && on">
+          <v-text-field id="date-text-field"
+                        ref="dateTextField"
+                        append-icon="mdi-calendar"
+                        autocomplete="chrome-off"
+                        :error-messages="errorMsg"
+                        :error="!!errorMsg"
+                        :value="displayDate"
+                        :label="title"
+                        :name="Math.random()"
+                        :rules="inputRules"
+                        :disabled="disablePicker"
+                        @keydown="$event.preventDefault()"
+                        @keyup.enter="emitDate(dateText)"
+                        readonly
+                        filled
+          />
+        </span>
       </template>
       <v-date-picker id="date-picker-calendar" width="490" v-model="dateText" :min="minDate" :max="maxDate">
         <template v-slot:default>
@@ -117,7 +118,12 @@ export default class DatePicker extends Mixins(DateMixin) {
 
   /** The display Date. */
   private get displayDate (): string {
-    return this.utcDateToDisplayDate(new Date(this.dateText))
+    return this.yyyyMmDdToPacificDate(this.dateText)
+  }
+
+  /** True when the picker is not displayed or disabled. */
+  private get enableSelector (): boolean {
+    return !this.displayPicker && !this.disablePicker
   }
 
   /** Emit date to add or remove. */
@@ -141,6 +147,10 @@ export default class DatePicker extends Mixins(DateMixin) {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
+
+.date-text-field-pointer {
+  cursor: pointer;
+}
 
 ::v-deep .v-card__actions {
   justify-content: flex-end;
@@ -199,5 +209,9 @@ export default class DatePicker extends Mixins(DateMixin) {
 
 ::v-deep .theme--light.v-text-field.v-input--is-disabled .v-input__slot:before {
   border-image: none;
+}
+
+::v-deep .v-text-field.v-input--is-readonly .v-input__slot:before {
+  border-style: solid !important;
 }
 </style>
