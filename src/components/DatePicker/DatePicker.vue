@@ -200,8 +200,4 @@ export default class DatePicker extends Mixins(DateMixin) {
 ::v-deep .theme--light.v-text-field.v-input--is-disabled .v-input__slot:before {
   border-image: none;
 }
-
-::v-deep .v-text-field.v-input--is-readonly .v-input__slot:before {
-  border-style: solid !important;
-}
 </style>
