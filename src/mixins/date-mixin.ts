@@ -63,7 +63,7 @@ export default class DateMixin extends Vue {
    * @example "2021-01-01 07:00:00 GMT" -> "Dec 31, 2020"
    * @example "2021-01-01 08:00:00 GMT" -> "Jan 1, 2021"
    */
-   dateToPacificDate (date: Date, longMonth = false): string {
+  dateToPacificDate (date: Date, longMonth = false): string {
     // safety check
     if (!isDate(date) || isNaN(date.getTime())) return null
 
@@ -99,6 +99,28 @@ export default class DateMixin extends Vue {
     timeStr = timeStr.replace('a.m.', 'am').replace('p.m.', 'pm')
 
     return timeStr
+  }
+
+  /**
+   * Converts a Date object to a date string (Month Day, Year).
+   * @example "2021-01-01 08:00:00 GMT" -> "Jan 1, 2021"
+   */
+  utcDateToDisplayDate (date: Date): string {
+    // safety check
+    if (!isDate(date) || isNaN(date.getTime())) return null
+
+    let dateStr = date.toLocaleDateString('en-CA', {
+      timeZone: 'UTC',
+      weekday: undefined, // nothing
+      month: 'short', // Dec.
+      day: 'numeric', // 31
+      year: 'numeric' // 2020
+    })
+
+    // remove period after month
+    dateStr = dateStr.replace('.', '')
+
+    return dateStr
   }
 
   /**
