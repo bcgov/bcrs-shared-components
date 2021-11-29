@@ -131,7 +131,10 @@ describe('DatePicker component', () => {
   })
 
   it('should have a validateForm public method', async () => {
-    wrapper = createComponent()
+    const validationRules: any[] =
+      [(v: string) => !!v || 'Select date']
+
+    wrapper = createComponent(null, null, null, validationRules)
     await Vue.nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
