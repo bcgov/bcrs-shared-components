@@ -177,7 +177,7 @@ describe('DatePicker component', () => {
 
     // Verify model and date text field value is updated to use initialValue
     expect(wrapper.vm.$data.dateText).toEqual('2021-11-18')
-    expect((<HTMLInputElement>wrapper.find('#date-text-field').element).value).toEqual('Nov 18, 2021')
+    expect((<HTMLInputElement>wrapper.find('#date-text-field').element).value).toEqual('November 18, 2021')
   })
 
   it('dateText is initialized properly when initialValue prop is not set', async () => {

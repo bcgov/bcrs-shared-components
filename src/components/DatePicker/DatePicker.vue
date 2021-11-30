@@ -118,7 +118,7 @@ export default class DatePicker extends Mixins(DateMixin) {
 
   /** The display Date. */
   private get displayDate (): string {
-    return this.yyyyMmDdToPacificDate(this.dateText)
+    return this.yyyyMmDdToPacificDate(this.dateText, true)
   }
 
   /** True when the picker is not displayed or disabled. */
