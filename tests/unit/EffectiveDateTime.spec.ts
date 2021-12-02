@@ -316,8 +316,8 @@ describe('Effective Date Time component', () => {
     // wait a bit for validation to complete
     await flushPromises()
 
-    const minDate = wrapper.vm.dateToYyyyMmDd(wrapper.vm.minDate)
-    const maxDate = wrapper.vm.dateToYyyyMmDd((wrapper.vm.maxDate))
+    const minDate = wrapper.vm.dateToPacificDate(wrapper.vm.minDate)
+    const maxDate = wrapper.vm.dateToPacificDate(wrapper.vm.maxDate)
     expect(wrapper.vm.$el.querySelector('.date-time-selectors').textContent)
       .toContain(`Date must be between ${minDate} and ${maxDate}`)
 
