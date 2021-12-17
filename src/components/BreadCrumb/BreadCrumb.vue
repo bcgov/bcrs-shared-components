@@ -49,8 +49,6 @@ export default class BreadCrumb extends Vue {
    * Example breadcrumb:
    * {
    *  text: My Dashboard,
-   *  disabled: false,
-   *  exact: true,
    *  to: { name: Routes.DASHBOARD }
    * }
    * */
