@@ -12,42 +12,35 @@ const vuetify = new Vuetify({})
 
 const homeBreadCrumb = [
   {
-    text: 'BC Registries Dashboard',
-    disabled: false
+    text: 'BC Registries Dashboard'
   }
 ]
 
 const baseBreadCrumb = [
   {
     text: 'BC Registries Dashboard',
-    disabled: false,
     href: 'someUrl'
   },
   {
-    text: 'BC12345678',
-    disabled: false
+    text: 'BC12345678'
   }
 ]
 
 const navigationBreadCrumb = [
   {
     text: 'BC Registries Dashboard',
-    disabled: false,
     href: 'someUrl'
   },
   {
     text: 'BC12345678',
-    disabled: false,
     href: 'someUrl'
   },
   {
     text: 'some route',
-    disabled: false,
     to: { name: 'someRoute' }
   },
   {
     text: 'some route',
-    disabled: false,
     to: { name: 'someRoute' }
   }
 ]
