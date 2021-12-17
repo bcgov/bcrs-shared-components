@@ -3,7 +3,14 @@
     <v-container>
       <v-row no-gutters>
         <v-col cols="auto">
-          <v-btn id="breadcrumb-back-btn" class="back-btn" exact :href="backUrl" icon small>
+          <v-btn
+            id="breadcrumb-back-btn"
+            class="back-btn"
+            exact
+            :href="backUrl"
+            icon small
+            :disabled="breadcrumbs.length <= 1"
+          >
             <v-icon color="#38598a">mdi-arrow-left</v-icon>
           </v-btn>
         </v-col>
