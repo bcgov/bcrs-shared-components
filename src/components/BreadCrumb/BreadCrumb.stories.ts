@@ -19,8 +19,7 @@ export const homeRoute = Template.bind({})
 homeRoute.args = {
   breadcrumbs: [
     {
-      text: 'BC Registries Dashboard',
-      disabled: false
+      text: 'BC Registries Dashboard'
     }
   ]
 }
@@ -30,12 +29,10 @@ baseRoute.args = {
   breadcrumbs: [
     {
       text: 'BC Registries Dashboard',
-      disabled: false,
       to: { name: '/?path=/story/component-breadcrumb--home-route' }
     },
     {
-      text: 'BC12345678',
-      disabled: false
+      text: 'BC12345678'
     }
   ]
 }
@@ -45,17 +42,14 @@ navigationRoute.args = {
   breadcrumbs: [
     {
       text: 'BC Registries Dashboard',
-      disabled: false,
       to: { name: 'component-breadcrumb--navigation-route' }
     },
     {
       text: 'BC12345678',
-      disabled: false,
       to: { name: '/?path=/story/component-breadcrumb--base-route' }
     },
     {
-      text: 'some route',
-      disabled: false
+      text: 'some route'
     }
   ]
 }
