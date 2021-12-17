@@ -1,6 +1,6 @@
 <template>
   <div id="breadcrumb">
-    <v-container id="breadcrumb">
+    <v-container>
       <v-row no-gutters>
         <v-col cols="auto">
           <v-btn id="breadcrumb-back-btn" class="back-btn" exact :href="backUrl" icon small>
