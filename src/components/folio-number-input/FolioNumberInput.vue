@@ -69,20 +69,27 @@ export default class FolioNumberInput extends Vue {
     }
   }
 
-  /** Reset Folio Number validation method
-  *
-  *  This can be used through $refs from a parent
-  *  component to reset folio number validation
-  */
+  /**
+   * Public method that can be used through $refs from a parent
+   * component to reset the folio form.
+   */
+  public resetFolioNumber (): void {
+    this.$refs.folioForm.reset()
+  }
+
+  /**
+   * Public method that can be used through $refs from a parent
+   * component to reset folio number validation.
+   */
   public resetFolioNumberValidation (): void {
     this.$refs.folioForm.resetValidation()
   }
 
-  /** Validate Folio Number validation method
-  *
-  *  This can be used through $refs from a parent
-  *  component to trigger folio number validation
-  */
+  /**
+   * Public method that can be used through $refs from a parent
+   * component to trigger folio number validation.
+   * @returns True if form is valid and False if not
+   */
   public validateFolioNumber (): boolean {
     return this.$refs.folioForm.validate()
   }

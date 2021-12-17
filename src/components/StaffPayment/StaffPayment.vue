@@ -4,8 +4,9 @@
       <v-col cols="3" class="pl-5" v-if="displaySideLabel">
         <label class="side-label" :class="{'error-text': invalidSection}">Payment</label>
       </v-col>
+
       <v-col :cols="displaySideLabel ? 9 : 12" class="pl-2">
-        <v-radio-group class="payment-group" v-model="paymentOption">
+        <v-radio-group class="payment-group" v-model="paymentOption" hide-details>
           <!-- Cash or Cheque radio button and form -->
           <v-radio id="fas-radio" label="Cash or Cheque" :value="StaffPaymentOptions.FAS" />
           <v-form class="ml-8" ref="fasForm" v-model="fasFormValid">
@@ -14,7 +15,7 @@
               id="routing-slip-number-textfield"
               label="Routing Slip Number"
               :value="staffPaymentData.routingSlipNumber"
-              :rules="routingSlipNumberRules"
+              :rules="validate ? routingSlipNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
               @focus="paymentOption = StaffPaymentOptions.FAS"
               @input="emitStaffPaymentData({ option: StaffPaymentOptions.FAS, routingSlipNumber: $event })"
@@ -29,7 +30,7 @@
               id="bcol-account-number-textfield"
               label="BC Online Account Number"
               :value="staffPaymentData.bcolAccountNumber"
-              :rules="bcolAccountNumberRules"
+              :rules="validate ? bcolAccountNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
               @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, bcolAccountNumber: $event })"
@@ -39,7 +40,7 @@
               id="dat-number-textfield"
               label="DAT Number"
               :value="staffPaymentData.datNumber"
-              :rules="datNumberRules"
+              :rules="validate ? datNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
               @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, datNumber: $event })"
@@ -49,7 +50,8 @@
               :folioNumber="staffPaymentData.folioNumber"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
-              @emitFolioNumber="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, folioNumber: $event })"
+              @emitFolioNumber="paymentOption === StaffPaymentOptions.BCOL &&
+                emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, folioNumber: $event })"
               validate="true"
             />
           </v-form>
@@ -65,6 +67,7 @@
               class="mt-2"
               id="priority-checkbox"
               label="Priority (add $100.00)"
+              hide-details
               :input-value="staffPaymentData.isPriority"
               :disabled="paymentOption === StaffPaymentOptions.NO_FEE"
               @change="emitStaffPaymentData({ isPriority: !!$event })"
@@ -110,7 +113,7 @@ export default class StaffPayment extends Vue {
   @Prop({ default: false })
   private validate: boolean
 
-  /** Whether to show invalid section styling. */
+  /** Whether to show invalid section styling (label only). */
   @Prop({ default: false })
   private invalidSection: boolean
 
@@ -160,17 +163,9 @@ export default class StaffPayment extends Vue {
   ]
 
   /** Called when this component is mounted. */
-  private mounted (): void {
-    this.$nextTick(() => { this.isMounted = true })
-  }
-
-  /** Prompt the field validations. */
-  @Watch('validate')
-  private validateFields (val: boolean): void {
-    if (val) {
-      if (this.paymentOption === StaffPaymentOptions.FAS) this.$refs.fasForm.validate()
-      if (this.paymentOption === StaffPaymentOptions.BCOL) this.$refs.bcolForm.validate()
-    }
+  private async mounted (): Promise<void> {
+    await this.$nextTick()
+    this.isMounted = true
   }
 
   /** Called when payment option (radio group item) has changed. */
@@ -178,27 +173,36 @@ export default class StaffPayment extends Vue {
   private onPaymentOptionChanged (val: number): void {
     switch (val) {
       case StaffPaymentOptions.FAS:
-        // reset other form and update data
+        // reset other form
         this.$refs.bcolForm.resetValidation()
         this.$refs.folioNumberInputRef.resetFolioNumberValidation()
+        // enable validation for this form
+        this.$refs.fasForm.validate()
+        // update data
         this.emitStaffPaymentData({ option: StaffPaymentOptions.FAS })
         break
+
       case StaffPaymentOptions.BCOL:
-        // reset other form and update data
+        // reset other form
         this.$refs.fasForm.resetValidation()
+        // enable validation for this form
+        this.$refs.bcolForm.validate()
+        // update data
         this.emitStaffPaymentData({ option: StaffPaymentOptions.BCOL })
         break
+
       case StaffPaymentOptions.NO_FEE:
-        // reset forms and update data
+        // reset other forms
         this.$refs.fasForm.resetValidation()
         this.$refs.bcolForm.resetValidation()
         this.$refs.folioNumberInputRef.resetFolioNumberValidation()
+        // update data
         this.emitStaffPaymentData({ option: StaffPaymentOptions.NO_FEE, isPriority: false })
         break
     }
   }
 
-  /** Watched for change to FAS form validity. */
+  /** Watches for change to FAS form validity. */
   @Watch('fasFormValid')
   private onFasFormValid (val: boolean) {
     // ignore initial condition
@@ -216,34 +220,49 @@ export default class StaffPayment extends Vue {
 
   /** Watches for changes to Staff Payment Data prop. */
   @Watch('staffPaymentData', { deep: true, immediate: true })
-  private onStaffPaymentDataChanged (val: StaffPaymentIF): void {
+  private async onStaffPaymentDataChanged (val: StaffPaymentIF): Promise<void> {
     this.paymentOption = val.option
-    this.$nextTick(() => this.emitValid())
+    await this.$nextTick()
+    this.emitValid()
   }
 
   /** Emits an event to update the Staff Payment Data prop. */
   @Emit('update:staffPaymentData')
   private emitStaffPaymentData ({
     option = this.staffPaymentData.option,
-    routingSlipNumber = this.staffPaymentData.routingSlipNumber,
-    bcolAccountNumber = this.staffPaymentData.bcolAccountNumber,
-    datNumber = this.staffPaymentData.datNumber,
-    folioNumber = this.staffPaymentData.folioNumber,
-    isPriority = this.staffPaymentData.isPriority
+    routingSlipNumber = this.staffPaymentData.routingSlipNumber || '',
+    bcolAccountNumber = this.staffPaymentData.bcolAccountNumber || '',
+    datNumber = this.staffPaymentData.datNumber || '',
+    folioNumber = this.staffPaymentData.folioNumber || '',
+    isPriority = this.staffPaymentData.isPriority || false
   }): StaffPaymentIF {
-    return { option, routingSlipNumber, bcolAccountNumber, datNumber, folioNumber, isPriority }
+    // return only the appropriate fields for each option
+    switch (option) {
+      case StaffPaymentOptions.FAS:
+        return { option, routingSlipNumber, isPriority } as StaffPaymentIF
+
+      case StaffPaymentOptions.BCOL:
+        return { option, bcolAccountNumber, datNumber, folioNumber, isPriority } as StaffPaymentIF
+
+      case StaffPaymentOptions.NO_FEE:
+        return { option } as StaffPaymentIF
+    }
   }
 
   /** Emits an event indicating whether or not this component is valid. */
   @Emit('valid')
   private emitValid (): boolean {
-    return (this.fasFormValid || (this.bcolFormValid && this.$refs.folioNumberInputRef.validateFolioNumber()) ||
-      (this.staffPaymentData.option === StaffPaymentOptions.NO_FEE))
+    return (this.fasFormValid ||
+      (this.bcolFormValid && this.$refs.folioNumberInputRef.validateFolioNumber()) ||
+      (this.staffPaymentData.option === StaffPaymentOptions.NO_FEE)
+    )
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/theme.scss';
+
 #staff-payment-container {
   margin-top: 1rem;
   padding-bottom: 0.5rem;
@@ -252,16 +271,29 @@ export default class StaffPayment extends Vue {
   font-size: 1rem;
 }
 
-.payment-container {
-  > label:first-child {
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
-}
-
 .payment-group {
   margin-top: 0;
   padding-top: 0;
   width: 100%;
+}
+
+// radio buttons
+::v-deep .v-input--selection-controls__input >.v-icon {
+  color: $gray7 !important;
+}
+
+// radio labels and checkbox labels
+::v-deep .v-input--selection-controls__input + .v-label {
+  color: $gray7 !important;
+}
+
+// text field labels
+::v-deep .v-text-field__slot .theme--light.v-label {
+  color: $gray7 !important;
+}
+
+// text input
+::v-deep .v-text-field__slot input {
+  color: $gray9 !important;
 }
 </style>
