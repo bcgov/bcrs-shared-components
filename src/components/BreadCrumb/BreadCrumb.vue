@@ -52,8 +52,8 @@ export default class BreadCrumb extends Vue {
 
   /**
    *  The url tied to the breadcrumb back button.
-   *  Returns to the dashboard when on starting route.
-   *  Returns to previous route when past starting route.
+   *  Cross application requires href.
+   *  Returns to previous route when navigating locally.
    */
   private get backUrl (): string {
     const routeIndex = this.breadcrumbs.findIndex(item => item.to?.name === this.$route?.name)
