@@ -39,9 +39,15 @@ describe('StaffPayment', () => {
     expect(wrapper.find('#no-fee-radio').attributes('aria-checked')).toBe('false')
     expect(wrapper.find('#priority-checkbox').attributes('aria-checked')).toBe('false')
 
-    // verify that component is not valid
-    const valid = vm.fasFormValid || vm.bcolFormValid || (vm.staffPaymentData.option === 0)
-    expect(valid).toBe(false)
+    // verify that forms are initially valid
+    expect(vm.fasFormValid).toBe(true)
+    expect(vm.bcolFormValid).toBe(true)
+
+    // verify that forms are invalid after setting "validate" prop
+    wrapper.setProps({ validate: true })
+    await Vue.nextTick()
+    expect(vm.fasFormValid).toBe(false)
+    expect(vm.bcolFormValid).toBe(false)
 
     wrapper.destroy()
   })

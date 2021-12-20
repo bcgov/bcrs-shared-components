@@ -473,4 +473,3 @@ export default class EffectiveDateTime extends Mixins(DateMixin) {
   }
 }
 </style>
-

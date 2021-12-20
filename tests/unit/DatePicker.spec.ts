@@ -32,7 +32,7 @@ function createComponent (
       title,
       errorMsg,
       disablePicker,
-      inputRules,
+      inputRules
     },
     vuetify,
     localVue
