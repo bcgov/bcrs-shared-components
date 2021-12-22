@@ -30,7 +30,12 @@
               :to="item.to"
               :href="item.href"
             >
-              <span class="breadcrumb-text" :class="{'active-crumb': isActiveCrumb(item)}">{{ item.text }}</span>
+              <span
+                class="breadcrumb-text"
+                :class="isActiveCrumb(item) ? 'active-crumb': 'inactive-crumb'"
+              >
+                {{ item.text }}
+              </span>
             </v-breadcrumbs-item>
           </v-breadcrumbs>
         </v-col>
@@ -105,6 +110,10 @@ export default class BreadCrumb extends Vue {
 .active-crumb {
   text-decoration: underline !important;
   cursor: pointer !important;
+}
+
+.inactive-crumb {
+  cursor: default !important; // To override default or local link styling
 }
 
 ::v-deep .v-breadcrumbs .v-breadcrumbs__divider {
