@@ -29,6 +29,7 @@
               exact
               :to="item.to"
               :href="item.href"
+              :disabled="item.disabled"
             >
               <span class="breadcrumb-text" :class="{'active-crumb': isActiveCrumb(item)}">{{ item.text }}</span>
             </v-breadcrumbs-item>
