@@ -113,7 +113,7 @@ export default class BreadCrumb extends Vue {
 }
 
 .inactive-crumb {
-  cursor: default !important;
+  cursor: default !important; // To override default or local link styling
 }
 
 ::v-deep .v-breadcrumbs .v-breadcrumbs__divider {
