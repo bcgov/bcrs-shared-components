@@ -25,6 +25,8 @@
                         :name="Math.random()"
                         :rules="inputRules"
                         :disabled="disablePicker"
+                        :hint="hint"
+                        :persistent-hint="persistentHint"
                         @keydown="$event.preventDefault()"
                         @keyup.enter="emitDate(dateText)"
                         readonly
@@ -91,6 +93,12 @@ export default class DatePicker extends Mixins(DateMixin) {
 
   @Prop({ default: null })
   readonly nudgeLeft: number
+
+  @Prop({ default: '' })
+  readonly hint: string
+
+  @Prop({ default: false })
+  readonly persistentHint: boolean
 
   private dateText = null
   private displayPicker = false
