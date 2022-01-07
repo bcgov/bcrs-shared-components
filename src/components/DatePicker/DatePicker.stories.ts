@@ -20,7 +20,7 @@ export const datePickerBaseline = Template.bind({})
 datePickerBaseline.args = {
   title: 'Date',
   errorMsg: '',
-  inputRules: () => [],
+  inputRules: [],
   disablePicker: false,
   minDate: '',
   maxDate: '',
@@ -34,7 +34,7 @@ export const datePickerError = Template.bind({})
 datePickerError.args = {
   title: 'Date',
   errorMsg: 'You have some validation errors',
-  inputRules: () => [],
+  inputRules: [],
   disablePicker: false,
   minDate: '',
   maxDate: '',
@@ -48,7 +48,7 @@ export const datePickerMinMax = Template.bind({})
 datePickerMinMax.args = {
   title: 'Date with rules',
   errorMsg: '',
-  inputRules: () => [],
+  inputRules: [],
   disablePicker: false,
   minDate: minDateStr,
   maxDate: maxDateStr,
@@ -63,7 +63,7 @@ datePickerInitialValue.args = {
   title: 'Date with initial value',
   initialValue: '2021-11-18',
   errorMsg: '',
-  inputRules: () => [],
+  inputRules: [],
   disablePicker: false,
   minDate: '',
   maxDate: '',
@@ -71,4 +71,20 @@ datePickerInitialValue.args = {
   nudgeBottom: 0,
   nudgeRight: 0,
   nudgeLeft: 0
+}
+
+export const datePickerHint = Template.bind({})
+datePickerHint.args = {
+  title: 'Date',
+  errorMsg: '',
+  hint: 'this is a hint.',
+  inputRules: [],
+  disablePicker: false,
+  minDate: '',
+  maxDate: '',
+  nudgeTop: 0,
+  nudgeBottom: 0,
+  nudgeRight: 0,
+  nudgeLeft: 0,
+  persistentHint: true
 }
