@@ -18,6 +18,7 @@
                         ref="dateTextField"
                         append-icon="mdi-calendar"
                         autocomplete="chrome-off"
+                        :clearable="clearable"
                         :error-messages="errorMsg"
                         :error="!!errorMsg"
                         :value="displayDate"
@@ -100,6 +101,9 @@ export default class DatePicker extends Mixins(DateMixin) {
   @Prop({ default: false })
   readonly persistentHint: boolean
 
+  @Prop({ default: false })
+  readonly clearable: boolean
+
   private dateText = null
   private displayPicker = false
 
@@ -148,6 +152,7 @@ export default class DatePicker extends Mixins(DateMixin) {
 
   @Watch('$route')
   private hidePicker (): void {
+
     this.displayPicker = false
   }
 }
@@ -205,6 +210,10 @@ export default class DatePicker extends Mixins(DateMixin) {
 
 ::v-deep .v-icon.v-icon.v-icon--link {
   cursor: text;
+}
+
+::v-deep .v-icon.v-icon.v-icon--link.mdi-close {
+  cursor: pointer;
 }
 
 ::v-deep .theme--light.v-icon.v-icon.v-icon--disabled {

@@ -88,3 +88,20 @@ datePickerHint.args = {
   nudgeLeft: 0,
   persistentHint: true
 }
+
+export const datePickerClearable = Template.bind({})
+datePickerClearable.args = {
+  title: 'Date clearable',
+  errorMsg: '',
+  hint: '',
+  inputRules: [],
+  disablePicker: false,
+  minDate: '',
+  maxDate: '',
+  nudgeTop: 0,
+  nudgeBottom: 0,
+  nudgeRight: 0,
+  nudgeLeft: 0,
+  persistentHint: true,
+  clearable: true
+}
