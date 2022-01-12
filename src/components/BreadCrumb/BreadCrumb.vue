@@ -11,7 +11,7 @@
             icon small
             :disabled="breadcrumbs.length <= 1"
           >
-            <v-icon color="#38598a">mdi-arrow-left</v-icon>
+            <v-icon color="primary">mdi-arrow-left</v-icon>
           </v-btn>
         </v-col>
 
@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { BreadcrumbIF } from '@/interfaces'
+import { BreadcrumbIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
 export default class BreadCrumb extends Vue {
@@ -116,8 +116,17 @@ export default class BreadCrumb extends Vue {
   cursor: default !important; // To override default or local link styling
 }
 
-::v-deep .v-breadcrumbs .v-breadcrumbs__divider {
-  color: white !important;
-  margin-bottom: 0;
+::v-deep {
+  .v-breadcrumbs .v-breadcrumbs__divider {
+    color: white !important;
+    margin-bottom: 0;
+  }
+
+  .theme--light.v-btn.v-btn--disabled {
+    opacity: .4;
+    .v-icon {
+      color: $app-blue !important;
+    }
+  }
 }
 </style>
