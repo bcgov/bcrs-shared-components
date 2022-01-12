@@ -152,7 +152,6 @@ export default class DatePicker extends Mixins(DateMixin) {
 
   @Watch('$route')
   private hidePicker (): void {
-
     this.displayPicker = false
   }
 }
