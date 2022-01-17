@@ -28,6 +28,7 @@
                         :disabled="disablePicker"
                         :hint="hint"
                         :persistent-hint="persistentHint"
+                        @click:clear="emitCancel()"
                         @keydown="$event.preventDefault()"
                         @keyup.enter="emitDate(dateText)"
                         readonly
