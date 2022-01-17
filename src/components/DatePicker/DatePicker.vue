@@ -28,7 +28,7 @@
                         :disabled="disablePicker"
                         :hint="hint"
                         :persistent-hint="persistentHint"
-                        @click:clear="emitCancel()"
+                        @click:clear="emitClear()"
                         @keydown="$event.preventDefault()"
                         @keyup.enter="emitDate(dateText)"
                         readonly
@@ -143,9 +143,13 @@ export default class DatePicker extends Mixins(DateMixin) {
   @Emit('emitDate')
   private emitDate (date: string): void { this.displayPicker = false }
 
-  /** Emit date to add or remove. */
+  /** Emit cancel event and clear the date. */
   @Emit('emitCancel')
   private emitCancel (): void { this.clearDate() }
+
+  /** Emit clear event and clear the date. */
+  @Emit('emitClear')
+  private emitClear (): void { this.clearDate() }
 
   @Watch('dateText')
   @Emit('emitDateSync')
