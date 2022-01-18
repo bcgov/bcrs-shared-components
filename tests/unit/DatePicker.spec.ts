@@ -25,14 +25,18 @@ function createComponent (
   title: string = '',
   errorMsg: string = '',
   disablePicker: boolean = false,
-  inputRules = [(v: string) => v === 'Valid text' || 'Invalid']
+  inputRules = [(v: string) => v === 'Valid text' || 'Invalid'],
+  initialValue = '',
+  clearable = false
 ): Wrapper<DatePicker> {
   return mount(DatePicker, {
     propsData: {
       title,
       errorMsg,
       disablePicker,
-      inputRules
+      inputRules,
+      initialValue,
+      clearable
     },
     vuetify,
     localVue
@@ -289,5 +293,21 @@ describe('DatePicker component', () => {
     await Vue.nextTick()
 
     expect(wrapper.vm.isDateValid()).toEqual(false)
+  })
+
+  it('clearable button clears date', async () => {
+    const initialValue = '2021-11-18'
+    wrapper = createComponent(null, null, null, [], initialValue, true)
+    await Vue.nextTick()
+
+    expect(wrapper.vm.$data.dateText).toBe(initialValue)
+
+    // Click clear btn
+    const clearBtn = wrapper.findAll('button.mdi-close')
+    expect(clearBtn?.length).toBe(1)
+    clearBtn.at(0).trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.vm.$data.dateText).toBe('')
   })
 })
