@@ -14,6 +14,7 @@
               filled
               id="routing-slip-number-textfield"
               label="Routing Slip Number"
+              v-model.trim="staffPaymentData.routingSlipNumber"
               :value="staffPaymentData.routingSlipNumber"
               :rules="validate ? routingSlipNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
@@ -29,6 +30,7 @@
               filled
               id="bcol-account-number-textfield"
               label="BC Online Account Number"
+              v-model.trim="staffPaymentData.bcolAccountNumber"
               :value="staffPaymentData.bcolAccountNumber"
               :rules="validate ? bcolAccountNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
@@ -39,6 +41,7 @@
               filled
               id="dat-number-textfield"
               label="DAT Number"
+              v-model.trim="staffPaymentData.datNumber"
               :value="staffPaymentData.datNumber"
               :rules="validate ? datNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
@@ -230,10 +233,10 @@ export default class StaffPayment extends Vue {
   @Emit('update:staffPaymentData')
   private emitStaffPaymentData ({
     option = this.staffPaymentData.option,
-    routingSlipNumber = this.staffPaymentData.routingSlipNumber || '',
-    bcolAccountNumber = this.staffPaymentData.bcolAccountNumber || '',
-    datNumber = this.staffPaymentData.datNumber || '',
-    folioNumber = this.staffPaymentData.folioNumber || '',
+    routingSlipNumber = this.staffPaymentData.routingSlipNumber?.trim() || '',
+    bcolAccountNumber = this.staffPaymentData.bcolAccountNumber?.trim() || '',
+    datNumber = this.staffPaymentData.datNumber?.trim() || '',
+    folioNumber = this.staffPaymentData.folioNumber?.trim() || '',
     isPriority = this.staffPaymentData.isPriority || false
   }): StaffPaymentIF {
     // return only the appropriate fields for each option
