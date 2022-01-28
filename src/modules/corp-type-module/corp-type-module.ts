@@ -22,6 +22,7 @@ export enum CorpTypeCd {
   EXTRA_PRO_REG = 'EPR',
   FINANCIAL = 'FI',
   FOREIGN = 'FOR',
+  NR_SOLE_PROP = 'FR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   PARTNERSHIP = 'GP',
   LIBRARY = 'LIB',
   LICENSED = 'LIC',
@@ -173,6 +174,12 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     corpClass: CorpClass.XPRO,
     shortDesc: 'FOREIGN',
     fullDesc: 'Foreign Registration'
+  }, {
+    corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
+    colinInd: true,
+    corpClass: CorpClass.FIRM,
+    shortDesc: 'SOLE PROP',
+    fullDesc: 'Sole Proprietorship'
   }, {
     corpTypeCd: CorpTypeCd.PARTNERSHIP,
     colinInd: true,
