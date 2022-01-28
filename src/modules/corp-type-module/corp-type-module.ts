@@ -300,8 +300,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     corpClass: CorpClass.FIRM,
     shortDesc: 'SOLE PROP',
     fullDesc: 'Sole Proprietorship'
-  },
-  {
+  }, {
     corpTypeCd: CorpTypeCd.TRUST,
     colinInd: false,
     corpClass: CorpClass.OT,
