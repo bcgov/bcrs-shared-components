@@ -22,13 +22,13 @@ export enum CorpTypeCd {
   EXTRA_PRO_REG = 'EPR',
   FINANCIAL = 'FI',
   FOREIGN = 'FOR',
+  NR_SOLE_PROP = 'FR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   PARTNERSHIP = 'GP',
   LIBRARY = 'LIB',
   LICENSED = 'LIC',
   LL_PARTNERSHIP = 'LL',
   LIMITED_CO = 'LLC',
   LIM_PARTNERSHIP = 'LP',
-  NR_SOLE_PROP = 'FR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   MISC_FIRM = 'MF',
   PRIVATE_ACT = 'PA',
   PARISHES = 'PAR',
@@ -175,6 +175,12 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     shortDesc: 'FOREIGN',
     fullDesc: 'Foreign Registration'
   }, {
+    corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
+    colinInd: true,
+    corpClass: CorpClass.FIRM,
+    shortDesc: 'SOLE PROP',
+    fullDesc: 'Sole Proprietorship'
+  }, {
     corpTypeCd: CorpTypeCd.PARTNERSHIP,
     colinInd: true,
     corpClass: CorpClass.FIRM,
@@ -210,12 +216,6 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     corpClass: CorpClass.FIRM,
     shortDesc: 'LIM PARTNERSHIP',
     fullDesc: 'Limited Partnership'
-  }, {
-    corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
-    colinInd: true,
-    corpClass: CorpClass.FIRM,
-    shortDesc: 'SOLE PROP',
-    fullDesc: 'Sole Proprietorship'
   }, {
     corpTypeCd: CorpTypeCd.MISC_FIRM,
     colinInd: true,
