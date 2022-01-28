@@ -28,6 +28,7 @@ export enum CorpTypeCd {
   LL_PARTNERSHIP = 'LL',
   LIMITED_CO = 'LLC',
   LIM_PARTNERSHIP = 'LP',
+  NR_SOLE_PROP = 'FR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   MISC_FIRM = 'MF',
   PRIVATE_ACT = 'PA',
   PARISHES = 'PAR',
@@ -42,7 +43,6 @@ export enum CorpTypeCd {
   SOCIETY = 'S',
   SOCIETY_BRANCH = 'SB',
   SOLE_PROP = 'SP',
-  NR_SOLE_PROP = 'FR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   TRUST = 'T',
   TRAMWAYS = 'TMY',
   BC_UNLIMITED = 'UL', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
@@ -290,6 +290,13 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     fullDesc: 'Society Branch'
   }, {
     corpTypeCd: CorpTypeCd.SOLE_PROP,
+    colinInd: true,
+    corpClass: CorpClass.FIRM,
+    shortDesc: 'SOLE PROP',
+    fullDesc: 'Sole Proprietorship'
+  },
+  {
+    corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
     colinInd: true,
     corpClass: CorpClass.FIRM,
     shortDesc: 'SOLE PROP',
