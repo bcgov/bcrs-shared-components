@@ -211,6 +211,12 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     shortDesc: 'LIM PARTNERSHIP',
     fullDesc: 'Limited Partnership'
   }, {
+    corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
+    colinInd: true,
+    corpClass: CorpClass.FIRM,
+    shortDesc: 'SOLE PROP',
+    fullDesc: 'Sole Proprietorship'
+  }, {
     corpTypeCd: CorpTypeCd.MISC_FIRM,
     colinInd: true,
     corpClass: CorpClass.FIRM,
@@ -296,12 +302,6 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     fullDesc: 'Sole Proprietorship'
   },
   {
-    corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
-    colinInd: true,
-    corpClass: CorpClass.FIRM,
-    shortDesc: 'SOLE PROP',
-    fullDesc: 'Sole Proprietorship'
-  }, {
     corpTypeCd: CorpTypeCd.TRUST,
     colinInd: false,
     corpClass: CorpClass.OT,
