@@ -185,7 +185,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     colinInd: true,
     corpClass: CorpClass.FIRM,
     shortDesc: 'PARTNERSHPI',
-    fullDesc: 'General Partnership'
+    fullDesc: 'BC General Partnership'
   }, {
     corpTypeCd: CorpTypeCd.LIBRARY,
     colinInd: false,
@@ -299,7 +299,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     colinInd: true,
     corpClass: CorpClass.FIRM,
     shortDesc: 'SOLE PROP',
-    fullDesc: 'Sole Proprietorship'
+    fullDesc: 'BC Sole Proprietorship'
   }, {
     corpTypeCd: CorpTypeCd.TRUST,
     colinInd: false,
