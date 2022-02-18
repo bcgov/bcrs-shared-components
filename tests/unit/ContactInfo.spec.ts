@@ -131,6 +131,20 @@ describe('Business Contact Info component', () => {
     wrapper.destroy()
   })
 
+  it('Loads the component with a custom label', async () => {
+    const wrapper: Wrapper<ContactInfo> =
+      createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
+    wrapper.setProps({ contactLabel: 'Business' })
+
+    wrapper.find('#btn-correct-contact-info').trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee to change ' +
+      'Business Contact Information. Any changes made will be applied immediately.')
+
+    wrapper.destroy()
+  })
+
   it('Loads the component with a custom msg', async () => {
     const wrapper: Wrapper<ContactInfo> =
       createComponent(

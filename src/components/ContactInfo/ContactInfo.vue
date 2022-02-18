@@ -1,30 +1,30 @@
 <template>
   <div id="contact-info">
     <!-- Display Contact Info -->
-    <v-layout row v-if="!isEditing" class="mx-0">
-      <v-flex xs3>
+    <v-row v-if="!isEditing" class="mx-0">
+      <v-col cols="3" class="pl-0 py-0">
         <label>
-          <span>Registered Office <br> Contact Information</span>
+          <span>{{ contactLabel }} Contact Information</span>
           <v-flex>
             <v-chip v-if="hasBusinessContactInfoChange" x-small label color="primary" text-color="white">
               {{editedLabel}}
             </v-chip>
           </v-flex>
         </label>
-      </v-flex>
+      </v-col>
 
       <!-- Email Address -->
-      <v-flex xs4>
+      <v-col cols="4" class="pl-0 py-0">
         <label class="d-flex flex-wrap">
           <span class="subtitle text-body-3 mr-2">Email Address</span>
         </label>
         <div id="lbl-email" class="info-text">
           {{ !!businessContact.email ? businessContact.email : "(Not entered)" }}
         </div>
-      </v-flex>
+      </v-col>
 
       <!-- Phone Number -->
-      <v-flex xs4>
+      <v-col cols="4" class="pl-0 py-0">
         <label class="d-flex flex-wrap">
           <span class="subtitle text-body-3 mr-2">Phone Number</span>
         </label>
@@ -33,10 +33,10 @@
           <span v-if="!!businessContact.extension">Ext: {{ businessContact.extension }}</span>
         </div>
         <div id="lbl-no-phone" v-else class="info-text">(Not entered)</div>
-      </v-flex>
+      </v-col>
 
       <!-- Edit Actions -->
-      <v-flex v-if="!disableActions" xs1 class="mt-n2">
+      <v-col v-if="!disableActions" cols="1" class="mt-n2">
         <div class="actions mr-4">
           <v-btn
             v-if="hasBusinessContactInfoChange"
@@ -98,26 +98,28 @@
             </v-menu>
           </span>
         </div>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
 
     <!-- Edit Contact Info -->
     <template v-else id="edit-contact-form">
-      <v-layout row class="mx-0">
-        <v-flex xs3>
-          <label :class="{'error-text': invalidSection}">Registered Office <br>Contact Information</label>
-        </v-flex>
-      </v-layout>
+      <v-row class="mx-0">
+        <v-col cols="3" class="pl-0 py-0">
+          <label :class="{'error-text': invalidSection}">
+            {{ contactLabel }} Contact Information
+          </label>
+        </v-col>
+      </v-row>
 
-      <v-layout row class="mx-0">
-        <v-flex xs3></v-flex>
-        <v-flex v-if="customMsg != null" xs9 class="my-4 info-text">
+      <v-row class="mx-0">
+        <v-col cols="3"></v-col>
+        <v-col cols="9" v-if="customMsg != null" class="my-4 info-text pl-0 py-0">
           {{ customMsg }}
-        </v-flex>
-        <v-flex v-else xs9 class="my-4 info-text">
-          There is no fee to change Registered Office Contact Information. Any changes made will be applied immediately.
-        </v-flex>
-      </v-layout>
+        </v-col>
+        <v-col v-else cols="9" class="my-4 info-text pl-0 py-0">
+          There is no fee to change {{ contactLabel }} Contact Information. Any changes made will be applied immediately.
+        </v-col>
+      </v-row>
 
       <v-form
         v-model="formValid"
@@ -127,11 +129,11 @@
         @submit.prevent="submitContact()"
       >
         <!-- Line 1 -->
-        <v-layout row class="mx-0">
-          <v-flex xs3>
+        <v-row class="mx-0" no-gutters>
+          <v-col cols="3">
             <label>Email Address</label>
-          </v-flex>
-          <v-flex xs9>
+          </v-col>
+          <v-col cols="9">
             <v-text-field
               id="txt-email"
               filled
@@ -143,15 +145,15 @@
               validate-on-blur
             >
             </v-text-field>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
 
         <!-- Line 2 -->
-        <v-layout row class="mx-0">
-          <v-flex xs3>
+        <v-row class="mx-0" no-gutters>
+          <v-col cols="3">
             <label>Confirm Email</label>
-          </v-flex>
-          <v-flex xs9>
+          </v-col>
+          <v-col cols="9">
             <v-text-field
               id="txt-confirm-email"
               filled
@@ -163,15 +165,15 @@
               validate-on-blur
             >
             </v-text-field>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
 
         <!-- Line 3 -->
-        <v-layout row class="mx-0">
-          <v-flex xs3>
+        <v-row class="mx-0" no-gutters>
+          <v-col cols="3">
             <label>Phone Number</label>
-          </v-flex>
-          <v-flex s4 class="mr-1">
+          </v-col>
+          <v-col class="mr-1">
             <v-text-field
               id="txt-phone"
               filled
@@ -185,8 +187,8 @@
               validate-on-blur
             >
             </v-text-field>
-          </v-flex>
-          <v-flex s4>
+          </v-col>
+          <v-col>
             <v-text-field
               id="txt-phone-extension"
               filled
@@ -196,12 +198,12 @@
               v-model="contactInfo.extension"
             >
             </v-text-field>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
 
         <!-- Form Actions -->
-        <v-layout row class="mx-0 pt-3">
-          <v-flex xs12>
+        <v-row class="mx-0 pt-3">
+          <v-col cols="12">
             <div class="action-btns">
               <v-btn
                 id="done-btn"
@@ -219,8 +221,8 @@
                 <span>Cancel</span>
               </v-btn>
             </div>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-form>
     </template>
   </div>
@@ -254,6 +256,10 @@ export default class ContactInfo extends Vue {
   /** Flag for identifying changes. */
   @Prop()
   private hasBusinessContactInfoChange!: boolean
+
+  /** Contact information label. */
+  @Prop({ default: 'Registered Office' })
+  private contactLabel!: string
 
   /** Custom contact info msg. */
   @Prop({ default: null })
