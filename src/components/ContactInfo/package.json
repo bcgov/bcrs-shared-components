@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/contact-info",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "publishConfig": {
     "access": "public"
   },
