@@ -116,9 +116,9 @@
         <v-col cols="9" v-if="customMsg != null" class="my-4 info-text">
           {{ customMsg }}
         </v-col>
-        <v-flex v-else xs9 class="my-4 info-text">There is no fee to change {{ contactLabel }} Contact Information. Any
-          changes made will be applied immediately.
-        </v-flex>
+        <v-col v-else cols="9" class="my-4 info-text">There is no fee to change {{ contactLabel }} Contact Information.
+          Any changes made will be applied immediately.
+        </v-col>
       </v-row>
 
       <v-form
