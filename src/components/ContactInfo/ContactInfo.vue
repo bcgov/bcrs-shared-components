@@ -113,11 +113,11 @@
 
       <v-row class="mx-0">
         <v-col cols="3"></v-col>
-        <v-col cols="9" v-if="customMsg != null" class="my-4 info-text">
+        <v-col cols="9" v-if="customMsg != null" class="my-4 info-text pl-0 py-0">
           {{ customMsg }}
         </v-col>
-        <v-col v-else cols="9" class="my-4 info-text">There is no fee to change {{ contactLabel }} Contact Information.
-          Any changes made will be applied immediately.
+        <v-col v-else cols="9" class="my-4 info-text pl-0 py-0">There is no fee to change {{ contactLabel }} Contact
+          Information. Any changes made will be applied immediately.
         </v-col>
       </v-row>
 
