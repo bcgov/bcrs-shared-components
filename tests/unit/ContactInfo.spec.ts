@@ -41,7 +41,6 @@ const editedBusinessContactInfo: ContactPointIF = {
 /**
  * Creates and mounts a component, so that it can be tested.
  *
- * @param contactLabel The string label
  * @param originalContactInfo The contact info in the original IA.
  * @param contactInfo The contact info in the store.
  * @param hasBusinessContactInfoChange Boolean indicating changes
