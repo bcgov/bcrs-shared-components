@@ -2,9 +2,9 @@
   <div id="contact-info">
     <!-- Display Contact Info -->
     <v-layout row v-if="!isEditing" class="mx-0">
-      <v-flex xs3>
+      <v-flex xs3 class="pr-10">
         <label>
-          <span>Registered Office <br> Contact Information</span>
+          <span>{{ contactLabel }} Contact Information</span>
           <v-flex>
             <v-chip v-if="hasBusinessContactInfoChange" x-small label color="primary" text-color="white">
               {{editedLabel}}
@@ -105,17 +105,14 @@
     <template v-else id="edit-contact-form">
       <v-layout row class="mx-0">
         <v-flex xs3>
-          <label :class="{'error-text': invalidSection}">Registered Office <br>Contact Information</label>
+          <label :class="{'error-text': invalidSection}">{{ contactLabel }} <br>Contact Information</label>
         </v-flex>
       </v-layout>
 
       <v-layout row class="mx-0">
         <v-flex xs3></v-flex>
-        <v-flex v-if="customMsg != null" xs9 class="my-4 info-text">
-          {{ customMsg }}
-        </v-flex>
-        <v-flex v-else xs9 class="my-4 info-text">
-          There is no fee to change Registered Office Contact Information. Any changes made will be applied immediately.
+        <v-flex xs9 class="my-4 info-text">
+          There is no fee to change {{ contactLabel }} Contact Information. Any changes made will be applied immediately.
         </v-flex>
       </v-layout>
 
@@ -255,9 +252,9 @@ export default class ContactInfo extends Vue {
   @Prop()
   private hasBusinessContactInfoChange!: boolean
 
-  /** Custom contact info msg. */
-  @Prop({ default: null })
-  private customMsg!: string
+  /** Contact information label. */
+  @Prop({ default: 'Registered Office' })
+  private contactLabel!: string
 
   /** Edit label name (ie 'Change' or 'Correct'). */
   @Prop()
