@@ -41,6 +41,7 @@ const editedBusinessContactInfo: ContactPointIF = {
 /**
  * Creates and mounts a component, so that it can be tested.
  *
+ * @param contactLabel The string label
  * @param originalContactInfo The contact info in the original IA.
  * @param contactInfo The contact info in the store.
  * @param hasBusinessContactInfoChange Boolean indicating changes
@@ -127,6 +128,20 @@ describe('Business Contact Info component', () => {
 
     expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee to change ' +
       'Registered Office Contact Information. Any changes made will be applied immediately.')
+
+    wrapper.destroy()
+  })
+
+  it('Loads the component with a custom label', async () => {
+    const wrapper: Wrapper<ContactInfo> =
+      createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
+    wrapper.setProps({ contactLabel: 'Business' })
+
+    wrapper.find('#btn-correct-contact-info').trigger('click')
+    await Vue.nextTick()
+
+    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee to change ' +
+      'Business Contact Information. Any changes made will be applied immediately.')
 
     wrapper.destroy()
   })
