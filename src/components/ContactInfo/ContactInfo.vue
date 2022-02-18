@@ -104,15 +104,15 @@
     <!-- Edit Contact Info -->
     <template v-else id="edit-contact-form">
       <v-layout row class="mx-0">
-        <v-flex xs3>
-          <label :class="{'error-text': invalidSection}">{{ contactLabel }} <br>Contact Information</label>
+        <v-flex xs3 class="pr-10">
+          <label :class="{'error-text': invalidSection}">{{ contactLabel }} Contact Information</label>
         </v-flex>
       </v-layout>
 
       <v-layout row class="mx-0">
         <v-flex xs3></v-flex>
-        <v-flex xs9 class="my-4 info-text">
-          There is no fee to change {{ contactLabel }} Contact Information. Any changes made will be applied immediately.
+        <v-flex xs9 class="my-4 info-text">There is no fee to change {{ contactLabel }} Contact Information. Any
+          changes made will be applied immediately.
         </v-flex>
       </v-layout>
 
