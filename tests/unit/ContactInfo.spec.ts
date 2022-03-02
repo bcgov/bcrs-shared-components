@@ -50,14 +50,18 @@ function createComponent (
   originalContactInfo: ContactPointIF,
   contactInfo: ContactPointIF,
   hasBusinessContactInfoChange: boolean = false,
-  customMsg: string = null):
+  customMsg: string = null,
+  disableActionTooltip: boolean = false,
+  editLabel: string = ''):
   Wrapper<ContactInfo> {
   return mount(ContactInfo, {
     propsData: {
       businessContact: contactInfo,
       originalBusinessContact: originalContactInfo,
       hasBusinessContactInfoChange: hasBusinessContactInfoChange,
-      customMsg: customMsg
+      customMsg: customMsg,
+      disableActionTooltip: disableActionTooltip,
+      editLabel: editLabel
     },
     vuetify,
     localVue
@@ -125,8 +129,8 @@ describe('Business Contact Info component', () => {
     wrapper.find('#btn-correct-contact-info').trigger('click')
     await Vue.nextTick()
 
-    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee to change ' +
-      'Registered Office Contact Information. Any changes made will be applied immediately.')
+    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee or filing to ' +
+      'change Registered Office Contact Information. Any changes made will be applied immediately.')
 
     wrapper.destroy()
   })
@@ -139,8 +143,8 @@ describe('Business Contact Info component', () => {
     wrapper.find('#btn-correct-contact-info').trigger('click')
     await Vue.nextTick()
 
-    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee to change ' +
-      'Business Contact Information. Any changes made will be applied immediately.')
+    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee or filing ' +
+      'to change Business Contact Information. Any changes made will be applied immediately.')
 
     wrapper.destroy()
   })

@@ -43,7 +43,7 @@ ChangedAlteration.args = {
   originalBusinessContact: ContactDataChanged,
   hasBusinessContactInfoChange: true,
   editLabel: 'Change',
-  editedLabel: 'Changed'
+  editedLabel: 'Changes Saved'
 }
 
 export const FilledCorrection = Template.bind({})
@@ -53,4 +53,26 @@ FilledCorrection.args = {
   hasBusinessContactInfoChange: false,
   editLabel: 'Correct',
   editedLabel: 'Corrected'
+}
+
+export const ChangeFirm = Template.bind({})
+ChangeFirm.args = {
+  contactLabel: 'Business',
+  disableActionTooltip: true,
+  businessContact: ContactData,
+  originalBusinessContact: ContactData,
+  hasBusinessContactInfoChange: false,
+  editLabel: 'Change',
+  editedLabel: 'Changes Saved'
+}
+
+export const ChangedFirm = Template.bind({})
+ChangedFirm.args = {
+  contactLabel: 'Business',
+  disableActionTooltip: true,
+  businessContact: ContactDataChanged,
+  originalBusinessContact: ContactData,
+  hasBusinessContactInfoChange: true,
+  editLabel: 'Change',
+  editedLabel: 'Changes Saved'
 }

@@ -49,17 +49,19 @@
             <span>Undo</span>
           </v-btn>
 
-          <v-tooltip v-else
-                     top
-                     content-class="top-tooltip"
-                     transition="fade-transition"
-                     nudge-right="3"
+          <v-tooltip
+            v-else top
+            content-class="top-tooltip"
+            transition="fade-transition"
+            nudge-right="3"
+            :disabled="disableActionTooltip"
           >
             <template v-slot:activator="{ on }">
-              <v-btn  v-on="on"
-                      id="btn-correct-contact-info"
-                      text color="primary"
-                      @click="isEditing = true"
+              <v-btn
+                v-on="on"
+                id="btn-correct-contact-info"
+                text color="primary"
+                @click="isEditing = true"
               >
                 <v-icon small>mdi-pencil</v-icon>
                 <span>{{editLabel}}</span>
@@ -103,21 +105,17 @@
 
     <!-- Edit Contact Info -->
     <template v-else id="edit-contact-form">
-      <v-row class="mx-0">
-        <v-col cols="3" class="pl-0 py-0">
+      <v-row class="mx-0 my-1" no-gutters>
+        <v-col cols="3">
           <label :class="{'error-text': invalidSection}">
             {{ contactLabel }} Contact Information
           </label>
         </v-col>
-      </v-row>
-
-      <v-row class="mx-0">
-        <v-col cols="3"></v-col>
-        <v-col cols="9" v-if="customMsg != null" class="my-4 info-text pl-0 py-0">
+        <v-col cols="9" v-if="customMsg != null" class="info-text pl-0 py-0">
           {{ customMsg }}
         </v-col>
-        <v-col v-else cols="9" class="my-4 info-text pl-0 py-0">
-          There is no fee to change {{ contactLabel }} Contact Information. Any changes made will be applied immediately.
+        <v-col v-else cols="9" class="info-text">
+          There is no fee or filing to change {{ contactLabel }} Contact Information. Any changes made will be applied immediately.
         </v-col>
       </v-row>
 
@@ -277,6 +275,10 @@ export default class ContactInfo extends Vue {
   @Prop({ default: false })
   private disableActions!: boolean
 
+  /** Option to disable the action tooltip. */
+  @Prop({ default: false })
+  private disableActionTooltip!: boolean
+
   /** Prompt error handling. */
   @Prop({ default: false })
   private invalidSection!: boolean
@@ -346,7 +348,7 @@ export default class ContactInfo extends Vue {
   /** Initialize the contact info. */
   @Watch('businessContact', { deep: true, immediate: true })
   private initializeContactInfo () {
-    this.contactInfo = { ...this.businessContact }
+    this.contactInfo = { ...this.businessContact, confirmEmail: this.businessContact.email }
   }
 
   /** Inform the parent of the current edit state. */
