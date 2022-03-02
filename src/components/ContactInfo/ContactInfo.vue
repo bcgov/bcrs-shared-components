@@ -51,23 +51,23 @@
 
           <v-tooltip
             v-else top
-            id="action-tooltip"
             content-class="top-tooltip"
             transition="fade-transition"
             nudge-right="3"
             :disabled="disableActionTooltip"
           >
             <template v-slot:activator="{ on }">
-              <v-btn  v-on="on"
-                      id="btn-correct-contact-info"
-                      text color="primary"
-                      @click="isEditing = true"
+              <v-btn
+                v-on="on"
+                id="btn-correct-contact-info"
+                text color="primary"
+                @click="isEditing = true"
               >
                 <v-icon small>mdi-pencil</v-icon>
                 <span>{{editLabel}}</span>
               </v-btn>
             </template>
-            <span id="test-span">No fee to change</span>
+            <span>No fee to change</span>
           </v-tooltip>
 
           <!-- Drop Down Actions -->
