@@ -28,6 +28,13 @@ const ContactDataChanged: ContactPointIF = {
   extension: '123'
 }
 
+const ContactDataOptionalPhone: ContactPointIF = {
+  email: 'mock@email.com',
+  confirmEmail: 'mock@email.com',
+  phone: '',
+  extension: ''
+}
+
 export const FilledAlteration = Template.bind({})
 FilledAlteration.args = {
   businessContact: ContactData,
@@ -75,4 +82,16 @@ ChangedFirm.args = {
   hasBusinessContactInfoChange: true,
   editLabel: 'Change',
   editedLabel: 'Changes Saved'
+}
+
+export const OptionalPhone = Template.bind({})
+OptionalPhone.args = {
+  contactLabel: 'Business',
+  disableActionTooltip: true,
+  businessContact: ContactDataOptionalPhone,
+  originalBusinessContact: ContactDataOptionalPhone,
+  hasBusinessContactInfoChange: false,
+  editLabel: 'Change',
+  editedLabel: 'Changes Saved',
+  optionalPhone: true
 }

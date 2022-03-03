@@ -175,7 +175,7 @@
             <v-text-field
               id="txt-phone"
               filled
-              label="Phone Number"
+              :label="phoneLabel"
               persistent-hint
               hint="Example: (555) 555-5555"
               type="tel"
@@ -245,43 +245,47 @@ export default class ContactInfo extends Vue {
 
   /** The current business contact information. */
   @Prop()
-  private businessContact!: ContactPointIF
+  readonly businessContact!: ContactPointIF
 
   /** The baseline contact information. */
   @Prop()
-  private originalBusinessContact!: ContactPointIF
+  readonly originalBusinessContact!: ContactPointIF
 
   /** Flag for identifying changes. */
   @Prop()
-  private hasBusinessContactInfoChange!: boolean
+  readonly hasBusinessContactInfoChange!: boolean
 
   /** Contact information label. */
   @Prop({ default: 'Registered Office' })
-  private contactLabel!: string
+  readonly contactLabel!: string
 
   /** Custom contact info msg. */
   @Prop({ default: null })
-  private customMsg!: string
+  readonly customMsg!: string
 
   /** Edit label name (ie 'Change' or 'Correct'). */
   @Prop()
-  private editLabel!: string
+  readonly editLabel!: string
 
   /** Edited label name (ie 'Changed' or 'Corrected'). */
   @Prop()
-  private editedLabel!: string
+  readonly editedLabel!: string
 
   /** Option to disable the edit actions. */
   @Prop({ default: false })
-  private disableActions!: boolean
+  readonly disableActions!: boolean
 
   /** Option to disable the action tooltip. */
   @Prop({ default: false })
-  private disableActionTooltip!: boolean
+  readonly disableActionTooltip!: boolean
 
   /** Prompt error handling. */
   @Prop({ default: false })
-  private invalidSection!: boolean
+  readonly invalidSection!: boolean
+
+  /** Option to disable phone requirement. */
+  @Prop({ default: false })
+  readonly optionalPhone!: boolean
 
   // Local Properties
   private isEditing: boolean = false
@@ -295,6 +299,13 @@ export default class ContactInfo extends Vue {
 
   /** V-model for dropdown menu. */
   private dropdown: boolean = null
+
+  /** The phone number text-field label. */
+  private get phoneLabel (): string {
+    let label = 'Phone Number '
+    if (this.optionalPhone) label += '(Optional)'
+    return label
+  }
 
   /** Emit the updated data to parent component */
   private updateContactInfo (): void {
@@ -332,10 +343,11 @@ export default class ContactInfo extends Vue {
       (v: string) => !v || (v.toString() === (this.$refs.editContactForm && this.$refs.editContactForm.$el[0].value)) ||
         'Email addresses must match'
     ]
-    this.phoneRules = [
-      (v: string) => !!v || 'Phone number is required',
-      (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
-    ]
+    this.phoneRules = this.optionalPhone ? []
+      : [
+        (v: string) => !!v || 'Phone number is required',
+        (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
+      ]
 
     // Await the applied rules and validate form
     await Vue.nextTick()

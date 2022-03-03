@@ -164,4 +164,26 @@ describe('Business Contact Info component', () => {
 
     wrapper.destroy()
   })
+
+  it('Displays correctly when the phone number is optional', async () => {
+    const wrapper: Wrapper<ContactInfo> =
+      createComponent(
+        originalBusinessContactInfo,
+        originalBusinessContactInfo
+      )
+    wrapper.find('#btn-correct-contact-info').trigger('click')
+    await Vue.nextTick()
+
+    // Verify base label
+    expect(wrapper.findAll('label').at(6).text()).toEqual('Phone Number')
+
+    // Set optional prop
+    wrapper.setProps({ optionalPhone: true })
+    await Vue.nextTick()
+
+    // Verify optional label
+    expect(wrapper.findAll('label').at(6).text()).toEqual('Phone Number (Optional)')
+
+    wrapper.destroy()
+  })
 })
