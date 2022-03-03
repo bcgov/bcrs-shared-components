@@ -245,47 +245,47 @@ export default class ContactInfo extends Vue {
 
   /** The current business contact information. */
   @Prop()
-  private businessContact!: ContactPointIF
+  readonly businessContact!: ContactPointIF
 
   /** The baseline contact information. */
   @Prop()
-  private originalBusinessContact!: ContactPointIF
+  readonly originalBusinessContact!: ContactPointIF
 
   /** Flag for identifying changes. */
   @Prop()
-  private hasBusinessContactInfoChange!: boolean
+  readonly hasBusinessContactInfoChange!: boolean
 
   /** Contact information label. */
   @Prop({ default: 'Registered Office' })
-  private contactLabel!: string
+  readonly contactLabel!: string
 
   /** Custom contact info msg. */
   @Prop({ default: null })
-  private customMsg!: string
+  readonly customMsg!: string
 
   /** Edit label name (ie 'Change' or 'Correct'). */
   @Prop()
-  private editLabel!: string
+  readonly editLabel!: string
 
   /** Edited label name (ie 'Changed' or 'Corrected'). */
   @Prop()
-  private editedLabel!: string
+  readonly editedLabel!: string
 
   /** Option to disable the edit actions. */
   @Prop({ default: false })
-  private disableActions!: boolean
+  readonly disableActions!: boolean
 
   /** Option to disable the action tooltip. */
   @Prop({ default: false })
-  private disableActionTooltip!: boolean
+  readonly disableActionTooltip!: boolean
 
   /** Prompt error handling. */
   @Prop({ default: false })
-  private invalidSection!: boolean
+  readonly invalidSection!: boolean
 
   /** Option to disable phone requirement. */
   @Prop({ default: false })
-  private optionalPhone!: boolean
+  readonly optionalPhone!: boolean
 
   // Local Properties
   private isEditing: boolean = false
