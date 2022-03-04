@@ -105,8 +105,8 @@
 
     <!-- Edit Contact Info -->
     <template v-else id="edit-contact-form">
-      <v-row class="mx-0 my-1" no-gutters>
-        <v-col cols="3">
+      <v-row class="mx-0">
+        <v-col cols="3" class="pl-0 py-0">
           <label :class="{'error-text': invalidSection}">
             {{ contactLabel }} Contact Information
           </label>
@@ -114,7 +114,7 @@
         <v-col cols="9" v-if="customMsg != null" class="info-text pl-0 py-0">
           {{ customMsg }}
         </v-col>
-        <v-col v-else cols="9" class="info-text">
+        <v-col v-else cols="9" class="info-text pl-0 py-0">
           There is no fee or filing to change {{ contactLabel }} Contact Information. Any changes made will be applied immediately.
         </v-col>
       </v-row>
@@ -123,7 +123,7 @@
         v-model="formValid"
         ref="editContactForm"
         name="business-contact-form"
-        class="business-contact-form pt-5"
+        class="business-contact-form pt-5 pr-1"
         @submit.prevent="submitContact()"
       >
         <!-- Line 1 -->
@@ -171,7 +171,7 @@
           <v-col cols="3">
             <label>Phone Number</label>
           </v-col>
-          <v-col class="mr-1">
+          <v-col class="mr-2">
             <v-text-field
               id="txt-phone"
               filled
@@ -186,7 +186,7 @@
             >
             </v-text-field>
           </v-col>
-          <v-col>
+          <v-col class="ml-2">
             <v-text-field
               id="txt-phone-extension"
               filled
@@ -200,8 +200,8 @@
         </v-row>
 
         <!-- Form Actions -->
-        <v-row class="mx-0 pt-3">
-          <v-col cols="12">
+        <v-row class="mx-0">
+          <v-col cols="12" class="px-0">
             <div class="action-btns">
               <v-btn
                 id="done-btn"
