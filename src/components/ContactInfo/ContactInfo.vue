@@ -171,7 +171,7 @@
           <v-col cols="3">
             <label>Phone Number</label>
           </v-col>
-          <v-col class="mr-2">
+          <v-col class="mr-4">
             <v-text-field
               id="txt-phone"
               filled
@@ -186,7 +186,7 @@
             >
             </v-text-field>
           </v-col>
-          <v-col class="ml-2">
+          <v-col>
             <v-text-field
               id="txt-phone-extension"
               filled
