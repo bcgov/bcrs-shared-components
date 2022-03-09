@@ -1,11 +1,11 @@
 {
     "name": "@bcrs-shared-components/certify",
-    "version": "1.0.32",
+    "version": "1.0.33",
     "publishConfig": {
         "access": "public"
     },
     "dependencies": {
-        "@bcrs-shared-components/interfaces": "^1.0.30",
+        "@bcrs-shared-components/interfaces": "^1.0.31",
         "vue-property-decorator": "^8.4.0"
     }
 }
