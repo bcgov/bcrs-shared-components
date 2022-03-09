@@ -5,36 +5,46 @@
       :payURL="payApiUrl"
     />
 
-    <v-row class="mt-1">
-      <v-col cols="8" class="pr-2">
+    <v-row no-gutters>
+      <v-col v-if="isSummaryMode" class="pt-3 pr-3">
         <v-btn
-          id="save-resume-btn"
+          id="back-btn"
           large
           :loading="isLoading"
-          @click="emitAction(SummaryActions.SAVE_RESUME_LATER)"
+          @click="emitAction(FeeSummaryActions.BACK)"
+        >
+          <span><v-icon>mdi-chevron-left</v-icon>Back</span>
+        </v-btn>
+      </v-col>
+      <v-col class="pt-3">
+        <v-btn
+          id="cancel-btn"
+          large
+          :loading="isLoading"
+          @click="emitAction(FeeSummaryActions.CANCEL)"
+        >
+          <span>Cancel</span>
+        </v-btn>
+      </v-col>
+      <v-col class="pt-3">
+        <v-btn
+          id="save-resume-later-btn"
+          large
+          :loading="isLoading"
+          @click="emitAction(FeeSummaryActions.SAVE_RESUME_LATER)"
         >
           <span>Save and Resume Later</span>
         </v-btn>
       </v-col>
-      <v-col cols="4" class="pl-2">
-        <v-btn
-          id="delete-all-btn"
-          large
-          :loading="isLoading"
-          @click="emitAction(SummaryActions.DELETE_ALL)"
-        >
-          <span>Delete All</span>
-        </v-btn>
-      </v-col>
-      <v-col cols="12" class="py-1">
+      <v-col class="pt-3">
         <v-btn
           id="confirm-btn"
           large
           :disabled="hasConflicts"
           :loading="isLoading"
-          @click="emitAction(SummaryActions.CONFIRM)"
+          @click="emitAction(FeeSummaryActions.CONFIRM)"
         >
-          <span>{{confirmLabel}}</span>
+          <span>{{confirmLabel}}<v-icon>mdi-chevron-right</v-icon></span>
         </v-btn>
       </v-col>
     </v-row>
@@ -47,7 +57,7 @@
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
 
 // Enums and Interfaces
-import { SummaryActions } from '@bcrs-shared-components/enums'
+import { FeeSummaryActions } from '@bcrs-shared-components/enums'
 import { FilingDataIF } from '@bcrs-shared-components/interfaces'
 
 // Component Dependency
@@ -57,7 +67,7 @@ import SbcFeeSummary from 'sbc-common-components/src/components/SbcFeeSummary.vu
   components: { SbcFeeSummary }
 })
 export default class FeeSummary extends Vue {
-  readonly SummaryActions = SummaryActions
+  readonly FeeSummaryActions = FeeSummaryActions
 
   /** Filing information to calculate fees. */
   @Prop({ default: null })
@@ -82,6 +92,10 @@ export default class FeeSummary extends Vue {
   /** Message to display if there is an error. */
   @Prop({ default: '' })
   readonly errorMessage: string
+
+  /** Prop to indicate summary mode. */
+  @Prop({ default: false })
+  readonly isSummaryMode: boolean
 
   /** Emit action event. */
   @Emit('action')
@@ -117,6 +131,12 @@ export default class FeeSummary extends Vue {
     font-size: 0.75rem;
     color: $app-red;
     text-align: center;
+  }
+
+  ::v-deep {
+    .fee-list {
+      padding-left: 0;
+    }
   }
 }
 </style>

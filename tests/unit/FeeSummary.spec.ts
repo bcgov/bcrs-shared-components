@@ -16,7 +16,7 @@ describe('DetailComment', () => {
       entityType: 'BC',
       priority: false
     },
-    payApiUrl: 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/',
+    payApiUrl: 'https://pay-api-dev.apps.silver.devops.gov.bc.ca/api/v1/',
     hasConflicts: true,
     isLoading: true,
     confirmLabel: 'Continue',
@@ -54,17 +54,21 @@ describe('DetailComment', () => {
   it('displays default btn states and text correctly', async () => {
     const wrapper = wrapperFactory(null)
 
-    const saveResumeBtn = wrapper.find('#save-resume-btn')
+    // Verify back btn not rendered outside summary mode
+    const backBtn = wrapper.find('#back-btn')
+    expect(backBtn.exists()).toBe(false)
+
+    const saveResumeBtn = wrapper.find('#save-resume-later-btn')
     expect(saveResumeBtn.attributes('disabled')).toBeUndefined()
     expect(saveResumeBtn.text()).toBe('Save and Resume Later')
 
-    const deleteAllBtn = wrapper.find('#delete-all-btn')
-    expect(deleteAllBtn.attributes('disabled')).toBeUndefined()
-    expect(deleteAllBtn.text()).toBe('Delete All')
+    const cancelBtn = wrapper.find('#cancel-btn')
+    expect(cancelBtn.attributes('disabled')).toBeUndefined()
+    expect(cancelBtn.text()).toBe('Cancel')
 
     const confirmBtn = wrapper.find('#confirm-btn')
     expect(confirmBtn.attributes('disabled')).toBeUndefined()
-    expect(confirmBtn.text()).toBe('Confirm')
+    expect(confirmBtn.text()).toContain('Confirm')
 
     const errorMsg = wrapper.find('.error-msg')
     expect(errorMsg.exists()).toBe(false)
@@ -91,12 +95,17 @@ describe('DetailComment', () => {
     expect(wrapper.find('#confirm-btn').attributes('disabled')).toBeTruthy()
   })
 
-  it('displays the alternate Confirm btn text in summary mode', async () => {
-    const propsModified = { confirmLabel: 'Click me' }
+  it('displays the component correctly in summary mode', async () => {
+    const propsModified = { confirmLabel: 'Click me', isSummaryMode: true }
     const wrapper = wrapperFactory(propsModified)
+
+    // Verify back btn rendered in summary mode
+    const backBtn = wrapper.find('#back-btn')
+    expect(backBtn.exists()).toBe(true)
+    expect(backBtn.text()).toContain('Back')
 
     const confirmBtn = wrapper.find('#confirm-btn')
     expect(confirmBtn.attributes('disabled')).toBeUndefined()
-    expect(confirmBtn.text()).toBe('Click me')
+    expect(confirmBtn.text()).toContain('Click me')
   })
 })
