@@ -16,7 +16,7 @@ describe('DetailComment', () => {
       entityType: 'BC',
       priority: false
     },
-    payApiUrl: 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/',
+    payApiUrl: 'https://pay-api-dev.apps.silver.devops.gov.bc.ca/api/v1/',
     hasConflicts: true,
     isLoading: true,
     confirmLabel: 'Continue',
