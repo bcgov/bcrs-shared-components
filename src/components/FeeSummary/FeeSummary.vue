@@ -11,7 +11,7 @@
           id="back-btn"
           large
           :loading="isLoading"
-          @click="emitAction(SummaryActions.BACK)"
+          @click="emitAction(FeeSummaryActions.BACK)"
         >
           <span><v-icon>mdi-chevron-left</v-icon>Back</span>
         </v-btn>
@@ -21,7 +21,7 @@
           id="cancel-btn"
           large
           :loading="isLoading"
-          @click="emitAction(SummaryActions.CANCEL)"
+          @click="emitAction(FeeSummaryActions.CANCEL)"
         >
           <span>Cancel</span>
         </v-btn>
@@ -31,7 +31,7 @@
           id="save-resume-later-btn"
           large
           :loading="isLoading"
-          @click="emitAction(SummaryActions.SAVE_RESUME_LATER)"
+          @click="emitAction(FeeSummaryActions.SAVE_RESUME_LATER)"
         >
           <span>Save and Resume Later</span>
         </v-btn>
@@ -42,7 +42,7 @@
           large
           :disabled="hasConflicts"
           :loading="isLoading"
-          @click="emitAction(SummaryActions.CONFIRM)"
+          @click="emitAction(FeeSummaryActions.CONFIRM)"
         >
           <span>{{confirmLabel}}<v-icon>mdi-chevron-right</v-icon></span>
         </v-btn>
@@ -57,7 +57,7 @@
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
 
 // Enums and Interfaces
-import { SummaryActions } from '@bcrs-shared-components/enums'
+import { FeeSummaryActions } from '@bcrs-shared-components/enums'
 import { FilingDataIF } from '@bcrs-shared-components/interfaces'
 
 // Component Dependency
@@ -67,7 +67,7 @@ import SbcFeeSummary from 'sbc-common-components/src/components/SbcFeeSummary.vu
   components: { SbcFeeSummary }
 })
 export default class FeeSummary extends Vue {
-  readonly SummaryActions = SummaryActions
+  readonly FeeSummaryActions = FeeSummaryActions
 
   /** Filing information to calculate fees. */
   @Prop({ default: null })
@@ -93,7 +93,7 @@ export default class FeeSummary extends Vue {
   @Prop({ default: '' })
   readonly errorMessage: string
 
-  /** Prop to indicate review mode. */
+  /** Prop to indicate summary mode. */
   @Prop({ default: false })
   readonly isSummaryMode: boolean
 
