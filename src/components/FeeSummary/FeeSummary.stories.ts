@@ -12,7 +12,7 @@ export default {
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { FeeSummary },
-  template: '<fee-summary v-bind="$props" />' // $props comes from args below
+  template: '<div style="max-width: 350px"><fee-summary v-bind="$props" /></div>' // $props comes from args below
 })
 
 const filingData: FilingDataIF = {
@@ -21,12 +21,29 @@ const filingData: FilingDataIF = {
   priority: false
 }
 
+const changeFilingData: FilingDataIF = {
+  filingTypeCode: FilingCodes.CHANGE_OF_REGISTRATION,
+  entityType: CorpTypeCd.SOLE_PROP,
+  priority: false
+}
+
 export const Default = Template.bind({})
 Default.args = {
   filingData: filingData,
-  payApiUrl: 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/',
+  payApiUrl: 'https://pay-api-dev.apps.silver.devops.gov.bc.ca/api/v1/',
   hasConflicts: false,
   isLoading: false,
   confirmLabel: 'Continue',
   errorMessage: ''
+}
+
+export const summaryMode = Template.bind({})
+summaryMode.args = {
+  filingData: filingData,
+  payApiUrl: 'https://pay-api-dev.apps.silver.devops.gov.bc.ca/api/v1/',
+  hasConflicts: false,
+  isLoading: false,
+  confirmLabel: 'File and Pay',
+  errorMessage: '',
+  isSummaryMode: true
 }

@@ -1,5 +1,6 @@
 export enum SummaryActions {
-  SAVE_RESUME_LATER,
-  DELETE_ALL,
-  CONFIRM
+  BACK,
+  CANCEL,
+  CONFIRM,
+  SAVE_RESUME_LATER
 }
