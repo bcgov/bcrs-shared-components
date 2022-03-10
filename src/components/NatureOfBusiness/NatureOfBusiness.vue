@@ -90,7 +90,7 @@
 import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator'
 import NaicsHelpText from './NaicsHelpText.vue'
 import NaicsResult from './NaicsResult.vue'
-import { EmptyNaics, NaicsIF, NaicsResultIF } from '@/interfaces'
+import { EmptyNaics, NaicsIF, NaicsResultIF } from '@bcrs-shared-components/interfaces'
 
 enum States {
   INITIAL,

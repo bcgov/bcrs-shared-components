@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
-import { NaicsElementIF, NaicsResultIF } from '@/interfaces'
+import { NaicsElementIF, NaicsResultIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
 export default class NaicsResult extends Vue {
