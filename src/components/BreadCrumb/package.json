@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/bread-crumb",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.0.31",
+    "@bcrs-shared-components/interfaces": "^1.0.32",
     "vue-property-decorator": "^8.4.0"
   }
 }

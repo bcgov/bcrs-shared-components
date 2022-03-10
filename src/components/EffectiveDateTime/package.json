@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/effective-date-time",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@bcrs-shared-components/enums": "^1.0.17",
-    "@bcrs-shared-components/interfaces": "^1.0.31",
+    "@bcrs-shared-components/interfaces": "^1.0.32",
     "vue-property-decorator": "^8.4.0"
   }
 }
