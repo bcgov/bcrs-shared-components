@@ -3,11 +3,23 @@ export interface AddressIF {
   addressCity: string
   addressCountry: string
   addressRegion: string
+  addressType?: string
   deliveryInstructions?: string
   postalCode: string
   streetAddress: string
   streetAddressAdditional?: string
-  addressType?: string
+}
+
+/** Empty address for initializing address objects. */
+export const EmptyAddress: AddressIF = {
+  addressCity: '',
+  addressCountry: '',
+  addressRegion: '',
+  addressType: null,
+  deliveryInstructions: '',
+  postalCode: '',
+  streetAddress: '',
+  streetAddressAdditional: ''
 }
 
 /** Interface to define the joint base addresses. */
