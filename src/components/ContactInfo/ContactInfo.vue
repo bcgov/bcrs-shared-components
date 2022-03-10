@@ -115,7 +115,8 @@
           {{ customMsg }}
         </v-col>
         <v-col v-else cols="9" class="info-text pl-0 py-0">
-          There is no fee or filing to change {{ contactLabel }} Contact Information. Any changes made will be applied immediately.
+          There is no fee or filing to change {{ contactLabel }} Contact Information. Any
+          changes made will be applied immediately.
         </v-col>
       </v-row>
 
