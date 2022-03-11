@@ -1,25 +1,18 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
-import NatureOfBusiness from '@/components/NatureOfBusiness/NatureOfBusiness.vue'
+import NaicsResult from '@/components/NatureOfBusiness/NaicsResult.vue'
 
 Vue.use(Vuetify)
 const vuetify = new Vuetify({})
 
-describe('Nature Of Business component', () => {
+describe('NAICS Result component', () => {
   let wrapper: any
 
   beforeEach(() => {
     wrapper = shallowMount(
-      NatureOfBusiness,
-      {
-        vuetify,
-        propsData: {
-          showErrors: false,
-          naics: {},
-          NaicsServices: {}
-        }
-      }
+      NaicsResult,
+      { vuetify, propsData: { result: {} } }
     )
   })
 
@@ -28,7 +21,7 @@ describe('Nature Of Business component', () => {
   })
 
   it('renders the component properly', () => {
-    expect(wrapper.find('#nature-of-business').exists()).toBe(true)
+    expect(wrapper.find('.naics-result').exists()).toBe(true)
   })
 
   // *** TODO: add more tests here
