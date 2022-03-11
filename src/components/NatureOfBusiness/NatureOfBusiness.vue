@@ -1,25 +1,20 @@
 <template>
   <div id="nature-of-business">
     <v-row no-gutters>
-      <v-col cols="12" sm="2" class="pr-4">
+      <v-col cols="12" sm="3" class="pr-4">
         <label>Nature of Business</label>
       </v-col>
 
-      <v-col cols="12" sm="10">
+      <v-col cols="12" sm="9">
         <div v-if="state !== States.SUMMARY">
           <p class="ma-0">
             Enter one or more keywords that describe the primary nature of your business or enter
             the six-digit NAICS code. Learn more by visiting the
-            <a
-              href="https://www.statcan.gc.ca/en/subjects/standard/naics/2022/v1/index"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a :href="STATS_CAN_URL" target="_blank" rel="noopener noreferrer">
               <span>Statistics Canada website</span>
             </a>
             <v-icon small color="primary">mdi-open-in-new</v-icon>.
           </p>
-
           <v-text-field
             filled
             persistent-hint
@@ -33,17 +28,17 @@
             @keydown.enter="onSearchClicked()"
           >
             <template #append>
-              <v-btn
-                id="btn-search"
-                color="primary"
-                depressed
-                :loading="state === States.SEARCHING"
-                @click="onSearchClicked()"
-              >
-                <v-icon>mdi-magnify</v-icon>
-              </v-btn>
+              <v-btn depressed id="nob-search-btn" color="primary" :loading="state === States.SEARCHING"
+                @click="onSearchClicked()"><v-icon>mdi-magnify</v-icon></v-btn>
             </template>
           </v-text-field>
+          <template v-if="state === States.INITIAL && haveNaics">
+            <v-btn large outlined color="primary" id="nob-cancel1-btn" class="float-right"
+              @click="onCancelClicked()"
+            >
+              <span>Cancel</span>
+            </v-btn>
+          </template>
         </div>
 
         <div v-if="state === States.SHOW_RESULTS" class="mt-5">
@@ -65,18 +60,26 @@
               </v-col>
             </v-row>
           </div>
-          <v-btn large outlined color="primary" class="float-right mt-8" @click="onCancelClicked()">Cancel</v-btn>
+          <v-btn large outlined color="primary" id="nob-cancel2-btn" class="float-right mt-8"
+            @click="onCancelClicked()"
+          >
+            <span>Cancel</span>
+          </v-btn>
         </div>
 
         <div v-if="state === States.NO_RESULTS" class="mt-5">
           <p class="font-weight-bold">No results found.</p>
           <NaicsHelpText />
-          <v-btn large outlined color="primary" class="float-right mt-8" @click="onCancelClicked()">Cancel</v-btn>
+          <v-btn large outlined color="primary" id="nob-cancel3-btn" class="float-right mt-8"
+            @click="onCancelClicked()"
+          >
+            <span>Cancel</span>
+          </v-btn>
         </div>
 
         <div v-if="state === States.SUMMARY" class="summary-block d-flex justify-space-between align-center">
           <span>{{naicsCode}} - {{naicsDescription}}</span>
-          <v-btn text color="primary" @click="onChangeClicked()">
+          <v-btn text color="primary" id="nob-change-btn" @click="onChangeClicked()">
             <v-icon small>mdi-pencil</v-icon>
             <span>Change</span>
           </v-btn>
@@ -90,20 +93,22 @@
 import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator'
 import NaicsHelpText from './NaicsHelpText.vue'
 import NaicsResult from './NaicsResult.vue'
-import { EmptyNaics, NaicsIF, NaicsResultIF } from '@bcrs-shared-components/interfaces'
+import { NaicsIF, NaicsResultIF } from '@bcrs-shared-components/interfaces'
 
 enum States {
-  INITIAL,
-  SEARCHING,
-  SHOW_RESULTS,
-  NO_RESULTS,
-  SUMMARY
+  INITIAL = 'initial',
+  SEARCHING = 'searching',
+  SHOW_RESULTS = 'show results',
+  NO_RESULTS = 'no results',
+  SUMMARY = 'summary'
 }
 
 @Component({
   components: { NaicsHelpText, NaicsResult }
 })
 export default class NatureOfBusiness extends Vue {
+  readonly STATS_CAN_URL = 'https://www.statcan.gc.ca/en/subjects/standard/naics/2017/v3/index'
+
   /** Whether to show errors. */
   @Prop({ required: true })
   readonly showErrors!: boolean
@@ -124,7 +129,7 @@ export default class NatureOfBusiness extends Vue {
   private searchField = ''
   private searchResults: Array<NaicsResultIF> = []
 
-  // validation rule
+  /** The text field validation rules. */
   readonly natureOfBusinessRules: Array<Function> = [
     v => !!v || 'Nature of Business is required'
   ]
@@ -139,15 +144,20 @@ export default class NatureOfBusiness extends Vue {
     return this.naics.naicsDescription
   }
 
+  /** Whether we have stored NAICS data. */
+  get haveNaics (): boolean {
+    return (!!this.naicsCode && !!this.naicsDescription)
+  }
+
   /** Whether this form is valid. */
   get isFormValid (): boolean {
-    return (!!this.naicsCode && !!this.naicsDescription && this.state === States.SUMMARY)
+    return (this.haveNaics && this.state === States.SUMMARY)
   }
 
   /** Called when this component has been created. */
   created (): void {
-    // on init, display summary if NOB exists
-    if (this.naicsCode && this.naicsDescription) {
+    // on init, if we have stored NAICS data then display summary
+    if (this.haveNaics) {
       this.state = States.SUMMARY
     }
   }
@@ -163,6 +173,7 @@ export default class NatureOfBusiness extends Vue {
 
       this.searchResults = await this.NaicsServices.search(this.searchField).catch(() => [])
 
+      // display appropriate section
       this.state = (this.searchResults.length > 0) ? States.SHOW_RESULTS : States.NO_RESULTS
     }
   }
@@ -183,20 +194,15 @@ export default class NatureOfBusiness extends Vue {
 
   /** Called when user has clicked the Cancel button. */
   onCancelClicked (): void {
-    // reset search
-    this.searchField = ''
-
-    this.state = States.INITIAL
+    // if we have stored NAICS data then display summary
+    // otherwise go back to INITIAL state
+    this.state = this.haveNaics ? States.SUMMARY : States.INITIAL
   }
 
   /** Called when user has clicked the Change button. */
   onChangeClicked (): void {
     // set search to current NOB
     this.searchField = this.naicsDescription.toLowerCase()
-
-    // clearstore value
-    this.setNaics(EmptyNaics)
-
     this.state = States.INITIAL
   }
 
@@ -220,11 +226,12 @@ export default class NatureOfBusiness extends Vue {
 @import '@/assets/styles/theme.scss';
 
 #nature-of-business {
-  .col-sm-2 {
+  .col-sm-3 {
+    color: $gray9;
     font-weight: bold;
   }
 
-  .col-sm-10 {
+  .col-sm-9 {
     color: $gray7;
   }
 }
@@ -234,7 +241,7 @@ export default class NatureOfBusiness extends Vue {
   padding-left: 2px;
 }
 
-#btn-search {
+#nob-search-btn {
   min-width: unset;
   margin-top: -6px;
   padding: 8px;

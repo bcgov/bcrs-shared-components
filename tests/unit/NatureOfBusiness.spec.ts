@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
-import { NatureOfBusiness } from '@/components/NatureOfBusiness'
+import NatureOfBusiness from '@/components/NatureOfBusiness/NatureOfBusiness.vue'
 
 Vue.use(Vuetify)
 const vuetify = new Vuetify({})
