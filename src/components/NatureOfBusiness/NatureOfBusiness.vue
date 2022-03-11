@@ -28,12 +28,14 @@
             @keydown.enter="onSearchClicked()"
           >
             <template #append>
-              <v-btn depressed id="btn-search" color="primary" :loading="state === States.SEARCHING"
+              <v-btn depressed id="nob-search-btn" color="primary" :loading="state === States.SEARCHING"
                 @click="onSearchClicked()"><v-icon>mdi-magnify</v-icon></v-btn>
             </template>
           </v-text-field>
           <template v-if="state === States.INITIAL && haveNaics">
-            <v-btn large outlined color="primary" class="float-right mt-8" @click="onCancelClicked()">
+            <v-btn large outlined color="primary" id="nob-cancel1-btn" class="float-right"
+              @click="onCancelClicked()"
+            >
               <span>Cancel</span>
             </v-btn>
           </template>
@@ -58,7 +60,9 @@
               </v-col>
             </v-row>
           </div>
-          <v-btn large outlined color="primary" class="float-right mt-8" @click="onCancelClicked()">
+          <v-btn large outlined color="primary" id="nob-cancel2-btn" class="float-right mt-8"
+            @click="onCancelClicked()"
+          >
             <span>Cancel</span>
           </v-btn>
         </div>
@@ -66,14 +70,16 @@
         <div v-if="state === States.NO_RESULTS" class="mt-5">
           <p class="font-weight-bold">No results found.</p>
           <NaicsHelpText />
-          <v-btn large outlined color="primary" class="float-right mt-8" @click="onCancelClicked()">
+          <v-btn large outlined color="primary" id="nob-cancel3-btn" class="float-right mt-8"
+            @click="onCancelClicked()"
+          >
             <span>Cancel</span>
           </v-btn>
         </div>
 
         <div v-if="state === States.SUMMARY" class="summary-block d-flex justify-space-between align-center">
           <span>{{naicsCode}} - {{naicsDescription}}</span>
-          <v-btn text color="primary" @click="onChangeClicked()">
+          <v-btn text color="primary" id="nob-change-btn" @click="onChangeClicked()">
             <v-icon small>mdi-pencil</v-icon>
             <span>Change</span>
           </v-btn>
@@ -221,6 +227,7 @@ export default class NatureOfBusiness extends Vue {
 
 #nature-of-business {
   .col-sm-3 {
+    color: $gray9;
     font-weight: bold;
   }
 
@@ -234,7 +241,7 @@ export default class NatureOfBusiness extends Vue {
   padding-left: 2px;
 }
 
-#btn-search {
+#nob-search-btn {
   min-width: unset;
   margin-top: -6px;
   padding: 8px;
