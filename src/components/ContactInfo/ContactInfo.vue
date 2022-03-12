@@ -1,120 +1,118 @@
 <template>
   <div id="contact-info">
-    <!-- Display Contact Info -->
-    <v-row v-if="!isEditing" class="mx-0">
-      <v-col cols="3" class="pl-0 py-0">
-        <label>
-          <span>{{ contactLabel }} Contact Information</span>
-          <v-flex>
-            <v-chip v-if="hasBusinessContactInfoChange" x-small label color="primary" text-color="white">
-              {{editedLabel}}
-            </v-chip>
-          </v-flex>
-        </label>
-      </v-col>
+    <!-- SUMMARY SECTION -->
+    <template v-if="!isEditing">
+      <!-- Display Contact Info -->
+      <v-row no-gutters class="edit-section">
+        <v-col cols="12" sm="3" class="pr-4">
+          <label class="contact-info-label">
+            <span>{{ contactLabel }} Contact Information</span>
+            <v-flex>
+              <v-chip v-if="hasBusinessContactInfoChange" x-small label color="primary" text-color="white">
+                {{editedLabel}}
+              </v-chip>
+            </v-flex>
+          </label>
+        </v-col>
 
-      <!-- Email Address -->
-      <v-col cols="4" class="pl-0 py-0">
-        <label class="d-flex flex-wrap">
-          <span class="subtitle text-body-3 mr-2">Email Address</span>
-        </label>
-        <div id="lbl-email" class="info-text">
-          {{ !!businessContact.email ? businessContact.email : "(Not entered)" }}
-        </div>
-      </v-col>
+        <!-- Email Address -->
+        <v-col cols="12" sm="4" class="pr-4">
+          <label class="item-label">Email Address</label>
+          <div id="lbl-email">
+            {{ !!businessContact.email ? businessContact.email : "(Not entered)" }}
+          </div>
+        </v-col>
 
-      <!-- Phone Number -->
-      <v-col cols="4" class="pl-0 py-0">
-        <label class="d-flex flex-wrap">
-          <span class="subtitle text-body-3 mr-2">Phone Number</span>
-        </label>
-        <div id="lbl-phone" v-if="!!businessContact.phone" class="info-text">
-          {{ businessContact.phone }}
-          <span v-if="!!businessContact.extension">Ext: {{ businessContact.extension }}</span>
-        </div>
-        <div id="lbl-no-phone" v-else class="info-text">(Not entered)</div>
-      </v-col>
+        <!-- Phone Number -->
+        <v-col cols="6" sm="3" class="pr-4">
+          <label class="item-label">Phone Number</label>
+          <div v-if="!!businessContact.phone" id="lbl-phone">
+            {{ businessContact.phone }}
+            <span v-if="!!businessContact.extension">Ext: {{ businessContact.extension }}</span>
+          </div>
+          <div v-else id="lbl-no-phone">(Not entered)</div>
+        </v-col>
 
-      <!-- Edit Actions -->
-      <v-col v-if="!disableActions" cols="1" class="mt-n2">
-        <div class="actions mr-4">
-          <v-btn
-            v-if="hasBusinessContactInfoChange"
-            id="btn-undo-contact-info"
-            text color="primary"
-            class="undo-action"
-            @click="resetContactInfo()"
-          >
-            <v-icon small>mdi-undo</v-icon>
-            <span>Undo</span>
-          </v-btn>
+        <!-- Edit Actions -->
+        <v-col v-if="!disableActions" cols="6" sm="2">
+          <div class="d-flex justify-end align-end align-sm-start">
+            <v-btn
+              v-if="hasBusinessContactInfoChange"
+              id="contact-info-undo-btn"
+              text color="primary"
+              @click="resetContactInfo()"
+            >
+              <v-icon small>mdi-undo</v-icon>
+              <span>Undo</span>
+            </v-btn>
 
-          <v-tooltip
-            v-else top
-            content-class="top-tooltip"
-            transition="fade-transition"
-            nudge-right="3"
-            :disabled="disableActionTooltip"
-          >
-            <template v-slot:activator="{ on }">
-              <v-btn
-                v-on="on"
-                id="btn-correct-contact-info"
-                text color="primary"
-                @click="isEditing = true"
-              >
-                <v-icon small>mdi-pencil</v-icon>
-                <span>{{editLabel}}</span>
-              </v-btn>
-            </template>
-            <span>No fee to change</span>
-          </v-tooltip>
-
-          <!-- Drop Down Actions -->
-          <span class="more-actions" v-if="hasBusinessContactInfoChange">
-            <v-menu
-              offset-y left nudge-bottom="4"
-              v-model="dropdown"
+            <v-tooltip
+              v-else top
+              content-class="top-tooltip"
+              transition="fade-transition"
+              nudge-right="3"
+              :disabled="disableActionTooltip"
             >
               <template v-slot:activator="{ on }">
                 <v-btn
-                  text small color="primary"
-                  id="btn-more-actions"
                   v-on="on"
+                  id="contact-info-edit-btn"
+                  text color="primary"
+                  @click="isEditing = true"
                 >
-                  <v-icon>{{dropdown ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
+                  <v-icon small>mdi-pencil</v-icon>
+                  <span>{{editLabel}}</span>
                 </v-btn>
               </template>
-              <v-list>
-                <v-list-item
-                  id="btn-more-actions-edit"
-                  class="v-list-item"
-                  @click="isEditing = true; dropdown = false"
-                >
-                  <v-list-item-subtitle>
-                    <v-icon small color="primary">mdi-pencil</v-icon>
-                    <span class="drop-down-action ml-1">Change</span>
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </span>
-        </div>
-      </v-col>
-    </v-row>
+              <span>No fee to change</span>
+            </v-tooltip>
 
-    <!-- Edit Contact Info -->
-    <template v-else id="edit-contact-form">
-      <v-row class="mx-0">
-        <v-col cols="3" class="pl-0 py-0">
-          <label :class="{'error-text': invalidSection}">
-            {{ contactLabel }} Contact Information
-          </label>
+            <!-- Drop Down Actions -->
+            <span class="more-actions" v-if="hasBusinessContactInfoChange">
+              <v-menu
+                offset-y left nudge-bottom="4"
+                v-model="dropdown"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    text small color="primary"
+                    id="btn-more-actions"
+                    v-on="on"
+                  >
+                    <v-icon>{{dropdown ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item
+                    id="btn-more-actions-edit"
+                    class="v-list-item"
+                    @click="isEditing = true; dropdown = false"
+                  >
+                    <v-list-item-subtitle>
+                      <v-icon small color="primary">mdi-pencil</v-icon>
+                      <span class="drop-down-action ml-1">Change</span>
+                    </v-list-item-subtitle>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </span>
+          </div>
         </v-col>
-        <v-col cols="9" v-if="customMsg != null" class="info-text pl-0 py-0">
+      </v-row>
+    </template>
+
+    <!-- EDIT SECTION -->
+    <template v-else>
+      <v-row no-gutters class="summary-section">
+        <v-col cols="12" sm="3">
+          <label class="title-label">{{ contactLabel }} Contact Information</label>
+        </v-col>
+
+        <v-col v-if="customMsg" cols="12" sm="9">
           {{ customMsg }}
         </v-col>
-        <v-col v-else cols="9" class="info-text pl-0 py-0">
+
+        <v-col v-else cols="12" sm="9">
           There is no fee or filing to change {{ contactLabel }} Contact Information. Any
           changes made will be applied immediately.
         </v-col>
@@ -124,15 +122,16 @@
         v-model="formValid"
         ref="editContactForm"
         name="business-contact-form"
-        class="business-contact-form pt-5 pr-1"
+        class="business-contact-form pt-5"
         @submit.prevent="submitContact()"
       >
-        <!-- Line 1 -->
-        <v-row class="mx-0" no-gutters>
-          <v-col cols="3">
-            <label>Email Address</label>
+        <!-- Email Address -->
+        <v-row no-gutters>
+          <v-col cols="12" sm="3" class="pr-4">
+            <label class="title-label">Email Address</label>
           </v-col>
-          <v-col cols="9">
+
+          <v-col cols="12" sm="9">
             <v-text-field
               id="txt-email"
               filled
@@ -147,12 +146,13 @@
           </v-col>
         </v-row>
 
-        <!-- Line 2 -->
-        <v-row class="mx-0" no-gutters>
-          <v-col cols="3">
-            <label>Confirm Email</label>
+        <!-- Confirm Email -->
+        <v-row no-gutters>
+          <v-col cols="12" sm="3" class="pr-4">
+            <label class="title-label">Confirm Email</label>
           </v-col>
-          <v-col cols="9">
+
+          <v-col cols="12" sm="9">
             <v-text-field
               id="txt-confirm-email"
               filled
@@ -167,12 +167,13 @@
           </v-col>
         </v-row>
 
-        <!-- Line 3 -->
-        <v-row class="mx-0" no-gutters>
-          <v-col cols="3">
-            <label>Phone Number</label>
+        <!-- Phone Number -->
+        <v-row no-gutters>
+          <v-col cols="12" sm="3" class="pr-4">
+            <label class="title-label">Phone Number</label>
           </v-col>
-          <v-col class="mr-4">
+
+          <v-col cols="6" sm="5" class="pr-4">
             <v-text-field
               id="txt-phone"
               filled
@@ -187,7 +188,8 @@
             >
             </v-text-field>
           </v-col>
-          <v-col>
+
+          <v-col cols="6" sm="4">
             <v-text-field
               id="txt-phone-extension"
               filled
@@ -201,27 +203,14 @@
         </v-row>
 
         <!-- Form Actions -->
-        <v-row class="mx-0">
-          <v-col cols="12" class="px-0">
-            <div class="action-btns">
-              <v-btn
-                id="done-btn"
-                large color="primary"
-                type="submit"
-                value="Submit"
-              >
-                <span>Save</span>
-              </v-btn>
-              <v-btn
-                id="cancel-btn"
-                large outlined color="primary"
-                @click="cancelEdit()"
-              >
-                <span>Cancel</span>
-              </v-btn>
-            </div>
-          </v-col>
-        </v-row>
+        <div class="action-btns d-flex justify-center justify-sm-end">
+          <v-btn id="contact-info-done-btn" large color="primary" type="submit" value="Submit">
+            <span>Save</span>
+          </v-btn>
+          <v-btn id="contact-info-cancel-btn" large outlined color="primary" @click="cancelEdit()">
+            <span>Cancel</span>
+          </v-btn>
+        </div>
       </v-form>
     </template>
   </div>
@@ -279,10 +268,6 @@ export default class ContactInfo extends Vue {
   /** Option to disable the action tooltip. */
   @Prop({ default: false })
   readonly disableActionTooltip!: boolean
-
-  /** Prompt error handling. */
-  @Prop({ default: false })
-  readonly invalidSection!: boolean
 
   /** Option to disable phone requirement. */
   @Prop({ default: false })
@@ -377,28 +362,23 @@ export default class ContactInfo extends Vue {
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
 
-[class^="col"] {
-  padding-top: 0;
-  padding-bottom: 0;
+.edit-section {
+  font-size: $px-16;
+  color: $gray7;
 }
 
-.actions {
-  position: absolute;
-  right: 0;
+.contact-info-label,
+.title-label {
+  font-weight: bold;
+  color: $gray9;
+}
 
-  .v-btn {
-    min-width: 0.5rem;
-  }
-
-  .undo-action{
-    border-right: 1px solid $gray1;
-  }
+.item-label {
+  font-size: $px-14;
+  font-weight: bold;
 }
 
 .action-btns {
-  display: flex;
-  justify-content: flex-end;
-
   .v-btn + .v-btn {
     margin-left: 0.5rem;
   }
@@ -406,12 +386,16 @@ export default class ContactInfo extends Vue {
   .v-btn {
     min-width: 6.5rem;
   }
+}
 
-  #done-btn[disabled] {
-    color: white !important;
-    background-color: $app-blue !important;
-    opacity: 0.2;
-  }
+#contact-info-undo-btn {
+  border-right: 1px solid $gray1;
+}
+
+#contact-info-done-btn[disabled] {
+  color: white !important;
+  background-color: $app-blue !important;
+  opacity: 0.2;
 }
 
 ::v-deep .v-text-field .v-label {

@@ -26,7 +26,7 @@ describe('StaffPayment', () => {
 
     // verify displayed elements
     expect(wrapper.findComponent(StaffPayment).exists()).toBe(true)
-    expect(wrapper.find('#staff-payment-container .side-label').text()).toBe('Payment')
+    expect(wrapper.find('#staff-payment-container .title-label').text()).toBe('Payment')
     expect(wrapper.find('#routing-slip-number-textfield').exists()).toBe(true)
     expect(wrapper.find('#bcol-account-number-textfield').exists()).toBe(true)
     expect(wrapper.find('#dat-number-textfield').exists()).toBe(true)

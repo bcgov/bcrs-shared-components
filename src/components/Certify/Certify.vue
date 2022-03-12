@@ -1,80 +1,78 @@
 <template>
-  <v-card flat id="AR-step-4-container" class="pr-5">
-    <v-form id="certify-form" ref="certifyForm" lazy-validation class="mt-4" v-on:submit.prevent>
-      <v-container>
-        <v-row class="pl-2" no-gutters>
-          <v-col :cols="firstColumn">
-            <label :class="{'error-text': invalidSection}"><strong>Legal Name</strong></label>
-          </v-col>
-          <v-col :cols="secondColumn" class="px-0">
-            <div class="value certified-by">
-              <v-text-field
-                filled
-                persistent-hint
-                id="certified-by-textfield"
-                label="Legal name of authorized person"
-                :value="certifiedBy"
-                :rules="[(v) => !!v || 'A person\'s legal name is required.']"
-                :disabled="disableEdit"
-                @input="emitCertifiedBy($event)"
-              />
-            </div>
-          </v-col>
-        </v-row>
-        <v-row no-gutters class="pl-1">
-          <v-col :cols="firstColumn" />
-          <v-col :cols="secondColumn">
-            <v-checkbox
-              hide-details
-              :value="isCertified"
-              @change="emitIsCertified($event)"
-              id="isCertified-checkbox"
-            >
-              <template slot="label">
-                <div class="certify-stmt" :class="{'error-text': invalidSection && !isCertified}" v-if="isStaff">
-                  <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
-                  certifies that they have relevant knowledge of the
-                  {{ entityDisplay || "association" }} and is authorized to
-                  make this filing.
-                </div>
-                <div class="certify-stmt" :class="{'error-text': invalidSection && !isCertified}" v-else>
-                  I,
-                  <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
-                  , certify that I have relevant knowledge of the
-                  {{ entityDisplay || "association" }} and I am authorized to
-                  make this filing.
-                </div>
-              </template>
-            </v-checkbox>
-            <ul class="certify-statements mt-4">
-              <li v-for="(statement, index) in statements" :key="`statement-${index}`" class="pt-2">
-                {{ statement }}
+  <v-card flat id="AR-step-4-container" class="py-8 px-6">
+    <v-form ref="certifyForm" lazy-validation v-on:submit.prevent>
+      <v-row no-gutters>
+        <v-col cols="12" :sm="firstColumn" class="pr-4 pb-4">
+          <label class="title-label" :class="{'error-text': invalidSection}"><strong>Legal Name</strong></label>
+        </v-col>
+        <v-col cols="12" :sm="secondColumn">
+          <v-text-field
+            filled
+            persistent-hint
+            id="certified-by-textfield"
+            label="Legal name of authorized person"
+            :value="certifiedBy"
+            :rules="[(v) => !!v || 'A person\'s legal name is required.']"
+            :disabled="disableEdit"
+            @input="emitCertifiedBy($event)"
+          />
+        </v-col>
+      </v-row>
+
+      <v-row no-gutters>
+        <v-col cols="12" :sm="firstColumn" />
+        <v-col cols="12" :sm="secondColumn">
+          <v-checkbox
+            hide-details
+            :value="isCertified"
+            @change="emitIsCertified($event)"
+            class="mt-0 pt-0"
+          >
+            <template slot="label">
+              <div class="certify-stmt" :class="{'error-text': invalidSection && !isCertified}" v-if="isStaff">
+                <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
+                certifies that they have relevant knowledge of the
+                {{ entityDisplay || "association" }} and is authorized to
+                make this filing.
+              </div>
+              <div class="certify-stmt" :class="{'error-text': invalidSection && !isCertified}" v-else>
+                I,
+                <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>,
+                certify that I have relevant knowledge of the
+                {{ entityDisplay || "association" }} and I am authorized to
+                make this filing.
+              </div>
+            </template>
+          </v-checkbox>
+
+          <ul v-if="statements.length > 0" class="certify-statements mt-4">
+            <li v-for="(statement, index) in statements" :key="`statement-${index}`" class="pt-2">
+              {{ statement }}
+            </li>
+          </ul>
+          <p class="certify-clause"><strong>Date:</strong> {{ currentDate }}</p>
+          <p class="certify-clause">{{ message }}</p>
+
+          <!-- Incorporation MailTo Section -->
+          <template v-if="enableMailTo">
+            <p class="mt-4">
+              Copies of the incorporation documents will be sent to the following email addresses:
+            </p>
+            <ul class="email-addresses">
+              <li id="business-email">
+                <span>Registered office email address:</span>
+                <a v-if="businessEmail" :href="`mailto:${businessEmail}`">{{ businessEmail }}</a>
+                <span v-else>(Not entered)</span>
+              </li>
+              <li id="completing-party-email">
+                <span>Completing party email address:</span>&nbsp;
+                <a v-if="completingPartyEmail" :href="`mailto:${completingPartyEmail}`">{{ completingPartyEmail }}</a>
+                <span v-else>(Not entered)</span>
               </li>
             </ul>
-            <p class="certify-clause py-3"><strong>Date:</strong> {{ currentDate }}</p>
-            <p class="certify-clause">{{ message }}</p>
-
-            <!-- Incorporation MailTo Section -->
-            <template v-if="enableMailTo">
-              <p class="mt-4">
-                Copies of the incorporation documents will be sent to the following email addresses:
-              </p>
-              <ul class="email-addresses">
-                <li id="business-email">
-                  <span>Registered office email address:</span>
-                  <a v-if="businessEmail" :href="`mailto:${businessEmail}`">{{ businessEmail }}</a>
-                  <span v-else>(Not entered)</span>
-                </li>
-                <li id="completing-party-email">
-                  <span>Completing party email address:</span>&nbsp;
-                  <a v-if="completingPartyEmail" :href="`mailto:${completingPartyEmail}`">{{ completingPartyEmail }}</a>
-                  <span v-else>(Not entered)</span>
-                </li>
-              </ul>
-            </template>
-          </v-col>
-        </v-row>
-      </v-container>
+          </template>
+        </v-col>
+      </v-row>
     </v-form>
   </v-card>
 </template>
@@ -191,41 +189,23 @@ export default class Certify extends Vue {
 @import '@/assets/styles/theme.scss';
 
 #AR-step-4-container {
-  margin-top: 1rem;
-  padding-bottom: 0.5rem;
-  padding-top: 1rem;
   line-height: 1.2rem;
-  font-size: 0.875rem;
+  font-size: $px-16;
 }
 
-.certified-by-container {
-  display: flex;
-  flex-flow: column nowrap;
-  position: relative;
-
-  > label:first-child {
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
+.title-label {
+  font-weight: bold;
+  color: $gray9;
 }
 
-@media (min-width: 768px) {
-  .certified-by-container {
-    flex-flow: row nowrap;
-
-    > label:first-child {
-      flex: 0 0 auto;
-      padding-right: 2rem;
-      width: 12rem;
-    }
-  }
-}
-
-.value.certifiedBy {
-  width: 100%;
+// align checkbox with top of its label
+::v-deep .v-input--checkbox .v-input__slot {
+  align-items: flex-start;
 }
 
 .certify-clause {
+  margin: 0;
+  padding-top: 1rem;
   padding-left: 2rem;
   color: $gray7;
   font-size: 0.875rem;
@@ -238,12 +218,13 @@ export default class Certify extends Vue {
   font-weight: normal;
 }
 
-// Vuetify overrides
+// override v-text-field label
 ::v-deep .v-label {
   color: $gray7;
   font-weight: normal;
 }
 
+// override v-text-field text
 ::v-deep .v-input--is-disabled input,
 .v-input--is-disabled textarea {
   color: $gray9;
