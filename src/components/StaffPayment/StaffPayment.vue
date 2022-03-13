@@ -1,5 +1,5 @@
 <template>
-  <v-card flat id="staff-payment-container" class="py-8 px-6">
+  <div id="staff-payment-container">
     <v-row no-gutters>
       <v-col v-if="displaySideLabel" cols="12" sm="3" class="pr-4 pb-4">
         <label class="title-label" :class="{'error-text': invalidSection}">Payment</label>
@@ -76,7 +76,7 @@
         </v-radio-group>
       </v-col>
     </v-row>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -286,12 +286,6 @@ export default class StaffPayment extends Vue {
 
   ::v-deep > .v-input__control {
     margin-bottom: -12px;
-  }
-}
-
-.priority-checkbox {
-  ::v-deep .v-messages {
-    display: none !important;
   }
 }
 </style>

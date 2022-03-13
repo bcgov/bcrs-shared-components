@@ -1,9 +1,9 @@
 <template>
-  <v-card flat id="AR-step-4-container" class="py-8 px-6">
+  <div id="AR-step-4-container">
     <v-form ref="certifyForm" lazy-validation v-on:submit.prevent>
       <v-row no-gutters>
         <v-col cols="12" :sm="firstColumn" class="pr-4 pb-4">
-          <label class="title-label" :class="{'error-text': invalidSection}"><strong>Legal Name</strong></label>
+          <label class="title-label" :class="{'error-text': invalidSection}">Legal Name</label>
         </v-col>
         <v-col cols="12" :sm="secondColumn">
           <v-text-field
@@ -74,7 +74,7 @@
         </v-col>
       </v-row>
     </v-form>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -99,7 +99,7 @@ export default class Certify extends Vue {
   private isCertified: boolean
 
   /** Certified Company statements . */
-  @Prop({ default: [] })
+  @Prop({ default: () => [] })
   private statements: []
 
   /** Message prop. */
