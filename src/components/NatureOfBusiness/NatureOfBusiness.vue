@@ -3,6 +3,15 @@
     <v-row no-gutters>
       <v-col cols="12" sm="3" class="pr-4">
         <label>Nature of Business</label>
+        <v-chip
+          v-if="hasNaicsChanges"
+          id="changed-chip"
+          x-small label
+          color="primary"
+          text-color="white"
+        >
+          Changed
+        </v-chip>
       </v-col>
 
       <v-col cols="12" sm="9">
@@ -79,10 +88,28 @@
 
         <div v-if="state === States.SUMMARY" class="summary-block d-flex justify-space-between align-center">
           <span>{{naicsCode}} - {{naicsDescription}}</span>
-          <v-btn text color="primary" id="nob-change-btn" @click="onChangeClicked()">
+          <v-btn v-if="!hasNaicsChanges" text color="primary" id="nob-change-btn" @click="onChangeClicked()">
             <v-icon small>mdi-pencil</v-icon>
             <span>Change</span>
           </v-btn>
+
+          <div v-else id="nob-more-actions">
+            <v-btn text color="primary" id="nob-undo-btn" @click="emitUndo()">
+              <v-icon small>mdi-undo</v-icon>
+              <span>Undo</span>
+            </v-btn>
+            <v-menu offset-y left nudge-bottom="4" v-model="dropdown">
+              <template v-slot:activator="{ on }">
+                <v-btn text small color="primary" id="nob-menu-btn" v-on="on">
+                  <v-icon>{{dropdown ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
+                </v-btn>
+              </template>
+              <v-btn text color="primary" id="more-changes-btn" class="py-5"
+                @click="onChangeClicked(); dropdown = false">
+                <v-icon small color="primary">mdi-pencil</v-icon>Change</v-btn>
+            </v-menu>
+          </div>
+
         </div>
       </v-col>
     </v-row>
@@ -121,6 +148,10 @@ export default class NatureOfBusiness extends Vue {
   @Prop({ required: true })
   readonly NaicsServices!: any
 
+  /** Whether to display Change features. */
+  @Prop({ default: false })
+  readonly hasNaicsChanges!: boolean
+
   // enum for template
   readonly States = States
 
@@ -128,6 +159,9 @@ export default class NatureOfBusiness extends Vue {
   private state = States.INITIAL
   private searchField = ''
   private searchResults: Array<NaicsResultIF> = []
+
+  /** V-model for dropdown menu. */
+  private dropdown: boolean = null
 
   /** The text field validation rules. */
   readonly natureOfBusinessRules: Array<Function> = [
@@ -216,6 +250,10 @@ export default class NatureOfBusiness extends Vue {
   @Emit('setNaics')
   private setNaics (val: NaicsIF): void {}
 
+  /** Emits undo event. */
+  @Emit('undoNaics')
+  private emitUndo (): void {}
+
   /** Emits event to update this component's validity. */
   @Emit('valid')
   private emitValid (val: boolean): void {}
@@ -245,6 +283,15 @@ export default class NatureOfBusiness extends Vue {
   min-width: unset;
   margin-top: -6px;
   padding: 8px;
+}
+
+#nob-more-actions {
+  white-space: nowrap;
+
+  #nob-undo-btn {
+    min-width: unset;
+    border-right: 1px solid $gray1;
+  }
 }
 
 #result-list {

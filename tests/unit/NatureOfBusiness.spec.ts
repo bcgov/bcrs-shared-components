@@ -31,5 +31,11 @@ describe('Nature Of Business component', () => {
     expect(wrapper.find('#nature-of-business').exists()).toBe(true)
   })
 
-  // *** TODO: add more tests here
+  it('renders the undo action when prompted', async () => {
+    wrapper.vm.state = 'summary'
+    wrapper.setProps({ hasNaicsChanges: true })
+    await Vue.nextTick()
+
+    expect(wrapper.find('#nob-undo-btn').exists()).toBe(true)
+  })
 })
