@@ -105,7 +105,9 @@
     <template v-else>
       <v-row no-gutters class="summary-section">
         <v-col cols="12" sm="3">
-          <label class="title-label">{{ contactLabel }} Contact Information</label>
+          <label class="title-label" :class="{'error-text': invalidSection}">
+            {{ contactLabel }} Contact Information
+          </label>
         </v-col>
 
         <v-col v-if="customMsg" cols="12" sm="9">
@@ -268,6 +270,10 @@ export default class ContactInfo extends Vue {
   /** Option to disable the action tooltip. */
   @Prop({ default: false })
   readonly disableActionTooltip!: boolean
+
+  /** Prompt error handling. */
+  @Prop({ default: false })
+  readonly invalidSection!: boolean
 
   /** Option to disable phone requirement. */
   @Prop({ default: false })
