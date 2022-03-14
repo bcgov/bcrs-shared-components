@@ -1,10 +1,10 @@
 <template>
-  <v-card flat class="mt-4 py-8 pr-6">
-    <v-row no-gutters align="start" class="mt-4">
-      <v-col cols="3" class="px-6" v-if="displaySideLabels">
-        <label :class="{'error-text': invalidSection}" id="court-order-label">Court Order <br>Number</label>
+  <div id="court-order-poa">
+    <v-row no-gutters>
+      <v-col cols="12" sm="3" class="pr-4" v-if="displaySideLabels">
+        <label id="court-order-label" :class="{'error-text': invalidSection}">Court Order Number</label>
       </v-col>
-      <v-col :cols="displaySideLabels ? 9 : 12" class="pl-2">
+      <v-col cols="12" :sm="displaySideLabels ? 9 : 12">
         <v-form ref="courtNumRef" id="court-num-form" v-model="valid">
           <v-text-field
             id="court-order-number-input"
@@ -16,19 +16,21 @@
         </v-form>
       </v-col>
     </v-row>
-    <v-row no-gutters align="end">
-      <v-col cols="3" class="px-6" v-if="displaySideLabels">
-        <label id="poa-label">Plan of <br>Arrangement</label>
+    <v-row no-gutters>
+      <v-col cols="12" sm="3" class="pr-4" v-if="displaySideLabels">
+        <label id="poa-label">Plan of Arrangement</label>
       </v-col>
-      <v-col :cols="displaySideLabels ? 9 : 12" class="pl-2">
+      <v-col cols="12" :sm="displaySideLabels ? 9 : 12">
         <v-checkbox
           id="plan-of-arrangement-checkbox"
+          class="mt-0 pt-0"
+          hide-details
           v-model="planOfArrangement"
           label="This filing is pursuant to a Plan of Arrangement"
         />
       </v-col>
     </v-row>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -131,6 +133,13 @@ export default class CourtOrderPoa extends Vue {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
+
+#court-order-label,
+#poa-label {
+  font-size: $px-16;
+  font-weight: bold;
+  color: $gray9;
+}
 
 ::v-deep .v-card__actions {
   justify-content: flex-end;

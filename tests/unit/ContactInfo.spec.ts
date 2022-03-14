@@ -19,10 +19,10 @@ const extensionSelector: string = '#txt-phone-extension'
 const formSelector: string = '[name="business-contact-form"]'
 const readOnlyEmailSelector: string = '#lbl-email'
 const readOnlyPhoneSelector: string = '#lbl-phone'
-const correctButtonSelector: string = '#btn-correct-contact-info'
-const undoButtonSelector: string = '#btn-undo-contact-info'
-const doneButtonSelector: string = '#done-btn'
-const cancelBtnSelector: string = '#cancel-btn'
+const editButtonSelector: string = '#contact-info-edit-btn'
+const undoButtonSelector: string = '#contact-info-undo-btn'
+const doneButtonSelector: string = '#contact-info-done-btn'
+const cancelBtnSelector: string = '#contact-info-cancel-btn'
 
 const originalBusinessContactInfo: ContactPointIF = {
   email: 'abc@test.com',
@@ -92,7 +92,7 @@ describe('Business Contact Info component', () => {
     const wrapper: Wrapper<ContactInfo> =
       createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
 
-    expect(wrapper.find(correctButtonSelector).exists()).toBe(true)
+    expect(wrapper.find(editButtonSelector).exists()).toBe(true)
     expect(wrapper.find(undoButtonSelector).exists()).toBe(false)
     wrapper.destroy()
   })
@@ -101,7 +101,7 @@ describe('Business Contact Info component', () => {
     const wrapper: Wrapper<ContactInfo> =
       createComponent(originalBusinessContactInfo, editedBusinessContactInfo, true)
 
-    expect(wrapper.find(correctButtonSelector).exists()).toBe(false)
+    expect(wrapper.find(editButtonSelector).exists()).toBe(false)
     expect(wrapper.find(undoButtonSelector).exists()).toBe(true)
     wrapper.destroy()
   })
@@ -109,7 +109,7 @@ describe('Business Contact Info component', () => {
   it('Shows business contact form with values populated when correct button is clicked', async () => {
     const wrapper: Wrapper<ContactInfo> =
       createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
-    wrapper.find('#btn-correct-contact-info').trigger('click')
+    wrapper.find(editButtonSelector).trigger('click')
     await Vue.nextTick()
 
     expect(wrapper.find(formSelector).exists()).toBe(true)
@@ -126,11 +126,11 @@ describe('Business Contact Info component', () => {
   it('Loads the component with the default msg', async () => {
     const wrapper: Wrapper<ContactInfo> =
       createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
-    wrapper.find('#btn-correct-contact-info').trigger('click')
+    wrapper.find(editButtonSelector).trigger('click')
     await Vue.nextTick()
 
-    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee or filing to ' +
-      'change Registered Office Contact Information. Any changes made will be applied immediately.')
+    expect(wrapper.find('.summary-section .col-sm-9').text())
+      .toContain('There is no fee or filing to change Registered Office Contact Information.')
 
     wrapper.destroy()
   })
@@ -140,11 +140,11 @@ describe('Business Contact Info component', () => {
       createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
     wrapper.setProps({ contactLabel: 'Business' })
 
-    wrapper.find('#btn-correct-contact-info').trigger('click')
+    wrapper.find(editButtonSelector).trigger('click')
     await Vue.nextTick()
 
-    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('There is no fee or filing ' +
-      'to change Business Contact Information. Any changes made will be applied immediately.')
+    expect(wrapper.find('.summary-section .col-sm-9').text())
+      .toContain('There is no fee or filing to change Business Contact Information.')
 
     wrapper.destroy()
   })
@@ -157,10 +157,10 @@ describe('Business Contact Info component', () => {
         null,
         'mock custom message'
       )
-    wrapper.find('#btn-correct-contact-info').trigger('click')
+    wrapper.find(editButtonSelector).trigger('click')
     await Vue.nextTick()
 
-    expect(wrapper.findAll('.info-text').at(0).text()).toEqual('mock custom message')
+    expect(wrapper.find('.summary-section .col-sm-9').text()).toBe('mock custom message')
 
     wrapper.destroy()
   })
@@ -171,7 +171,7 @@ describe('Business Contact Info component', () => {
         originalBusinessContactInfo,
         originalBusinessContactInfo
       )
-    wrapper.find('#btn-correct-contact-info').trigger('click')
+    wrapper.find(editButtonSelector).trigger('click')
     await Vue.nextTick()
 
     // Verify base label

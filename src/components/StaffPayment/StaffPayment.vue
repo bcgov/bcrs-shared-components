@@ -1,15 +1,15 @@
 <template>
-  <v-card flat id="staff-payment-container" class="mt-4 py-8 pr-6 rounded-0">
+  <div id="staff-payment-container">
     <v-row no-gutters>
-      <v-col cols="3" class="pl-5" v-if="displaySideLabel">
-        <label class="side-label" :class="{'error-text': invalidSection}">Payment</label>
+      <v-col v-if="displaySideLabel" cols="12" sm="3" class="pr-4 pb-4">
+        <label class="title-label" :class="{'error-text': invalidSection}">Payment</label>
       </v-col>
 
-      <v-col :cols="displaySideLabel ? 9 : 12" class="pl-2">
-        <v-radio-group class="payment-group" v-model="paymentOption" hide-details>
+      <v-col cols="12" :sm="displaySideLabel ? 9 : 12">
+        <v-radio-group class="payment-group" v-model="paymentOption">
           <!-- Cash or Cheque radio button and form -->
-          <v-radio id="fas-radio" label="Cash or Cheque" :value="StaffPaymentOptions.FAS" />
-          <v-form class="ml-8" ref="fasForm" v-model="fasFormValid">
+          <v-radio id="fas-radio" class="mb-0" label="Cash or Cheque" :value="StaffPaymentOptions.FAS" />
+          <v-form class="mt-4 ml-8" ref="fasForm" v-model="fasFormValid">
             <v-text-field
               filled
               id="routing-slip-number-textfield"
@@ -23,8 +23,8 @@
           </v-form>
 
           <!-- BC Online radio button and form -->
-          <v-radio id="bcol-radio" label="BC Online" :value="StaffPaymentOptions.BCOL" />
-          <v-form class="ml-8" ref="bcolForm" v-model="bcolFormValid">
+          <v-radio id="bcol-radio" class="mb-0 pt-2" label="BC Online" :value="StaffPaymentOptions.BCOL" />
+          <v-form class="mt-4 ml-8" ref="bcolForm" v-model="bcolFormValid">
             <v-text-field
               filled
               id="bcol-account-number-textfield"
@@ -57,15 +57,15 @@
           </v-form>
 
           <!-- No Fee radio button -->
-          <v-radio id="no-fee-radio" label="No Fee" :value="StaffPaymentOptions.NO_FEE" />
+          <v-radio id="no-fee-radio" class="mb-0 pt-2" label="No Fee" :value="StaffPaymentOptions.NO_FEE" />
 
           <template v-if="displayPriorityCheckbox">
-            <v-divider class="mt-5"></v-divider>
+            <v-divider class="mt-6"></v-divider>
 
             <!-- Priority checkbox -->
             <v-checkbox
-              class="mt-2"
               id="priority-checkbox"
+              class="priority-checkbox mt-6 pt-0"
               label="Priority (add $100.00)"
               hide-details
               :input-value="staffPaymentData.isPriority"
@@ -76,7 +76,7 @@
         </v-radio-group>
       </v-col>
     </v-row>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -264,36 +264,28 @@ export default class StaffPayment extends Vue {
 @import '@/assets/styles/theme.scss';
 
 #staff-payment-container {
-  margin-top: 1rem;
-  padding-bottom: 0.5rem;
-  padding-top: 1rem;
   line-height: 1.2rem;
-  font-size: 1rem;
+  font-size: $px-16;
+}
+
+.title-label {
+  font-weight: bold;
+  color: $gray9;
+}
+
+.payment-container {
+  > label:first-child {
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
 }
 
 .payment-group {
   margin-top: 0;
   padding-top: 0;
-  width: 100%;
-}
 
-// radio buttons
-::v-deep .v-input--selection-controls__input >.v-icon {
-  color: $gray7 !important;
-}
-
-// radio labels and checkbox labels
-::v-deep .v-input--selection-controls__input + .v-label {
-  color: $gray7 !important;
-}
-
-// text field labels
-::v-deep .v-text-field__slot .theme--light.v-label {
-  color: $gray7 !important;
-}
-
-// text input
-::v-deep .v-text-field__slot input {
-  color: $gray9 !important;
+  ::v-deep > .v-input__control {
+    margin-bottom: -12px;
+  }
 }
 </style>
