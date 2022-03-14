@@ -6,12 +6,12 @@ export interface ContactPointIF {
   email: string
   confirmEmail?: string
   phone: string
-  extension: string
+  extension?: number
 }
 
 export const EmptyContactPoint: ContactPointIF = {
   email: '',
   confirmEmail: '',
   phone: '',
-  extension: ''
+  extension: null
 }
