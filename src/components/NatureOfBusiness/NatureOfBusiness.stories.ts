@@ -44,3 +44,14 @@ Default.args = {
   },
   NaicsServices: NaicsServices
 }
+
+export const hasChanges = Template.bind({})
+hasChanges.args = {
+  showErrors: false,
+  naics: {
+    naicsCode: naicsResult.code,
+    naicsDescription: naicsResult.classTitle
+  },
+  NaicsServices: NaicsServices,
+  hasNaicsChanges: true
+}
