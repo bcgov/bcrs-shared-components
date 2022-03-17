@@ -303,4 +303,11 @@ export default class NatureOfBusiness extends Vue {
 .summary-block {
   margin-top: -6px; // compensate for Change button pushing this col down
 }
+
+// Veutify overrides
+::v-deep {
+  .v-text-field .v-label {
+    font-weight: normal;
+  }
+}
 </style>
