@@ -20,12 +20,12 @@ const Template = (args, { argTypes }) => ({
       await Vue.nextTick() // wait that mounted() finished
       vm.open(
         'Confirm Dialog Title',
-        'Confirm dialog descriptor, ask your confirmation question here.',
+        'Confirm dialog message. Ask your confirmation question here.',
         {
-          width: '45rem',
+          width: '30rem',
           persistent: true,
-          yes: 'yes',
-          no: 'no',
+          yes: 'Yes',
+          no: 'No',
           cancel: 'Cancel'
         })
     }
