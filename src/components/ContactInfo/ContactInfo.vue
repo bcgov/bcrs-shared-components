@@ -281,7 +281,7 @@ export default class ContactInfo extends Vue {
 
   // Local Properties
   private isEditing: boolean = false
-  private contactInfo: ContactPointIF
+  private contactInfo: ContactPointIF = null
   private formValid: boolean = false
 
   // Text-field Rules
@@ -341,9 +341,9 @@ export default class ContactInfo extends Vue {
         (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
       ]
 
-    // Await the applied rules and validate form
-    await Vue.nextTick()
+    // Validate form and wait for v-model to get updated
     this.$refs.editContactForm.validate()
+    await Vue.nextTick()
 
     // When valid, submit data
     if (this.formValid) this.updateContactInfo()
