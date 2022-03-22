@@ -9,17 +9,17 @@
     @keydown.esc="onClickCancel">
 
     <v-card>
-      <v-card-title id="confirm-title">{{ title }}</v-card-title>
-      <v-card-text id="confirm-text" class="pre-wrap my-2" v-show="!!message" v-html="message"></v-card-text>
-      <v-divider class="my-0" v-show="!!options.yes || !!options.no || !!options.cancel"></v-divider>
+      <v-card-title>{{ title }}</v-card-title>
+      <v-card-text class="confirm-title pre-wrap" v-show="!!message" v-html="message" />
+      <v-divider class="confirm-text my-0" v-show="!!options.yes || !!options.no || !!options.cancel" />
       <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn id="dialog-yes-button" color="primary" class="font-weight-bold" text v-show="!!options.yes"
-               @click.native="onClickYes()">{{ options.yes }}</v-btn>
-        <v-btn id="dialog-no-button" color="primary" text v-show="!!options.no"
-               @click.native="onClickNo()">{{ options.no }}</v-btn>
-        <v-btn id="dialog-cancel-button" color="primary" text v-show="!!options.cancel"
-               @click.native="onClickCancel()">{{ options.cancel }}</v-btn>
+        <v-spacer />
+        <v-btn text color="primary" class="dialog-yes-btn" v-if="!!options.yes"
+          @click.native="onClickYes()">{{ options.yes }}</v-btn>
+        <v-btn text color="primary" class="dialog-no-btn" v-if="!!options.no"
+          @click.native="onClickNo()">{{ options.no }}</v-btn>
+        <v-btn text color="primary" class="dialog-cancel-btn" v-if="!!options.cancel"
+          @click.native="onClickCancel()">{{ options.cancel }}</v-btn>
       </v-card-actions>
     </v-card>
 
@@ -136,6 +136,20 @@ export default class ConfirmDialog extends Vue {
   }
 }
 </script>
+
 <style lang="scss" scoped>
-  @import '@/assets/styles/theme.scss';
+@import '@/assets/styles/theme.scss';
+
+.v-card__text {
+  color: $gray7 !important;
+}
+
+.v-btn {
+  text-transform: unset;
+}
+
+// bold the primary action button
+.dialog-yes-btn {
+  font-weight: bold;
+}
 </style>
