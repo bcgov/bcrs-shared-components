@@ -14,10 +14,10 @@
               filled
               id="routing-slip-number-textfield"
               label="Routing Slip Number"
-              v-model.trim="staffPaymentData.routingSlipNumber"
               :value="staffPaymentData.routingSlipNumber"
               :rules="validate ? routingSlipNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
+              @keyup="staffPaymentData.routingSlipNumber = staffPaymentData.routingSlipNumber.trim()"
               @focus="paymentOption = StaffPaymentOptions.FAS"
               @input="emitStaffPaymentData({ option: StaffPaymentOptions.FAS, routingSlipNumber: $event })"
             />
@@ -30,10 +30,10 @@
               filled
               id="bcol-account-number-textfield"
               label="BC Online Account Number"
-              v-model.trim="staffPaymentData.bcolAccountNumber"
               :value="staffPaymentData.bcolAccountNumber"
               :rules="validate ? bcolAccountNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              @keyup="staffPaymentData.bcolAccountNumber = staffPaymentData.bcolAccountNumber.trim()"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
               @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, bcolAccountNumber: $event })"
             />
@@ -41,10 +41,10 @@
               filled
               id="dat-number-textfield"
               label="DAT Number"
-              v-model.trim="staffPaymentData.datNumber"
               :value="staffPaymentData.datNumber"
               :rules="validate ? datNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              @keyup="staffPaymentData.datNumber = staffPaymentData.datNumber.trim()"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
               @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, datNumber: $event })"
             />
@@ -233,10 +233,10 @@ export default class StaffPayment extends Vue {
   @Emit('update:staffPaymentData')
   private emitStaffPaymentData ({
     option = this.staffPaymentData.option,
-    routingSlipNumber = this.staffPaymentData.routingSlipNumber?.trim() || '',
-    bcolAccountNumber = this.staffPaymentData.bcolAccountNumber?.trim() || '',
-    datNumber = this.staffPaymentData.datNumber?.trim() || '',
-    folioNumber = this.staffPaymentData.folioNumber?.trim() || '',
+    routingSlipNumber = this.staffPaymentData.routingSlipNumber || '',
+    bcolAccountNumber = this.staffPaymentData.bcolAccountNumber || '',
+    datNumber = this.staffPaymentData.datNumber || '',
+    folioNumber = this.staffPaymentData.folioNumber || '',
     isPriority = this.staffPaymentData.isPriority || false
   }): StaffPaymentIF {
     // return only the appropriate fields for each option
