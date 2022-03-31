@@ -31,7 +31,6 @@ EditableCompletingParty.args = {
   contactLabel: 'Contact',
   contactValue: 'contact@example.com',
   editableCompletingParty: true,
-  completingPartyEmail: 'completing.party@example.com',
   documentOptionalEmail: 'optional@example.com',
   showCustodianEmail: true,
   custodianEmail: 'custodian@example.com',
