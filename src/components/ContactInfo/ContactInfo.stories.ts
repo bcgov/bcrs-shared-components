@@ -18,21 +18,21 @@ const ContactData: ContactPointIF = {
   email: 'mock@email.com',
   confirmEmail: 'mock@email.com',
   phone: '2501234567',
-  extension: ''
+  extension: null
 }
 
 const ContactDataChanged: ContactPointIF = {
   email: 'newMock@email.com',
   confirmEmail: 'newMock@email.com',
   phone: '2509876543',
-  extension: '123'
+  extension: 123
 }
 
 const ContactDataOptionalPhone: ContactPointIF = {
   email: 'mock@email.com',
   confirmEmail: 'mock@email.com',
   phone: '',
-  extension: ''
+  extension: null
 }
 
 export const FilledAlteration = Template.bind({})
