@@ -29,6 +29,7 @@ Default.args = {
       streetAddressAdditional: 'Test Street Additional'
     }
   },
+  enableAddEdit: false,
   addressSchema: null,
   validate: false
 }
@@ -37,5 +38,6 @@ export const unknownCompletingParty = Template.bind({})
 unknownCompletingParty.args = {
   currentCompletingParty: null,
   addressSchema: null,
+  enableAddEdit: true,
   validate: false
 }
