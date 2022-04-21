@@ -1,4 +1,6 @@
 import { CompletingParty } from './index'
+import Vuetify from 'vuetify'
+import { required, maxLength } from 'vuelidate/lib/validators'
 
 export default {
   title: 'component/CompletingParty',
@@ -7,7 +9,35 @@ export default {
   }
 }
 
+const PersonAddressSchema = {
+  streetAddress: {
+    required,
+    maxLength: maxLength(50)
+  },
+  streetAddressAdditional: {
+    maxLength: maxLength(50)
+  },
+  addressCity: {
+    required,
+    maxLength: maxLength(40)
+  },
+  addressCountry: {
+    required
+  },
+  addressRegion: {
+    maxLength: maxLength(2)
+  },
+  postalCode: {
+    required,
+    maxLength: maxLength(15)
+  },
+  deliveryInstructions: {
+    maxLength: maxLength(80)
+  }
+}
+
 const Template = (args, { argTypes }) => ({
+  vuetify: new Vuetify({ iconfont: 'mdi' }),
   props: Object.keys(argTypes),
   components: { CompletingParty },
   template: '<v-card flat ><completingParty v-bind="$props" /></v-card>'
@@ -30,14 +60,14 @@ Default.args = {
     }
   },
   enableAddEdit: false,
-  addressSchema: null,
+  addressSchema: PersonAddressSchema,
   validate: false
 }
 
 export const unknownCompletingParty = Template.bind({})
 unknownCompletingParty.args = {
   currentCompletingParty: null,
-  addressSchema: null,
   enableAddEdit: true,
+  addressSchema: PersonAddressSchema,
   validate: false
 }
