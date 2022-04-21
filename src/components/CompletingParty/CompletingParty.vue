@@ -204,8 +204,8 @@ export default class CompletingParty extends Vue {
 
   private get getCompletingPartyName (): string {
     return (
-      this.currentCompletingParty.firstName +
-      this.currentCompletingParty.middleName +
+      this.currentCompletingParty.firstName + ' ' +
+      this.currentCompletingParty.middleName + ' ' +
       this.currentCompletingParty.lastName
     ) || 'Unknown'
   }
