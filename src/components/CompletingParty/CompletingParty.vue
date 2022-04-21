@@ -203,11 +203,11 @@ export default class CompletingParty extends Vue {
   }
 
   private get getCompletingPartyName (): string {
-    return (
-      this.currentCompletingParty.firstName + ' ' +
-      this.currentCompletingParty.middleName + ' ' +
-      this.currentCompletingParty.lastName
-    ) || 'Unknown'
+    return (`
+      ${this.currentCompletingParty.firstName}
+      ${this.currentCompletingParty.middleName || ''}
+      ${this.currentCompletingParty.lastName}
+    `) || 'Unknown'
   }
 
   /** The name section validity state (when prompted by app). */
