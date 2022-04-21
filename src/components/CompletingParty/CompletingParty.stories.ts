@@ -40,7 +40,7 @@ const Template = (args, { argTypes }) => ({
   vuetify: new Vuetify({ iconfont: 'mdi' }),
   props: Object.keys(argTypes),
   components: { CompletingParty },
-  template: '<v-card flat ><completingParty v-bind="$props" /></v-card>'
+  template: '<v-card flat ><completing-party v-bind="$props" /></v-card>'
 })
 
 export const Default = Template.bind({})
