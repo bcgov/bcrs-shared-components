@@ -48,16 +48,16 @@ describe('ConfirmDialog', () => {
     const wrapper = wrapperFactory('')
     const vm: any = wrapper.vm
 
-    vm.open('Mock Title', 'mock confirm dialog message', options)
+    vm.open('Mock Title', 'mock message', options)
     await Vue.nextTick()
 
     // verify that component mounts
     expect(wrapper.findComponent(ConfirmDialog).exists()).toBe(true)
-    expect(wrapper.find('#confirm-title').text()).toBe('Mock Title')
-    expect(wrapper.find('#confirm-text').text()).toBe('mock confirm dialog message')
-    expect(wrapper.find('#dialog-yes-button').text()).toBe('Yes')
-    expect(wrapper.find('#dialog-no-button').text()).toBe('No')
-    expect(wrapper.find('#dialog-cancel-button').text()).toBe('Cancel')
+    expect(wrapper.find('.v-card__title').text()).toBe('Mock Title')
+    expect(wrapper.find('.v-card__text').text()).toBe('mock message')
+    expect(wrapper.find('.dialog-yes-btn').text()).toBe('Yes')
+    expect(wrapper.find('.dialog-no-btn').text()).toBe('No')
+    expect(wrapper.find('.dialog-cancel-btn').text()).toBe('Cancel')
   })
 
   it('opens the confirm dialog with an alternative data set', async () => {
@@ -67,15 +67,15 @@ describe('ConfirmDialog', () => {
     options.no = 'Remove'
     options.cancel = 'Close'
 
-    vm.open('New Mock Confirm', 'new mock confirm message', options)
+    vm.open('New Mock Title', 'new mock message', options)
     await Vue.nextTick()
 
     // verify that component mounts
     expect(wrapper.findComponent(ConfirmDialog).exists()).toBe(true)
-    expect(wrapper.find('#confirm-title').text()).toBe('New Mock Confirm')
-    expect(wrapper.find('#confirm-text').text()).toBe('new mock confirm message')
-    expect(wrapper.find('#dialog-yes-button').text()).toBe('Confirm')
-    expect(wrapper.find('#dialog-no-button').text()).toBe('Remove')
-    expect(wrapper.find('#dialog-cancel-button').text()).toBe('Close')
+    expect(wrapper.find('.v-card__title').text()).toBe('New Mock Title')
+    expect(wrapper.find('.v-card__text').text()).toBe('new mock message')
+    expect(wrapper.find('.dialog-yes-btn').text()).toBe('Confirm')
+    expect(wrapper.find('.dialog-no-btn').text()).toBe('Remove')
+    expect(wrapper.find('.dialog-cancel-btn').text()).toBe('Close')
   })
 })

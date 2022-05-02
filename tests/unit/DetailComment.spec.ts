@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
-import { DetailComment } from '@/components/DetailComment'
+import { DetailComment } from '@/components/detail-comment'
 import { sleep } from '@/utils/sleep'
 import flushPromises from 'flush-promises'
 

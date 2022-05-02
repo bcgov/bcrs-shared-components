@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import Affix from 'vue-affix'
 import { shallowMount } from '@vue/test-utils'
-import { FeeSummary } from '@/components/FeeSummary'
+import { FeeSummary } from '@/components/fee-summary'
 
 Vue.use(Vuetify)
 Vue.use(Affix)

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
-import { EffectiveDateTime } from '@/components/EffectiveDateTime'
+import { EffectiveDateTime } from '@/components/effective-date-time'
 import flushPromises from 'flush-promises'
 
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning

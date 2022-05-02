@@ -1,11 +1,11 @@
 {
-    "name": "@bcrs-shared-components/mixins",
-    "version": "1.0.6",
-    "publishConfig": {
-        "access": "public"
-    },
-    "dependencies": {
-        "vue": "2.6.12",
-        "vue-property-decorator": "^8.4.0"
-    }
+  "name": "@bcrs-shared-components/mixins",
+  "version": "1.0.6",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "lodash": "4.17.21",
+    "vue-property-decorator": "^8.4.0"
+  }
 }

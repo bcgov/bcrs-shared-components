@@ -5,7 +5,7 @@ import sinon from 'sinon'
 import { mount, Wrapper } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
 import { sleep } from '@/utils/sleep'
-import { StaffComments } from '@/components/StaffComments'
+import { StaffComments } from '@/components/staff-comments'
 
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning
 document.body.setAttribute('data-app', 'true')

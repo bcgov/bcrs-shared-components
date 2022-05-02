@@ -10,8 +10,8 @@
 
     <v-card>
       <v-card-title>{{ title }}</v-card-title>
-      <v-card-text class="confirm-title pre-wrap" v-show="!!message" v-html="message" />
-      <v-divider class="confirm-text my-0" v-show="!!options.yes || !!options.no || !!options.cancel" />
+      <v-card-text class="pre-wrap" v-show="!!message" v-html="message" />
+      <v-divider class="my-0" v-show="!!options.yes || !!options.no || !!options.cancel" />
       <v-card-actions>
         <v-spacer />
         <v-btn text color="primary" class="dialog-yes-btn" v-if="!!options.yes"

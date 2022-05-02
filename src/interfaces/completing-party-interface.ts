@@ -5,4 +5,6 @@ export interface CompletingPartyIF {
   middleName?: string
   lastName: string
   mailingAddress: AddressIF
+  email?: string
+  phone?: string
 }

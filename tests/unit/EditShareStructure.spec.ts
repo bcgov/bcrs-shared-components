@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount, Wrapper, createLocalVue } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
-import { EditShareStructure } from '@/components/ShareStructure'
+import { EditShareStructure } from '@/components/share-structure'
 import { ShareClassIF } from '@/interfaces'
 
 Vue.use(Vuetify)
