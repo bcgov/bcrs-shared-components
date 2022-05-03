@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
-import { DocumentDelivery } from '@/components/DocumentDelivery'
+import { DocumentDelivery } from '@/components/document-delivery'
 
 const vuetify = new Vuetify({})
 Vue.use(Vuetify)

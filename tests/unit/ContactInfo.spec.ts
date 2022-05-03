@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
-import { ContactInfo } from '@/components/ContactInfo'
+import { ContactInfo } from '@/components/contact-info'
 import { ContactPointIF } from '@/interfaces'
 import VueRouter from 'vue-router'
 
@@ -28,14 +28,14 @@ const originalBusinessContactInfo: ContactPointIF = {
   email: 'abc@test.com',
   confirmEmail: 'abc@test.com',
   phone: '(555) 555-5555',
-  extension: ''
+  extension: null
 }
 
 const editedBusinessContactInfo: ContactPointIF = {
   email: 'abc@test.com',
   confirmEmail: 'abc@test.com',
   phone: '(666) 555-5555',
-  extension: '123'
+  extension: 123
 }
 
 /**
@@ -117,8 +117,7 @@ describe('Business Contact Info component', () => {
     expect((<HTMLInputElement> wrapper.find(confirmEmailSelector).element).value)
       .toEqual(originalBusinessContactInfo.email)
     expect((<HTMLInputElement> wrapper.find(phoneSelector).element).value).toEqual(originalBusinessContactInfo.phone)
-    expect((<HTMLInputElement> wrapper.find(extensionSelector).element).value)
-      .toEqual(originalBusinessContactInfo.extension)
+    expect((<HTMLInputElement> wrapper.find(extensionSelector).element).value).toBe('') // empty
     expect(wrapper.find(doneButtonSelector).exists()).toBe(true)
     expect(wrapper.find(cancelBtnSelector).exists()).toBe(true)
   })

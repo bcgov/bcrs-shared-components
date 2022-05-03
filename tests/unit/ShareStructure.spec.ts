@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import Vuetify from 'vuetify'
 import { createLocalVue, mount } from '@vue/test-utils'
-import { ShareStructure } from '@/components/ShareStructure'
+import { ShareStructure } from '@/components/share-structure'
 import { ActionChip } from '@/components/action-chip'
 
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning

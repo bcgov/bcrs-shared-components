@@ -11,8 +11,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { ActionTypes } from '@/enums'
-import { ActionableItemIF } from '@/interfaces'
+import { ActionTypes } from '@bcrs-shared-components/enums'
+import { ActionableItemIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
 export default class ActionChip extends Vue {

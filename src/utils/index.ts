@@ -1,1 +1,1 @@
-export * from './sleep'
+export { sleep } from './sleep'
