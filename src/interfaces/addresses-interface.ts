@@ -25,7 +25,7 @@ export const EmptyAddress: AddressIF = {
 /** Interface to define the joint base addresses. */
 export interface BaseAddressObjIF {
   mailingAddress: AddressIF
-  // Delivery Address is required for completing party and offices.
+  // Delivery Address is required for directors and offices.
   // Delivery Address is optional for completing party and incorporators.
   deliveryAddress?: AddressIF
 }

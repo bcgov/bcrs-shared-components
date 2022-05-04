@@ -1,7 +1,6 @@
 import { FeeSummary } from './index'
-import { FilingCodes } from '@bcrs-shared-components/enums'
-import { FilingDataIF } from '@bcrs-shared-components/interfaces'
-import { CorpTypeCd } from '@bcrs-shared-components/enums'
+import { FilingCodes, CorpTypeCd } from '@bcrs-shared-components/enums/'
+import { FilingDataIF } from '@bcrs-shared-components/interfaces/'
 
 export default {
   title: 'component/FeeSummary',

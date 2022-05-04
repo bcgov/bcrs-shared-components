@@ -899,7 +899,7 @@ export default class ShareStructure extends Vue {
    */
   private resetData (): void {
     function scrollToTop (element: any): void {
-      const isJestRunning = (process.env.JEST_WORKER_ID !== undefined) 
+      const isJestRunning = (process.env.JEST_WORKER_ID !== undefined)
       // don't call window.scrollTo during Jest tests because jsdom doesn't implement it
       if (!isJestRunning) window.scrollTo({ top: element.offsetTop, behavior: 'smooth' })
     }
