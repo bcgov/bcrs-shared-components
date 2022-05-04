@@ -45,7 +45,7 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
-  currentCompletingParty: {
+  completingParty: {
     firstName: 'Cameron',
     middleName: 'D',
     lastName: 'Bowler',
@@ -61,13 +61,6 @@ Default.args = {
   },
   enableAddEdit: false,
   addressSchema: PersonAddressSchema,
-  validate: false
-}
-
-export const unknownCompletingParty = Template.bind({})
-unknownCompletingParty.args = {
-  currentCompletingParty: null,
-  enableAddEdit: true,
-  addressSchema: PersonAddressSchema,
-  validate: false
+  validate: false,
+  invalidSection: false
 }
