@@ -167,6 +167,15 @@ export default class DatePicker extends Mixins(DateMixin) {
 
 .date-text-field-pointer {
   cursor: pointer;
+
+  // disable pointer events when disabled
+  .v-text-field.v-input--is-disabled {
+    pointer-events: none;
+  }
+  // enable pointer events when enabled
+  .v-text-field:not(.v-input--is-disabled) {
+    pointer-events: auto;
+  }
 }
 
 ::v-deep .v-card__actions {
