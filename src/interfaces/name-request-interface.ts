@@ -1,4 +1,5 @@
 import { CorpTypeCd } from '@bcrs-shared-components/enums'
+import { ApiDateTimeUtc } from './date-interfaces'
 
 /**
  * Name Request State interface.
@@ -11,7 +12,7 @@ export interface NameRequestDetailsIF {
   approvedName: string
   status: string
   consentFlag: string
-  expirationDate: string
+  expirationDate: ApiDateTimeUtc
 }
 
 /** Name request applicant details interface. */
