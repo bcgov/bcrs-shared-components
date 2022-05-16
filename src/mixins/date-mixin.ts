@@ -1,5 +1,6 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { isDate } from 'lodash'
+import { ApiDateTimeUtc, IsoDatePacific } from '@/interfaces'
 
 /**
  * This is a local, minimal mixin containing only the methods needed for the shared
@@ -31,11 +32,17 @@ export default class DateMixin extends Vue {
 
   /**
    * Converts an API datetime string (in UTC) to a Date object.
+   * @example 2021-08-05T16:56:50.783101+00:00 -> 2021-08-05T16:56:50Z
    */
-  apiToDate (dateTimeString: string): Date {
-    // chop off the milliseconds and append "Zulu" timezone abbreviation
+  apiToDate (dateTimeString: ApiDateTimeUtc): Date {
+    if (!dateTimeString) return null // safety check
+
+    // chop off the milliseconds and UTC offset and append "Zulu" timezone abbreviation
     // eg, 2020-08-28T21:53:58Z
     dateTimeString = dateTimeString.slice(0, 19) + 'Z'
+
+    // NB: this `new Date()` is safe because the string is already UTC format
+    //     so the conversion to JS Date ignores the browser's local timezone
     return new Date(dateTimeString)
   }
 
@@ -43,7 +50,7 @@ export default class DateMixin extends Vue {
    * Converts a date string (YYYY-MM-DD) to a Date object at 12:00:00 am Pacific time.
    * @example 2021-11-22 -> 2021-11-22T08:00:00.00Z
    */
-  yyyyMmDdToDate (dateStr: string): Date {
+  yyyyMmDdToDate (dateStr: IsoDatePacific): Date {
     // safety checks
     if (!dateStr) return null
     if (dateStr.length !== 10) return null
@@ -61,18 +68,23 @@ export default class DateMixin extends Vue {
    * @example "2021-01-01 07:00:00 GMT" -> "2020-12-31"
    * @example "2021-01-01 08:00:00 GMT" -> "2021-01-01"
    */
-  dateToYyyyMmDd (date: Date): string {
+  dateToYyyyMmDd (date: Date): IsoDatePacific {
     // safety check
     if (!isDate(date) || isNaN(date.getTime())) return null
 
-    const dateStr = date.toLocaleDateString('en-CA', {
+    // NB: some versions of Node have only en-US locale
+    // so use that and convert results accordingly
+    const dateStr = date.toLocaleDateString('en-US', {
       timeZone: 'America/Vancouver',
       month: 'numeric', // 12
       day: 'numeric', // 31
       year: 'numeric' // 2020
     })
 
-    return dateStr
+    // convert mm/dd/yyyy to yyyy-mm-dd
+    // and make sure month and day are 2 digits (eg, 03)
+    const [ mm, dd, yyyy ] = dateStr.split('/')
+    return `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`
   }
 
   /**
@@ -108,7 +120,7 @@ export default class DateMixin extends Vue {
    * @param showWeekday whether to show the weekday name (eg, Thursday)
    * @example "2021-01-01" -> "Thursday, December 31, 2020"
    */
-  yyyyMmDdToPacificDate (dateStr: string, longMonth = false, showWeekday = false): string {
+  yyyyMmDdToPacificDate (dateStr: IsoDatePacific, longMonth = false, showWeekday = false): string {
     return this.dateToPacificDate(this.yyyyMmDdToDate(dateStr), longMonth, showWeekday)
   }
 
@@ -121,15 +133,17 @@ export default class DateMixin extends Vue {
     // safety check
     if (!isDate(date) || isNaN(date.getTime())) return null
 
-    let timeStr = date.toLocaleTimeString('en-CA', {
+    // NB: some versions of Node have only en-US locale
+    // so use that and convert results accordingly
+    let timeStr = date.toLocaleTimeString('en-US', {
       timeZone: 'America/Vancouver',
       hour: 'numeric', // 11
       minute: '2-digit', // 00
       hour12: true // a.m./p.m.
     })
 
-    // replace a.m. with am and p.m. with pm
-    timeStr = timeStr.replace('a.m.', 'am').replace('p.m.', 'pm')
+    // replace AM with am and PM with pm
+    timeStr = timeStr.replace('AM', 'am').replace('PM', 'pm')
 
     return timeStr
   }
@@ -140,7 +154,7 @@ export default class DateMixin extends Vue {
    * @example "2021-01-01T00:00:00.000000+00:00" -> "Dec 31, 2020 at 04:00 pm Pacific time" (PST example)
    * @example "2021-07-01T00:00:00.000000+00:00" -> "Jun 30, 2021 at 05:00 pm Pacific time" (PDT example)
    */
-  apiToPacificDateTime (dateTimeString: string): string {
+  apiToPacificDateTime (dateTimeString: ApiDateTimeUtc): string {
     if (!dateTimeString) return null // safety check
 
     const date = this.apiToDate(dateTimeString)
