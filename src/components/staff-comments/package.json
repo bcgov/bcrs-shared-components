@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/staff-comments",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.0.36",
+    "@bcrs-shared-components/interfaces": "^1.0.37",
     "vue-property-decorator": "^8.4.0"
   }
 }
