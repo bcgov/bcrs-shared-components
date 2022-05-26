@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/interfaces",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "publishConfig": {
     "access": "public"
   },

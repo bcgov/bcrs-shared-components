@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/action-chip",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@bcrs-shared-components/enums": "^1.0.18",
-    "@bcrs-shared-components/interfaces": "^1.0.37",
+    "@bcrs-shared-components/interfaces": "^1.0.38",
     "vue-property-decorator": "^8.4.0"
   }
 }
