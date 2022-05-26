@@ -87,7 +87,11 @@
         </div>
 
         <div v-if="state === States.SUMMARY" class="summary-block d-flex justify-space-between align-center">
-          <span>{{naicsCode}} - {{naicsDescription}}</span>
+          <span v-if="naicsCode && naicsDescription">{{naicsCode}} - {{naicsDescription}}</span>
+          <span v-else-if="naicsCode">{{naicsCode}}</span>
+          <span v-else-if="naicsDescription">{{naicsDescription}}</span>
+          <span v-else>(Not entered)</span>
+
           <v-btn v-if="!hasNaicsChanges" text color="primary" id="nob-change-btn" @click="onChangeClicked()">
             <v-icon small>mdi-pencil</v-icon>
             <span>Change</span>
@@ -180,7 +184,7 @@ export default class NatureOfBusiness extends Vue {
 
   /** Whether we have stored NAICS data. */
   get haveNaics (): boolean {
-    return (!!this.naicsCode && !!this.naicsDescription)
+    return (!!this.naicsCode || !!this.naicsDescription)
   }
 
   /** Whether this form is valid. */
@@ -188,16 +192,8 @@ export default class NatureOfBusiness extends Vue {
     return (this.haveNaics && this.state === States.SUMMARY)
   }
 
-  /** Called when this component has been created. */
-  created (): void {
-    // on init, if we have stored NAICS data then display summary
-    if (this.haveNaics) {
-      this.state = States.SUMMARY
-    }
-  }
-
   /** Called when user has clicked the Search button. */
-  async onSearchClicked (): Promise<void> {
+  protected async onSearchClicked (): Promise<void> {
     // remove extra whitespace
     this.searchField = this.searchField.trim().replaceAll(/\s+/g, ' ')
 
@@ -213,7 +209,7 @@ export default class NatureOfBusiness extends Vue {
   }
 
   /** Called when user has clicked a particular result. */
-  onResultClicked (result: any): void {
+  protected onResultClicked (result: any): void {
     // safety check
     if (result) {
       // set store value
@@ -227,17 +223,23 @@ export default class NatureOfBusiness extends Vue {
   }
 
   /** Called when user has clicked the Cancel button. */
-  onCancelClicked (): void {
+  protected onCancelClicked (): void {
     // if we have stored NAICS data then display summary
     // otherwise go back to INITIAL state
     this.state = this.haveNaics ? States.SUMMARY : States.INITIAL
   }
 
   /** Called when user has clicked the Change button. */
-  onChangeClicked (): void {
+  protected onChangeClicked (): void {
     // set search to current NOB
     this.searchField = this.naicsDescription.toLowerCase()
     this.state = States.INITIAL
+  }
+
+  /** Called when haveNaics property (which is based on this component's props) has changed. */
+  @Watch('haveNaics')
+  private onHaveNaicsChanged (val: boolean): void {
+    this.state = val ? States.SUMMARY : States.INITIAL
   }
 
   /** Called when this form's validity has changed. */
@@ -285,7 +287,12 @@ export default class NatureOfBusiness extends Vue {
   padding: 8px;
 }
 
+#nob-change-btn {
+  margin-right: -14px;
+}
+
 #nob-more-actions {
+  margin-right: -14px;
   white-space: nowrap;
 
   #nob-undo-btn {
