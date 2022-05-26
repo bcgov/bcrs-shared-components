@@ -237,7 +237,7 @@ export default class NatureOfBusiness extends Vue {
   }
 
   /** Called when haveNaics property (which is based on this component's props) has changed. */
-  @Watch('haveNaics')
+  @Watch('haveNaics', { immediate: true })
   private onHaveNaicsChanged (val: boolean): void {
     this.state = val ? States.SUMMARY : States.INITIAL
   }
