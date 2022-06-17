@@ -42,7 +42,7 @@ Default.args = {
     naicsCode: naicsResult.code,
     naicsDescription: naicsResult.classTitle
   },
-  NaicsServices: NaicsServices
+  NaicsServices
 }
 
 export const hasChanges = Template.bind({})
@@ -52,6 +52,6 @@ hasChanges.args = {
     naicsCode: naicsResult.code,
     naicsDescription: naicsResult.classTitle
   },
-  NaicsServices: NaicsServices,
+  NaicsServices,
   hasNaicsChanges: true
 }

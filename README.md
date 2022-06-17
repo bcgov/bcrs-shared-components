@@ -32,7 +32,7 @@ git co -b my-feature-branch
 ### 4. Install dependencies
 
 ```
-npm i
+npm i                    // if new repo, first use Node < 16, then you can use Node 16
 npm i --global lerna     // if you didn't do this previously
 ```
 
