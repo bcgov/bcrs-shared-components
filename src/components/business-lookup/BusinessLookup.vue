@@ -5,6 +5,7 @@
         filled no-filter append-icon="" return-object
         class="mt-5"
         autocomplete="chrome-off"
+        menu-props="{ maxHeight: 380 }"
         label="Business or Corporation Name or Incorporation Number"
         item-text="identifier"
         v-model="selectedBusiness"
@@ -25,7 +26,7 @@
         </template>
 
         <template v-slot:item="{ item }">
-          <v-row class="business-lookup-result">
+          <v-row class="business-lookup-result pt-1">
             <v-col cols="2">
               <div class="result-identifier">{{item.identifier}}</div>
             </v-col>
@@ -38,59 +39,34 @@
       </v-autocomplete>
     </div>
 
-    <div v-if="state === States.SUMMARY && haveBusiness"
-      class="summary-block d-flex justify-space-between align-center">
+    <div v-if="state === States.SUMMARY && haveBusiness" class="summary-block mt-5">
       <v-row no-gutters>
         <v-col cols="9">
           <v-row no-gutters>
-            <v-col cols="12" sm="3">
-              <label>Name</label>
-            </v-col>
-            <v-col cols="12" sm="9">
+            <v-col cols="12">
+              <label>Name: </label>
               <span>{{businessName}}</span>
             </v-col>
           </v-row>
-          <v-row no-gutters>
-            <v-col cols="12" sm="3">
-              <label>Incorporation Number</label>
-            </v-col>
-            <v-col cols="12" sm="9">
+          <v-row no-gutters class="mt-1">
+            <v-col cols="12">
+              <label>Incorporation Number: </label>
               <span>{{identifier}}</span>
             </v-col>
           </v-row>
-          <v-row no-gutters>
-            <v-col cols="12" sm="3">
-              <label>Business Number</label>
-            </v-col>
-            <v-col cols="12" sm="9">
+          <v-row no-gutters class="mt-1">
+            <v-col cols="12">
+              <label>Business Number: </label>
               <span>{{businessNumber}}</span>
             </v-col>
           </v-row>
         </v-col>
-
         <v-col cols="3">
-          <v-btn v-if="!hasBusinessLookupChanges" text color="primary" id="bl-change-btn"
-            @click="onChangeClicked()"
-          >
-            <v-icon small>mdi-pencil</v-icon>
-            <span>Change</span>
-          </v-btn>
-
-          <div v-else id="bl-more-actions">
+          <div id="bl-more-actions">
             <v-btn text color="primary" id="bl-undo-btn" @click="emitUndo()">
               <v-icon small>mdi-undo</v-icon>
               <span>Undo</span>
             </v-btn>
-            <v-menu offset-y left nudge-bottom="4" v-model="dropdown">
-              <template v-slot:activator="{ on }">
-                <v-btn text small color="primary" id="bl-menu-btn" v-on="on">
-                  <v-icon>{{dropdown ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
-                </v-btn>
-              </template>
-              <v-btn text color="primary" id="bl-more-changes-btn" class="py-5"
-                @click="onChangeClicked(); dropdown = false">
-                <v-icon small color="primary">mdi-pencil</v-icon>Change</v-btn>
-            </v-menu>
           </div>
         </v-col>
       </v-row>
@@ -114,20 +90,16 @@ enum States {
 @Component({})
 export default class BusinessLookup extends Vue {
   /** Whether to show errors. */
-  @Prop({ required: true })
-  readonly showErrors: boolean
+  @Prop({ required: true }) readonly showErrors: boolean
 
   /** The BusinessLookup object. */
-  @Prop({ required: true })
-  readonly businessLookup: BusinessLookupIF
+  @Prop({ required: true }) readonly businessLookup: BusinessLookupIF
+
   /** Class for BusinessLookup services. */
+  @Prop({ required: true }) readonly BusinessLookupServices: any
 
-  @Prop({ required: true })
-  readonly BusinessLookupServices: any
   /** Whether to display Change features. */
-
-  @Prop({ default: false })
-  readonly hasBusinessLookupChanges: boolean
+  @Prop({ default: false }) readonly hasBusinessLookupChanges: boolean
 
   // enum for template
   readonly States = States
@@ -137,7 +109,6 @@ export default class BusinessLookup extends Vue {
   protected searchField = ''
   protected searchResults: Array<BusinessLookupResultIF> = []
   protected selectedBusiness: BusinessLookupResultIF = null
-  protected dropdown: boolean = null // v-model for dropdown menu
 
   /** The text field validation rules. */
   readonly businessLookupRules: Array<Function> = [
@@ -187,7 +158,7 @@ export default class BusinessLookup extends Vue {
 
   /** Called when selectedBusiness property has changed. */
   @Watch('selectedBusiness')
-  private  onSelectedBusiness (result: BusinessLookupResultIF): void {
+  private onSelectedBusiness (result: BusinessLookupResultIF): void {
     // safety check
     if (result) {
       // set store value
@@ -196,14 +167,8 @@ export default class BusinessLookup extends Vue {
         name: result.name,
         bn: result.bn
       })
+      this.selectedBusiness = null
     }
-  }
-
-  /** Called when user has clicked the Change button. */
-  protected onChangeClicked (): void {
-    // set search to current identifier
-    this.searchField = this.identifier
-    this.state = States.INITIAL
   }
 
   /** Called when haveBusiness property (which is based on this component's props) has changed. */
@@ -222,7 +187,7 @@ export default class BusinessLookup extends Vue {
   @Emit('setBusiness')
   private setBusiness (val: BusinessLookupIF): void {}
 
-  /** Emits event to undo the business selection. */
+  /** Emits event to undo the selected business. */
   @Emit('undoBusiness')
   private emitUndo (): void {}
 
@@ -243,6 +208,7 @@ export default class BusinessLookup extends Vue {
 .business-lookup-result {
   font-size: $px-14;
   color: $gray7;
+
   &:hover {
     background-color: $gray1;
     color: $app-blue;
@@ -255,27 +221,21 @@ export default class BusinessLookup extends Vue {
   font-size: $px-16;
 }
 
-#bl-change-btn {
-  margin-right: -14px;
-}
-
 #bl-more-actions {
   margin-right: -14px;
   white-space: nowrap;
+
   #bl-undo-btn {
     min-width: unset;
-    border-right: 1px solid $gray1;
+    float: right;
   }
 }
 
-#result-list {
-  background-color: $gray1;
-  max-height: 650px;
-  overflow-y: auto;
-}
-
 .summary-block {
-  margin-top: -6px; // compensate for Change button pushing this col down
+  label {
+    font-weight: bold;
+    color: $gray9;
+  }
 }
 
 // Veutify overrides
