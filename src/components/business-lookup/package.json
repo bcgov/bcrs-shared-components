@@ -1,0 +1,13 @@
+{
+  "name": "@bcrs-shared-components/business-lookup",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "vue-property-decorator": "^8.4.0",
+    "vue-debounce-decorator": "^1.0.1",
+    "@bcrs-shared-components/enums": "^1.0.18",
+    "@bcrs-shared-components/interfaces": "^1.0.38"
+  }
+}
