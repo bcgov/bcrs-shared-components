@@ -17,7 +17,8 @@ export default class DateMixin extends Vue {
    * @example "2021, 0, 1, 0, 0" -> "2021-01-01T08:00:00.000Z"
    * @example "2021, 6, 1, 0, 0" -> "2021-07-01T07:00:00.000Z"
    */
-  createUtcDate (year: number, month: number, day: number, hours: number = 0, minutes: number = 0): Date {    // 1. create the new date in UTC
+  createUtcDate (year: number, month: number, day: number, hours: number = 0, minutes: number = 0): Date {
+    // 1. create the new date in UTC
     // 2. compute the offset between UTC and Pacific timezone
     // 3. add the offset to convert the date to Pacific timezone
     // Ref: https://stackoverflow.com/questions/15141762/
