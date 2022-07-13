@@ -642,7 +642,7 @@ export default class ShareStructure extends Vue {
       : cloneDeep(this.originalShareStructure.shareClasses)
 
     const originalShareClass = originalShareClasses.find(
-      share => share.id === shareClass.id
+      share => (+share.id === +shareClass.id)
     )
 
     return !isEqual(
@@ -683,7 +683,7 @@ export default class ShareStructure extends Vue {
 
     // Fetch and identify the ShareClass to restore
     const shareClassToRestore = originalShareClasses.find(
-      shareClass => shareClass.id === this.shareClasses[index].id
+      shareClass => (+shareClass.id === +this.shareClasses[index].id)
     )
 
     // Create a new ShareClass List and restore the original data
@@ -795,14 +795,14 @@ export default class ShareStructure extends Vue {
     // Fetch the original Share class ( In the event the list is moved up or down, find the original by ID )
     const originalShareClass = Object.assign({},
       originalShareClasses.find(
-        shareClass => shareClass.id === parentId
+        shareClass => (+shareClass.id === +parentId)
       )
     )
 
     // Fetch and identify the ShareSeries to restore
     const shareSeriesToRestore = Object.assign({},
       originalShareClass.series.find(
-        shareSeries => shareSeries.id === seriesId
+        shareSeries => (+shareSeries.id === +seriesId)
       ))
 
     // Create a new ShareSeries List and restore the original data
