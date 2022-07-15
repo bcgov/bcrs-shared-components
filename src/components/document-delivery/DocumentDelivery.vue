@@ -12,7 +12,7 @@
 
     <!-- Completing Party -->
     <v-row no-gutters class="pt-3">
-      <v-col cols="12" sm="3" class="pr-4">
+      <v-col cols="12" sm="3" class="pr-4 pt-5">
         <label class="title-label" :class="{ 'error-text': invalidSection }">
           Completing Party
         </label>
@@ -28,13 +28,13 @@
           :rules="entityEmailRules"
         />
       </v-col>
-      <v-col v-else cols="12" sm="9">
+      <v-col v-else cols="12" sm="9" class="pt-5">
         <span id="completing-party-email">{{completingPartyEmail || '(Not entered)'}}</span>
       </v-col>
     </v-row>
 
     <!-- Custodian of Records -->
-    <v-row no-gutters v-if="showCustodianEmail" class="pt-3">
+    <v-row no-gutters v-if="showCustodianEmail" class="pt-5">
       <v-col cols="12" sm="3" class="pr-4">
         <label class="title-label">Custodian of Records</label>
       </v-col>
@@ -44,7 +44,7 @@
     </v-row>
 
     <!-- Additional -->
-    <v-row no-gutters v-if="additionalLabel" class="pt-3">
+    <v-row no-gutters v-if="additionalLabel" class="pt-5">
       <v-col cols="12" sm="3" class="pr-4">
         <label class="title-label">{{additionalLabel}}</label>
       </v-col>
