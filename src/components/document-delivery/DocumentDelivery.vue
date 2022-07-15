@@ -28,7 +28,7 @@
           :rules="entityEmailRules"
         />
       </v-col>
-      <v-col v-else cols="12" sm="9 pt-5">
+      <v-col v-else cols="12" sm="9" class="pt-5">
         <span id="completing-party-email">{{completingPartyEmail || '(Not entered)'}}</span>
       </v-col>
     </v-row>
