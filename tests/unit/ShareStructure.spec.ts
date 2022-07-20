@@ -260,8 +260,7 @@ describe('Share Structure component', () => {
       localVue,
       vuetify,
       propsData: {
-        isCorrection: true,
-        incorporationApplication: shareClassesOriginal,
+        originalShareStructure: shareClassesOriginal,
         shareClasses: shareClasses
       }
     })
