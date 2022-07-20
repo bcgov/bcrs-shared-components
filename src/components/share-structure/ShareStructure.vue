@@ -10,7 +10,7 @@
         <!-- Summary Header -->
         <div class="share-summary-header">
           <v-icon color="app-dk-blue">mdi-sitemap</v-icon>
-          <label class="share-summary-header-title"><strong> Share Structure</strong></label>
+          <label class="share-summary-header-title"><strong>Share Structure</strong></label>
         </div>
       </div>
 
@@ -54,7 +54,8 @@
             :invalidSection="invalidSection"
             @addEditClass="addEditShareClass($event)"
             @resolutionPrompt="emitResolutionPrompt($event)"
-            @resetEvent="resetData()"/>
+            @resetEvent="resetData()"
+          />
         </v-card>
       </v-expand-transition>
     </div>
@@ -68,8 +69,7 @@
       hide-default-footer
     >
       <template v-slot:item="row" class="share-data-table">
-
-        <!-- Share Class Rows-->
+        <!-- Share Class Rows -->
         <tr
           v-if="!showClassEditForm[row.index] && !(!isEditMode && row.item.action === ActionTypes.REMOVED)"
           :key="row.item.id"
@@ -146,7 +146,8 @@
                            color="primary"
                            class="actions__more-actions__btn"
                            :disabled="addEditInProgress"
-                           v-on="on">
+                           v-on="on"
+                      >
                       <v-icon>{{classDropdown[row.index] ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
                     </v-btn>
                   </template>
@@ -155,7 +156,8 @@
                       v-if="row.item.action === ActionTypes.EDITED"
                       class="actions-dropdown_item"
                       @click="initShareClassForEdit(row.index)"
-                      :disabled="addEditInProgress">
+                      :disabled="addEditInProgress"
+                    >
                       <v-list-item-subtitle>
                         <v-icon small color="primary" class="mr-3">mdi-pencil</v-icon>{{ editLabel }}
                       </v-list-item-subtitle>
@@ -164,7 +166,8 @@
                       class="actions-dropdown_item"
                       :class="{ 'item-disabled': !row.item.hasRightsOrRestrictions }"
                       :disabled="!row.item.hasRightsOrRestrictions"
-                      @click="initNewShareSeries(row.index)">
+                      @click="initNewShareSeries(row.index)"
+                    >
                       <v-list-item-subtitle>
                         <v-icon color="primary">mdi-playlist-plus</v-icon> Add Series
                       </v-list-item-subtitle>
@@ -202,7 +205,7 @@
               </span>
             </div>
           </td>
-          <!-- Placeholder template to preserve table cell and stylings-->
+          <!-- Placeholder template to preserve table cell and stylings -->
           <template v-else><span></span></template>
         </tr>
 
@@ -223,7 +226,8 @@
                   @addEditSeries="addEditShareSeries($event)"
                   @removeClass="confirmShareRemoval($event)"
                   @resolutionPrompt="emitResolutionPrompt($event)"
-                  @resetEvent="resetData()"/>
+                  @resetEvent="resetData()"
+                />
               </div>
             </v-expand-transition>
           </td>
@@ -243,9 +247,7 @@
             <td class="series-name" :class="{ 'invalid-section': invalidMinimumShareClass }">
               <li>
                 <span class="h3 ml-n2" :class="{'list-item__subtitle' : row.item.action === ActionTypes.REMOVED ||
-                seriesItem.action === ActionTypes.REMOVED }">
-                {{ seriesItem.name }}
-              </span>
+                  seriesItem.action === ActionTypes.REMOVED }">{{ seriesItem.name }}</span>
               </li>
               <ActionChip
                 v-if="row.item.action !== ActionTypes.REMOVED && seriesItem.action && isEditMode"
@@ -284,8 +286,9 @@
                 >
                   <v-btn text color="primary"
                          :id="'series-' + index + '-undo-btn'"
-                         @click="undoCorrection
-                    (false, seriesItem.action, index, row.index, row.item.id, seriesItem.id)"
+                         @click="
+                           undoCorrection(false, seriesItem.action, index, row.index, row.item.id, seriesItem.id)
+                          "
                          :disabled="addEditInProgress"
                   >
                     <v-icon small>mdi-undo</v-icon>
@@ -316,6 +319,7 @@
                         <v-icon>{{seriesDropdown[row.index][index] ? 'mdi-menu-up' : 'mdi-menu-down'}}</v-icon>
                       </v-btn>
                     </template>
+
                     <v-list class="more-actions">
                       <v-list-item
                         v-if="seriesItem.action === ActionTypes.EDITED"
@@ -323,10 +327,11 @@
                         @click="editSeries(row.index, index)"
                         :disabled="addEditInProgress"
                       >
-                      <v-list-item-subtitle>
-                        <v-icon small color="primary" class="mr-2">mdi-pencil</v-icon> {{editLabel}}
-                      </v-list-item-subtitle>
-                    </v-list-item>
+                        <v-list-item-subtitle>
+                          <v-icon small color="primary" class="mr-2">mdi-pencil</v-icon> {{editLabel}}
+                        </v-list-item-subtitle>
+                      </v-list-item>
+
                       <v-list-item
                         class="actions-dropdown_item"
                         :class="{ 'item-disabled': isMoveDisabled(row.index, 'up', index) }"
@@ -337,6 +342,7 @@
                           <v-icon color="primary">mdi-arrow-up</v-icon> Move Up
                         </v-list-item-subtitle>
                       </v-list-item>
+
                       <v-list-item
                         class="actions-dropdown_item"
                         :class="{ 'item-disabled': isMoveDisabled(row.index, 'down', index) }"
@@ -347,6 +353,7 @@
                           <v-icon color="primary">mdi-arrow-down</v-icon> Move Down
                         </v-list-item-subtitle>
                       </v-list-item>
+
                       <v-list-item class="actions-dropdown_item" @click="removeSeries(index, row.index)">
                         <v-list-item-subtitle>
                           <v-icon color="primary">mdi-delete</v-icon> Remove
@@ -357,9 +364,10 @@
                 </span>
               </div>
             </td>
-            <!-- Placeholder template to preserve table cell and stylings-->
+            <!-- Placeholder template to preserve table cell and stylings -->
             <template v-else><span></span></template>
           </tr>
+
           <!-- Series Share Edit Form -->
           <tr
             v-if="showSeriesEditForm[row.index] && showSeriesEditForm[row.index][index]"
@@ -380,7 +388,8 @@
                     @addEditSeries="addEditShareSeries($event)"
                     @removeSeries="removeSeries($event, row.index)"
                     @resolutionPrompt="emitResolutionPrompt($event)"
-                    @resetEvent="resetData()"/>
+                    @resetEvent="resetData()"
+                  />
                 </div>
               </v-expand-transition>
             </td>
@@ -404,7 +413,8 @@
                   @addEditSeries="addEditShareSeries($event)"
                   @removeSeries="removeSeries($event, row.index)"
                   @resolutionPrompt="emitResolutionPrompt($event)"
-                  @resetEvent="resetData()"/>
+                  @resetEvent="resetData()"
+                />
               </div>
             </v-expand-transition>
           </td>
@@ -427,9 +437,7 @@ import { ConfirmDialog } from '@bcrs-shared-components/confirm-dialog'
 import EditShareStructure from './EditShareStructure.vue'
 
 // Interfaces and Enums
-import {
-  ConfirmDialogType, IncorporationFilingIF, ShareClassIF, ShareStructureIF
-} from '@bcrs-shared-components/interfaces'
+import { ConfirmDialogType, ShareClassIF, ShareStructureIF } from '@bcrs-shared-components/interfaces'
 import { ActionTypes } from '@bcrs-shared-components/enums'
 
 @Component({
@@ -440,21 +448,21 @@ import { ActionTypes } from '@bcrs-shared-components/enums'
   }
 })
 export default class ShareStructure extends Vue {
+  // Declaration for template
+  readonly ActionTypes = ActionTypes
+
   // Refs
   $refs!: Vue['$refs'] & {
     confirm: ConfirmDialogType,
   };
 
-  // Props
+  //
+  // Props:
+  //
+
   /** Edit Mode */
   @Prop({ default: true })
   readonly isEditMode!: boolean
-
-  @Prop({ default: false })
-  readonly isCorrection: boolean
-
-  @Prop({ default: null })
-  readonly incorporationApplication: IncorporationFilingIF
 
   @Prop({ default: null })
   readonly originalShareStructure: ShareStructureIF
@@ -484,24 +492,23 @@ export default class ShareStructure extends Vue {
   @Prop({ default: false })
   readonly invalidMinimumShareClass!: boolean
 
-  // Local Properties
-  private activeIndex: number = -1
-  private classDropdown: Array<boolean> = []
-  private parentIndex: number = -1
-  private seriesDropdown: Array<boolean> = this.mapEmpty2dArray()
-  private shareId: string = ''
-  private showAddShareStructureForm = false
-  private showClassEditForm: Array<boolean> = [false]
-  private showSeriesAddForm: Array<boolean> = [false]
-  private showSeriesEditForm: Array<any> = this.mapEmpty2dArray()
-  private addEditInProgress = false
-  private currentShareStructure: ShareClassIF = null
-  private originalIA: IncorporationFilingIF
+  //
+  // Local properties:
+  //
 
-  // Declaration for template
-  readonly ActionTypes = ActionTypes
+  protected activeIndex = -1
+  protected classDropdown: Array<boolean> = []
+  protected parentIndex = -1
+  protected seriesDropdown: Array<boolean> = this.mapEmpty2dArray()
+  protected shareId = ''
+  protected showAddShareStructureForm = false
+  protected showClassEditForm: Array<boolean> = [false]
+  protected showSeriesAddForm: Array<boolean> = [false]
+  protected showSeriesEditForm: Array<any> = this.mapEmpty2dArray()
+  protected addEditInProgress = false
+  protected currentShareStructure: ShareClassIF = null
 
-  private headers: Array<any> = [
+  readonly headers = [
     {
       text: 'Name of Share Class or Series',
       align: 'start',
@@ -514,7 +521,7 @@ export default class ShareStructure extends Vue {
     { text: 'Special Rights or Restrictions', value: 'hasRightsOrRestrictions' }
   ]
 
-  private newShareClass: ShareClassIF = {
+  readonly newShareClass: ShareClassIF = {
     id: null,
     priority: null,
     type: 'Class',
@@ -529,7 +536,7 @@ export default class ShareStructure extends Vue {
     action: ActionTypes.ADDED
   }
 
-  private newShareSeries: ShareClassIF = {
+  readonly newShareSeries: ShareClassIF = {
     id: null,
     priority: null,
     type: 'Series',
@@ -543,18 +550,13 @@ export default class ShareStructure extends Vue {
     action: ActionTypes.ADDED
   }
 
-  // Initialize data sets
-  mounted () {
-    this.updateOriginalIA()
-  }
-
   /** True if we have any changes (from original IA). */
-  private get hasClassChanges (): boolean {
+  get hasClassChanges (): boolean {
     return this.shareClasses.some(x => x.action)
   }
 
   /** True if we have any changes (from original IA). */
-  private get hasSeriesChanges (): boolean {
+  get hasSeriesChanges (): boolean {
     return !!this.shareClasses.find(shareClass => shareClass.series.some(x => x.action))
   }
 
@@ -563,7 +565,7 @@ export default class ShareStructure extends Vue {
    * @param parValue The value to evaluate and format.
    * @returns A formatted par value string
    * */
-  private formatParValue (parValue: string): string {
+  protected formatParValue (parValue: string): string {
     const hasParCents = (parValue.toString()).includes('.')
     return hasParCents ? parValue : `${parValue}.00`
   }
@@ -575,17 +577,20 @@ export default class ShareStructure extends Vue {
   }
 
   /** Helper function to handle the various display states of the nested series rows. */
-  private displaySeriesRow (classRow, seriesRow, index): boolean {
+  protected displaySeriesRow (classRow, seriesRow, index): boolean {
     return this.showSeriesEditForm[classRow.index] &&
       !this.showSeriesEditForm[classRow.index][index] &&
       !(!this.isEditMode && (seriesRow.action === ActionTypes.REMOVED || classRow.item.action === ActionTypes.REMOVED))
   }
 
-  // Share Class Functionality
+  //
+  // Share Class functionality:
+  //
+
   /**
    * Initialize the Add Share Class Form
    */
-  private initNewShareClass (): void {
+  protected initNewShareClass (): void {
     this.activeIndex = -1
     this.parentIndex = -1
     this.currentShareStructure = { ...this.newShareClass }
@@ -602,7 +607,7 @@ export default class ShareStructure extends Vue {
    *  Initialize the Add Share Class Form to Edit existing ShareClass
    *  @param index The identifier of the ShareClass to be edited.
    */
-  private initShareClassForEdit (index: number): void {
+  protected initShareClassForEdit (index: number): void {
     this.currentShareStructure = { ...this.shareClasses[index] }
     this.activeIndex = index
     this.parentIndex = -1
@@ -614,7 +619,7 @@ export default class ShareStructure extends Vue {
    * Add / Edit Share Class and set to store
    * @param shareStructure The current share structure object
    */
-  private addEditShareClass (shareStructure: ShareClassIF): void {
+  protected addEditShareClass (shareStructure: ShareClassIF): void {
     // Apply a correction tag if Share is changed
     if (shareStructure.action !== ActionTypes.ADDED) {
       shareStructure.action = this.isShareClassEdited(shareStructure) ? ActionTypes.EDITED : null
@@ -637,9 +642,7 @@ export default class ShareStructure extends Vue {
    * @params shareClass The Share class to compare
    */
   private isShareClassEdited (shareClass: ShareClassIF): boolean {
-    const originalShareClasses = this.isCorrection
-      ? cloneDeep(this.originalIA.incorporationApplication.shareStructure.shareClasses)
-      : cloneDeep(this.originalShareStructure.shareClasses)
+    const originalShareClasses = cloneDeep(this.originalShareStructure.shareClasses)
 
     const originalShareClass = originalShareClasses.find(
       share => (+share.id === +shareClass.id)
@@ -677,9 +680,7 @@ export default class ShareStructure extends Vue {
    * @param index The share class identifier
    */
   private restoreShareClass (index: number): void {
-    const originalShareClasses = this.isCorrection
-      ? cloneDeep(this.originalIA.incorporationApplication.shareStructure.shareClasses)
-      : cloneDeep(this.originalShareStructure.shareClasses)
+    const originalShareClasses = cloneDeep(this.originalShareStructure.shareClasses)
 
     // Fetch and identify the ShareClass to restore
     const shareClassToRestore = originalShareClasses.find(
@@ -699,11 +700,14 @@ export default class ShareStructure extends Vue {
     this.resetData()
   }
 
-  // Series Functionality
+  //
+  // Series functionality:
+  //
+
   /**
    * Initialize the Add Series Form
    */
-  private initNewShareSeries (shareClassIndex: number): void {
+  protected initNewShareSeries (shareClassIndex: number): void {
     this.activeIndex = -1
     this.parentIndex = shareClassIndex
 
@@ -724,7 +728,7 @@ export default class ShareStructure extends Vue {
   /**
    * Add / Edit Share Series and set to store
    */
-  private addEditShareSeries (shareSeries: ShareClassIF): void {
+  protected addEditShareSeries (shareSeries: ShareClassIF): void {
     // Apply a correction tag if Share is changed
     if (shareSeries.action !== ActionTypes.ADDED && this.isShareClassEdited(shareSeries)) {
       shareSeries.action = ActionTypes.EDITED
@@ -751,7 +755,7 @@ export default class ShareStructure extends Vue {
    * @param index The share class parent index
    * @param seriesIndex The share series index
    */
-  private editSeries (index: number, seriesIndex: number): void {
+  protected editSeries (index: number, seriesIndex: number): void {
     this.activeIndex = seriesIndex
     this.parentIndex = index
     let newList: ShareClassIF[] = [...this.shareClasses]
@@ -765,7 +769,7 @@ export default class ShareStructure extends Vue {
    * @param seriesIndex The series share identifier
    * @param parentIndex The parent class index
    */
-  private removeSeries (seriesIndex: number, parentIndex: number): void {
+  protected removeSeries (seriesIndex: number, parentIndex: number): void {
     const shareSeries = { ...this.shareClasses[parentIndex].series[seriesIndex] }
     let tempList: ShareClassIF[] = [...this.shareClasses]
 
@@ -788,9 +792,7 @@ export default class ShareStructure extends Vue {
    * @param seriesId The Series Id
    */
   private restoreShareSeries (seriesIndex: number, parentIndex: number, parentId: string, seriesId: string): void {
-    const originalShareClasses = this.isCorrection
-      ? cloneDeep(this.originalIA.incorporationApplication.shareStructure.shareClasses)
-      : cloneDeep(this.originalShareStructure.shareClasses)
+    const originalShareClasses = cloneDeep(this.originalShareStructure.shareClasses)
 
     // Fetch the original Share class ( In the event the list is moved up or down, find the original by ID )
     const originalShareClass = Object.assign({},
@@ -813,14 +815,17 @@ export default class ShareStructure extends Vue {
     this.resetData()
   }
 
-  // Common form functionality
+  //
+  // Common form functionality:
+  //
+
   /**
    * Adjust the priority of the list share class
    * @param indexFrom The index of the class
    * @param direction The direction of the move
    * @param seriesIndex The index of the series
    */
-  private moveIndex (indexFrom: number, direction: string, seriesIndex: number = -1): void {
+  protected moveIndex (indexFrom: number, direction: string, seriesIndex: number = -1): void {
     let indexTo
     if (seriesIndex >= 0) {
       indexTo = direction === 'up' ? seriesIndex - 1 : seriesIndex + 1
@@ -843,7 +848,7 @@ export default class ShareStructure extends Vue {
    * @param seriesIndex index of the series item
    * @returns A boolean indicating if a move is enabled
    */
-  private isMoveDisabled (index: number, direction: string, seriesIndex: number = -1): boolean {
+  protected isMoveDisabled (index: number, direction: string, seriesIndex: number = -1): boolean {
     const seriesCheck = seriesIndex >= 0
     const arrBoundry = seriesCheck ? this.shareClasses[index].series.length - 1 : this.shareClasses.length - 1
     switch (direction) {
@@ -873,13 +878,14 @@ export default class ShareStructure extends Vue {
    * @param parentId The parent class Id.
    * @param seriesId The series Id.
    */
-  private undoCorrection (
+  protected undoCorrection (
     isClass: boolean,
     actionType: ActionTypes,
     index: number,
     parentIndex: number = null,
     parentId: string = null,
-    seriesId: string = null): void {
+    seriesId: string = null
+  ): void {
     switch (actionType) {
       case ActionTypes.ADDED:
         isClass ? this.removeShareClass(index) : this.removeSeries(index, parentIndex)
@@ -897,7 +903,7 @@ export default class ShareStructure extends Vue {
   /**
    * Clear and set local tracking properties to default
    */
-  private resetData (): void {
+  protected resetData (): void {
     function scrollToTop (element: any): void {
       const isJestRunning = (process.env.JEST_WORKER_ID !== undefined)
       // don't call window.scrollTo during Jest tests because jsdom doesn't implement it
@@ -917,7 +923,7 @@ export default class ShareStructure extends Vue {
     this.clearDropdowns()
   }
 
-  private confirmShareRemoval (index: number): void {
+  protected confirmShareRemoval (index: number): void {
     const shareClass = { ...this.shareClasses[index] }
 
     if (shareClass.series.length > 0) {
@@ -950,14 +956,9 @@ export default class ShareStructure extends Vue {
     return new Array(50).fill(null).map(() => new Array(50).fill(null))
   }
 
-  @Watch('incorporationApplication')
-  private updateOriginalIA (): void {
-    this.originalIA = cloneDeep(this.incorporationApplication)
-  }
-
   @Watch('hasClassChanges')
   @Watch('hasSeriesChanges')
-  private emitHaveChanges (): void {
+  private onShareStructureChanged (): void {
     this.emitShareStructureChanged(this.hasClassChanges || this.hasSeriesChanges)
   }
 
