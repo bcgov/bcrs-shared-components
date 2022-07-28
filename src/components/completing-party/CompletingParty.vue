@@ -150,7 +150,7 @@ export default class CompletingParty extends Vue {
     (v: string) => !!v || 'A first name is required',
     (v: string) => !/^\s/g.test(v) || 'Invalid spaces', // leading spaces
     (v: string) => !/\s$/g.test(v) || 'Invalid spaces', // trailing spaces
-    (v: string) => (v?.length <= 30) || 'Cannot exceed 30 characters' // maximum character count
+    (v: string) => (v?.length <= 20) || 'Cannot exceed 20 characters' // maximum character count
   ]
 
   readonly middleNameRules = [
