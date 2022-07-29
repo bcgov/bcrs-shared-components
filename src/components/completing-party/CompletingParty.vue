@@ -156,7 +156,7 @@ export default class CompletingParty extends Vue {
   readonly middleNameRules = [
     (v: string) => !/^\s/g.test(v) || 'Invalid spaces', // leading spaces
     (v: string) => !/\s$/g.test(v) || 'Invalid spaces', // trailing spaces
-    (v: string) => (!v || v.length <= 30) || 'Cannot exceed 30 characters' // maximum character count
+    (v: string) => (!v || v.length <= 20) || 'Cannot exceed 20 characters' // maximum character count
   ]
 
   readonly lastNameRules = [
