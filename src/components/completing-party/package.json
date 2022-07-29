@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/completing-party",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "publishConfig": {
     "access": "public"
   },
