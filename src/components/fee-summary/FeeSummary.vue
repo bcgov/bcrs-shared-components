@@ -71,7 +71,7 @@ export default class FeeSummary extends Vue {
 
   /** Filing information to calculate fees. */
   @Prop({ default: null })
-  readonly filingData: FilingDataIF
+  readonly filingData: FilingDataIF | FilingDataIF[]
 
   /** URL for Sbc Fee Summary component to get fees. */
   @Prop({ default: '' })
