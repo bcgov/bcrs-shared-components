@@ -192,6 +192,12 @@ export default class Certify extends Vue {
   line-height: 1.2rem;
   font-size: $px-16;
 
+  &.invalid-section {
+    border-left: 3px solid $app-red !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
   .error-text {
     color: $app-red;
   }
