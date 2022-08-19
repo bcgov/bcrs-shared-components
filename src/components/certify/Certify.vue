@@ -1,5 +1,5 @@
 <template>
-  <div id="AR-step-4-container">
+  <div id="AR-step-4-container" :class="{'invalid-section': invalidSection}">
     <v-form ref="certifyForm" lazy-validation v-on:submit.prevent>
       <v-row no-gutters>
         <v-col cols="12" :sm="firstColumn" class="pr-4 pb-4">
@@ -191,6 +191,10 @@ export default class Certify extends Vue {
 #AR-step-4-container {
   line-height: 1.2rem;
   font-size: $px-16;
+
+  .error-text {
+    color: $app-red;
+  }
 }
 
 .title-label {
