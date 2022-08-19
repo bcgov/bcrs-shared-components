@@ -138,6 +138,7 @@ describe('Certify', () => {
     const wrapper: Wrapper<Certify> =
       createComponent(null, true, false, null, false, true)
 
+    expect(wrapper.find('.invalid-section').exists()).toBe(true)
     expect(wrapper.find('.error-text').exists()).toBe(true)
   })
 
