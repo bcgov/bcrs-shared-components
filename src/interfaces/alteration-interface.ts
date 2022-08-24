@@ -8,7 +8,6 @@ import {
  * https://github.com/bcgov/business-schemas/blob/master/src/registry_schemas/schemas/alteration.json
  */
 
-export type AssociationType = 'CP' | 'HC' | 'CSC'
 export interface AlterationIF {
   provisionsRemoved?: boolean
   business: BusinessIF
