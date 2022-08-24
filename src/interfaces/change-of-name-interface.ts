@@ -10,7 +10,10 @@
 
 import { NameRequestIF } from './name-request-interface'
 
-export interface ChangeOfNameIF {
-    nameRequest?: NameRequestIF
-    legalName?: string
+export interface ChangeOfNameNameRequestIF {
+    nameRequest: NameRequestIF
+}
+
+export interface ChangeOfNameLegalNameIF {
+    legalName: string
 }
