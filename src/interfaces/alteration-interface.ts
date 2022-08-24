@@ -10,7 +10,7 @@ import {
 
 export interface AlterationIF {
   provisionsRemoved?: boolean
-  business: BusinessIF
+  business?: BusinessIF
   nameRequest?: NameRequestIF
   nameTranslations?: NameTranslationIF[]
   shareStructure?: ShareStructureIF

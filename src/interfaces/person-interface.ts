@@ -4,10 +4,16 @@
  */
 
 export interface PersonIF {
-    givenName?: string
-    familyName?: string
-    additionalName?: string
-    middleInitial?: string
-    email?: string
-    [propName: string]: any // excess properties
+  givenName?: string
+  familyName?: string
+  additionalName?: string
+  middleInitial?: string
+  email?: string
+  [propName: string]: any // excess properties
+}
+
+export const EmptyPersonIF: PersonIF = {
+  givenName: '',
+  familyName: '',
+  additionalName: null
 }
