@@ -17,3 +17,5 @@ export interface ChangeOfNameNameRequestIF {
 export interface ChangeOfNameLegalNameIF {
     legalName: string
 }
+
+export type ChangeOfNameIF = ChangeOfNameLegalNameIF | ChangeOfNameNameRequestIF
