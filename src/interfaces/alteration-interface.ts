@@ -10,12 +10,12 @@ import {
 
 export type AssociationType = 'CP' | 'HC' | 'CSC'
 export interface AlterationIF {
-  provisionsRemoved: boolean
+  provisionsRemoved?: boolean
   business: BusinessIF
   nameRequest?: NameRequestIF
-  nameTranslations: NameTranslationIF[]
-  shareStructure: ShareStructureIF
-  contactPoint: ContactPointIF
+  nameTranslations?: NameTranslationIF[]
+  shareStructure?: ShareStructureIF
+  contactPoint?: ContactPointIF
   courtOrder?: CourtOrderIF
   cooperativeAssociationType?: AssociationTypes
   rulesFileKey?: string
