@@ -6,10 +6,11 @@
 import { PersonIF } from './person-interface'
 
 export interface SpecialResolutionIF {
-    meetingDate?: string
-    resolution: string
-    resolutionDate?: string
-    signingDate?: string
-    signatory?: PersonIF
-    [propName: string]: any // excess properties
+  meetingDate?: string
+  resolution: string
+  resolutionDate?: string
+  signingDate?: string
+  signatory?: PersonIF
+  resolutionConfirmed?: boolean // Needs to be implemented in business schema
+  [propName: string]: any // excess properties
 }
