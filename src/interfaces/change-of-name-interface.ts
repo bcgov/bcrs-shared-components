@@ -12,12 +12,10 @@ import { NameRequestIF } from './name-request-interface'
 
 export interface ChangeOfNameNameRequestIF {
     nameRequest: NameRequestIF
-    [propName: string]: any // excess properties
 }
 
 export interface ChangeOfNameLegalNameIF {
     legalName: string
-    [propName: string]: any // excess properties
 }
 
 export type ChangeOfNameIF = ChangeOfNameLegalNameIF | ChangeOfNameNameRequestIF
