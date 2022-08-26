@@ -11,6 +11,6 @@ export interface SpecialResolutionIF {
   resolutionDate?: string
   signingDate?: string
   signatory?: PersonIF
-  resolutionConfirmed?: boolean // Needs to be implemented in business schema
+  resolutionConfirmed?: boolean // Needs to be implemented in business schema https://github.com/bcgov/business-schemas/pull/107
   [propName: string]: any // excess properties
 }
