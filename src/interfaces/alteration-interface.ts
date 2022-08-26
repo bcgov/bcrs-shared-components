@@ -12,10 +12,10 @@ export interface AlterationIF {
   provisionsRemoved: boolean
   business: BusinessIF
   nameRequest?: NameRequestIF
-  nameTranslations?: NameTranslationIF[]
-  shareStructure?: ShareStructureIF
-  contactPoint?: ContactPointIF
-  courtOrder?: CourtOrderIF
+  nameTranslations: NameTranslationIF[]
+  shareStructure: ShareStructureIF
+  contactPoint: ContactPointIF
+  courtOrder: CourtOrderIF
   cooperativeAssociationType?: AssociationTypes
   rulesFileKey?: string
   rulesFileName?: string
