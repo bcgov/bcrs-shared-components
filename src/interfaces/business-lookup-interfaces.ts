@@ -1,4 +1,4 @@
-import { CorpTypeCd, EntityStates } from '@/enums'
+import { CorpTypeCd, EntityStates } from '@bcrs-shared-components/enums'
 
 export interface BusinessLookupIF {
   identifier: string

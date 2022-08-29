@@ -1,3 +1,4 @@
+import { AssociationTypes } from '@bcrs-shared-components/enums'
 import {
   BusinessIF, NameRequestIF, NameTranslationIF, ShareStructureIF, ContactPointIF, CourtOrderIF
 } from './'
@@ -6,6 +7,7 @@ import {
  * A filing's alteration object from the API. See:
  * https://github.com/bcgov/business-schemas/blob/master/src/registry_schemas/schemas/alteration.json
  */
+
 export interface AlterationIF {
   provisionsRemoved: boolean
   business: BusinessIF
@@ -14,5 +16,9 @@ export interface AlterationIF {
   shareStructure: ShareStructureIF
   contactPoint: ContactPointIF
   courtOrder: CourtOrderIF
-  [propName: string]: any // excess properties
+  cooperativeAssociationType?: AssociationTypes
+  rulesFileKey?: string
+  rulesFileName?: string
+  memorandumFileKey?: string
+  memorandumFileName?: string
 }
