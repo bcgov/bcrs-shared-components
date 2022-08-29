@@ -11,6 +11,7 @@ export interface SpecialResolutionIF {
   resolutionDate?: string
   signingDate?: string
   signatory?: PersonIF
+  // Not in API schema, but used in UI
   resolutionConfirmed?: boolean
   [propName: string]: any // excess properties
 }
