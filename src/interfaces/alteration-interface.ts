@@ -21,5 +21,4 @@ export interface AlterationIF {
   rulesFileName?: string
   memorandumFileKey?: string
   memorandumFileName?: string
-  [propName: string]: any // excess properties
 }

@@ -9,11 +9,4 @@ export interface PersonIF {
   additionalName?: string
   middleInitial?: string
   email?: string
-  [propName: string]: any // excess properties
-}
-
-export const EmptyPersonIF: PersonIF = {
-  givenName: '',
-  familyName: '',
-  additionalName: null
 }

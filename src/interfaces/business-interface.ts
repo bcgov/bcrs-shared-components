@@ -16,5 +16,4 @@ export interface BusinessIF {
   legalType?: CorpTypeCd
   taxId?: string
   nextAnnualReport?: string // not yet in schema
-  [propName: string]: any // excess properties
 }

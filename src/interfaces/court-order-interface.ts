@@ -5,6 +5,6 @@
 export interface CourtOrderIF {
   fileNumber: string
   orderDate: string
-  effectOfOrder: string,
+  effectOfOrder: string
   hasPlanOfArrangement?: boolean
 }
