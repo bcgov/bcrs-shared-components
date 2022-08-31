@@ -17,10 +17,10 @@ import { ActionableItemIF } from '@bcrs-shared-components/interfaces'
 @Component({})
 export default class ActionChip extends Vue {
   @Prop({ default: {} })
-  private actionableItem: ActionableItemIF
+  readonly actionableItem: ActionableItemIF
 
   @Prop({ default: 'EDITED' })
-  private editedLabel: boolean
+  readonly editedLabel: boolean
 
   // Declaration for template
   readonly ActionTypes = ActionTypes

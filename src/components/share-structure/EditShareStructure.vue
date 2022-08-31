@@ -404,7 +404,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
       // Remove the added series from the array starting at the highest index, as to not shift the indexes of series
       addedSeriesIndexes.reverse().forEach(index => shareStructureToAdd.series.splice(index, 1))
 
-      // Set the actions to REMOVED for any original series
+      // Set the action to REMOVED for any original series
       shareStructureToAdd.series.forEach(series => {
         series.action = ActionTypes.REMOVED
       })

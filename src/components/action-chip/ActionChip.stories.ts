@@ -6,8 +6,7 @@ import Vuetify from 'vuetify'
 export default {
   title: 'component/ActionChip',
   component: ActionChip,
-  argTypes: {
-  }
+  argTypes: {}
 }
 
 const Template = (args, { argTypes }) => ({
@@ -17,17 +16,9 @@ const Template = (args, { argTypes }) => ({
   template: '<action-chip v-bind="$props" />' // $props comes from args below
 })
 
-const addedAction: ActionableItemIF = {
-  action: ActionTypes.ADDED
-}
-
-const removedAction: ActionableItemIF = {
-  action: ActionTypes.REMOVED
-}
-
-const editedAction: ActionableItemIF = {
-  action: ActionTypes.EDITED
-}
+const addedAction: ActionableItemIF = { action: ActionTypes.ADDED }
+const removedAction: ActionableItemIF = { action: ActionTypes.REMOVED }
+const editedAction: ActionableItemIF = { action: ActionTypes.EDITED }
 
 export const added = Template.bind({})
 added.args = {
