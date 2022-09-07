@@ -74,7 +74,7 @@ export default class CourtOrderPoa extends Vue {
   private planOfArrangement = false
   private valid = false
 
-  mounted () {
+  mounted (): void {
     // Set default draft values if they exist
     if (this.draftCourtOrderNumber) this.courtOrderNumber = this.draftCourtOrderNumber
     if (this.hasDraftPlanOfArrangement) this.planOfArrangement = this.hasDraftPlanOfArrangement

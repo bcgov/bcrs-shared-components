@@ -166,7 +166,7 @@ export default class StaffPayment extends Vue {
   ]
 
   /** Called when this component is mounted. */
-  private async mounted (): Promise<void> {
+  async mounted (): Promise<void> {
     await this.$nextTick()
     this.isMounted = true
   }

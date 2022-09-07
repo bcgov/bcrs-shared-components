@@ -7,21 +7,9 @@
       :action="webChatUrl"
       @submit="onSubmit()"
     >
-      <input
-        type="hidden"
-        name="Reason"
-        :value="webChatReason"
-      />
-      <input
-        type="hidden"
-        name="UserLanguage"
-        value="en"
-      />
-      <input
-        type="hidden"
-        name="Parameters[TimeZoneOffset]"
-        :value="timeZoneOffset"
-      />
+      <input type="hidden" name="Reason" :value="webChatReason" />
+      <input type="hidden" name="UserLanguage" value="en" />
+      <input type="hidden" name="Parameters[TimeZoneOffset]" :value="timeZoneOffset" />
 
       <v-tooltip top content-class="top-tooltip" nudge-top="5" :disabled="isMobile">
         <template v-slot:activator="{ on, attrs }">
@@ -44,14 +32,13 @@
           </div>
         </template>
         <span v-if="chatStatus === 'open'" id="open-tooltip-message">
-          Click here to chat live with Helpdesk staff about Name Requests.
+          {{openTooltipMessage}}
         </span>
         <span v-else-if="chatStatus === 'closed'" id="closed-tooltip-message">
-          We are closed. The Service BC Contact Centre is open Monday through Friday
-          7:30am – 5:00pm Pacific Time excluding BC statutory holidays.
+          {{closedTooltipMessage}}
         </span>
         <span v-else id="unavailable-tooltip-message">
-          Webchat is temporarily unavailable.
+          {{unavailableTooltipMessage}}
         </span>
       </v-tooltip>
     </v-form>
@@ -64,11 +51,20 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component({})
 export default class ChatPopup extends Vue {
   @Prop({ required: true }) readonly axios: any
-  @Prop({ default: false }) readonly isMobile: boolean
+  @Prop({ default: false }) readonly isMobile!: boolean
+  @Prop({ default: null }) readonly webChatReason!: string
+  @Prop({ default: null }) readonly webChatStatusUrl!: string
+  @Prop({ default: null }) readonly webChatUrl!: string
 
-  readonly webChatReason = window['webChatReason'] as string
-  readonly webChatStatusUrl = window['webChatStatusUrl'] as string
-  readonly webChatUrl = window['webChatUrl'] as string
+  @Prop({ default: 'Click here to chat live with Helpdesk staff.' })
+  readonly openTooltipMessage!: string
+
+  @Prop({ default: 'We are closed. The Service BC Contact Centre is open Monday through ' +
+    'Friday 7:30am – 5:00pm Pacific Time excluding BC statutory holidays.' })
+  readonly closedTooltipMessage!: string
+
+  @Prop({ default: 'Webchat is temporarily unavailable.' })
+  readonly unavailableTooltipMessage!: string
 
   protected chatStatus = 'unknown'
 
@@ -113,13 +109,12 @@ export default class ChatPopup extends Vue {
   min-height: 40px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  background-color: #ffffff !important;
+  background-color: white !important;
 }
 
 .v-tooltip__content {
   padding: 1rem !important;
   background-color: rgba(0,0,0,0.85) !important;
-  line-height: 1.75rem;
 }
 
 .top-tooltip {
@@ -130,7 +125,6 @@ export default class ChatPopup extends Vue {
   border-top: 8px solid rgba(0,0,0,0.85) !important;
 }
 
-// Vuetify var() colors don't work in IE11, so just specify them here
 .bcgovblue--text {
   color: $BCgovBlue5 !important;
   caret-color: $BCgovBlue5 !important;

@@ -8,7 +8,7 @@ The Storybook (sample) pages for this library are at https://bcgov.github.io/bcr
 
 # Workflow
 
-**Note: use Node v12 for the steps below.**
+**\*\*\* NOTE: USE NODE VERSION 12 FOR THE STEPS BELOW \*\*\***
 
 ### 1. Clone this repo to your workstation
 
@@ -34,7 +34,7 @@ git co -b my-feature-branch
 ### 4. Install dependencies
 
 ```
-npm i                    // if new repo, first use Node < 16, then you can use Node 16
+npm i                    // if new repo
 npm i --global lerna     // if you didn't do this previously
 ```
 
