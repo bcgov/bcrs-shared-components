@@ -5,12 +5,12 @@
         <label>Nature of Business</label>
         <v-chip
           v-if="hasNaicsChanges"
-          id="changed-chip"
+          id="edited-chip"
           x-small label
           color="primary"
           text-color="white"
         >
-          Changed
+          {{ editedLabel }}
         </v-chip>
       </v-col>
 
@@ -92,9 +92,9 @@
           <span v-else-if="naicsDescription">{{naicsDescription}}</span>
           <span v-else>(Not entered)</span>
 
-          <v-btn v-if="!hasNaicsChanges" text color="primary" id="nob-change-btn" @click="onChangeClicked()">
+          <v-btn v-if="!hasNaicsChanges" text color="primary" id="nob-edit-btn" @click="onChangeClicked()">
             <v-icon small>mdi-pencil</v-icon>
-            <span>Change</span>
+            <span>{{ editLabel }}</span>
           </v-btn>
 
           <div v-else id="nob-more-actions">
@@ -113,7 +113,6 @@
                 <v-icon small color="primary">mdi-pencil</v-icon>Change</v-btn>
             </v-menu>
           </div>
-
         </div>
       </v-col>
     </v-row>
@@ -155,6 +154,12 @@ export default class NatureOfBusiness extends Vue {
   /** Whether to display Change features. */
   @Prop({ default: false })
   readonly hasNaicsChanges!: boolean
+
+  /** Edit label name (ie, 'Change' or 'Correct'). */
+  @Prop({ default: 'Change' }) readonly editLabel!: string
+
+  /** Edited label name (ie, 'Changed' or 'Corrected'). */
+  @Prop({ default: 'Changed' }) readonly editedLabel!: string
 
   // enum for template
   readonly States = States
@@ -287,7 +292,7 @@ export default class NatureOfBusiness extends Vue {
   padding: 8px;
 }
 
-#nob-change-btn {
+#nob-edit-btn {
   margin-right: -14px;
 }
 
