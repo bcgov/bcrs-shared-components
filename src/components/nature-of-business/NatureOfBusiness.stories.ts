@@ -42,7 +42,9 @@ Default.args = {
     naicsCode: naicsResult.code,
     naicsDescription: naicsResult.classTitle
   },
-  NaicsServices
+  NaicsServices,
+  editLabel: 'Edit',
+  editedLabel: 'Edited'
 }
 
 export const hasChanges = Template.bind({})
@@ -53,5 +55,7 @@ hasChanges.args = {
     naicsDescription: naicsResult.classTitle
   },
   NaicsServices,
-  hasNaicsChanges: true
+  hasNaicsChanges: true,
+  editLabel: 'Edit',
+  editedLabel: 'Edited'
 }
