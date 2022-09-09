@@ -107,7 +107,7 @@
                        :disabled="addEditInProgress"
                 >
                   <v-icon small>mdi-pencil</v-icon>
-                  <span>{{editLabel}}</span>
+                  <span>{{ editLabel }}</span>
                 </v-btn>
               </span>
 
@@ -159,7 +159,8 @@
                       :disabled="addEditInProgress"
                     >
                       <v-list-item-subtitle>
-                        <v-icon small color="primary" class="mr-3">mdi-pencil</v-icon>{{ editLabel }}
+                        <v-icon small color="primary" class="mr-3">mdi-pencil</v-icon>
+                        <span>Change</span>
                       </v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item
@@ -169,7 +170,8 @@
                       @click="initNewShareSeries(row.index)"
                     >
                       <v-list-item-subtitle>
-                        <v-icon color="primary">mdi-playlist-plus</v-icon> Add Series
+                        <v-icon color="primary">mdi-playlist-plus</v-icon>
+                        <span>Add Series</span>
                       </v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item
@@ -179,7 +181,8 @@
                       :disabled="isMoveDisabled(row.index, 'up')"
                     >
                       <v-list-item-subtitle class="move-up-selector">
-                        <v-icon color="primary">mdi-arrow-up</v-icon> Move Up
+                        <v-icon color="primary">mdi-arrow-up</v-icon>
+                        <span>Move Up</span>
                       </v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item
@@ -189,7 +192,8 @@
                       :disabled="isMoveDisabled(row.index, 'down')"
                     >
                       <v-list-item-subtitle class="move-down-selector">
-                        <v-icon color="primary">mdi-arrow-down</v-icon> Move Down
+                        <v-icon color="primary">mdi-arrow-down</v-icon>
+                        <span>Move Down</span>
                       </v-list-item-subtitle>
                     </v-list-item>
                     <v-list-item
@@ -197,7 +201,8 @@
                       @click="confirmShareRemoval(row.index)"
                     >
                       <v-list-item-subtitle class="remove-selector">
-                        <v-icon color="primary">mdi-delete</v-icon> Remove
+                        <v-icon color="primary">mdi-delete</v-icon>
+                        <span>Remove</span>
                       </v-list-item-subtitle>
                     </v-list-item>
                   </v-list>
@@ -275,7 +280,7 @@
                          :disabled="addEditInProgress"
                   >
                     <v-icon small>mdi-pencil</v-icon>
-                    <span>{{editLabel}}</span>
+                    <span>{{ editLabel }}</span>
                   </v-btn>
                 </span>
 
