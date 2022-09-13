@@ -5,7 +5,7 @@
  * - People And Roles (Edit UI)
  * - Share Structure (shared component and Edit UI)
  */
- export enum ActionTypes {
+export enum ActionTypes {
   ADDED = 'ADDED',
   ADDRESS_CHANGED = 'ADDRESS CHANGED',
   CORRECTED = 'CORRECTED',
