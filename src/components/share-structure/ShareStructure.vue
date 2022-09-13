@@ -87,7 +87,8 @@
             ]"
           >
             {{ row.item.name }}
-            <ActionChip v-if="row.item.action && isEditMode" :actionable-item="row.item" :edited-label="editedLabel" />
+            <ActionChip v-if="row.item.action && isEditMode" :actionable-item="row.item" :edited-label="editedLabel"
+            class="pb-2"/>
           </td>
           <td class="text-right">
             {{ row.item.maxNumberOfShares ? (+row.item.maxNumberOfShares).toLocaleString() : 'No Maximum' }}
