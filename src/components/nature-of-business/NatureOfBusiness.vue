@@ -140,20 +140,16 @@ export default class NatureOfBusiness extends Vue {
   readonly STATS_CAN_URL = 'https://www.statcan.gc.ca/en/subjects/standard/naics/2017/v3/index'
 
   /** Whether to show errors. */
-  @Prop({ required: true })
-  readonly showErrors!: boolean
+  @Prop({ required: true }) readonly showErrors!: boolean
 
   /** The NAICS object. */
-  @Prop({ required: true })
-  readonly naics!: NaicsIF
+  @Prop({ required: true }) readonly naics!: NaicsIF
 
   /** Class for NAICS services. */
-  @Prop({ required: true })
-  readonly NaicsServices!: any
+  @Prop({ required: true }) readonly NaicsServices!: any
 
   /** Whether to display Change features. */
-  @Prop({ default: false })
-  readonly hasNaicsChanges!: boolean
+  @Prop({ default: false }) readonly hasNaicsChanges!: boolean
 
   /** Edit label name (ie, 'Change' or 'Correct'). */
   @Prop({ default: 'Change' }) readonly editLabel!: string
@@ -173,7 +169,7 @@ export default class NatureOfBusiness extends Vue {
   private dropdown: boolean = null
 
   /** The text field validation rules. */
-  readonly natureOfBusinessRules: Array<Function> = [
+  readonly natureOfBusinessRules: Array<(v) => boolean | string> = [
     v => !!v || 'Nature of Business is required'
   ]
 

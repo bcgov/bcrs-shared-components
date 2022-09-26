@@ -60,50 +60,22 @@ export default class DatePicker extends Mixins(DateMixin) {
     form: FormIF,
     dateTextField: FormIF
   }
-  @Prop({ default: null })
-  readonly attach: string
 
-  @Prop({ default: '' })
-  readonly title: string
-
-  @Prop({ default: null })
-  readonly errorMsg: string
-
-  @Prop({ default: () => [] })
-  readonly inputRules: Array<Function>
-
-  @Prop({ default: false })
-  readonly disablePicker: boolean
-
-  @Prop({ default: '' })
-  readonly initialValue: string
-
-  @Prop({ default: '' })
-  readonly minDate: string
-
-  @Prop({ default: '' })
-  readonly maxDate: string
-
-  @Prop({ default: null })
-  readonly nudgeTop: number
-
-  @Prop({ default: null })
-  readonly nudgeBottom: number
-
-  @Prop({ default: null })
-  readonly nudgeRight: number
-
-  @Prop({ default: null })
-  readonly nudgeLeft: number
-
-  @Prop({ default: '' })
-  readonly hint: string
-
-  @Prop({ default: false })
-  readonly persistentHint: boolean
-
-  @Prop({ default: false })
-  readonly clearable: boolean
+  @Prop({ default: null }) readonly attach!: string
+  @Prop({ default: '' }) readonly title!: string
+  @Prop({ default: null }) readonly errorMsg!: string
+  @Prop({ default: () => [] }) readonly inputRules!: Array<(v) => boolean | string>
+  @Prop({ default: false }) readonly disablePicker!: boolean
+  @Prop({ default: '' }) readonly initialValue!: string
+  @Prop({ default: '' }) readonly minDate!: string
+  @Prop({ default: '' }) readonly maxDate!: string
+  @Prop({ default: null }) readonly nudgeTop!: number
+  @Prop({ default: null }) readonly nudgeBottom!: number
+  @Prop({ default: null }) readonly nudgeRight!: number
+  @Prop({ default: null }) readonly nudgeLeft!: number
+  @Prop({ default: '' }) readonly hint!: string
+  @Prop({ default: false }) readonly persistentHint!: boolean
+  @Prop({ default: false }) readonly clearable!: boolean
 
   private dateText = null
   private displayPicker = false
@@ -125,31 +97,31 @@ export default class DatePicker extends Mixins(DateMixin) {
   }
 
   /** Called when component is created. */
-  private created (): void {
+  created (): void {
     this.dateText = this.initialValue
   }
 
   /** The display Date. */
-  private get displayDate (): string {
+  get displayDate (): string {
     return this.yyyyMmDdToPacificDate(this.dateText, true)
   }
 
   /** True when the picker is not displayed or disabled. */
-  private get enableSelector (): boolean {
+  get enableSelector (): boolean {
     return !this.displayPicker && !this.disablePicker
   }
 
   /** Emit date to add or remove. */
   @Emit('emitDate')
-  private emitDate (date: string): void { this.displayPicker = false }
+  protected emitDate (date: string): void { this.displayPicker = false }
 
   /** Emit cancel event and clear the date. */
   @Emit('emitCancel')
-  private emitCancel (): void { this.clearDate() }
+  protected emitCancel (): void { this.clearDate() }
 
   /** Emit clear event and clear the date. */
   @Emit('emitClear')
-  private emitClear (): void { this.clearDate() }
+  protected emitClear (): void { this.clearDate() }
 
   @Watch('dateText')
   @Emit('emitDateSync')

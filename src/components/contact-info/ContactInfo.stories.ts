@@ -35,8 +35,8 @@ const ContactDataOptionalPhone: ContactPointIF = {
   extension: null
 }
 
-export const FilledAlteration = Template.bind({})
-FilledAlteration.args = {
+export const FiledAlteration = Template.bind({})
+FiledAlteration.args = {
   businessContact: ContactData,
   originalBusinessContact: ContactData,
   hasBusinessContactInfoChange: false,
@@ -53,8 +53,8 @@ ChangedAlteration.args = {
   editedLabel: 'Changes Saved'
 }
 
-export const FilledCorrection = Template.bind({})
-FilledCorrection.args = {
+export const FiledCorrection = Template.bind({})
+FiledCorrection.args = {
   businessContact: ContactData,
   originalBusinessContact: ContactData,
   hasBusinessContactInfoChange: false,

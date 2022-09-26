@@ -108,7 +108,7 @@
 import { Component, Emit, Prop, Watch, Vue } from 'vue-property-decorator'
 import { AddressIF, CompletingPartyIF, FormIF } from '@bcrs-shared-components/interfaces/'
 import BaseAddress from 'sbc-common-components/src/components/BaseAddress.vue'
-import { cloneDeep, isEqual } from 'lodash'
+import { isEqual } from 'lodash'
 
 @Component({
   components: {
@@ -123,23 +123,18 @@ export default class CompletingParty extends Vue {
   }
 
   /** The current completing party. */
-  @Prop({ default: () => {} })
-  readonly completingParty: CompletingPartyIF
+  @Prop({ default: () => {} }) readonly completingParty!: CompletingPartyIF
 
   /** Enable Add / Edit mode. */
-  @Prop({ default: false })
-  readonly enableAddEdit: boolean
+  @Prop({ default: false }) readonly enableAddEdit!: boolean
 
-  @Prop({ default: () => {} })
-  readonly addressSchema: any
+  @Prop({ default: () => {} }) readonly addressSchema!: any
 
   /** Whether to perform validation. */
-  @Prop({ default: false })
-  readonly validate: boolean
+  @Prop({ default: false }) readonly validate!: boolean
 
   /** Whether to show validation styling. */
-  @Prop({ default: false })
-  private invalidSection: boolean
+  @Prop({ default: false }) readonly invalidSection!: boolean
 
   // Local variables
   private completingPartyFormValid = false

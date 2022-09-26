@@ -236,48 +236,37 @@ export default class ContactInfo extends Vue {
   }
 
   /** The current business contact information. */
-  @Prop()
-  readonly businessContact!: ContactPointIF
+  @Prop() readonly businessContact!: ContactPointIF
 
   /** The baseline contact information. */
-  @Prop()
-  readonly originalBusinessContact!: ContactPointIF
+  @Prop() readonly originalBusinessContact!: ContactPointIF
 
   /** Flag for identifying changes. */
-  @Prop()
-  readonly hasBusinessContactInfoChange!: boolean
+  @Prop() readonly hasBusinessContactInfoChange!: boolean
 
   /** Contact information label. */
-  @Prop({ default: 'Registered Office' })
-  readonly contactLabel!: string
+  @Prop({ default: 'Registered Office' }) readonly contactLabel!: string
 
   /** Custom contact info msg. */
-  @Prop({ default: null })
-  readonly customMsg!: string
+  @Prop({ default: null }) readonly customMsg!: string
 
   /** Edit label name (ie 'Change' or 'Correct'). */
-  @Prop()
-  readonly editLabel!: string
+  @Prop() readonly editLabel!: string
 
   /** Edited label name (ie 'Changed' or 'Corrected'). */
-  @Prop()
-  readonly editedLabel!: string
+  @Prop() readonly editedLabel!: string
 
   /** Option to disable the edit actions. */
-  @Prop({ default: false })
-  readonly disableActions!: boolean
+  @Prop({ default: false }) readonly disableActions!: boolean
 
   /** Option to disable the action tooltip. */
-  @Prop({ default: false })
-  readonly disableActionTooltip!: boolean
+  @Prop({ default: false }) readonly disableActionTooltip!: boolean
 
   /** Prompt error handling. */
-  @Prop({ default: false })
-  readonly invalidSection!: boolean
+  @Prop({ default: false }) readonly invalidSection!: boolean
 
   /** Option to disable phone requirement. */
-  @Prop({ default: false })
-  readonly optionalPhone!: boolean
+  @Prop({ default: false }) readonly optionalPhone!: boolean
 
   // Local Properties
   private isEditing: boolean = false
@@ -293,7 +282,7 @@ export default class ContactInfo extends Vue {
   private dropdown: boolean = null
 
   /** The phone number text-field label. */
-  private get phoneLabel (): string {
+  get phoneLabel (): string {
     let label = 'Phone Number '
     if (this.optionalPhone) label += '(Optional)'
     return label
@@ -306,21 +295,21 @@ export default class ContactInfo extends Vue {
   }
 
   /** Cancel the current local edits */
-  private cancelEdit (): void {
+  protected cancelEdit (): void {
     this.contactInfo = { ...this.businessContact }
     this.emitContactInfo(this.contactInfo)
     this.isEditing = false
   }
 
   /** Restore the contact info to original values */
-  private resetContactInfo (): void {
+  protected resetContactInfo (): void {
     this.contactInfo = { ...this.originalBusinessContact }
     this.emitContactInfo(this.contactInfo)
     this.isEditing = false
   }
 
   /** Submit method to handle validations and data update. */
-  private async submitContact (): Promise<void> {
+  protected async submitContact (): Promise<void> {
     // Set Rules on submission
     this.emailRules = [
       (v: string) => !!v || 'Email address is required',

@@ -50,7 +50,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component({})
 export default class ChatPopup extends Vue {
-  @Prop({ required: true }) readonly axios: any
+  @Prop({ required: true }) readonly axios!: any
   @Prop({ default: false }) readonly isMobile!: boolean
   @Prop({ default: null }) readonly webChatReason!: string
   @Prop({ default: null }) readonly webChatStatusUrl!: string
@@ -73,6 +73,7 @@ export default class ChatPopup extends Vue {
     return (new Date().getTimezoneOffset() / 60)
   }
 
+  /** Called when component is mounted. */
   async mounted (): Promise<void> {
     if (this.webChatStatusUrl) {
       this.chatStatus = await this.axios

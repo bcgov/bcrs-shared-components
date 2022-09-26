@@ -6,6 +6,6 @@
   },
   "dependencies": {
     "lodash": "4.17.21",
-    "vue-property-decorator": "^8.4.0"
+    "vue-property-decorator": "^9.1.2"
   }
 }

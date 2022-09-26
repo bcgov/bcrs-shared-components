@@ -8,7 +8,7 @@ The Storybook (sample) pages for this library are at https://bcgov.github.io/bcr
 
 # Workflow
 
-**\*\*\* NOTE: USE NODE VERSION 12 FOR THE STEPS BELOW \*\*\***
+**\*\*\* NOTE: USE NODE VERSION 16 FOR THE STEPS BELOW \*\*\***
 
 ### 1. Clone this repo to your workstation
 
@@ -35,7 +35,7 @@ git co -b my-feature-branch
 
 ```
 npm i                    // if new repo
-npm i --global lerna     // if you didn't do this previously
+npm i --global lerna     // if you didn't do this previously (NB: use ^5.5.2)
 ```
 
 ### 5. Create your component in its own folder (eg, `src/components/MyComponent/MyComponent.vue`)

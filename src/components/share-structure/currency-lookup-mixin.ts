@@ -5,7 +5,7 @@ import { Component, Vue } from 'vue-property-decorator'
  */
 @Component({})
 export default class CurrencyLookupMixin extends Vue {
-  private readonly currencyList = [
+  readonly currencyList = [
     { code: 'CAD', name: 'Canadian dollar' },
     { code: 'USD', name: 'United States dollar' },
     { divider: true },

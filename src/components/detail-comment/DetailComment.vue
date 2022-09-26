@@ -24,7 +24,7 @@ import { Debounce } from 'vue-debounce-decorator'
 @Component({})
 export default class DetailComment extends Vue {
   /** Array of validations rules for the textarea. */
-  private get rules (): Array<Function> {
+  get rules (): Array<(v) => boolean | string> {
     // exclude whitespace in minimum length check
     // include whitespace in maximum length check
     return [
@@ -34,31 +34,25 @@ export default class DetailComment extends Vue {
   }
 
   /** Public method to reset Vuetify validation on textarea. */
-  resetValidation (): void {
+  public resetValidation (): void {
     (this.$refs.textarea as any).resetValidation()
   }
 
   /** Comment (v-model) passed into this component (required). */
-  @Prop({ default: '' })
-  private value: string
+  @Prop({ default: '' }) readonly value!: string
 
   /** Placeholder passed into this component (optional). */
-  @Prop({ default: '' })
-  private placeholder: string
+  @Prop({ default: '' }) readonly placeholder!: string
 
   /** Max Length passed into this component (optional). */
-  @Prop({ default: 4096 })
-  private maxLength: number
+  @Prop({ default: 4096 }) readonly maxLength!: number
 
   /** Autofocus passed into this component (optional). */
-  @Prop({ default: false })
-  private autofocus: boolean
+  @Prop({ default: false }) readonly autofocus!: boolean
 
-  @Prop({ default: 5 })
-  private rowCount: number
+  @Prop({ default: 5 }) readonly rowCount!: number
 
-  @Prop({ default: 'outlined' })
-  private textAreaStyle: string
+  @Prop({ default: 'outlined' }) readonly textAreaStyle!: string
 
   /** Called when component is created. */
   created (): void {
@@ -66,7 +60,7 @@ export default class DetailComment extends Vue {
     this.emitValid(this.value)
   }
 
-  isStyle (style: string): boolean {
+  protected isStyle (style: string): boolean {
     return this.textAreaStyle.toLowerCase() === style.toLowerCase()
   }
 
@@ -82,7 +76,7 @@ export default class DetailComment extends Vue {
 
   /** Emits an event with the changed comment (ie, updated v-model). */
   @Emit('input')
-  private emitInput (val: string): void { }
+  protected emitInput (val: string): void { }
 
   /** Emits an event indicating whether or not this component is valid. */
   @Emit('valid')
@@ -94,8 +88,6 @@ export default class DetailComment extends Vue {
 </script>
 
 <style lang="scss" scoped>
-// @import '@/assets/styles/theme.scss';
-
 #detail-comment-container {
   line-height: 1.2rem;
   font-size: 0.875rem;

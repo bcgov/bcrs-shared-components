@@ -6,6 +6,6 @@
   },
   "dependencies": {
     "@bcrs-shared-components/enums": "^1.0.22",
-    "vue": "2.6.12"
+    "vue": "^2.7.10"
   }
 }

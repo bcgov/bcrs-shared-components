@@ -45,28 +45,22 @@ export default class CourtOrderPoa extends Vue {
   }
 
   /** Prompt the validations. Used for global validations. */
-  @Prop({ default: false })
-  readonly autoValidation: boolean
+  @Prop({ default: false }) readonly autoValidation!: boolean
 
   /** Draft court order number. */
-  @Prop({ default: '' })
-  readonly draftCourtOrderNumber: string
+  @Prop({ default: '' }) readonly draftCourtOrderNumber!: string
 
   /** Draft plan of arrangement. */
-  @Prop({ default: false })
-  readonly hasDraftPlanOfArrangement: boolean
+  @Prop({ default: false }) readonly hasDraftPlanOfArrangement!: boolean
 
   /** Prompt Error. */
-  @Prop({ default: false })
-  readonly invalidSection: boolean
+  @Prop({ default: false }) readonly invalidSection!: boolean
 
   /** Display side labels. */
-  @Prop({ default: true })
-  readonly displaySideLabels: boolean
+  @Prop({ default: true }) readonly displaySideLabels!: boolean
 
   /** Wether court order number is required regardless plan of arrangement. */
-  @Prop({ default: false })
-  readonly courtOrderNumberRequired: boolean
+  @Prop({ default: false }) readonly courtOrderNumberRequired!: boolean
 
   // Local properties
   private courtOrderNumber = ''
@@ -74,6 +68,7 @@ export default class CourtOrderPoa extends Vue {
   private planOfArrangement = false
   private valid = false
 
+  /** Called when component is mounted. */
   mounted (): void {
     // Set default draft values if they exist
     if (this.draftCourtOrderNumber) this.courtOrderNumber = this.draftCourtOrderNumber

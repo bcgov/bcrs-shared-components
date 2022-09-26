@@ -36,21 +36,20 @@ import { NaicsElementIF, NaicsResultIF } from '@bcrs-shared-components/interface
 
 @Component({})
 export default class NaicsResult extends Vue {
-  @Prop({ required: true })
-  readonly result!: NaicsResultIF
+  @Prop({ required: true }) readonly result!: NaicsResultIF
 
   @Emit('click')
-  private emitClick (): void {}
+  protected emitClick (): void {}
 
   // local variables
-  showMore = true // FUTURE: change to 'false' to enable this feature
+  protected showMore = true // FUTURE: change to 'false' to enable this feature
 
   get elements (): NaicsElementIF[] {
     return this.result?.naicsElements || []
   }
 
   /** Returns the string with the first character capitalized. */
-  capitalize (s: string): string {
+  protected capitalize (s: string): string {
     return s.replace(/^\w/, c => c.toUpperCase())
   }
 }

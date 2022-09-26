@@ -142,7 +142,7 @@ export default class EffectiveDateTime extends Mixins(DateMixin) {
   private timePeriod = [PeriodTypes.AM, PeriodTypes.PM]
 
   /** Validations rules for date text field. */
-  get dateRules (): Array<Function> {
+  get dateRules (): Array<(v) => boolean | string> {
     // only apply rules when Future Effective is selected
     if (this.isFutureEffective && this.isAppValidate) {
       const minDateStr = this.dateToPacificDate(this.minDate, true)
@@ -169,7 +169,7 @@ export default class EffectiveDateTime extends Mixins(DateMixin) {
   }
 
   /** Validations rules for hour selector. */
-  get hourRules (): Array<Function> {
+  get hourRules (): Array<(v) => boolean | string> {
     // only apply rules when Future Effective is selected
     if (this.isFutureEffective && this.isAppValidate) {
       return [
@@ -181,7 +181,7 @@ export default class EffectiveDateTime extends Mixins(DateMixin) {
   }
 
   /** Validations rules for minute selector. */
-  get minuteRules (): Array<Function> {
+  get minuteRules (): Array<(v) => boolean | string> {
     // only apply rules when Future Effective is selected
     if (this.isFutureEffective && this.isAppValidate) {
       return [
@@ -196,7 +196,7 @@ export default class EffectiveDateTime extends Mixins(DateMixin) {
    * True if time is under the minimum (ie, for today).
    * This is a non-form validation - it needs to be checked for overall component validity.
    */
-  private get isUnderTime (): boolean {
+  get isUnderTime (): boolean {
     if (this.effectiveDateTime.effectiveDate) {
       const date = new Date(this.effectiveDateTime.effectiveDate)
       // use max seconds and milliseconds for comparison
@@ -210,7 +210,7 @@ export default class EffectiveDateTime extends Mixins(DateMixin) {
    * True if time is over the maximum (ie, for 10th day).
    * This is a non-form validation - it needs to be checked for overall component validity.
    */
-  private get isOverTime (): boolean {
+  get isOverTime (): boolean {
     if (this.effectiveDateTime.effectiveDate) {
       const date = new Date(this.effectiveDateTime.effectiveDate)
       // use min seconds and milliseconds for comparison

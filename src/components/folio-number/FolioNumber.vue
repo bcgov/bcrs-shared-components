@@ -151,10 +151,10 @@ import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator'
 @Component({})
 export default class FolioNumber extends Vue {
   // Props
-  @Prop({ default: null }) readonly initialValue: string
-  @Prop({ default: null }) readonly originalValue: string
-  @Prop({ default: false }) readonly hideActions: boolean
-  @Prop() readonly editLabel: string
+  @Prop({ default: null }) readonly initialValue!: string
+  @Prop({ default: null }) readonly originalValue!: string
+  @Prop({ default: false }) readonly hideActions!: boolean
+  @Prop() readonly editLabel!: string
   @Prop() readonly editedLabel!: string
   @Prop({ default: false }) readonly invalidSection!: boolean
 
@@ -165,19 +165,19 @@ export default class FolioNumber extends Vue {
   private dropdown = false
 
   // Validation rules
-  private readonly rules: Array<Function> = [
+  readonly rules: Array<(v) => boolean | string> = [
     (v: string) => (!v || v.length <= 30) || 'Maximum 30 characters reached'
   ]
 
   /** Whether folio number has changed from original value. */
-  private get hasFolioNumberChanged (): boolean {
+  get hasFolioNumberChanged (): boolean {
     const fn = this.folioNumber || null
     const ov = this.originalValue || null
     return (fn !== ov)
   }
 
   /** When Undo is clicked, restores the folio number to the original value. */
-  private onUndoClicked (): void {
+  protected onUndoClicked (): void {
     this.folioNumber = this.originalValue
     this.emitNewFolioNumber()
     this.emitHaveChanges()
@@ -185,7 +185,7 @@ export default class FolioNumber extends Vue {
   }
 
   /** When form is submitted, accepts the entered folio number. */
-  private onFormSubmit (): void {
+  protected onFormSubmit (): void {
     if (this.formValid) {
       this.emitNewFolioNumber()
       this.emitHaveChanges()
@@ -194,7 +194,7 @@ export default class FolioNumber extends Vue {
   }
 
   /** When Cancel is clicked, undoes the current change. */
-  private onCancelClicked (): void {
+  protected onCancelClicked (): void {
     this.folioNumber = this.initialValue
     this.isEditing = false
   }
