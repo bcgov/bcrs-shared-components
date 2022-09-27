@@ -70,36 +70,29 @@ export default class FeeSummary extends Vue {
   readonly FeeSummaryActions = FeeSummaryActions
 
   /** Filing information to calculate fees. */
-  @Prop({ default: null })
-  readonly filingData: FilingDataIF
+  @Prop({ default: () => [] }) readonly filingData!: Array<FilingDataIF>
 
   /** URL for Sbc Fee Summary component to get fees. */
-  @Prop({ default: '' })
-  readonly payApiUrl: string
+  @Prop({ default: '' }) readonly payApiUrl!: string
 
   /** Indicator that something isn't valid. */
-  @Prop({ default: false })
-  readonly hasConflicts: boolean
+  @Prop({ default: false }) readonly hasConflicts!: boolean
 
   /** Indicator that there is a request in progress. */
-  @Prop({ default: false })
-  readonly isLoading: boolean
+  @Prop({ default: false }) readonly isLoading!: boolean
 
   /** Label for Confirm button. */
-  @Prop({ default: 'Confirm' })
-  readonly confirmLabel: string
+  @Prop({ default: 'Confirm' }) readonly confirmLabel!: string
 
   /** Message to display if there is an error. */
-  @Prop({ default: '' })
-  readonly errorMessage: string
+  @Prop({ default: '' }) readonly errorMessage!: string
 
   /** Prop to indicate summary mode. */
-  @Prop({ default: false })
-  readonly isSummaryMode: boolean
+  @Prop({ default: false }) readonly isSummaryMode!: boolean
 
   /** Emit action event. */
   @Emit('action')
-  private emitAction (action: string): void {}
+  protected emitAction (action: string): void {}
 }
 </script>
 

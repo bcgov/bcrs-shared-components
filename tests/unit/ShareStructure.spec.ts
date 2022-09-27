@@ -8,6 +8,9 @@ import { ActionChip } from '@/components/action-chip'
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning
 document.body.setAttribute('data-app', 'true')
 
+// suppress the "[Vuetify] Unable to locate target #share-structure" warning
+document.body.setAttribute('id', 'share-structure')
+
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
 
@@ -102,7 +105,7 @@ describe('Share Structure component', () => {
           hasMaximumShares: true,
           maxNumberOfShares: 50,
           hasRightsOrRestrictions: false,
-          action: 'removed'
+          action: 'REMOVED'
         },
         {
           id: '2',
@@ -111,7 +114,7 @@ describe('Share Structure component', () => {
           hasMaximumShares: true,
           maxNumberOfShares: 100,
           hasRightsOrRestrictions: false,
-          action: 'edited'
+          action: 'EDITED'
         },
         {
           id: '3',
@@ -120,7 +123,7 @@ describe('Share Structure component', () => {
           hasMaximumShares: true,
           maxNumberOfShares: 100,
           hasRightsOrRestrictions: false,
-          action: 'added'
+          action: 'ADDED'
         }
       ]
     },
@@ -148,7 +151,7 @@ describe('Share Structure component', () => {
           hasMaximumShares: true,
           maxNumberOfShares: 50,
           hasRightsOrRestrictions: false,
-          action: 'added'
+          action: 'ADDED'
         }
       ]
     },
@@ -161,7 +164,7 @@ describe('Share Structure component', () => {
       currency: 'CAD',
       hasRightsOrRestrictions: true,
       series: [],
-      action: 'edited'
+      action: 'EDITED'
     },
     {
       id: '4',
@@ -172,7 +175,7 @@ describe('Share Structure component', () => {
       currency: '',
       hasRightsOrRestrictions: false,
       series: [],
-      action: 'removed'
+      action: 'REMOVED'
     },
     {
       id: '5',
@@ -183,7 +186,7 @@ describe('Share Structure component', () => {
       currency: '',
       hasRightsOrRestrictions: false,
       series: [],
-      action: 'added'
+      action: 'ADDED'
     }]
 
   const shareClassesNestedSeriesCorrected: any = [
@@ -230,7 +233,7 @@ describe('Share Structure component', () => {
           hasMaximumShares: true,
           maxNumberOfShares: 50,
           hasRightsOrRestrictions: false,
-          action: 'Corrected'
+          action: 'CORRECTED'
         }
       ]
     },
@@ -324,6 +327,7 @@ describe('Share Structure component', () => {
 
   it('checks for the Action chips on modified Class shares', async () => {
     expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
+
     wrapper.setProps({ editedLabel: 'CORRECTED' })
     await Vue.nextTick()
 
@@ -339,6 +343,7 @@ describe('Share Structure component', () => {
 
   it('checks for the Action chips on modified Series shares', async () => {
     expect(wrapper.findComponent(ActionChip).exists()).toBe(true)
+
     wrapper.setProps({ editedLabel: 'CORRECTED' })
     await Vue.nextTick()
 

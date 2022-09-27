@@ -10,6 +10,9 @@ import { StaffComments } from '@/components/staff-comments'
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning
 document.body.setAttribute('data-app', 'true')
 
+// suppress the "[Vuetify] Unable to locate target #share-structure" warning
+document.body.setAttribute('id', 'staff-comments')
+
 // suppress "Avoid mutating a prop directly" warnings
 // ref: https://github.com/vuejs/vue-test-utils/issues/532
 Vue.config.silent = true

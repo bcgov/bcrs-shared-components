@@ -83,76 +83,61 @@ import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
 export default class Certify extends Vue {
-  @Prop({ default: '' })
-  private currentDate!: string
+  @Prop({ default: '' }) readonly currentDate!: string
 
   /** Is Staff prop. */
-  @Prop({ default: false })
-  private isStaff: boolean
+  @Prop({ default: false }) readonly isStaff!: boolean
 
   /** Certified By prop. */
-  @Prop({ default: '' })
-  private certifiedBy: string
+  @Prop({ default: '' }) readonly certifiedBy!: string
 
   /** Is Certified prop. */
-  @Prop({ default: false })
-  private isCertified: boolean
+  @Prop({ default: false }) readonly isCertified!: boolean
 
   /** Certified Company statements . */
-  @Prop({ default: () => [] })
-  private statements: []
+  @Prop({ default: () => [] }) readonly statements!: []
 
   /** Message prop. */
-  @Prop({ default: '' })
-  private message: string
+  @Prop({ default: '' }) readonly message!: string
 
   /** Entity Display prop. */
-  @Prop({ default: '' })
-  private entityDisplay: string
+  @Prop({ default: '' }) readonly entityDisplay!: string
 
   /** Enable MailTo prop. */
-  @Prop({ default: false })
-  private enableMailTo: boolean
+  @Prop({ default: false }) readonly enableMailTo!: boolean
 
   /** Business Email address. */
-  @Prop({ default: '' })
-  private businessEmail: string
+  @Prop({ default: '' }) readonly businessEmail!: string
 
   /** Completing Party Email address. */
-  @Prop({ default: '' })
-  private completingPartyEmail: string
+  @Prop({ default: '' }) readonly completingPartyEmail!: string
 
   /** First column columns. */
-  @Prop({ default: 2 })
-  private firstColumn: number
+  @Prop({ default: 2 }) readonly firstColumn!: number
 
   /** Second column columns. */
-  @Prop({ default: 10 })
-  private secondColumn: number
+  @Prop({ default: 10 }) readonly secondColumn!: number
 
   /** Call field validations. */
-  @Prop({ default: false })
-  private validate: boolean
+  @Prop({ default: false }) readonly validate!: boolean
 
   /** Prompt Error. */
-  @Prop({ default: false })
-  private invalidSection: boolean
+  @Prop({ default: false }) readonly invalidSection!: boolean
 
   /** Disable Text Input field. */
-  @Prop({ default: false })
-  private disableEdit: boolean
+  @Prop({ default: false }) readonly disableEdit!: boolean
 
   // Form Ref
   $refs: { certifyForm: FormIF }
 
   /** Called when component is created. */
-  private created (): void {
+  created (): void {
     // inform parent of initial validity
     this.emitValid(Boolean(this.trimmedCertifiedBy && this.isCertified))
   }
 
   /** The trimmed "Certified By" string (may be ''). */
-  private get trimmedCertifiedBy (): string {
+  get trimmedCertifiedBy (): string {
     // remove repeated inline whitespace, and leading/trailing whitespace
     return this.certifiedBy && this.certifiedBy.replace(/\s+/g, ' ').trim()
   }
@@ -165,7 +150,7 @@ export default class Certify extends Vue {
 
   /** Emits an event to update the Certified By prop. */
   @Emit('update:certifiedBy')
-  private emitCertifiedBy (certifiedBy: string): string {
+  protected emitCertifiedBy (certifiedBy: string): string {
     // remove repeated inline whitespace, and leading/trailing whitespace
     certifiedBy = certifiedBy && certifiedBy.replace(/\s+/g, ' ').trim()
     this.emitValid(Boolean(certifiedBy && this.isCertified))
@@ -174,7 +159,7 @@ export default class Certify extends Vue {
 
   /** Emits an event to update the Is Certified prop. */
   @Emit('update:isCertified')
-  private emitIsCertified (isCertified: boolean): boolean {
+  protected emitIsCertified (isCertified: boolean): boolean {
     this.emitValid(Boolean(this.trimmedCertifiedBy && isCertified))
     return isCertified
   }

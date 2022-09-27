@@ -1,16 +1,22 @@
 const path = require('path');
 
 module.exports = {
-  "stories": [
+  stories: [
     "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
-  "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-a11y",
-    "@storybook/addon-knobs",
-    "@storybook/addon-storysource"
+  addons: [
+    {
+      name: "@storybook/addon-essentials",
+      options: {
+        actions: false,
+        backgrounds: true,
+        controls: true,
+        docs: false,
+        viewport: true,
+        toolbars: false
+      }
+    }
   ],
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -35,5 +41,6 @@ module.exports = {
   },
   features: {
     postcss: false, // see https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#deprecated-implicit-postcss-loader
+    previewMdx2: true // see https://github.com/storybookjs/storybook/issues/18094#issuecomment-1134326831
   },
 }

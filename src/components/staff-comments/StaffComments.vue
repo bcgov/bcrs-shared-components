@@ -100,12 +100,12 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     textarea: FormIF
   }
 
-  @Prop({ required: true }) readonly axios: any
-  @Prop({ required: true }) readonly businessId: string
-  @Prop({ default: null }) readonly url: string // pass URL if need to override
-  @Prop({ default: 33 }) readonly nudgeTop: number
-  @Prop({ default: 20 }) readonly nudgeLeft: number
-  @Prop({ default: 4096 }) readonly maxLength: number
+  @Prop({ required: true }) readonly axios!: any
+  @Prop({ required: true }) readonly businessId!: string
+  @Prop({ default: null }) readonly url!: string // pass URL if need to override
+  @Prop({ default: 33 }) readonly nudgeTop!: number
+  @Prop({ default: 20 }) readonly nudgeLeft!: number
+  @Prop({ default: 4096 }) readonly maxLength!: number
 
   /** Model property for v-menu (ie, whether to show the panel). */
   private showComments = false
@@ -120,19 +120,19 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
   private isSaving = false
 
   /** The number of chars remaining in the new comment. */
-  private get charsRemaining (): number {
+  get charsRemaining (): number {
     const length = this.comment ? this.comment.length : 0 // comment may be null
     return (this.maxLength - length)
   }
 
   /** The Number of Comments string for this entity. */
-  private get numComments (): string {
+  get numComments (): string {
     const numComments = this.comments.length
     return (numComments === 1 ? '1 Comment' : `${numComments} Comments`)
   }
 
   /** Array of validations rules for the textarea. */
-  private get rules (): Array<Function> {
+  get rules (): Array<(v) => boolean | string> {
     // exclude whitespace in minimum length check
     // include whitespace in maximum length check
     return [
@@ -141,12 +141,12 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     ]
   }
   /** get Endpoint URL. */
-  private get getUrl (): string {
+  get getUrl (): string {
     return this.url || `businesses/${this.businessId}/comments`
   }
 
-  /** Called when the component is created. */
-  private async created (): Promise<void> {
+  /** Called when component is created. */
+  async created (): Promise<void> {
     await this.fetchStaffComments()
   }
 
@@ -165,7 +165,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
   }
 
   /** Saves the new comment to the API. */
-  private async save (): Promise<void> {
+  protected async save (): Promise<void> {
     // don't save if invalid
     if (!this.$refs.textarea.validate()) return
 
@@ -198,7 +198,7 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
   }
 
   /** Closes the menu (panel). */
-  private close (): void {
+  protected close (): void {
     // clear any errors; leave the data
     this.$refs.textarea.resetValidation()
     this.showComments = false

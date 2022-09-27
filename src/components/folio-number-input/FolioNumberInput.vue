@@ -26,22 +26,19 @@ export default class FolioNumberInput extends Vue {
   }
 
   /** Whether to validate the fields. */
-  @Prop({ default: false })
-  readonly validate: boolean
+  @Prop({ default: false }) readonly validate!: boolean
 
   /** Folio Number prop. */
-  @Prop({ default: null })
-  readonly folioNumber: string
+  @Prop({ default: null }) readonly folioNumber!: string
 
   /** Disabled prop. */
-  @Prop({ default: false })
-  readonly disabled: boolean
+  @Prop({ default: false }) readonly disabled!: boolean
 
   /** Folio form model property. */
-  private folioFormValid = false
+  protected folioFormValid = false
 
   /** Validation rules for Folio Number. */
-  private readonly folioNumberRules: Array<Function> = [
+  readonly folioNumberRules: Array<(v) => boolean | string> = [
     v => (!v || !this.validate || v.length <= 50) || 'Cannot exceed 50 characters' // maximum character count
   ]
 
@@ -53,11 +50,11 @@ export default class FolioNumberInput extends Vue {
 
   /** Emits an event indicating whether or not this component is focused. */
   @Emit('focus')
-  private emitFocus (val: boolean): void {}
+  protected emitFocus (val: boolean): void {}
 
   /** Emits an event to update the Folio Number. */
   @Emit('emitFolioNumber')
-  private emitFolioNumber (val: string): void {}
+  protected emitFolioNumber (val: string): void {}
 
   /** Prompt the field validations. */
   @Watch('folioFormValid')

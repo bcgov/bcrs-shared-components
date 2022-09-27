@@ -1,6 +1,10 @@
+import Vue from 'vue'
 import { FeeSummary } from './index'
 import { FilingCodes, CorpTypeCd } from '@bcrs-shared-components/enums/'
 import { FilingDataIF } from '@bcrs-shared-components/interfaces/'
+
+// for SbcFeeSummary
+Vue.filter('currency', x => `$${x}`)
 
 export default {
   title: 'component/FeeSummary',
@@ -14,17 +18,11 @@ const Template = (args, { argTypes }) => ({
   template: '<div style="max-width: 350px"><fee-summary v-bind="$props" /></div>' // $props comes from args below
 })
 
-const filingData: FilingDataIF = {
+const filingData = [{
   filingTypeCode: FilingCodes.ALTERATION,
   entityType: CorpTypeCd.BC_CORPORATION,
   priority: false
-}
-
-const changeFilingData: FilingDataIF = {
-  filingTypeCode: FilingCodes.CHANGE_OF_REGISTRATION,
-  entityType: CorpTypeCd.SOLE_PROP,
-  priority: false
-}
+}] as FilingDataIF[]
 
 export const Default = Template.bind({})
 Default.args = {

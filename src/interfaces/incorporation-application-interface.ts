@@ -8,7 +8,7 @@ export interface IncorporationApplicationIF {
     legalName?: string // only set when there is an NR
   }
   nameTranslations: NameTranslationIF[]
-  offices: IncorporationAddressIf | {}
+  offices: IncorporationAddressIf | object
   contactPoint: {
     email: string
     phone: string

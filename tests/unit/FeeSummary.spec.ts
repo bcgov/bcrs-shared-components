@@ -37,7 +37,7 @@ describe('DetailComment', () => {
     const vm: any = wrapper.vm
 
     // verify default properties
-    expect(vm.filingData).toBeNull()
+    expect(vm.filingData).toStrictEqual([])
     expect(vm.payApiUrl).toBe('')
     expect(vm.hasConflicts).toBe(false)
     expect(vm.isLoading).toBe(false)

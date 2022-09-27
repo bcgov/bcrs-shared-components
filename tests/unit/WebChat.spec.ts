@@ -50,6 +50,7 @@ describe('WebChat component', () => {
     expect(wrapper.vm.chatStatus).toBe('open')
 
     await wrapper.find('#chat-button-wrapper').trigger('mouseenter')
+    await Vue.nextTick()
 
     requestAnimationFrame(() => {
       expect(wrapper.find('#open-tooltip-message').text())
@@ -62,6 +63,7 @@ describe('WebChat component', () => {
     wrapper.vm.chatStatus = 'closed'
 
     await wrapper.find('#chat-button-wrapper').trigger('mouseenter')
+    await Vue.nextTick()
 
     requestAnimationFrame(() => {
       expect(wrapper.find('#closed-tooltip-message').text().replace(/\s+/g, ' '))
@@ -75,6 +77,7 @@ describe('WebChat component', () => {
     wrapper.vm.chatStatus = 'response error'
 
     await wrapper.find('#chat-button-wrapper').trigger('mouseenter')
+    await Vue.nextTick()
 
     requestAnimationFrame(() => {
       expect(wrapper.find('#unavailable-tooltip-message').text())

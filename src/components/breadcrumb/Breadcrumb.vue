@@ -57,21 +57,20 @@ export default class Breadcrumb extends Vue {
    *  to: { name: Routes.DASHBOARD }
    * }
    * */
-  @Prop({ default: () => [] })
-  readonly breadcrumbs: Array<BreadcrumbIF>
+  @Prop({ default: () => [] }) readonly breadcrumbs!: Array<BreadcrumbIF>
 
   /**
    *  The url tied to the breadcrumb back button.
    *  Cross application requires href.
    *  Returns to previous route when navigating locally.
    */
-  private get backUrl (): string {
+  get backUrl (): string {
     const routeIndex = this.breadcrumbs.findIndex(item => item.to?.name === this.$route?.name)
     return this.breadcrumbs[routeIndex - 1]?.href || this.breadcrumbs[routeIndex - 1]?.to?.name
   }
 
   /** Is true when the crumb is not the current route. */
-  isActiveCrumb (item: BreadcrumbIF): boolean {
+  protected isActiveCrumb (item: BreadcrumbIF): boolean {
     return this.$route?.name !== item?.to?.name
   }
 }

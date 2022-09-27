@@ -6,6 +6,6 @@
   },
   "dependencies": {
     "vue-debounce-decorator": "^1.0.1",
-    "vue-property-decorator": "^8.4.0"
+    "vue-property-decorator": "^9.1.2"
   }
 }

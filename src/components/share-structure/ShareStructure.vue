@@ -68,7 +68,7 @@
       disable-sort
       hide-default-footer
     >
-      <template v-slot:item="row" class="share-data-table">
+      <template v-slot:item="row">
         <!-- Share Class Rows -->
         <tr
           v-if="!showClassEditForm[row.index] && !(!isEditMode && row.item.action === ActionTypes.REMOVED)"
@@ -467,36 +467,27 @@ export default class ShareStructure extends Vue {
   //
 
   /** Edit Mode */
-  @Prop({ default: true })
-  readonly isEditMode!: boolean
+  @Prop({ default: true }) readonly isEditMode!: boolean
 
-  @Prop({ default: null })
-  readonly originalShareStructure: ShareStructureIF
+  @Prop({ default: null }) readonly originalShareStructure!: ShareStructureIF
 
-  @Prop({ default: [] })
-  readonly shareClasses: ShareClassIF[]
+  @Prop({ default: [] }) readonly shareClasses!: ShareClassIF[]
 
-  @Prop({ default: false })
-  readonly resolutionRequired: boolean
+  @Prop({ default: false }) readonly resolutionRequired!: boolean
 
   /** Edit label name (ie 'Change' or 'Correct') */
-  @Prop({ default: 'Edit' })
-  readonly editLabel!: string
+  @Prop({ default: 'Edit' }) readonly editLabel!: string
 
   /** Edited label name (ie 'Changed' or 'Corrected') */
-  @Prop({ default: 'EDITED' })
-  readonly editedLabel!: string
+  @Prop({ default: 'EDITED' }) readonly editedLabel!: string
 
-  @Prop({ default: false })
-  readonly hasRightsOrRestrictions!: boolean
+  @Prop({ default: false }) readonly hasRightsOrRestrictions!: boolean
 
   /** Prompt Error. */
-  @Prop({ default: false })
-  readonly invalidSection!: boolean
+  @Prop({ default: false }) readonly invalidSection!: boolean
 
   /** Verification the Share Structure contains the minimum required Share Classes. */
-  @Prop({ default: false })
-  readonly invalidMinimumShareClass!: boolean
+  @Prop({ default: false }) readonly invalidMinimumShareClass!: boolean
 
   //
   // Local properties:

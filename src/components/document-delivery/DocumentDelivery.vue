@@ -61,34 +61,35 @@ import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator'
 @Component({})
 export default class DocumentDelivery extends Vue {
   // Contact props
-  @Prop({ required: true }) readonly contactLabel: string
-  @Prop({ default: null }) readonly contactValue: string
+  @Prop({ required: true }) readonly contactLabel!: string
+  @Prop({ default: null }) readonly contactValue!: string
 
   // Completing Party props
-  @Prop({ default: false }) readonly editableCompletingParty: boolean
-  @Prop({ default: null }) readonly completingPartyEmail: string
-  @Prop({ default: null }) readonly documentOptionalEmail: string
+  @Prop({ default: false }) readonly editableCompletingParty!: boolean
+  @Prop({ default: null }) readonly completingPartyEmail!: string
+  @Prop({ default: null }) readonly documentOptionalEmail!: string
 
   // Custodian of Records props
-  @Prop({ default: false }) readonly showCustodianEmail: boolean
-  @Prop({ default: null }) readonly custodianEmail: string
+  @Prop({ default: false }) readonly showCustodianEmail!: boolean
+  @Prop({ default: null }) readonly custodianEmail!: string
 
   // Additional props
-  @Prop({ default: null }) readonly additionalLabel: string
-  @Prop({ default: null }) readonly additionalValue: string
+  @Prop({ default: null }) readonly additionalLabel!: string
+  @Prop({ default: null }) readonly additionalValue!: string
 
   /** Whether to display invalid section styling. */
-  @Prop({ default: false }) readonly invalidSection: boolean
+  @Prop({ default: false }) readonly invalidSection!: boolean
 
   // Local properties
-  private optionalEmail = ''
+  protected optionalEmail = ''
 
-  private entityEmailRules = [
+  readonly entityEmailRules = [
     (v: string) => !/^\s/g.test(v) || 'Invalid spaces', // leading spaces
     (v: string) => !/\s$/g.test(v) || 'Invalid spaces', // trailing spaces
     (v: string) => this.validateEmailFormat(v) || 'Enter valid email address'
   ]
 
+  /** Called when component is mounted. */
   mounted (): void {
     this.optionalEmail = this.documentOptionalEmail
   }

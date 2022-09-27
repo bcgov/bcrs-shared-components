@@ -10,6 +10,7 @@
 
     <v-card>
       <v-card-title>{{ title }}</v-card-title>
+      <!-- eslint-disable-next-line vue/no-v-text-v-html-on-component -->
       <v-card-text class="pre-wrap" v-show="!!message" v-html="message" />
       <v-divider class="my-0" v-show="!!options.yes || !!options.no || !!options.cancel" />
       <v-card-actions>
@@ -71,16 +72,16 @@ interface OptionsObject {
 @Component({})
 export default class ConfirmDialog extends Vue {
   /** Prop to provide attachment selector. */
-  @Prop() private attach: string
+  @Prop() readonly attach!: string
 
   /** Whether the subject dialog is currently displayed. */
   private dialog: boolean = false
 
   /** The Yes/No click handler for the returned promise. */
-  private resolve: Function = null
+  private resolve = null
 
   /** The Cancel click handler for the returned promise. */
-  private reject: Function = null
+  private reject = null
 
   /** The dialog's title. */
   private title: string = null
@@ -105,7 +106,7 @@ export default class ConfirmDialog extends Vue {
    * @param options the dialog's options to use
    * @returns       a promise to subscribe to
    */
-  open (title: string, message: string, options: OptionsObject): Promise<{}> {
+  open (title: string, message: string, options: OptionsObject): Promise<object> {
     this.dialog = true
     this.title = title
     this.message = message

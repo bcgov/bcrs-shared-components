@@ -105,20 +105,16 @@ export default class StaffPayment extends Vue {
   readonly StaffPaymentOptions = StaffPaymentOptions
 
   /** Whether to display side label. */
-  @Prop({ default: true })
-  readonly displaySideLabel: boolean
+  @Prop({ default: true }) readonly displaySideLabel!: boolean
 
   /** Whether to display priority checkbox. */
-  @Prop({ default: true })
-  readonly displayPriorityCheckbox: boolean
+  @Prop({ default: true }) readonly displayPriorityCheckbox!: boolean
 
   /** Whether to validate the fields. */
-  @Prop({ default: false })
-  private validate: boolean
+  @Prop({ default: false }) readonly validate!: boolean
 
   /** Whether to show invalid section styling (label only). */
-  @Prop({ default: false })
-  private invalidSection: boolean
+  @Prop({ default: false }) readonly invalidSection!: boolean
 
   /** Staff Payment Data prop. */
   @Prop({
@@ -133,7 +129,7 @@ export default class StaffPayment extends Vue {
       }
     }
   })
-  private staffPaymentData: StaffPaymentIF
+  readonly staffPaymentData!: StaffPaymentIF
 
   /** Radio group model property. */
   private paymentOption = StaffPaymentOptions.NONE
@@ -148,24 +144,24 @@ export default class StaffPayment extends Vue {
   private isMounted = false
 
   /** Validation rules for Routing Slip Number. */
-  private readonly routingSlipNumberRules: Array<Function> = [
+  readonly routingSlipNumberRules: Array<(v) => boolean | string> = [
     v => !!v || 'Enter FAS Routing Slip Number',
     v => /^\d{9}$/.test(v) || 'Routing Slip Number must be 9 digits'
   ]
 
   /** Validation rules for BCOL Account Number. */
-  private readonly bcolAccountNumberRules: Array<Function> = [
+  readonly bcolAccountNumberRules: Array<(v) => boolean | string> = [
     v => !!v || 'Enter BC Online Account Number',
     v => /^\d{6}$/.test(v) || 'BC Online Account Number must be 6 digits'
   ]
 
   /** Validation rules for DAT Number. */
-  private readonly datNumberRules: Array<Function> = [
+  readonly datNumberRules: Array<(v) => boolean | string> = [
     v => !!v || 'Enter DAT Number',
     v => /^[A-Z]{1}[0-9]{7,9}$/.test(v) || 'DAT Number must be in standard format (eg, C1234567)'
   ]
 
-  /** Called when this component is mounted. */
+  /** Called when component is mounted. */
   async mounted (): Promise<void> {
     await this.$nextTick()
     this.isMounted = true

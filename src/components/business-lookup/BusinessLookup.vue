@@ -90,16 +90,16 @@ enum States {
 @Component({})
 export default class BusinessLookup extends Vue {
   /** Whether to show errors. */
-  @Prop({ required: true }) readonly showErrors: boolean
+  @Prop({ required: true }) readonly showErrors!: boolean
 
   /** The BusinessLookup object. */
-  @Prop({ required: true }) readonly businessLookup: BusinessLookupIF
+  @Prop({ required: true }) readonly businessLookup!: BusinessLookupIF
 
   /** Class for BusinessLookup services. */
-  @Prop({ required: true }) readonly BusinessLookupServices: any
+  @Prop({ required: true }) readonly BusinessLookupServices!: any
 
   /** Whether to display Change features. */
-  @Prop({ default: false }) readonly hasBusinessLookupChanges: boolean
+  @Prop({ default: false }) readonly hasBusinessLookupChanges!: boolean
 
   // enum for template
   readonly States = States
@@ -111,7 +111,7 @@ export default class BusinessLookup extends Vue {
   protected selectedBusiness: BusinessLookupResultIF = null
 
   /** The text field validation rules. */
-  readonly businessLookupRules: Array<Function> = [
+  readonly businessLookupRules: Array<(v) => boolean | string> = [
     v => !!v || 'Business is required'
   ]
 

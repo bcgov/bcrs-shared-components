@@ -4,7 +4,7 @@ import {
   CorpTypeCd, GetCorpInfoObject, GetCorpFullDescription, GetCorpNumberedDescription
 } from '@/modules/corp-type-module'
 
-const Dummy = Vue.component('dummy', { template: '<div />' })
+const Dummy = Vue.component('dummy-component', { template: '<div />' })
 
 describe('Corp Type Util', () => {
   let vm: any
