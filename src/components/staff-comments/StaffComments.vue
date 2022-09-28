@@ -92,10 +92,10 @@
 <script lang="ts">
 import { Component, Mixins, Prop } from 'vue-property-decorator'
 import { CommentIF, FormIF } from '@bcrs-shared-components/interfaces'
-import { DateMixin, FilingMixin } from '@/mixins' // NB: local mixins (StoryBook can't find them otherwise)
+import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
 
 @Component({})
-export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
+export default class StaffComments extends Mixins(DateMixin) {
   $refs!: Vue['$refs'] & {
     textarea: FormIF
   }
@@ -202,6 +202,22 @@ export default class StaffComments extends Mixins(DateMixin, FilingMixin) {
     // clear any errors; leave the data
     this.$refs.textarea.resetValidation()
     this.showComments = false
+  }
+
+  /**
+   * Flattens and sorts an array of comments.
+   * @param comments the array of comments to sort and deconstruct
+   * @returns the sorted and flattened array of comments
+   */
+  private flattenAndSortComments (comments: Array<any>): Array<any> {
+    if (comments && comments.length > 0) {
+      // first use map to change comment.comment to comment
+      const temp: Array<any> = comments.map(c => c.comment)
+      // then sort newest to oldest
+      temp.sort((a, b) => new Date(a.timestamp) < new Date(b.timestamp) ? 1 : -1)
+      return temp
+    }
+    return []
   }
 }
 </script>

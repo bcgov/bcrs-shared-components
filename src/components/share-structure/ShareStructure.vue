@@ -432,7 +432,8 @@
 
 <script lang="ts">
 // Libraries
-import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
 import 'array.prototype.move'
 import { cloneDeep, isEqual, omit } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'

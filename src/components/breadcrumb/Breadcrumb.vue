@@ -45,7 +45,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Prop } from 'vue-property-decorator'
 import { BreadcrumbIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})

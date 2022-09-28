@@ -105,7 +105,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Watch, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
 import { AddressIF, CompletingPartyIF, FormIF } from '@bcrs-shared-components/interfaces/'
 import BaseAddress from 'sbc-common-components/src/components/BaseAddress.vue'
 import { isEqual } from 'lodash'

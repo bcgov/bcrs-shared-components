@@ -163,7 +163,8 @@
 
 <script lang="ts">
 // Libraries
-import { Component, Emit, Mixins, Prop, Vue, Watch } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
 
 // Components
 import { ConfirmDialog } from '@bcrs-shared-components/confirm-dialog'

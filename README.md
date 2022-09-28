@@ -114,7 +114,7 @@ is running in your actual app, it would use the app's copy of those files.
 Eg, the following will use the bcrs-shared-components files in Storybook, or your app's files
 when deployed:
 ```
-import { DateMixin, FilingMixin } from '@/mixins'
+import { DateMixin } from '@/mixins'
 ```
 
 The only downside to this approach is that the bcrs-shared-components' files need to provide the
