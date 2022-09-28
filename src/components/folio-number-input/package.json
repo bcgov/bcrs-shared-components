@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/folio-number-input",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.0.42",
+    "@bcrs-shared-components/interfaces": "^1.0.43",
     "vue-property-decorator": "^9.1.2"
   }
 }
