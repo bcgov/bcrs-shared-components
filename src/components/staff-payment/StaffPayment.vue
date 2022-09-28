@@ -83,7 +83,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch, Emit } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
 import { StaffPaymentOptions } from '@bcrs-shared-components/enums'
 import { FolioNumberInput } from '@bcrs-shared-components/folio-number-input'
 import { FormIF, StaffPaymentIF } from '@bcrs-shared-components/interfaces'

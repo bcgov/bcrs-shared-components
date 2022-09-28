@@ -18,7 +18,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch, Emit } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
 import { Debounce } from 'vue-debounce-decorator'
 
 @Component({})

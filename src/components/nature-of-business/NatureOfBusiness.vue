@@ -120,7 +120,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue, Watch } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
 import NaicsHelpText from './NaicsHelpText.vue'
 import NaicsResult from './NaicsResult.vue'
 import { NaicsIF, NaicsResultIF } from '@bcrs-shared-components/interfaces'

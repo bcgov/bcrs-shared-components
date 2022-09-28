@@ -28,7 +28,7 @@
             @change="emitIsCertified($event)"
             class="mt-0 pt-0"
           >
-            <template slot="label">
+            <template v-slot:label>
               <div class="certify-stmt" :class="{'error-text': invalidSection && !isCertified}" v-if="isStaff">
                 <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
                 certifies that they have relevant knowledge of the
@@ -78,7 +78,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Emit, Watch } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Prop, Emit, Watch } from 'vue-property-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})

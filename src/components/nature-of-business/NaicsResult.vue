@@ -31,7 +31,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Emit, Prop } from 'vue-property-decorator'
 import { NaicsElementIF, NaicsResultIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})

@@ -54,7 +54,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Emit, Prop } from 'vue-property-decorator'
 
 // Enums and Interfaces
 import { FeeSummaryActions } from '@bcrs-shared-components/enums'

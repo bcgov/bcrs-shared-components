@@ -220,7 +220,8 @@
 
 <script lang="ts">
 // Libraries
-import { Component, Prop, Watch, Emit, Vue } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
 import { mask } from 'vue-the-mask'
 
 // Interfaces & enums

@@ -16,7 +16,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch, Emit } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})

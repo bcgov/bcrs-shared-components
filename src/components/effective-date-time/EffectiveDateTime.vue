@@ -73,7 +73,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Mixins, Prop, Vue, Watch } from 'vue-property-decorator'
+import Vue from 'vue'
+import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
 import { DatePicker } from '@bcrs-shared-components/date-picker'
 import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
 import { EffectiveDateTypes } from '@bcrs-shared-components/enums'
