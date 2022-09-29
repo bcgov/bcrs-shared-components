@@ -11,8 +11,8 @@
     </v-row>
 
     <!-- Completing Party -->
-    <v-row no-gutters class="pt-3">
-      <v-col cols="12" sm="3" class="pr-4 pt-5">
+    <v-row no-gutters class="pt-5">
+      <v-col cols="12" sm="3" class="pr-4">
         <label class="title-label" :class="{ 'error-text': invalidSection }">
           Completing Party
         </label>
@@ -28,7 +28,7 @@
           :rules="entityEmailRules"
         />
       </v-col>
-      <v-col v-else cols="12" sm="9" class="pt-5">
+      <v-col v-else cols="12" sm="9">
         <span id="completing-party-email">{{completingPartyEmail || '(Not entered)'}}</span>
       </v-col>
     </v-row>
