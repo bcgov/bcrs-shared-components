@@ -137,15 +137,19 @@ export default class CourtOrderPoa extends Vue {
   color: $gray9;
 }
 
-::v-deep .v-card__actions {
-  justify-content: flex-end;
-}
-::v-deep .v-input .v-label {
-  font-weight: normal;
-  color: $gray7;
-}
-::v-deep .theme--light.v-input input {
-  font-weight: normal;
-  color: $gray7;
+:deep() {
+  .v-card__actions {
+    justify-content: flex-end;
+  }
+
+  .v-input .v-label {
+    font-weight: normal;
+    color: $gray7;
+  }
+
+  .theme--light.v-input input {
+    font-weight: normal;
+    color: $gray7;
+  }
 }
 </style>

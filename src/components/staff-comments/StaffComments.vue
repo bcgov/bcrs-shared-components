@@ -244,28 +244,30 @@ export default class StaffComments extends Mixins(DateMixin) {
   }
 }
 
-::v-deep .v-textarea textarea {
-  font-size: 0.875rem !important;
-  color: $gray7 !important;
-
-  &::placeholder {
+:deep() {
+  .v-textarea textarea {
+    font-size: 0.875rem !important;
     color: $gray7 !important;
+
+    &::placeholder {
+      color: $gray7 !important;
+    }
   }
-}
 
-// reduce overall textarea height when there are no error messages
-::v-deep .v-textarea:not(.error--text) {
-  margin-bottom: -24px;
-}
+  // reduce overall textarea height when there are no error messages
+  .v-textarea:not(.error--text) {
+    margin-bottom: -24px;
+  }
 
-// reduce overall textarea height when there are errors messages
-::v-deep .v-textarea.error--text {
-  margin-bottom: -12px;
-}
+  // reduce overall textarea height when there are errors messages
+  .v-textarea.error--text {
+    margin-bottom: -12px;
+  }
 
-// shrink input area to make space for error messages
-::v-deep .v-textarea.error--text textarea {
-  height: calc(140px - 12px) !important;
+  // shrink input area to make space for error messages
+  .v-textarea.error--text textarea {
+    height: calc(140px - 12px) !important;
+  }
 }
 
 .v-card__actions .body-2 {

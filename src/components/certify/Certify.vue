@@ -185,7 +185,7 @@ export default class Certify extends Vue {
 }
 
 // align checkbox with top of its label
-::v-deep .v-input--checkbox .v-input__slot {
+:deep(.v-input--checkbox .v-input__slot) {
   align-items: flex-start;
 }
 
@@ -205,13 +205,13 @@ export default class Certify extends Vue {
 }
 
 // override v-text-field label
-::v-deep .v-label {
+:deep(.v-label) {
   color: $gray7;
   font-weight: normal;
 }
 
-// override v-text-field text
-::v-deep .v-input--is-disabled input,
+// override v-text-field label and text
+:deep(.v-input--is-disabled input),
 .v-input--is-disabled textarea {
   color: $gray9;
 }

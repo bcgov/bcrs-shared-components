@@ -1096,35 +1096,37 @@ export default class ShareStructure extends Vue {
   opacity: .4;
 }
 
-::v-deep .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
-  box-shadow: 1px 2px 0 0 rgba(0,0,0,0.1);
-  border: none !important;
-}
+:deep() {
+  .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+    box-shadow: 1px 2px 0 0 rgba(0,0,0,0.1);
+    border: none !important;
+  }
 
-::v-deep .v-data-table > .v-data-table__wrapper > table > thead > tr > th:nth-child(2) {
-  max-width: 140px;
-}
+  .v-data-table > .v-data-table__wrapper > table > thead > tr > th:nth-child(2) {
+    max-width: 140px;
+  }
 
-::v-deep .v-data-table > .v-data-table__wrapper > table > thead > tr > th:nth-child(5) {
-  border-right: thin solid rgba(0, 0, 0, 0);
-}
+  .v-data-table > .v-data-table__wrapper > table > thead > tr > th:nth-child(5) {
+    border-right: thin solid rgba(0, 0, 0, 0);
+  }
 
-::v-deep .theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
-  font-size: .875rem;
-  color: $gray9;
-  line-height: 1.25;
-}
+  .theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+    font-size: .875rem;
+    color: $gray9;
+    line-height: 1.25;
+  }
 
-::v-deep .theme--light.v-list-item .v-list-item__subtitle {
-  color: $app-blue !important;
-}
+  .theme--light.v-list-item .v-list-item__subtitle {
+    color: $app-blue !important;
+  }
 
-::v-deep .theme--light.v-label {
-  color: $gray7;
-}
+  .theme--light.v-label {
+    color: $gray7;
+  }
 
-::v-deep .theme--light.v-input input {
-  color: $gray9;
-  font-weight: normal;
+  .theme--light.v-input input {
+    color: $gray9;
+    font-weight: normal;
+  }
 }
 </style>

@@ -144,76 +144,80 @@ export default class DatePicker extends Mixins(DateMixin) {
   .v-text-field.v-input--is-disabled {
     pointer-events: none;
   }
+
   // enable pointer events when enabled
   .v-text-field:not(.v-input--is-disabled) {
     pointer-events: auto;
   }
 }
 
-::v-deep .v-card__actions {
-  justify-content: flex-end;
-}
+:deep() {
+  .v-card__actions {
+    justify-content: flex-end;
+  }
 
-::v-deep .v-input .v-label {
-  font-weight: normal;
-  color: $gray7;
-}
+  .v-input .v-label {
+    font-weight: normal;
+    color: $gray7;
+  }
 
-::v-deep .v-icon.v-icon {
-  color: $app-blue
-}
+  // hide disabled prev/next month arrow
+  .v-date-picker-header .v-btn--disabled {
+    display: none;
+  }
 
-::v-deep .v-picker__title__btn:not(.v-picker__title__btn--active) {
-  opacity: 1;
-}
+  .v-picker__title__btn:not(.v-picker__title__btn--active) {
+    opacity: 1;
+  }
 
-::v-deep .v-date-picker-table__current {
-  border-color: $app-blue !important;
-}
+  .v-date-picker-table__current {
+    border-color: $app-blue !important;
+  }
 
-::v-deep .v-date-picker-table__current .v-btn__content{
-  color: $app-blue !important;
-}
+  .v-date-picker-table__current .v-btn__content{
+    color: $app-blue !important;
+  }
 
-::v-deep .theme--light.v-date-picker-table th {
-  color: $gray9
-}
+  .theme--light.v-date-picker-table th {
+    color: $gray9;
+  }
 
-::v-deep .v-date-picker-table .v-btn {
-  color: $gray7
-}
+  .v-date-picker-table .v-btn {
+    color: $gray7;
+  }
 
-::v-deep .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
-  background-color: $app-blue !important;
-  border-color: $app-blue !important;
-  color: white !important;
-}
+  .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+    background-color: $app-blue !important;
+    border-color: $app-blue !important;
+    color: white !important;
+  }
 
-::v-deep .v-btn:not(.v-btn--text):not(.v-btn--outlined).v-btn--active:before {
-  opacity: 0;
-}
+  .v-btn:not(.v-btn--text):not(.v-btn--outlined).v-btn--active:before {
+    opacity: 0;
+  }
 
-::v-deep .v-icon.v-icon.v-icon--link {
-  cursor: text;
-}
+  .v-icon.v-icon.v-icon--link {
+    cursor: text;
+  }
 
-::v-deep .v-icon.v-icon.v-icon--link.mdi-close {
-  cursor: pointer;
-}
+  .v-icon.v-icon.v-icon--link.mdi-close {
+    cursor: pointer;
+  }
 
-::v-deep .theme--light.v-icon.v-icon.v-icon--disabled {
-  color: $app-blue !important;
-}
+  .theme--light.v-icon.v-icon.v-icon--disabled {
+    color: $app-blue !important;
+  }
 
-::v-deep .v-input--is-disabled {
-  opacity: 0.4;
-}
+  .v-input--is-disabled {
+    opacity: 0.4;
+  }
 
-::v-deep .theme--light.v-text-field.v-input--is-disabled .v-input__slot:before {
-  border-image: none;
-}
+  .theme--light.v-text-field.v-input--is-disabled .v-input__slot:before {
+    border-image: none;
+  }
 
-::v-deep .v-text-field.v-input--is-readonly .v-input__slot:before {
-  border-style: solid !important;
+  .v-text-field.v-input--is-readonly .v-input__slot:before {
+    border-style: solid !important;
+  }
 }
 </style>

@@ -228,7 +228,7 @@ export default class FolioNumber extends Vue {
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
 
-::v-deep .v-input .v-label {
+:deep(.v-input .v-label) {
   font-weight: normal;
   color: $gray7;
 }

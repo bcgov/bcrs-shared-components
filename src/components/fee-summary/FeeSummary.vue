@@ -127,10 +127,8 @@ export default class FeeSummary extends Vue {
     text-align: center;
   }
 
-  ::v-deep {
-    .fee-list {
-      padding-left: 0;
-    }
+  :deep(.fee-list) {
+    padding-left: 0;
   }
 }
 </style>

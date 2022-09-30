@@ -408,7 +408,7 @@ export default class EffectiveDateTime extends Mixins(DateMixin) {
   line-height: 1.2rem;
 }
 
-::v-deep .v-label {
+:deep(.v-label) {
   color: $gray7;
   font-weight: normal;
 }
@@ -462,7 +462,8 @@ export default class EffectiveDateTime extends Mixins(DateMixin) {
     color: $BCgovInputError !important;
   }
 }
-::v-deep {
+
+:deep() {
   .v-icon.v-icon.v-icon--disabled {
     color: $app-blue !important;
   }

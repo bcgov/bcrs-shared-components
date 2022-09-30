@@ -142,7 +142,7 @@ export default class DocumentDelivery extends Vue {
 }
 
 // remove extra space taken by error message
-::v-deep .v-text-field__details {
+:deep(.v-text-field__details) {
   margin-bottom: -8px !important;
 }
 </style>

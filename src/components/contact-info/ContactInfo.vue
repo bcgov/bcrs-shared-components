@@ -394,12 +394,12 @@ export default class ContactInfo extends Vue {
   opacity: 0.2;
 }
 
-::v-deep .v-text-field .v-label {
+:deep(.v-text-field .v-label) {
   font-weight: normal;
   color: $gray7;
 }
 
-::v-deep .theme--light.v-input input {
+:deep(.theme--light.v-input input) {
   color: $gray9;
 }
 </style>

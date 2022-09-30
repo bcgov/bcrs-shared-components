@@ -252,7 +252,7 @@ export default class CompletingParty extends Vue {
 }
 
 // Override Base Address font styling
-::v-deep {
+:deep() {
   .address-block {
     font-size: $px-14;
     color: $gray7;

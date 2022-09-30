@@ -502,7 +502,7 @@ li {
   padding-top: 0.25rem;
 }
 
-::v-deep .v-input .v-label {
+:deep(.v-input .v-label) {
   font-weight: normal !important;
 }
 
@@ -563,7 +563,8 @@ li {
   padding-top:0.875rem
 }
 
-::v-deep .theme--light.v-btn.v-btn--disabled {
-  color: rgba(211, 39, 44, .4) !important;
+:deep(.theme--light.v-btn.v-btn--disabled) {
+  color: $app-red !important;
+  opacity: 0.4 !important;
 }
 </style>

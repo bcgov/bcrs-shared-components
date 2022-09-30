@@ -284,8 +284,18 @@ export default class StaffPayment extends Vue {
   margin-top: 0;
   padding-top: 0;
 
-  ::v-deep > .v-input__control {
+  :deep(> .v-input__control) {
     margin-bottom: -12px;
+  }
+}
+
+// override Vuetify label colors
+:deep() {
+  .v-input--selection-controls__ripple,
+  .v-text-field__slot .v-label,
+  .v-radio .v-label,
+  .v-input--checkbox .v-label {
+    color: $gray7 !important;
   }
 }
 </style>

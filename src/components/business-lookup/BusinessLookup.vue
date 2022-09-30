@@ -239,8 +239,8 @@ export default class BusinessLookup extends Vue {
   }
 }
 
-// Veutify overrides
-::v-deep {
+// Vuetify overrides
+:deep() {
   .v-text-field .v-label {
     font-weight: normal;
   }

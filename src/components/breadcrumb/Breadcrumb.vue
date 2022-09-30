@@ -116,7 +116,7 @@ export default class Breadcrumb extends Vue {
   cursor: default !important; // To override default or local link styling
 }
 
-::v-deep {
+:deep() {
   .v-breadcrumbs .v-breadcrumbs__divider {
     color: white !important;
     margin-bottom: 0;
