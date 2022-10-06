@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/confirm-dialog",
-  "version": "1.1.2",
+  "version": "1.2.1",
   "publishConfig": {
     "access": "public"
   },
