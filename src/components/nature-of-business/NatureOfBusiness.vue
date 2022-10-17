@@ -242,6 +242,7 @@ export default class NatureOfBusiness extends Vue {
   @Watch('haveNaics', { immediate: true })
   private onHaveNaicsChanged (val: boolean): void {
     this.state = val ? States.SUMMARY : States.INITIAL
+    this.emitValid(this.haveNaics)
   }
 
   /** Called when this form's validity has changed. */
