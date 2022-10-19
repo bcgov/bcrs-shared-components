@@ -245,7 +245,7 @@ export default class NatureOfBusiness extends Vue {
   }
 
   /** Called when this form's validity has changed. */
-  @Watch('isFormValid')
+  @Watch('isFormValid', { immediate: true })
   private onIsFormValidChanged (val: boolean): void {
     this.emitValid(val)
   }
