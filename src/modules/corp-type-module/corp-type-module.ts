@@ -116,7 +116,8 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     colinInd: true,
     corpClass: CorpClass.BC,
     shortDesc: 'BC CCC',
-    fullDesc: 'BC Community Contribution Company'
+    fullDesc: 'BC Community Contribution Company',
+    numberedDesc: 'Numbered Community Contribution Company'
   }, {
     corpTypeCd: CorpTypeCd.CCC_CONTINUE_IN,
     colinInd: true,
