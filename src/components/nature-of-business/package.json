@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/nature-of-business",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.0.45",
+    "@bcrs-shared-components/interfaces": "^1.0.46",
     "vue-property-decorator": "^9.1.2"
   }
 }
