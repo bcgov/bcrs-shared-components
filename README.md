@@ -34,8 +34,8 @@ git co -b my-feature-branch
 ### 4. Install dependencies
 
 ```
-npm i                    // if new repo
-npm i --global lerna     // if you didn't do this previously (NB: use ^5.5.2)
+npm i                         // if new repo
+npm i --global lerna@^5.6.2   // if you didn't do this previously
 ```
 
 ### 5. Create your component in its own folder (eg, `src/components/MyComponent/MyComponent.vue`)
