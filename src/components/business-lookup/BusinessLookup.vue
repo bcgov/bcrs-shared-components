@@ -41,19 +41,36 @@
 
     <div v-if="state === States.SUMMARY && haveBusiness" class="summary-block mt-5">
       <v-row no-gutters>
-        <v-col cols="9">
+        <v-col cols="10">
           <v-row no-gutters>
             <v-col cols="12">
-              <label>Name: </label>
-              <span>{{businessName}}</span>
+              <div v-if="editableBusinessName" class="d-flex align-center">
+                <label>Business or Corporation Name:</label>
+                <v-text-field
+                  dense
+                  filled
+                  hide-details="auto"
+                  id="organization-name"
+                  class="mx-4 mr-md-0"
+                  :rules="businessNameRules"
+                  :value="businessName"
+                  @input="setBusinessName($event)"
+                />
+              </div>
+              <template v-else>
+                <label>Name: </label>
+                <span>{{businessName}}</span>
+              </template>
             </v-col>
           </v-row>
+
           <v-row no-gutters class="mt-1">
             <v-col cols="12">
               <label>Incorporation Number: </label>
               <span>{{identifier}}</span>
             </v-col>
           </v-row>
+
           <v-row no-gutters class="mt-1">
             <v-col cols="12">
               <label>Business Number: </label>
@@ -61,7 +78,8 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="3">
+
+        <v-col cols="2">
           <div id="bl-more-actions">
             <v-btn text color="primary" id="bl-undo-btn" @click="emitUndo()">
               <v-icon small>mdi-undo</v-icon>
@@ -102,6 +120,9 @@ export default class BusinessLookup extends Vue {
   /** Whether to display Change features. */
   @Prop({ default: false }) readonly hasBusinessLookupChanges!: boolean
 
+  /** Whether to allow editing of business name. */
+  @Prop({ default: false }) readonly editableBusinessName!: boolean
+
   // enum for template
   readonly States = States
 
@@ -111,9 +132,15 @@ export default class BusinessLookup extends Vue {
   protected searchResults: Array<BusinessLookupResultIF> = []
   protected selectedBusiness: BusinessLookupResultIF = null
 
-  /** The text field validation rules. */
+  /** The business lookup validation rules. */
   readonly businessLookupRules: Array<(v) => boolean | string> = [
     v => !!v || 'Business is required'
+  ]
+
+  /** The business name validation rules. */
+  readonly businessNameRules: Array<(v) => boolean | string> = [
+    (v: string) => !!v?.trim() || 'Business or corporation name is required',
+    (v: string) => (v?.length <= 150) || 'Cannot exceed 150 characters' // maximum character count
   ]
 
   /** The identifier. */
@@ -133,12 +160,19 @@ export default class BusinessLookup extends Vue {
 
   /** Whether we have stored business data. */
   get haveBusiness (): boolean {
-    return (!!this.identifier && !!this.businessName)
+    // allow empty business name if editable
+    return (!!this.identifier && (!!this.businessName || this.editableBusinessName))
   }
 
   /** Whether this form is valid. */
   get isFormValid (): boolean {
     return (this.haveBusiness && this.state === States.SUMMARY)
+  }
+
+  /** Sets the business name. */
+  protected setBusinessName (val: string): void {
+    const name = val?.trim()
+    this.onSelectedBusiness({ ...this.businessLookup, name } as any)
   }
 
   /** Called when searchField property has changed. */
