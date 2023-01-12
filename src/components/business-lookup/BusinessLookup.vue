@@ -123,6 +123,9 @@ export default class BusinessLookup extends Vue {
   /** Whether to allow editing of business name. */
   @Prop({ default: false }) readonly editableBusinessName!: boolean
 
+  /** Business status to search for (eg, ACTIVE or HISTORICAL or '' to match all. */
+  @Prop({ default: 'ACTIVE' }) readonly searchStatus!: string
+
   // enum for template
   readonly States = States
 
@@ -182,7 +185,8 @@ export default class BusinessLookup extends Vue {
     // safety check
     if (this.searchField && this.searchField.length > 2) {
       this.state = States.SEARCHING
-      this.searchResults = await this.BusinessLookupServices.search(this.searchField).catch(() => [])
+      this.searchResults =
+        await this.BusinessLookupServices.search(this.searchField, this.searchStatus).catch(() => [])
       // display appropriate section
       this.state = (this.searchResults.length > 0) ? States.SHOW_RESULTS : States.NO_RESULTS
     } else {
