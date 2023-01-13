@@ -19,7 +19,7 @@ localVue.use(VueRouter)
  * @param title The text field title.
  * @param errorMsg The error msg to display.
  * @param disablePicker Boolean to enable textfield activator.
- * @returns a Wrapper<CourtOrderPoa> object with the given parameters.
+ * @returns a Wrapper<DatePicker> object with the given parameters.
  */
 function createComponent (
   title: string = '',
