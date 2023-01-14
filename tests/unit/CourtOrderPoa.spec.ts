@@ -13,20 +13,18 @@ localVue.use(VueRouter)
 /**
  * Creates and mounts a component, so that it can be tested.
  *
- * @param autoValidation The validation prompt.
  * @param draftCourtOrderNumber The draft court number.
- * @param draftPlanOfArrangement The draft plan of arrangement.
+ * @param hasDraftPlanOfArrangement
+ * @param displaySideLabels
  * @returns a Wrapper<CourtOrderPoa> object with the given parameters.
  */
 function createComponent (
-  autoValidation: boolean = false,
   draftCourtOrderNumber: string = '',
   hasDraftPlanOfArrangement: boolean = false,
   displaySideLabels: boolean = undefined
 ): Wrapper<CourtOrderPoa> {
   return mount(CourtOrderPoa, {
     propsData: {
-      autoValidation,
       draftCourtOrderNumber,
       hasDraftPlanOfArrangement,
       displaySideLabels
@@ -47,10 +45,6 @@ describe('Court Order and Plan of Arrangement component', () => {
   it('validates if poa is selected and court order number is empty', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
 
-    // Prompt validates through prop
-    wrapper.setProps({ autoValidation: true })
-    await Vue.nextTick()
-
     // Verify checkbox is NOT selected
     expect(wrapper.vm.$data.planOfArrangement).toBe(false)
 
@@ -67,28 +61,11 @@ describe('Court Order and Plan of Arrangement component', () => {
     wrapper.destroy()
   })
 
-  it('does NOT validate for required court order number if poa is NOT selected', async () => {
-    const wrapper: Wrapper<CourtOrderPoa> = createComponent()
-
-    // Verify checkbox is NOT selected
-    expect(wrapper.vm.$data.planOfArrangement).toBe(false)
-
-    // Prompt validates through prop
-    wrapper.setProps({ autoValidation: true })
-    await Vue.nextTick()
-
-    expect(wrapper.find('#court-num-form').text()).toBe('Court Order Number')
-    expect(wrapper.emitted('emitValid').pop()[0]).toEqual(true)
-
-    wrapper.destroy()
-  })
-
-  it('validates if courtOrderNumberRequired and court order number is empty', async () => {
+  it('fails validation if courtOrderNumberRequired and court order number is empty', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
 
     // Prompt validates through prop
     wrapper.setProps({
-      autoValidation: true,
       courtOrderNumberRequired: true
     })
     await Vue.nextTick()
@@ -103,10 +80,6 @@ describe('Court Order and Plan of Arrangement component', () => {
 
   it('validates if the court number is too small', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
-
-    // Prompt validates through prop
-    wrapper.setProps({ autoValidation: true })
-    await Vue.nextTick()
 
     // Input text into text-field
     const input = wrapper.find('#court-order-number-input')
@@ -135,10 +108,6 @@ describe('Court Order and Plan of Arrangement component', () => {
 
   it('validates if the court number is too large', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
-
-    // Prompt validates through prop
-    wrapper.setProps({ autoValidation: true })
-    await Vue.nextTick()
 
     // Input text into text-field
     const input = wrapper.find('#court-order-number-input')
@@ -184,10 +153,6 @@ describe('Court Order and Plan of Arrangement component', () => {
     input.setValue('mockCorrectNumber')
     await Vue.nextTick()
 
-    // Prompt validates through prop
-    wrapper.setProps({ autoValidation: true })
-    await Vue.nextTick()
-
     expect(wrapper.find('#court-num-form').text()).toContain('Court Order Number')
     expect(wrapper.vm.$data.valid).toBe(true)
     expect(wrapper.emitted('emitValid').pop()[0]).toEqual(true)
@@ -196,7 +161,7 @@ describe('Court Order and Plan of Arrangement component', () => {
   })
 
   it('loads draft data correctly', async () => {
-    const wrapper: Wrapper<CourtOrderPoa> = createComponent(null, '1234-567890', true)
+    const wrapper: Wrapper<CourtOrderPoa> = createComponent('1234-567890', true)
     await Vue.nextTick()
 
     // Verify draft num
@@ -208,7 +173,7 @@ describe('Court Order and Plan of Arrangement component', () => {
     wrapper.destroy()
   })
 
-  it('validates it does not show side labes when disabled', async () => {
+  it('validates it does not show side labels when disabled', async () => {
     const wrapper: Wrapper<CourtOrderPoa> = createComponent()
 
     expect(wrapper.find('#court-order-label').exists()).toBeTruthy()

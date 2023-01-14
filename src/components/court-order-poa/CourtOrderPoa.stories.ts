@@ -20,7 +20,6 @@ courtOrderPoa.args = {
 
 export const courtOrderPoaDraft = Template.bind({})
 courtOrderPoaDraft.args = {
-  validate: false,
   draftCourtOrderNumber: '1234-56789',
   hasDraftPlanOfArrangement: true
 }
