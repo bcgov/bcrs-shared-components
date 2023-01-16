@@ -86,7 +86,7 @@ git push --set-upstream origin my-feature-branch
 ```
 git co main
 git fetch origin
-git reset --hard origin/main
+git rebase
 lerna version --include-merged-tags
 ```
 
