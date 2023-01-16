@@ -45,9 +45,6 @@ export default class CourtOrderPoa extends Vue {
     courtNumRef: FormIF
   }
 
-  /** Prompt the validations. Used for global validations. */
-  @Prop({ default: false }) readonly autoValidation!: boolean
-
   /** Draft court order number. */
   @Prop({ default: '' }) readonly draftCourtOrderNumber!: string
 
@@ -60,7 +57,7 @@ export default class CourtOrderPoa extends Vue {
   /** Display side labels. */
   @Prop({ default: true }) readonly displaySideLabels!: boolean
 
-  /** Wether court order number is required regardless plan of arrangement. */
+  /** Whether court order number is required regardless plan of arrangement. */
   @Prop({ default: false }) readonly courtOrderNumberRequired!: boolean
 
   // Local properties
@@ -87,24 +84,21 @@ export default class CourtOrderPoa extends Vue {
     return this.$refs.courtNumRef.validate()
   }
 
-  @Watch('autoValidation')
   @Watch('planOfArrangement')
   @Watch('courtOrderNumber')
   @Watch('courtOrderNumberRequired')
   validateCourtNum (): void {
-    if (this.autoValidation) {
-      // Apply TextField rules
-      this.courtOrderNumRules = [
-        (v: string) => (!v || !/^\s/g.test(v)) || 'Invalid spaces', // leading spaces
-        (v: string) => (!v || !/\s$/g.test(v)) || 'Invalid spaces', // trailing spaces
-        (v: string) => (!v || !(v.length < 5)) || 'Court order number is invalid',
-        (v: string) => (!v || !(v.length > 20)) || 'Court order number is invalid'
-      ]
-      if (this.courtOrderNumberRequired || this.planOfArrangement) {
-        this.courtOrderNumRules.push((v: string) => !!v || 'A Court Order number is required')
-      }
-      this.$refs.courtNumRef.validate()
-    } else this.clearValidations()
+    // Apply TextField rules
+    this.courtOrderNumRules = [
+      (v: string) => (!v || !/^\s/g.test(v)) || 'Invalid spaces', // leading spaces
+      (v: string) => (!v || !/\s$/g.test(v)) || 'Invalid spaces', // trailing spaces
+      (v: string) => (!v || !(v.length < 5)) || 'Court order number is invalid',
+      (v: string) => (!v || !(v.length > 20)) || 'Court order number is invalid'
+    ]
+    if (this.courtOrderNumberRequired || this.planOfArrangement) {
+      this.courtOrderNumRules.push((v: string) => !!v || 'A Court Order number is required')
+    }
+    this.$refs.courtNumRef.validate()
   }
 
   /** Emit court order number. */
