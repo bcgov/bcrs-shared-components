@@ -15,14 +15,14 @@ localVue.use(VueRouter)
  */
 function createDefaultComponent (
   draftCourtOrderNumber: string = '',
-  approvedByRegistrar: boolean = false,
-  isConversionToFullRestoration: boolean = false
+  draftApprovedByRegistrar: boolean = false,
+  filingType: string = 'restoration'
 ): Wrapper<ApprovalType> {
   return mount(ApprovalType, {
     propsData: {
       draftCourtOrderNumber,
-      approvedByRegistrar,
-      isConversionToFullRestoration
+      draftApprovedByRegistrar,
+      filingType
     },
     vuetify,
     localVue
@@ -30,13 +30,13 @@ function createDefaultComponent (
 }
 
 describe('Initialize ApprovalType component', () => {
-  it('loads the component', async () => {
+  it('loads the component', () => {
     const wrapper: Wrapper<ApprovalType> = createDefaultComponent()
     expect(wrapper.findComponent(ApprovalType).exists()).toBe(true)
     wrapper.destroy()
   })
 
-  it('component default state has no fields populated', async () => {
+  it('component default state has no fields populated', () => {
     const wrapper: Wrapper<ApprovalType> = createDefaultComponent()
     expect(wrapper.vm.$data.courtOrderNumber).toBe('')
     expect(wrapper.vm.$data.approvalTypeSelected).toBe('')
@@ -51,7 +51,7 @@ describe('Initialize ApprovalType component', () => {
 
     // Prompt validates through prop
     wrapper.setProps({
-      isConversionToFullRestoration: true
+      filingType: 'conversion to full restoration'
     })
     await Vue.nextTick()
     expect(wrapper.find('label.v-label.theme--light').text())
@@ -120,7 +120,7 @@ describe('Initialize ApprovalType component', () => {
     wrapper.destroy()
   })
 
-  it('loads draft data correctly when approved by registrar selected', async () => {
+  it('loads draft data correctly when approved by registrar selected', () => {
     const wrapper: Wrapper<ApprovalType> = createDefaultComponent(
       '',
       true

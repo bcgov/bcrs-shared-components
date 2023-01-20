@@ -23,12 +23,12 @@ defaultCourtOrderOnly.args = {
 
 export const conversionToFullRestoration = Template.bind({})
 conversionToFullRestoration.args = {
-  isConversionToFullRestoration: true
+  filingType: 'conversion to full restoration'
 }
 
 export const draftViaRegistrar = Template.bind({})
 draftViaRegistrar.args = {
-  approvedByRegistrar: true
+  draftApprovedByRegistrar: true
 }
 
 export const draftViaCourtOrder = Template.bind({})

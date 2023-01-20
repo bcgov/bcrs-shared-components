@@ -19,7 +19,7 @@
               label="Court Order Number"
               :rules="courtOrderNumRules"
               :disabled="approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR"
-              @update:error="emitValidationError"
+              @update:error="emitValidationError($event)"
               filled
             />
           </v-form>
@@ -37,10 +37,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, Prop } from 'vue-property-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
-import { types } from "sass";
-import Null = types.Null;
 
 @Component({})
 export default class ApprovalType extends Vue {
@@ -58,10 +56,10 @@ export default class ApprovalType extends Vue {
   @Prop({ default: '' }) readonly draftCourtOrderNumber!: string
 
   /** Whether approved by the registrar. */
-  @Prop({ default: false }) readonly approvedByRegistrar!: boolean
+  @Prop({ default: false }) readonly draftApprovedByRegistrar!: boolean
 
-  /** text used in radio options . */
-  @Prop({ default: false }) readonly isConversionToFullRestoration!: boolean
+  /** filing name used in radio options. */
+  @Prop({ default: 'restoration'}) readonly filingType!: string
 
   /** Show only the court order option; remove via registrar option. */
   @Prop({ default: false }) readonly isCourtOrderOnly!: boolean
@@ -75,7 +73,7 @@ export default class ApprovalType extends Vue {
   /** Called when component is mounted. */
   mounted (): void {
     // Copy props to mutable properties
-    if (this.approvedByRegistrar) {
+    if (this.draftApprovedByRegistrar) {
       this.courtOrderNumber = ''
       this.approvalTypeSelected = this.ApprovalTypes.VIA_REGISTRAR
     }
@@ -128,14 +126,10 @@ export default class ApprovalType extends Vue {
   }
 
   private getRadioText (option: string): string {
-    let restorationWording = 'restoration'
-    if (this.isConversionToFullRestoration) {
-      restorationWording = 'conversion to full restoration'
-    }
     if (option === this.ApprovalTypes.VIA_COURT_ORDER) {
-      return 'This ' + restorationWording + ' is approved by court order.'
+      return 'This ' + this.filingType + ' is approved by court order.'
     } else if (option === this.ApprovalTypes.VIA_REGISTRAR) {
-      return 'This ' + restorationWording + ' is approved by registrar.'
+      return 'This ' + this.filingType + ' is approved by registrar.'
     }
     return '[error]'
   }
@@ -144,12 +138,6 @@ export default class ApprovalType extends Vue {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
-
-#court-order-label {
-  font-size: $px-16;
-  font-weight: bold;
-  color: $gray9;
-}
 
 :deep() {
   .v-card__actions {
