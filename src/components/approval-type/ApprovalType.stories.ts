@@ -3,8 +3,7 @@ import { ApprovalType } from './index'
 export default {
   title: 'component/ApprovalType',
   component: ApprovalType,
-  argTypes: {
-  }
+  argTypes: {}
 }
 
 const Template = (args, { argTypes }) => ({

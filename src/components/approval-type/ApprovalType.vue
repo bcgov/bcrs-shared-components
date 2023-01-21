@@ -13,21 +13,21 @@
           />
           <v-form ref="courtNumRef" id="court-num-form" v-model="valid" class="mt-4 ml-8">
             <v-text-field
-              @input="courtOrderNumberChanged"
               id="court-order-number-input"
               v-model="courtOrderNumber"
               label="Court Order Number"
               :rules="courtOrderNumRules"
               :disabled="approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR"
+              @input="courtOrderNumberChanged"
               @update:error="emitValidationError($event)"
               filled
             />
           </v-form>
           <!-- REGISTRAR radio button -->
-          <v-radio id="registrar-radio" class="mb-0 pt-2"
+          <v-radio v-if="!isCourtOrderOnly"
+             id="registrar-radio" class="mb-0 pt-2"
              :label="getRadioText(ApprovalTypes.VIA_REGISTRAR)"
              :value="ApprovalTypes.VIA_REGISTRAR"
-             v-if="!isCourtOrderOnly"
           />
         </v-radio-group>
       </v-col>
@@ -90,12 +90,12 @@ export default class ApprovalType extends Vue {
     return status
   }
 
-  private emitValidationError (event): void {
+  private emitValidationError (event: boolean): void {
     this.$emit('emitValid', !event)
   }
 
   @Emit('emitRadioButtonChange')
-  private radioButtonChanged (event): void {
+  private radioButtonChanged (event: string): void {
     if (event === this.ApprovalTypes.VIA_REGISTRAR) {
       Vue.set(this, 'courtOrderNumber', '')
       Vue.set(this, 'courtOrderNumRules', [])
@@ -127,9 +127,9 @@ export default class ApprovalType extends Vue {
 
   private getRadioText (option: string): string {
     if (option === this.ApprovalTypes.VIA_COURT_ORDER) {
-      return 'This ' + this.filingType + ' is approved by court order.'
+      return `This ${this.filingType} is approved by court order.`
     } else if (option === this.ApprovalTypes.VIA_REGISTRAR) {
-      return 'This ' + this.filingType + ' is approved by registrar.'
+      return `This ${this.filingType} is approved by registrar.`
     }
     return '[error]'
   }
