@@ -59,7 +59,7 @@ export default class ApprovalType extends Vue {
   @Prop({ default: false }) readonly draftApprovedByRegistrar!: boolean
 
   /** filing name used in radio options. */
-  @Prop({ default: 'restoration'}) readonly filingType!: string
+  @Prop({ default: 'restoration' }) readonly filingType!: string
 
   /** Show only the court order option; remove via registrar option. */
   @Prop({ default: false }) readonly isCourtOrderOnly!: boolean

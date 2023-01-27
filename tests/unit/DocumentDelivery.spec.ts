@@ -89,7 +89,7 @@ for (const mock of documentDeliveryCases) {
         contactLabel: mock.tombstone.contactLabel
       })
 
-      expect(wrapper.findAll('label').at(2).text()).toBe(mock.tombstone.additionalLabel)
+      expect(wrapper.findAll('label').at(1).text()).toBe(mock.tombstone.additionalLabel)
       expect(wrapper.find('#additional-value').text()).toBe(mock.tombstone.userEmail)
     })
 

@@ -1,6 +1,6 @@
 <template>
   <div id="document-delivery">
-    <!-- Contact -->
+    <!-- Contact (required) -->
     <v-row no-gutters>
       <v-col cols="12" sm="3" class="pr-4">
         <label class="title-label">{{contactLabel}}</label>
@@ -10,8 +10,28 @@
       </v-col>
     </v-row>
 
-    <!-- Completing Party -->
-    <v-row no-gutters class="pt-5">
+    <!-- Custodian of Records (optional) -->
+    <v-row no-gutters v-if="showCustodianEmail" class="pt-5">
+      <v-col cols="12" sm="3" class="pr-4">
+        <label class="title-label">Custodian of Records</label>
+      </v-col>
+      <v-col cols="12" sm="9">
+        <span id="custodian-email">{{custodianEmail || '(Not entered)'}}</span>
+      </v-col>
+    </v-row>
+
+    <!-- Additional (optional) -->
+    <v-row no-gutters v-if="additionalLabel" class="pt-5">
+      <v-col cols="12" sm="3" class="pr-4">
+        <label class="title-label">{{additionalLabel}}</label>
+      </v-col>
+      <v-col cols="12" sm="9">
+        <span id="additional-value">{{additionalValue || '(Not entered)'}}</span>
+      </v-col>
+    </v-row>
+
+    <!-- Completing Party (optional) -->
+    <v-row no-gutters v-if="showCompletingParty" class="pt-5">
       <v-col cols="12" sm="3" class="pr-4">
         <label class="title-label" :class="{ 'error-text': invalidSection }">
           Completing Party
@@ -32,26 +52,6 @@
         <span id="completing-party-email">{{completingPartyEmail || '(Not entered)'}}</span>
       </v-col>
     </v-row>
-
-    <!-- Custodian of Records -->
-    <v-row no-gutters v-if="showCustodianEmail" class="pt-5">
-      <v-col cols="12" sm="3" class="pr-4">
-        <label class="title-label">Custodian of Records</label>
-      </v-col>
-      <v-col cols="12" sm="9">
-        <span id="custodian-email">{{custodianEmail || '(Not entered)'}}</span>
-      </v-col>
-    </v-row>
-
-    <!-- Additional -->
-    <v-row no-gutters v-if="additionalLabel" class="pt-5">
-      <v-col cols="12" sm="3" class="pr-4">
-        <label class="title-label">{{additionalLabel}}</label>
-      </v-col>
-      <v-col cols="12" sm="9">
-        <span id="additional-value">{{additionalValue || '(Not entered)'}}</span>
-      </v-col>
-    </v-row>
   </div>
 </template>
 
@@ -65,11 +65,6 @@ export default class DocumentDelivery extends Vue {
   @Prop({ required: true }) readonly contactLabel!: string
   @Prop({ default: null }) readonly contactValue!: string
 
-  // Completing Party props
-  @Prop({ default: false }) readonly editableCompletingParty!: boolean
-  @Prop({ default: null }) readonly completingPartyEmail!: string
-  @Prop({ default: null }) readonly documentOptionalEmail!: string
-
   // Custodian of Records props
   @Prop({ default: false }) readonly showCustodianEmail!: boolean
   @Prop({ default: null }) readonly custodianEmail!: string
@@ -77,6 +72,12 @@ export default class DocumentDelivery extends Vue {
   // Additional props
   @Prop({ default: null }) readonly additionalLabel!: string
   @Prop({ default: null }) readonly additionalValue!: string
+
+  // Completing Party props
+  @Prop({ default: true }) readonly showCompletingParty!: boolean
+  @Prop({ default: false }) readonly editableCompletingParty!: boolean
+  @Prop({ default: null }) readonly completingPartyEmail!: string
+  @Prop({ default: null }) readonly documentOptionalEmail!: string
 
   /** Whether to display invalid section styling. */
   @Prop({ default: false }) readonly invalidSection!: boolean

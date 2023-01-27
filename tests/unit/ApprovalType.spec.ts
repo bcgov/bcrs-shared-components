@@ -112,9 +112,7 @@ describe('Initialize ApprovalType component', () => {
   })
 
   it('loads draft data correctly when court order selected', async () => {
-    const wrapper: Wrapper<ApprovalType> = createDefaultComponent(
-      '1234-567890',
-    )
+    const wrapper: Wrapper<ApprovalType> = createDefaultComponent('1234-567890')
     expect(wrapper.vm.$data.courtOrderNumber).toBe('1234-567890')
     expect(wrapper.vm.$data.approvalTypeSelected).toEqual('VIA COURT ORDER')
     wrapper.destroy()
