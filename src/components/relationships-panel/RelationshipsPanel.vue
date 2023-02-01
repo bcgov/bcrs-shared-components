@@ -80,7 +80,7 @@ export default class RelationshipsPanelShared extends Vue {
 
   // Emit the selected relationships array.
   @Emit('emitRelationshipsChanged')
-  private relationshipsChanged (event): any[] {
+  private relationshipsChanged (): any[] {
     return this.selectedRelationships
   }
 
