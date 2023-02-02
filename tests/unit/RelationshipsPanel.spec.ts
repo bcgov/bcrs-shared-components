@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 import { RelationshipsPanel } from '@/components/relationships-panel'
-import { ApprovalType } from '@/components/approval-type'
 import VueRouter from 'vue-router'
 
 Vue.use(Vuetify)
