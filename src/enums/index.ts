@@ -8,6 +8,7 @@ export * from './filing-names'
 export * from './filing-types'
 export * from './restoration-types'
 export * from './staff-payment-options'
+export * from './relationship-types'
 
 // export the enums from corp type module
 export { CorpTypeCd, CorpClass } from '@bcrs-shared-components/corp-type-module'
