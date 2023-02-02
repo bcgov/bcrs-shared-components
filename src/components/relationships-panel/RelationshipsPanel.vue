@@ -37,7 +37,7 @@
 
 import Vue from 'vue'
 import { Component, Watch, Emit, Prop } from 'vue-property-decorator'
-import { RelationshipTypes } from '@/enums/relationship-types'
+import { RelationshipTypes } from '@bcrs-shared-components/enums'
 
 @Component({})
 export default class RelationshipsPanel extends Vue {
@@ -70,13 +70,13 @@ export default class RelationshipsPanel extends Vue {
   }
 
   // Emit the selected relationships array.
-  @Emit('emitRelationshipsChanged')
+  @Emit('changed')
   private relationshipsChanged (): any[] {
     return this.selectedRelationships
   }
 
   // Emit a boolean (validation) which is if at least one relationship is selected.
-  @Emit('emitRelationshipsValid')
+  @Emit('valid')
   private relationshipsValid (event: boolean): boolean {
     return event
   }
@@ -87,11 +87,11 @@ export default class RelationshipsPanel extends Vue {
   @Watch('selectedRelationships')
   private setRelationships (val) {
     this.setRelationshipRules()
-    this.$emit('emitRelationshipsChanged', this.selectedRelationships)
+    this.relationshipsChanged()
     if (this.selectedRelationships.length > 0) {
-      this.$emit('emitRelationshipsValid', true)
+      this.relationshipsValid(true)
     } else {
-      this.$emit('emitRelationshipsValid', false)
+      this.relationshipsValid(false)
     }
   }
 }

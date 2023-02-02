@@ -4,7 +4,6 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 import { RelationshipsPanel } from '@/components/relationships-panel'
 import { ApprovalType } from '@/components/approval-type'
 import VueRouter from 'vue-router'
-import { RelationshipTypes } from '@/enums/relationship-types'
 
 Vue.use(Vuetify)
 let vuetify = new Vuetify({})
@@ -16,7 +15,7 @@ localVue.use(VueRouter)
  * Creates and mounts a blank, un-populated component
  */
 function createDefaultComponent (
-  draftRelationships: RelationshipTypes[] = []
+  draftRelationships: string[] = []
 ): Wrapper<RelationshipsPanel> {
   return mount(RelationshipsPanel, {
     propsData: {
@@ -44,27 +43,27 @@ describe('Initialize RelationshipsPanel component', () => {
     const wrapper: Wrapper<RelationshipsPanel> = createDefaultComponent()
     await Vue.nextTick()
 
-    expect(wrapper.emitted('emitRelationshipsValid').pop()[0]).toEqual(false)
+    expect(wrapper.emitted('valid').pop()[0]).toEqual(false)
     wrapper.destroy()
   })
 
   it('component emits events when a relationship is selected (validate)', async () => {
-    const wrapper: Wrapper<RelationshipsPanel> = createDefaultComponent([RelationshipTypes.HEIR_LEGAL_REP])
+    const wrapper: Wrapper<RelationshipsPanel> = createDefaultComponent(['Heir or Legal Representative'])
     await Vue.nextTick()
 
-    expect(wrapper.emitted('emitRelationshipsValid').pop()[0]).toEqual(true)
+    expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
     wrapper.destroy()
   })
 
   it('component emits events (array) when relationships are selected', async () => {
-    const wrapper: Wrapper<ApprovalType> = createDefaultComponent([RelationshipTypes.HEIR_LEGAL_REP])
+    const wrapper: Wrapper<ApprovalType> = createDefaultComponent(['Heir or Legal Representative'])
     // Officer selected
     const input = wrapper.find('#officer-checkbox')
     input.setChecked()
     await Vue.nextTick()
 
-    expect(wrapper.emitted('emitRelationshipsChanged').pop()[0])
-      .toEqual([RelationshipTypes.HEIR_LEGAL_REP, RelationshipTypes.OFFICER])
+    expect(wrapper.emitted('changed').pop()[0])
+      .toEqual(['Heir or Legal Representative', 'Officer'])
     wrapper.destroy()
   })
 })

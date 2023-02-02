@@ -1,4 +1,4 @@
-import { RelationshipTypes } from '@/enums/relationship-types'
+import { RelationshipTypes } from '@bcrs-shared-components/enums'
 import { RelationshipsPanel } from './index'
 
 export default {
