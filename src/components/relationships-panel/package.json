@@ -5,6 +5,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@bcrs-shared-components/enums": "^1.0.26",
     "vue-property-decorator": "^9.1.2"
   }
 }

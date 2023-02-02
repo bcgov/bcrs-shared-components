@@ -1,3 +1,4 @@
+import { RelationshipTypes } from '@/enums/relationship-types'
 import { RelationshipsPanel } from './index'
 
 export default {
@@ -15,7 +16,7 @@ const Template = (args, { argTypes }) => ({
 export const Default = Template.bind({})
 Default.args = {}
 
-export const noRelationships = Template.bind({})
-noRelationships.args = {
-  draftRelationships: []
+export const twoRelationshipsSelected = Template.bind({})
+twoRelationshipsSelected.args = {
+  draftRelationships: [RelationshipTypes.HEIR_LEGAL_REP, RelationshipTypes.SHAREHOLDER]
 }

@@ -1,73 +1,64 @@
 <template>
-  <v-card flat id="relationship-style">
-    <div class="form__row three-column mt-3">
-      <v-card flat rounded="sm" class="relationship_title gray-card px-4">
-        <v-row no-gutters class="align-center mt-5">
+  <v-card flat id="relationships-panel" class="pb-4 pl-4">
+    <v-card flat rounded="sm" class="relationships-vcard px-4 mt-3 mr-9 ml-4">
+      <v-row no-gutters class="align-center mt-5">
 
-          <v-col cols="4">
-            <v-checkbox id="heir-legal-rep-checkbox" class="mt-0" v-model="selectedRelationships"
-              :value="RelationshipTypes.HEIR_LEGAL_REP" :label="RelationshipTypes.HEIR_LEGAL_REP"
-              :rules="relationshipRules" />
-          </v-col>
+        <v-col cols="4">
+          <v-checkbox id="heir-legal-rep-checkbox" class="mt-0" v-model="selectedRelationships"
+            :value="RelationshipTypes.HEIR_LEGAL_REP" :label="RelationshipTypes.HEIR_LEGAL_REP"
+            :rules="relationshipRules" />
+        </v-col>
 
-          <v-col cols="4">
-            <v-checkbox id="officer-checkbox" class="mt-0" v-model="selectedRelationships"
-              :value="RelationshipTypes.OFFICER" :label="RelationshipTypes.OFFICER" :rules="relationshipRules" />
-          </v-col>
+        <v-col cols="4">
+          <v-checkbox id="officer-checkbox" class="mt-0" v-model="selectedRelationships"
+            :value="RelationshipTypes.OFFICER" :label="RelationshipTypes.OFFICER" :rules="relationshipRules" />
+        </v-col>
 
-          <v-col cols="4">
-            <v-checkbox id="director-checkbox" class="mt-0" v-model="selectedRelationships"
-              :value="RelationshipTypes.DIRECTOR" :label="RelationshipTypes.DIRECTOR" :rules="relationshipRules" />
-          </v-col>
+        <v-col cols="4">
+          <v-checkbox id="director-checkbox" class="mt-0" v-model="selectedRelationships"
+            :value="RelationshipTypes.DIRECTOR" :label="RelationshipTypes.DIRECTOR" :rules="relationshipRules" />
+        </v-col>
 
-          <v-col cols="4">
-            <v-checkbox id="shareholder-checkbox" class="mt-0" v-model="selectedRelationships"
-              :value="RelationshipTypes.SHAREHOLDER" :label="RelationshipTypes.SHAREHOLDER"
-              :rules="relationshipRules" />
-          </v-col>
+        <v-col cols="4">
+          <v-checkbox id="shareholder-checkbox" class="mt-0" v-model="selectedRelationships"
+            :value="RelationshipTypes.SHAREHOLDER" :label="RelationshipTypes.SHAREHOLDER" :rules="relationshipRules" />
+        </v-col>
 
-          <v-col cols="4">
-            <v-checkbox id="court-ordered-party-checkbox" class="mt-0" v-model="selectedRelationships"
-              :value="RelationshipTypes.COURT_ORDERED_PARTY" :label="RelationshipTypes.COURT_ORDERED_PARTY"
-              :rules="relationshipRules" />
-          </v-col>
-        </v-row>
-      </v-card>
-    </div>
+        <v-col cols="4">
+          <v-checkbox id="court-ordered-party-checkbox" class="mt-0" v-model="selectedRelationships"
+            :value="RelationshipTypes.COURT_ORDERED_PARTY" :label="RelationshipTypes.COURT_ORDERED_PARTY"
+            :rules="relationshipRules" />
+        </v-col>
+      </v-row>
+    </v-card>
   </v-card>
 </template>
 <script lang="ts">
 
 import Vue from 'vue'
 import { Component, Watch, Emit, Prop } from 'vue-property-decorator'
+import { RelationshipTypes } from '@/enums/relationship-types'
 
 @Component({})
-export default class RelationshipsPanelShared extends Vue {
+export default class RelationshipsPanel extends Vue {
   /** Draft restoration relationships */
-  @Prop({ default: ['Heir or Legal Representative'] }) readonly draftRelationships!: []
+  @Prop({ default: () => [] }) readonly draftRelationships!: RelationshipTypes[]
 
   // Local properties
-  private selectedRelationships = []
-  private relationshipRules = []
+  private selectedRelationships: RelationshipTypes[] = []
+  private relationshipRules: (() => void)[] = []
 
-  // Relationship Types Enum for the template
-  RelationshipTypes = {
-    COURT_ORDERED_PARTY: 'Court Ordered Party',
-    DIRECTOR: 'Director',
-    HEIR_LEGAL_REP: 'Heir or Legal Representative',
-    OFFICER: 'Officer',
-    SHAREHOLDER: 'Shareholder'
-  }
+  readonly RelationshipTypes = RelationshipTypes
 
   /**
    * Called when component is mounted.
    * Automatically check all previously checked relationships (if any) when user continues a draft.
    */
   mounted (): void {
-    if (this.draftRelationships !== null) {
+    if (this.draftRelationships.length > 0) {
       this.selectedRelationships.push(...this.draftRelationships)
     } else {
-      this.selectedRelationships.push(this.RelationshipTypes.HEIR_LEGAL_REP)
+      this.selectedRelationships.push() // This is done to validate component immediately (no need to touch)
     }
   }
 
@@ -90,11 +81,10 @@ export default class RelationshipsPanelShared extends Vue {
     return event
   }
 
-   /**
-    * Emit events whenever the relationships array is changed (validation and the selected relationships array).
-    * Change the tooltip text to red (error) if no relationships are selected.
-    */
-   @Watch('selectedRelationships')
+  /**
+   * Emit events whenever the relationships array is changed (validation and the selected relationships array).
+   */
+  @Watch('selectedRelationships')
   private setRelationships (val) {
     this.setRelationshipRules()
     this.$emit('emitRelationshipsChanged', this.selectedRelationships)
@@ -111,31 +101,12 @@ export default class RelationshipsPanelShared extends Vue {
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
 
-#relationship-style {
-  padding-bottom: 1rem;
-  padding-left: 1rem;
-  margin-right: 1.5rem;
-  line-height: 1.2rem;
-}
-
-.gray-card {
+.relationships-vcard {
+  font-size: 1rem;
   background-color: rgba(0, 0, 0, 0.06);
-  margin-right: 3rem;
-}
-
-.form__row.three-column {
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
-  margin-right: -0.5rem;
-  margin-left: -0.5rem;
-
-}
-
-.relationship_title {
-  margin-left: 1rem;
-  font-size: 1rem;
 }
 
 </style>
-
