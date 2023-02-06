@@ -175,12 +175,12 @@ export default class DateMixin extends Vue {
    * @example (18, 2023-02-03) -> "2024-08-03"
    */
   addMonthsToDate (month: number, date: string): string {
-    if (date === null || date === '') {
+    if (!date) {
       date = '2023-01-01'
     }
-    let temp = this.yyyyMmDdToDate(date)
+    const temp = this.yyyyMmDdToDate(date)
     temp.setMonth(temp.getMonth() + month)
-    let dateAfterAddition = this.dateToYyyyMmDd(temp)
+    const dateAfterAddition = this.dateToYyyyMmDd(temp)
     return dateAfterAddition
   }
 
@@ -191,16 +191,16 @@ export default class DateMixin extends Vue {
    * @example (2023-02-03, 2023-04-03) -> 2
    */
   subtractDates (dateFrom: string, dateTo: string): number {
-    if (dateFrom === null || dateFrom === '') {
+    if (!dateFrom) {
       dateFrom = '2023-01-01'
     }
-    if (dateTo === null || dateTo === '') {
+    if (!dateTo) {
       dateTo = this.addMonthsToDate(24, dateFrom)
     }
-    let expiryDate = this.yyyyMmDdToDate(dateTo)
-    let currDate = this.yyyyMmDdToDate(dateFrom)
-    let monthDiff = expiryDate.getMonth() - currDate.getMonth()
-    let yearDiff = (12 * (expiryDate.getFullYear() - currDate.getFullYear()))
+    const expiryDate = this.yyyyMmDdToDate(dateTo)
+    const currDate = this.yyyyMmDdToDate(dateFrom)
+    const monthDiff = expiryDate.getMonth() - currDate.getMonth()
+    const yearDiff = (12 * (expiryDate.getFullYear() - currDate.getFullYear()))
     let difference = monthDiff + yearDiff
     // For example if Jan 31st and March 1, difference is 1 not 2
     if (expiryDate.getDate() < currDate.getDate()) {

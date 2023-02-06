@@ -5,22 +5,22 @@
     <v-radio id="twelve-radio" name="selectMonths" label="12 months" :value=12 />
     <v-radio id="six-radio" name="selectMonths" label="6 months" :value=6 />
     <v-row class="ml-0 mt-0">
-      <v-radio id="custom-months" name="selectMonths" value="customMonths" >
-      </v-radio>
+      <v-radio id="custom-months" name="selectMonths" value="customMonths" />
       <v-text-field
-      class="shrink"
-      hide-details="auto"
-      type="number"
-      dense
-      hide-spin-buttons
-      min=1
-      max=24
-      :rules="monthRules"
-      v-model="numberOfMonths"
-      :disabled="!customMonths"
-      @change="onMonthsChanged"
-      filled />
-      <div class="ml-2 mt-2 text--secondary">month(s)</div>
+        class="shrink"
+        hide-details="auto"
+        type="number"
+        dense
+        hide-spin-buttons
+        min=1
+        max=24
+        :rules="monthRules"
+        v-model="numberOfMonths"
+        :disabled="!customMonths"
+        @change="onMonthsChanged"
+        filled
+      />
+      <div class="ml-2 mt-2 month-text">month(s)</div>
     </v-row>
   </v-radio-group>
 </template>
@@ -48,7 +48,7 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
    */
   mounted (): void {
     this.setMonthRules()
-    let draftMonths = this.subtractDates(this.currentDate, this.expiryDate)
+    const draftMonths = this.subtractDates(this.currentDate, this.expiryDate)
     if (draftMonths !== 24 && draftMonths !== 18 && draftMonths !== 12 && draftMonths !== 6) {
       this.selectMonths = 'customMonths'
       this.numberOfMonths = draftMonths
@@ -109,4 +109,7 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
 
+.month-text {
+  color: $gray7;
+}
 </style>
