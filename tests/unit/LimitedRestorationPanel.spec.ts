@@ -34,7 +34,7 @@ describe('Initialize RelationshipsPanel component', () => {
     wrapper.destroy()
   })
 
-  it('No expiry field exists (going from full to limited restoration), Months: 24', async () => {
+  it('It is initialized to 24 months if the expiry field is not provided', async () => {
     const wrapper: Wrapper<LimitedRestorationPanel> = createDefaultComponent()
     expect(wrapper.vm.$data.selectMonths).toEqual(24)
     wrapper.destroy()

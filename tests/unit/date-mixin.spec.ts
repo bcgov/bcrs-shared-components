@@ -76,4 +76,23 @@ describe('Date Mixin', () => {
     expect(vm.apiToPacificDateTime('2021-01-01T00:00:00+00:00')).toBe('December 31, 2020 at 4:00 pm Pacific time') // PST
     expect(vm.apiToPacificDateTime('2021-07-01T00:00:00+00:00')).toBe('June 30, 2021 at 5:00 pm Pacific time') // PDT
   })
+
+  it('returns correct values for addMonthsToDate()', () => {
+    expect(vm.addMonthsToDate(3, '2023-02-03')).toBe('2023-05-03')
+    expect(vm.addMonthsToDate(18, '2023-02-03')).toBe('2024-08-03')
+    expect(vm.addMonthsToDate(10, '2023-02-03')).toBe('2023-12-03')
+    expect(vm.addMonthsToDate(24, '2023-02-03')).toBe('2025-02-03')
+    expect(vm.addMonthsToDate(2, null)).toBe('2023-03-01')
+  })
+
+  it('returns correct values for subtractDates()', () => {
+    expect(vm.subtractDates('2023-02-03', '2024-08-03')).toBe(18)
+    expect(vm.subtractDates('2023-02-03', '2023-04-03')).toBe(2)
+    expect(vm.subtractDates('2023-01-31', '2023-03-01')).toBe(1)
+    expect(vm.subtractDates('2023-01-31', '2023-03-31')).toBe(2)
+    expect(vm.subtractDates('2023-02-03', '2025-02-03')).toBe(24)
+    expect(vm.subtractDates(null, null)).toBe(24)
+    expect(vm.subtractDates('2023-05-05', null)).toBe(24)
+    expect(vm.subtractDates(null, '2023-04-04')).toBe(3)
+  })
 })

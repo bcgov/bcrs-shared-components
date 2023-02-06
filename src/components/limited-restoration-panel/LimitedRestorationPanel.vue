@@ -4,16 +4,28 @@
     <v-radio id="eighteen-radio" name="selectMonths" label="18 months" :value=18 />
     <v-radio id="twelve-radio" name="selectMonths" label="12 months" :value=12 />
     <v-radio id="six-radio" name="selectMonths" label="6 months" :value=6 />
-    <v-row class="ml-0">
-      <v-radio id="custom-months" name="selectMonths" label="Month(s): " value="customMonths">
+    <v-row class="ml-0 mt-0">
+      <v-radio id="custom-months" name="selectMonths" value="customMonths" >
       </v-radio>
-      <v-text-field class="shrink mx-4" type="number" min=1 max=24 :rules="monthRules" v-model="numberOfMonths"
-        :disabled="!customMonths" @change="onMonthsChanged" filled />
+      <v-text-field
+      class="shrink"
+      hide-details="auto"
+      type="number"
+      dense
+      hide-spin-buttons
+      min=1
+      max=24
+      :rules="monthRules"
+      v-model="numberOfMonths"
+      :disabled="!customMonths"
+      @change="onMonthsChanged"
+      filled />
+      <div class="ml-2 mt-2 text--secondary">month(s)</div>
     </v-row>
   </v-radio-group>
 </template>
-<script lang="ts">
 
+<script lang="ts">
 import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
 import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
 
@@ -24,7 +36,7 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
   @Prop({ default: '' }) readonly expiryDate!: string
 
   // Local properties
-  private customMonths = false
+  private customMonths = ''
   private selectMonths = ''
   private numberOfMonths = 1
   private monthRules: ((data: string) => void)[] = []
@@ -36,17 +48,13 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
    */
   mounted (): void {
     this.setMonthRules()
-    if (this.expiryDate !== null && this.expiryDate !== undefined) { // Unit tests fail without the first condition.
-      let draftMonths = this.subtractDates(this.currentDate, this.expiryDate)
-      if (draftMonths !== 24 && draftMonths !== 18 && draftMonths !== 12 && draftMonths !== 6) {
-        this.selectMonths = 'customMonths'
-        this.numberOfMonths = draftMonths
-        this.setCustomMonths(this.numberOfMonths)
-      } else {
-        this.selectMonths = draftMonths
-      }
+    let draftMonths = this.subtractDates(this.currentDate, this.expiryDate)
+    if (draftMonths !== 24 && draftMonths !== 18 && draftMonths !== 12 && draftMonths !== 6) {
+      this.selectMonths = 'customMonths'
+      this.numberOfMonths = draftMonths
+      this.setCustomMonths(this.numberOfMonths)
     } else {
-      this.selectMonths = 24
+      this.selectMonths = draftMonths
     }
   }
 
@@ -61,7 +69,7 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
 
   // Emit the expiry date.
   @Emit('expiry')
-  private expiryChanged (event:string): string {
+  private expiryChanged (event: string): string {
     return event
   }
 
@@ -74,7 +82,7 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
       this.numberOfMonths = 24
     } else if (this.numberOfMonths < 1) {
       this.numberOfMonths = 1
-    } else if (this.numberOfMonths % 1 !== 0) {
+    } else {
       this.numberOfMonths = Math.floor(this.numberOfMonths)
     }
     this.expiryChanged(this.addMonthsToDate(this.numberOfMonths, this.currentDate))

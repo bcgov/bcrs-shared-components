@@ -174,9 +174,12 @@ export default class DateMixin extends Vue {
    * @example (3, 2023-02-03) -> "2023-05-03"
    * @example (18, 2023-02-03) -> "2024-08-03"
    */
-  addMonthsToDate (months: number, date: string): string {
+  addMonthsToDate (month: number, date: string): string {
+    if (date === null || date === '') {
+      date = '2023-01-01'
+    }
     let temp = this.yyyyMmDdToDate(date)
-    temp.setMonth(temp.getMonth() + Number(months))
+    temp.setMonth(temp.getMonth() + month)
     let dateAfterAddition = this.dateToYyyyMmDd(temp)
     return dateAfterAddition
   }
@@ -188,6 +191,12 @@ export default class DateMixin extends Vue {
    * @example (2023-02-03, 2023-04-03) -> 2
    */
   subtractDates (dateFrom: string, dateTo: string): number {
+    if (dateFrom === null || dateFrom === '') {
+      dateFrom = '2023-01-01'
+    }
+    if (dateTo === null || dateTo === '') {
+      dateTo = this.addMonthsToDate(24, dateFrom)
+    }
     let expiryDate = this.yyyyMmDdToDate(dateTo)
     let currDate = this.yyyyMmDdToDate(dateFrom)
     let monthDiff = expiryDate.getMonth() - currDate.getMonth()
