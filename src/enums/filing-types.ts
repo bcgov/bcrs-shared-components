@@ -14,7 +14,6 @@ export enum FilingTypes {
   DISSOLUTION = 'dissolution',
   DISSOLVED = 'dissolved',
   INCORPORATION_APPLICATION = 'incorporationApplication',
-  INVOLUNTARY_DISSOLUTION = 'involuntaryDissolution',
   PUT_BACK_ON = 'putBackOn',
   REGISTRATION = 'registration',
   REGISTRARS_NOTATION = 'registrarsNotation',
@@ -22,7 +21,6 @@ export enum FilingTypes {
   RESTORATION = 'restoration',
   SPECIAL_RESOLUTION = 'specialResolution',
   TRANSITION = 'transition',
-  VOLUNTARY_DISSOLUTION = 'voluntaryDissolution',
 
   UNKNOWN = 'unknown' // for fallback
 }
