@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/approval-type",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.0.52",
+    "@bcrs-shared-components/interfaces": "^1.0.53",
     "vue-property-decorator": "^9.1.2"
   }
 }
