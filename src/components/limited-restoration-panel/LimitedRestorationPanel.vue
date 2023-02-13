@@ -1,29 +1,38 @@
 <template id="limited-restoration-panel">
   <v-radio-group class="mt-0 pt-0 ml-8" v-model="selectMonths" mandatory>
-    <v-radio id="twentyFour-radio" name="selectMonths" label="Two Years" :value=24 />
-    <v-radio id="eighteen-radio" name="selectMonths" label="18 months" :value=18 />
-    <v-radio id="twelve-radio" name="selectMonths" label="12 months" :value=12 />
-    <v-radio id="six-radio" name="selectMonths" label="6 months" :value=6 />
-    <v-row class="ml-0 mt-0">
-      <v-radio id="custom-months" name="selectMonths" value="customMonths" />
-      <v-text-field
-        class="shrink"
-        hide-details="auto"
-        type="number"
-        dense
-        hide-spin-buttons
-        min=1
-        max=24
-        :rules="monthRules"
-        v-model="numberOfMonths"
-        :disabled="!customMonths"
-        @change="onMonthsChanged"
-        filled
-      />
-      <div class="ml-2 mt-2 month-text">month(s)</div>
-    </v-row>
+      <v-radio class="radio-button" id="twentyFour-radio" name="selectMonths" :value=24>
+          <span slot="label" class="month-text">2 years</span>
+      </v-radio>
+      <v-radio class="radio-button" id="eighteen-radio" name="selectMonths" :value=18>
+          <span slot="label" class="month-text">18 months</span>
+      </v-radio>
+      <v-radio class="radio-button" id="twelve-radio" name="selectMonths" :value=12>
+          <span slot="label" class="month-text">12 months</span>
+      </v-radio>
+      <v-radio class="radio-button" id="six-radio" name="selectMonths" label="6 months" :value=6>
+          <span slot="label" class="month-text">6 months</span>
+      </v-radio>
+      <v-row class="ml-0 mt-0 radio-button">
+          <v-radio id="custom-months" name="selectMonths" value="customMonths" />
+          <v-text-field
+          class="shrink"
+          style="width:73px;"
+          hide-details="auto"
+          type="number"
+          dense
+          hide-spin-buttons
+          min=1
+          max=24
+          :rules="monthRules"
+          v-model="numberOfMonths"
+          :disabled="!customMonths"
+          @change="onMonthsChanged"
+          filled
+          />
+          <div class="ml-2 mt-2 month-text">month(s)</div>
+      </v-row>
   </v-radio-group>
-</template>
+  </template>
 
 <script lang="ts">
 import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
@@ -36,9 +45,9 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
   @Prop({ default: '' }) readonly expiryDate!: string
 
   // Local properties
-  private customMonths = ''
-  private selectMonths = ''
-  private numberOfMonths = 1
+  private customMonths: string = ''
+  private selectMonths: string = ''
+  private numberOfMonths: number = null
   private monthRules: ((data: string) => void)[] = []
 
   /**
@@ -61,9 +70,9 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
   /** The validation rules for the Month. */
   private setMonthRules (): void {
     this.monthRules = [
-      (v:string) => !!v || 'Please enter the number of months',
-      (v:string) => (v > 0 && v <= 24) || 'This field must be between 1 to 24', // Keep month between 1 and 24
-      (v:string) => (v % 1 === 0) || 'Please enter a valid value' // Check if month is an integer
+      (v:string) => !!v || 'Must be between 1 to 24',
+      (v:string) => (v > 0 && v <= 24) || 'Must be between 1 to 24', // Keep month between 1 and 24
+      (v:string) => (v % 1 === 0) || 'Invalid number' // Check if month is an integer
     ]
   }
 
@@ -99,6 +108,9 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
     if (val !== 'customMonths') {
       this.expiryChanged(this.addMonthsToDate(val, this.currentDate))
     } else {
+      if (this.numberOfMonths === null) {
+        this.numberOfMonths = 1
+      }
       this.expiryChanged(this.addMonthsToDate(this.numberOfMonths, this.currentDate))
     }
   }
@@ -111,5 +123,9 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
 
 .month-text {
   color: $gray7;
+}
+
+.radio-button {
+    padding-top: 15px;
 }
 </style>

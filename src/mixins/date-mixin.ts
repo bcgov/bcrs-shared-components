@@ -203,7 +203,7 @@ export default class DateMixin extends Vue {
     const yearDiff = (12 * (expiryDate.getFullYear() - currDate.getFullYear()))
     let difference = monthDiff + yearDiff
     // For example if Jan 31st and March 1, difference is 1 not 2
-    if (expiryDate.getDate() < currDate.getDate()) {
+    if ((expiryDate.getDate() + 25) < currDate.getDate()) {
       difference--
     }
     return difference
