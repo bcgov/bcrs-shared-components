@@ -32,7 +32,7 @@
           <div class="ml-2 mt-2 month-text">month(s)</div>
       </v-row>
   </v-radio-group>
-  </template>
+</template>
 
 <script lang="ts">
 import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
@@ -115,7 +115,6 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
     }
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
