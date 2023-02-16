@@ -55,7 +55,7 @@ describe('Initialize RelationshipsPanel component', () => {
   })
 
   it('component emits events (array) when relationships are selected', async () => {
-    const wrapper: Wrapper<ApprovalType> = createDefaultComponent(['Heir or Legal Representative'])
+    const wrapper: Wrapper<RelationshipsPanel> = createDefaultComponent(['Heir or Legal Representative'])
     // Officer selected
     const input = wrapper.find('#officer-checkbox')
     input.setChecked()

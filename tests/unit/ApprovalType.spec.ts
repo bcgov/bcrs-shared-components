@@ -16,12 +16,16 @@ localVue.use(VueRouter)
 function createDefaultComponent (
   draftCourtOrderNumber: string = '',
   draftApprovedByRegistrar: boolean = false,
+  notice: string = '',
+  application: string = '',
   filingType: string = 'restoration'
 ): Wrapper<ApprovalType> {
   return mount(ApprovalType, {
     propsData: {
       draftCourtOrderNumber,
       draftApprovedByRegistrar,
+      notice,
+      application,
       filingType
     },
     vuetify,
@@ -61,10 +65,13 @@ describe('Initialize ApprovalType component', () => {
 
   it('component emits events when court order number entered', async () => {
     const wrapper: Wrapper<ApprovalType> = createDefaultComponent()
+    // Select court order radio to show the court order number text-field
+    const radio = wrapper.find('#court-order-radio')
+    radio.setChecked(true)
+    await Vue.nextTick()
     // Input text into text-field
     const input = wrapper.find('#court-order-number-input')
     input.setValue('89123456')
-    await Vue.nextTick()
 
     expect(wrapper.emitted('emitCourtNumberChange').pop()[0]).toEqual('89123456')
     expect(wrapper.emitted('emitRadioButtonChange').pop()[0]).toEqual('VIA COURT ORDER')
@@ -87,10 +94,13 @@ describe('Initialize ApprovalType component', () => {
 
   it('fails valid if the court number is too small', async () => {
     const wrapper: Wrapper<ApprovalType> = createDefaultComponent()
+    // Select court order radio to show the court order number text-field
+    const radio = wrapper.find('#court-order-radio')
+    radio.setChecked(true)
+    await Vue.nextTick()
     // Input text into text-field
     const input = wrapper.find('#court-order-number-input')
     input.setValue('1234')
-    await Vue.nextTick()
 
     expect(wrapper.emitted('emitCourtNumberChange').pop()[0]).toEqual('1234')
     expect(wrapper.emitted('emitRadioButtonChange').pop()[0]).toEqual('VIA COURT ORDER')
@@ -100,10 +110,13 @@ describe('Initialize ApprovalType component', () => {
 
   it('validates if the court number is too large', async () => {
     const wrapper: Wrapper<ApprovalType> = createDefaultComponent()
+    // Select court order radio to show the court order number text-field
+    const radio = wrapper.find('#court-order-radio')
+    radio.setChecked(true)
+    await Vue.nextTick()
     // Input text into text-field
     const input = wrapper.find('#court-order-number-input')
     input.setValue('123456789012345678901')
-    await Vue.nextTick()
 
     expect(wrapper.emitted('emitCourtNumberChange').pop()[0]).toEqual('123456789012345678901')
     expect(wrapper.emitted('emitRadioButtonChange').pop()[0]).toEqual('VIA COURT ORDER')
@@ -126,6 +139,20 @@ describe('Initialize ApprovalType component', () => {
 
     expect(wrapper.vm.$data.courtOrderNumber).toBe('')
     expect(wrapper.vm.$data.approvalTypeSelected).toBe('VIA REGISTRAR')
+    wrapper.destroy()
+  })
+
+  it('component emits events (dates) when approved by registrar selected', async () => {
+    const wrapper: Wrapper<ApprovalType> = createDefaultComponent(
+      '',
+      true,
+      '2023-02-05',
+      '2023-01-19'
+    )
+    await Vue.nextTick()
+
+    expect(wrapper.emitted('emitNoticeDate').pop()[0]).toEqual('2023-02-05')
+    expect(wrapper.emitted('emitApplicationDate').pop()[0]).toEqual('2023-01-19')
     wrapper.destroy()
   })
 })
