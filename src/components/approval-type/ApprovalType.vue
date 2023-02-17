@@ -117,10 +117,10 @@ export default class ApprovalType extends Vue {
   private applicationDateText = ''
 
   // Date Picker Rules
-  private datePickerRules = [(v: string) => !!v || 'Date is required']
+  protected readonly datePickerRules = [(v: string) => !!v || 'Date is required']
 
   // Text Field Rules
-  private courtOrderNumRules = [
+  protected readonly courtOrderNumRules = [
     (v: string) => (!v || !/^\s/g.test(v)) || 'Invalid spaces', // leading spaces
     (v: string) => (!v || !/\s$/g.test(v)) || 'Invalid spaces', // trailing spaces
     (v: string) => (!v || !(v.length < 5)) || 'Court order number is invalid',
@@ -168,8 +168,7 @@ export default class ApprovalType extends Vue {
   @Emit('radioButtonChange')
   private radioButtonChanged (event: string): void {
     if (event === this.ApprovalTypes.VIA_REGISTRAR) {
-      Vue.set(this, 'courtOrderNumberText', '')
-      Vue.set(this, 'courtOrderNumRules', [])
+      this.courtOrderNumberText = ''
     } else if (event === this.ApprovalTypes.VIA_COURT_ORDER) {
       this.noticeDateChanged('')
       this.applicationDateChanged('')
