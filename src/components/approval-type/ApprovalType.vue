@@ -1,10 +1,10 @@
 <template>
   <div id="approval-type">
     <v-row no-gutters>
-      <v-col cols="12" sm="3" class="pr-4 pt-5">
+      <v-col cols="12" sm="3" class="pr-4">
         <label id="approval-type-label">Approval Type</label>
       </v-col>
-      <v-col cols="12" sm="9">
+      <v-col cols="12" sm="9" class="mt-n4">
         <v-radio-group class="payment-group" v-model="approvalTypeSelected" @change="radioButtonChanged">
           <!-- COURT ORDER radio button -->
           <v-radio id="court-order-radio" class="mb-0"
@@ -16,10 +16,9 @@
               <v-text-field
                 v-if="approvalTypeSelected === ApprovalTypes.VIA_COURT_ORDER"
                 id="court-order-number-input"
-                v-model="courtOrderNumber"
+                v-model="courtOrderNumberText"
                 label="Court Order Number"
                 :rules="courtOrderNumRules"
-                :disabled="approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR"
                 @input="courtOrderNumberChanged"
                 @update:error="emitValidationError($event)"
                 filled
@@ -33,37 +32,36 @@
             :value="ApprovalTypes.VIA_REGISTRAR"
           />
           <v-expand-transition>
-            <v-card flat v-if="approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR">
+            <div flat v-if="approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR">
               <div class="ml-8 mt-3">
                 <span class="v-label">Enter the date the Notice of the Application for Restoration was published in
-                  <br/>
                   the BC Gazette:
                 </span>
                 <DatePicker
-                class="mt-2"
-                id="date-picker-notice"
-                ref="noticeDateRef"
-                title="Select Date"
-                :nudgeRight="150"
-                :initialValue="notice"
-                :inputRules="datePickerRules"
-                @emitDateSync="noticeDate($event)"
+                  class="mt-2"
+                  id="date-picker-notice"
+                  ref="noticeDateRef"
+                  title="Select Date"
+                  :nudgeRight="150"
+                  :initialValue="noticeDate"
+                  :inputRules="datePickerRules"
+                  @emitDateSync="noticeDateChanged($event)"
                 />
               </div>
               <div class="ml-8">
                 <span class="v-label">Enter the date the Application for Restoration was mailed to the company:</span>
                 <DatePicker
-                class="mt-2"
-                id="date-picker-application"
-                ref="applicationDateRef"
-                title="Select Date"
-                :nudgeRight="150"
-                :initialValue="application"
-                :inputRules="datePickerRules"
-                @emitDateSync="applicationDate($event)"
+                  class="mt-2"
+                  id="date-picker-application"
+                  ref="applicationDateRef"
+                  title="Select Date"
+                  :nudgeRight="150"
+                  :initialValue="applicationDate"
+                  :inputRules="datePickerRules"
+                  @emitDateSync="applicationDateChanged($event)"
                 />
               </div>
-            </v-card>
+            </div>
           </v-expand-transition>
         </v-radio-group>
       </v-col>
@@ -94,10 +92,10 @@ export default class ApprovalType extends Vue {
   }
 
   /** Draft court order number. */
-  @Prop({ default: '' }) readonly draftCourtOrderNumber!: string
+  @Prop({ default: '' }) readonly courtOrderNumber!: string
 
   /** Whether approved by the registrar. */
-  @Prop({ default: false }) readonly draftApprovedByRegistrar!: boolean
+  @Prop({ default: false }) readonly approvedByRegistrar!: boolean
 
   /** filing name used in radio options. */
   @Prop({ default: 'restoration' }) readonly filingType!: string
@@ -106,30 +104,38 @@ export default class ApprovalType extends Vue {
   @Prop({ default: false }) readonly isCourtOrderOnly!: boolean
 
   /** Draft notice date. */
-  @Prop({ default: '' }) readonly notice!: string
+  @Prop({ default: '' }) readonly noticeDate!: string
 
   /** Draft application date. */
-  @Prop({ default: '' }) readonly application!: string
+  @Prop({ default: '' }) readonly applicationDate!: string
 
   // Local properties
-  private courtOrderNumber = ''
-  private courtOrderNumRules = []
+  private courtOrderNumberText = ''
   private valid = false
   private approvalTypeSelected = ''
-  private datePickerRules = []
   private noticeDateText = ''
   private applicationDateText = ''
 
+  // Date Picker Rules
+  private datePickerRules = [(v: string) => !!v || 'Date is required']
+
+  // Text Field Rules
+  private courtOrderNumRules = [
+    (v: string) => (!v || !/^\s/g.test(v)) || 'Invalid spaces', // leading spaces
+    (v: string) => (!v || !/\s$/g.test(v)) || 'Invalid spaces', // trailing spaces
+    (v: string) => (!v || !(v.length < 5)) || 'Court order number is invalid',
+    (v: string) => (!v || !(v.length > 20)) || 'Court order number is invalid',
+    (v: string) => !!v || 'A Court Order number is required'
+  ]
+
   /** Called when component is mounted. */
   mounted (): void {
-    this.setDateRules()
-    this.setCourtNumberRules()
     // Copy props to mutable properties
-    if (this.draftApprovedByRegistrar) {
-      this.courtOrderNumber = ''
+    if (this.approvedByRegistrar) {
+      this.courtOrderNumberText = ''
       this.approvalTypeSelected = this.ApprovalTypes.VIA_REGISTRAR
-    } else if (this.draftCourtOrderNumber) {
-      this.courtOrderNumber = this.draftCourtOrderNumber
+    } else if (this.courtOrderNumber) {
+      this.courtOrderNumberText = this.courtOrderNumber
       this.approvalTypeSelected = this.ApprovalTypes.VIA_COURT_ORDER
     } else {
       // Default state (no button selected)
@@ -141,12 +147,12 @@ export default class ApprovalType extends Vue {
   public validate (): boolean {
     if (this.approvalTypeSelected === this.ApprovalTypes.VIA_COURT_ORDER) {
       let status = this.$refs.courtNumRef.validate()
-      this.$emit('emitValid', status)
+      this.$emit('valid', status)
       return status
     } else if (this.approvalTypeSelected === this.ApprovalTypes.VIA_REGISTRAR) {
       // Emit true (valid) if both dates were selected. Emit false (invalid) if at least one was empty.
       let status = (!!this.noticeDateText && !!this.applicationDateText)
-      this.$emit('emitValid', status)
+      this.$emit('valid', status)
       return status
     } else {
       // Default state. Emit false (invalid).
@@ -154,49 +160,30 @@ export default class ApprovalType extends Vue {
     }
   }
 
-  /** Validations rules for the date picker fields. */
-  private setDateRules (): void {
-    this.datePickerRules = [
-      (v: string) => !!v || 'Date is required'
-    ]
-  }
-
   private emitValidationError (event: boolean): void {
-    this.$emit('emitValid', !event)
+    this.$emit('valid', !event)
   }
 
   // Emit the approval type (radio button selected).
-  @Emit('emitRadioButtonChange')
+  @Emit('radioButtonChange')
   private radioButtonChanged (event: string): void {
     if (event === this.ApprovalTypes.VIA_REGISTRAR) {
-      Vue.set(this, 'courtOrderNumber', '')
+      Vue.set(this, 'courtOrderNumberText', '')
       Vue.set(this, 'courtOrderNumRules', [])
     } else if (event === this.ApprovalTypes.VIA_COURT_ORDER) {
-      this.setCourtNumberRules()
-      this.noticeDate('')
-      this.applicationDate('')
-      this.$emit('emitValid', false)
+      this.noticeDateChanged('')
+      this.applicationDateChanged('')
+      this.$emit('valid', false)
     } else {
       // Default State.
-      this.$emit('emitValid', false)
+      this.$emit('valid', false)
     }
   }
 
   // Emit the court number.
-  @Emit('emitCourtNumberChange')
+  @Emit('courtNumberChange')
   private courtOrderNumberChanged (event): void {
     this.validate()
-  }
-
-  private setCourtNumberRules (): void {
-    // Apply TextField rules
-    this.courtOrderNumRules = [
-      (v: string) => (!v || !/^\s/g.test(v)) || 'Invalid spaces', // leading spaces
-      (v: string) => (!v || !/\s$/g.test(v)) || 'Invalid spaces', // trailing spaces
-      (v: string) => (!v || !(v.length < 5)) || 'Court order number is invalid',
-      (v: string) => (!v || !(v.length > 20)) || 'Court order number is invalid',
-      (v: string) => !!v || 'A Court Order number is required'
-    ]
   }
 
   private getRadioText (option: string): string {
@@ -211,34 +198,34 @@ export default class ApprovalType extends Vue {
   /**
    * Emit the date the notice of the application for restoration was published in the BC Gazette.
    * Validate that a date was successfully selected.
-   * @param event is the date that was selected (if any)
+   * @param noticeDate is the date that was selected (if any)
    */
-  @Emit('emitNoticeDate')
-  private noticeDate (event: string): string {
-    this.noticeDateText = event
+  @Emit('update:noticeDate')
+  private noticeDateChanged (noticeDate: string): string {
+    this.noticeDateText = noticeDate
     this.validate()
-    return event
+    return noticeDate
   }
 
   /**
    * Emit the date the application for restoration was mailed to the company.
    * Validate that a date was successfully selected.
-   * @param event is the date that was selected (if any)
+   * @param applicationDate is the date that was selected (if any)
    */
-  @Emit('emitApplicationDate')
-  private applicationDate (event: string): string {
-    this.applicationDateText = event
+  @Emit('update:applicationDate')
+  private applicationDateChanged (applicationDate: string): string {
+    this.applicationDateText = applicationDate
     this.validate()
-    return event
+    return applicationDate
   }
 
   /* Set court order number to empty if approved by registrar option is selected. */
- @Watch('courtOrderNumber')
+ @Watch('courtOrderNumberText')
   private setCourtOrderNumber () {
     // When going from valid to invalid (boundaries), the form's validity doesn't update immediately.
-    if (this.courtOrderNumber.length === 4 || this.courtOrderNumber.length > 20) {
+    if (this.courtOrderNumberText.length === 4 || this.courtOrderNumberText.length > 20) {
       this.valid = false
-    } else if (this.courtOrderNumber.length === 5 || this.courtOrderNumber.length === 20) {
+    } else if (this.courtOrderNumberText.length === 5 || this.courtOrderNumberText.length === 20) {
       this.valid = true
     }
     if (this.approvalTypeSelected === this.ApprovalTypes.VIA_REGISTRAR || this.valid === false) {
