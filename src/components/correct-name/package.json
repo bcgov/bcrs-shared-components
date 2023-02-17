@@ -1,13 +1,13 @@
 {
-  "name": "@bcrs-shared-components/mixins",
-  "version": "1.1.2",
+  "name": "@bcrs-shared-components/correct-name",
+  "version": "0.0.0",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
+    "@bcrs-shared-components/confirm-dialog": "^1.2.1",
     "@bcrs-shared-components/enums": "^1.0.33",
     "@bcrs-shared-components/interfaces": "^1.0.54",
-    "lodash": "4.17.21",
     "vue-property-decorator": "^9.1.2"
   }
 }
