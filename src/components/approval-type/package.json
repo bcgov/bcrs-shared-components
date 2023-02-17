@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@bcrs-shared-components/interfaces": "^1.0.54",
-    "vue-property-decorator": "^9.1.2"
+    "vue-property-decorator": "^9.1.2",
+    "@bcrs-shared-components/date-picker": "^1.2.11"
   }
 }

@@ -27,10 +27,17 @@ conversionToFullRestoration.args = {
 
 export const draftViaRegistrar = Template.bind({})
 draftViaRegistrar.args = {
-  draftApprovedByRegistrar: true
+  approvedByRegistrar: true
 }
 
 export const draftViaCourtOrder = Template.bind({})
 draftViaCourtOrder.args = {
-  draftCourtOrderNumber: '99-1234567'
+  courtOrderNumber: '99-1234567'
+}
+
+export const draftViaRegistrarWithDates = Template.bind({})
+draftViaRegistrarWithDates.args = {
+  approvedByRegistrar: true,
+  noticeDate: '2023-02-02',
+  applicationDate: '2023-01-15'
 }
