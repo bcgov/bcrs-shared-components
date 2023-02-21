@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { isDate } from 'lodash'
-import { ApiDateTimeUtc, IsoDatePacific } from '@/interfaces'
+import { ApiDateTimeUtc, IsoDatePacific } from '@bcrs-shared-components/interfaces'
 
 /**
  * This is a local, minimal mixin containing only the methods needed for the shared
