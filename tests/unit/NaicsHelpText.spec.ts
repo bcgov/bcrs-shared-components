@@ -24,5 +24,5 @@ describe('NAICS Help Text component', () => {
     expect(wrapper.find('#naics-help-text').exists()).toBe(true)
   })
 
-  // *** TODO: add more tests here
+  // FUTURE: add more tests here
 })

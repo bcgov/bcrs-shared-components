@@ -24,5 +24,5 @@ describe('NAICS Result component', () => {
     expect(wrapper.find('.naics-result').exists()).toBe(true)
   })
 
-  // *** TODO: add more tests here
+  // FUTURE: add more tests here
 })

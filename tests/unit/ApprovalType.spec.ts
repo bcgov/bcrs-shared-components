@@ -75,7 +75,7 @@ describe('Initialize ApprovalType component', () => {
 
     expect(wrapper.emitted('courtNumberChange').pop()[0]).toEqual('')
     expect(wrapper.emitted('courtNumberChange').pop()[0]).toEqual('89123456')
-    expect(wrapper.emitted('radioButtonChange').pop()[0]).toEqual('VIA COURT ORDER')
+    expect(wrapper.emitted('radioButtonChange').pop()[0]).toEqual('courtOrder')
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
     wrapper.destroy()
   })
@@ -87,7 +87,7 @@ describe('Initialize ApprovalType component', () => {
     input.setChecked()
     await Vue.nextTick()
 
-    expect(wrapper.emitted('radioButtonChange').pop()[0]).toEqual('VIA COURT ORDER')
+    expect(wrapper.emitted('radioButtonChange').pop()[0]).toEqual('courtOrder')
     expect(wrapper.vm.$data.courtOrderNumRules).not.toEqual([])
     expect(wrapper.emitted('valid').pop()[0]).toEqual(false)
     wrapper.destroy()
@@ -104,7 +104,7 @@ describe('Initialize ApprovalType component', () => {
     input.setValue('1234')
 
     expect(wrapper.emitted('courtNumberChange').pop()[0]).toEqual('1234')
-    expect(wrapper.emitted('radioButtonChange').pop()[0]).toEqual('VIA COURT ORDER')
+    expect(wrapper.emitted('radioButtonChange').pop()[0]).toEqual('courtOrder')
     expect(wrapper.emitted('valid').pop()[0]).toEqual(false)
     wrapper.destroy()
   })
@@ -120,7 +120,7 @@ describe('Initialize ApprovalType component', () => {
     input.setValue('123456789012345678901')
 
     expect(wrapper.emitted('courtNumberChange').pop()[0]).toEqual('123456789012345678901')
-    expect(wrapper.emitted('radioButtonChange').pop()[0]).toEqual('VIA COURT ORDER')
+    expect(wrapper.emitted('radioButtonChange').pop()[0]).toEqual('courtOrder')
     expect(wrapper.emitted('valid').pop()[0]).toEqual(false)
     wrapper.destroy()
   })
@@ -128,7 +128,7 @@ describe('Initialize ApprovalType component', () => {
   it('loads draft data correctly when court order selected', async () => {
     const wrapper: Wrapper<ApprovalType> = createDefaultComponent('1234-567890')
     expect(wrapper.vm.$data.courtOrderNumberText).toBe('1234-567890')
-    expect(wrapper.vm.$data.approvalTypeSelected).toEqual('VIA COURT ORDER')
+    expect(wrapper.vm.$data.approvalTypeSelected).toEqual('courtOrder')
     wrapper.destroy()
   })
 
@@ -139,7 +139,7 @@ describe('Initialize ApprovalType component', () => {
     )
 
     expect(wrapper.vm.$data.courtOrderNumberText).toBe('')
-    expect(wrapper.vm.$data.approvalTypeSelected).toBe('VIA REGISTRAR')
+    expect(wrapper.vm.$data.approvalTypeSelected).toBe('registrar')
     wrapper.destroy()
   })
 
