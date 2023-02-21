@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
 import DatePicker from '@/components/date-picker/DatePicker.vue'
-import DateMixin from '@/mixins/date-mixin'
+import { DateMixin } from '@/mixins/'
 
 Vue.use(Vuetify)
 

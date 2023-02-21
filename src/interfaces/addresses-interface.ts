@@ -1,29 +1,25 @@
-/**
- * Interface to define a base address.
- * See:
- * https://github.com/bcgov/business-schemas/blob/main/src/registry_schemas/schemas/address.json
- */
+/** Interface to define a base address. */
 export interface AddressIF {
-  addressCity: string // max 40 chars
+  addressCity: string
   addressCountry: string
-  addressRegion?: string // max 2 chars
+  addressRegion: string
   addressType?: string
-  deliveryInstructions?: string // max 80 chars
-  postalCode: string // max 15 chars
-  streetAddress: string // max 50 chars
-  streetAddressAdditional?: string // max 50 chars
+  deliveryInstructions?: string
+  postalCode: string
+  streetAddress: string
+  streetAddressAdditional?: string
 }
 
 /** Empty address for initializing address objects. */
 export const EmptyAddress: AddressIF = {
   addressCity: '',
   addressCountry: '',
-  addressRegion: '', // FUTURE: change to undefined?
-  addressType: null, // FUTURE: change to undefined?
+  addressRegion: '',
+  addressType: null,
   deliveryInstructions: '',
   postalCode: '',
   streetAddress: '',
-  streetAddressAdditional: '' // FUTURE: change to undefined?
+  streetAddressAdditional: ''
 }
 
 /** Interface to define the joint base addresses. */

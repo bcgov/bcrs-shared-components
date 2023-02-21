@@ -8,7 +8,7 @@
     ]
  */
 
-import { NameRequestIF } from './name-request-interfaces'
+import { NameRequestIF } from './name-request-interface'
 
 export interface ChangeOfNameNameRequestIF {
     nameRequest: NameRequestIF

@@ -12,17 +12,17 @@ const localVue = createLocalVue()
 localVue.use(VueRouter)
 
 // Input field selectors to test changes to the DOM elements.
-const emailSelector = '#txt-email'
-const confirmEmailSelector = '#txt-confirm-email'
-const phoneSelector = '#txt-phone'
-const extensionSelector = '#txt-phone-extension'
-const formSelector = '[name="business-contact-form"]'
-const readOnlyEmailSelector = '#lbl-email'
-const readOnlyPhoneSelector = '#lbl-phone'
-const editButtonSelector = '#contact-info-edit-btn'
-const undoButtonSelector = '#contact-info-undo-btn'
-const doneButtonSelector = '#contact-info-done-btn'
-const cancelBtnSelector = '#contact-info-cancel-btn'
+const emailSelector: string = '#txt-email'
+const confirmEmailSelector: string = '#txt-confirm-email'
+const phoneSelector: string = '#txt-phone'
+const extensionSelector: string = '#txt-phone-extension'
+const formSelector: string = '[name="business-contact-form"]'
+const readOnlyEmailSelector: string = '#lbl-email'
+const readOnlyPhoneSelector: string = '#lbl-phone'
+const editButtonSelector: string = '#contact-info-edit-btn'
+const undoButtonSelector: string = '#contact-info-undo-btn'
+const doneButtonSelector: string = '#contact-info-done-btn'
+const cancelBtnSelector: string = '#contact-info-cancel-btn'
 
 const originalBusinessContactInfo: ContactPointIF = {
   email: 'abc@test.com',
@@ -49,10 +49,10 @@ const editedBusinessContactInfo: ContactPointIF = {
 function createComponent (
   originalContactInfo: ContactPointIF,
   contactInfo: ContactPointIF,
-  hasBusinessContactInfoChange = false,
-  customMsg = null as string,
-  disableActionTooltip = false,
-  editLabel = ''):
+  hasBusinessContactInfoChange: boolean = false,
+  customMsg: string = null,
+  disableActionTooltip: boolean = false,
+  editLabel: string = ''):
   Wrapper<ContactInfo> {
   return mount(ContactInfo, {
     propsData: {
