@@ -1,0 +1,232 @@
+<template>
+  <v-form id="correct-name-request-form" ref="form" v-model="formValid" lazy-validation>
+    <ConfirmDialogShared
+      ref="confirm"
+      attach="#app"
+    />
+
+    <v-row no-gutters>
+      <v-col cols="1" class="mt-3">
+        <v-chip outlined class="step-icon">1</v-chip>
+      </v-col>
+      <v-col>
+        <v-text-field
+          v-model="nrNumber"
+          id="nr-number"
+          filled
+          persistent-hint
+          class="text-input-field"
+          label="Enter the NR Number"
+          hint="Example: NR 1234567"
+          :rules="nrNumRules"
+          @keyup="nrNumber = nrNumber.toUpperCase()"
+        />
+      </v-col>
+    </v-row>
+
+    <v-row no-gutters class="mt-4 mb-n1">
+      <v-col cols="1" class="mt-3">
+        <v-chip outlined class="step-icon">2</v-chip>
+      </v-col>
+      <v-col cols="5">
+        <v-text-field
+          v-model="applicantPhone"
+          id="applicant-phone"
+          filled
+          persistent-hint
+          class="text-input-field"
+          label="Applicant's Phone Number"
+          hint="Example: 555-555-5555"
+          type="tel"
+          :rules="phoneRules"
+        />
+      </v-col>
+      <div class="ma-5">or</div>
+      <v-col>
+        <v-text-field
+          v-model="applicantEmail"
+          id="applicant-email"
+          filled
+          persistent-hint
+          class="text-input-field"
+          label="Applicant's Notification Email"
+          hint="Example: name@email.com"
+          type="email"
+          :rules="emailRules"
+        />
+      </v-col>
+    </v-row>
+  </v-form>
+</template>
+
+<script lang="ts">
+import Vue from 'vue'
+import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
+import { ConfirmDialog as ConfirmDialogShared } from '@bcrs-shared-components/confirm-dialog'
+import { CommonMixin, NameRequestMixin } from '@/mixins'
+import { ConfirmDialogType, NameRequestIF } from '@bcrs-shared-components/interfaces'
+import { NameChangeOptions } from '@bcrs-shared-components/enums'
+import { CorpTypeCd, GetCorpFullDescription } from '@bcrs-shared-components/corp-type-module'
+
+@Component({
+  components: {
+    ConfirmDialogShared
+  },
+  mixins: [
+    CommonMixin,
+    NameRequestMixin
+  ]
+})
+export default class CorrectNameRequest extends Vue {
+  // Refs
+  $refs!: {
+    confirm: ConfirmDialogType
+    form: HTMLFormElement
+  }
+
+  @Prop({ required: true }) readonly formType!: NameChangeOptions
+  @Prop({ required: true }) readonly businessId!: string
+  @Prop({ required: true }) readonly entityType!: CorpTypeCd
+  @Prop({ required: true }) readonly nameRequest!: NameRequestIF
+  @Prop({ required: true }) readonly validate!: boolean
+  @Prop({ required: true }) readonly fetchAndValidateNr!: () => Promise<NameRequestIF>
+
+  // Local properties
+  formValid = false
+  nrNumber = ''
+  applicantPhone = ''
+  applicantEmail = ''
+
+  // Validation rules
+  readonly nrNumRules = [
+    (v: string) => !!v || 'Name Request Number is required',
+    (v: string) => this.isValidNrNumber(v) || 'Name Request Number is invalid'
+  ]
+  readonly phoneRules = [
+    (v: string) => !/^\s/g.test(v) || 'Invalid spaces', // leading spaces
+    (v: string) => !/\s$/g.test(v) || 'Invalid spaces', // trailing spaces
+    (v: string) => !(v?.length > 12) || 'Phone number is invalid'
+  ]
+  readonly emailRules = [
+    (v: string) => !/^\s/g.test(v) || 'Invalid spaces', // leading spaces
+    (v: string) => !/\s$/g.test(v) || 'Invalid spaces', // trailing spaces
+    (v: string) => this.isValidEmail(v) || 'Email is invalid'
+  ]
+
+  /** Returns true if NR number is valid. */
+  private isValidNrNumber (value: string): boolean {
+    const VALID_FORMAT = new RegExp(/^(NR )\d{7}$/)
+    return VALID_FORMAT.test(value)
+  }
+
+  /** Returns true if email is valid. */
+  private isValidEmail (value: string): boolean {
+    // don't validate empty value
+    if (value?.length < 1) return true // *** TODO: shouldn't this be False?
+
+    // if we have a phone number then email is optional
+    if (!!this.applicantPhone && !!value) return true
+
+    // check email format
+    // eslint-disable-next-line max-len
+    const VALID_FORMAT = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+    return VALID_FORMAT.test(value)
+  }
+
+  /** Validates or resets validation when parent tells us. */
+  @Watch('validate')
+  private onValidate (val: boolean): void {
+    if (val) this.$refs.form.validate()
+    else this.$refs.form.resetValidation()
+  }
+
+  /** Watch for form submission and emit results. */
+  @Watch('formType')
+  private async onSubmit (): Promise<any> {
+    // process only when current form type matches
+    if (this.formType === NameChangeOptions.CORRECT_NEW_NR) {
+      try {
+        // validate and return the name request data
+        const nr = await this.fetchAndValidateNr(this.nrNumber, this.businessId, this.applicantPhone,
+          this.applicantEmail)
+
+        if (this.entityType !== nr.legalType) {
+          // invalid NR type - inform parent the process is done and show dialog
+          this.$refs.form.resetValidation()
+          this.emitSaved(false)
+
+          const nrFullDescription = GetCorpFullDescription(nr.entity_type_cd)
+          const entityFullDescription = GetCorpFullDescription(this.entityType)
+          const dialogContent = `<p class="info-text">This ${nrFullDescription} Name Request ` +
+            `does not match the current business type <b>${entityFullDescription}</b>.\n\n` +
+            `The Name Request type must match the business type before you can continue.</p>`
+          await this.showConfirmDialog(
+            this.$refs.confirm,
+            'Name Request Type Does Not Match Business Type',
+            dialogContent,
+            'OK'
+          )
+        } else {
+          // set new data
+          this.emitNameRequest(nr)
+          this.emitApprovedName(this.getNrApprovedName(nr))
+          this.emitSaved(true)
+        }
+      } catch (error) {
+        alert(error.message)
+        // inform parent that process is complete
+        this.$refs.form.resetValidation()
+        this.emitSaved(false)
+      }
+    }
+  }
+
+  /** Watch for changes and inform parent when form is valid. */
+  // *** TODO: do we really have to watch all the fields?
+  @Watch('formValid')
+  @Watch('nrNumber')
+  @Watch('applicantPhone')
+  @Watch('applicantEmail')
+  @Emit('valid')
+  private emitValid (): boolean {
+    return (
+      this.formValid &&
+      !!this.nrNumber &&
+      (!!this.applicantPhone || !!this.applicantEmail)
+    )
+  }
+
+  /** Inform parent that the process is complete. */
+  @Emit('saved')
+  private emitSaved (val: boolean): void {}
+
+  /** Inform parent of updated name request object. */
+  @Emit('update:nameRequest')
+  private emitNameRequest (nameRequest: NameRequestIF): void {}
+
+  /** Inform parent of updated approved name. */
+  @Emit('update:approvedName')
+  private emitApprovedName (name: string): void {}
+}
+</script>
+
+<style lang="scss" scoped>
+@import '@/assets/styles/theme.scss';
+
+.step-icon {
+  border-color: $gray9;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+// hide uppercase transformation delay from user
+:deep(#nr-number) {
+  text-transform: uppercase;
+}
+
+:deep(.theme--light.v-label) {
+  font-size: 1rem;
+  color: $gray7;
+  font-weight: normal;
+}
+</style>

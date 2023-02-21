@@ -2,7 +2,7 @@
   <div id="approval-type">
     <v-row no-gutters>
       <v-col cols="12" sm="3" class="pr-4">
-        <label id="approval-type-label">Approval Type</label>
+        <label :class="{ 'error-text': invalidSection }">Approval Type</label>
       </v-col>
       <v-col cols="12" sm="9" class="mt-n4">
         <v-radio-group class="payment-group" v-model="approvalTypeSelected" @change="radioButtonChanged">
@@ -72,6 +72,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
+import { ApprovalTypes } from '@bcrs-shared-components/enums'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 import { DatePicker } from '@bcrs-shared-components/date-picker'
 
@@ -84,11 +85,6 @@ export default class ApprovalType extends Vue {
   // Refs
   $refs!: Vue['$refs'] & {
     courtNumRef: FormIF
-  }
-
-  ApprovalTypes = {
-    VIA_COURT_ORDER: 'VIA COURT ORDER',
-    VIA_REGISTRAR: 'VIA REGISTRAR'
   }
 
   /** Draft court order number. */
@@ -109,12 +105,18 @@ export default class ApprovalType extends Vue {
   /** Draft application date. */
   @Prop({ default: '' }) readonly applicationDate!: string
 
+  /** Whether this section is invalid. */
+  @Prop({ default: false }) readonly invalidSection!: boolean
+
   // Local properties
   private courtOrderNumberText = ''
   private valid = false
   private approvalTypeSelected = ''
   private noticeDateText = ''
   private applicationDateText = ''
+
+  // For template
+  readonly ApprovalTypes = ApprovalTypes
 
   // Date Picker Rules
   protected readonly datePickerRules = [(v: string) => !!v || 'Date is required']
@@ -133,10 +135,10 @@ export default class ApprovalType extends Vue {
     // Copy props to mutable properties
     if (this.approvedByRegistrar) {
       this.courtOrderNumberText = ''
-      this.approvalTypeSelected = this.ApprovalTypes.VIA_REGISTRAR
+      this.approvalTypeSelected = ApprovalTypes.VIA_REGISTRAR
     } else if (this.courtOrderNumber) {
       this.courtOrderNumberText = this.courtOrderNumber
-      this.approvalTypeSelected = this.ApprovalTypes.VIA_COURT_ORDER
+      this.approvalTypeSelected = ApprovalTypes.VIA_COURT_ORDER
     } else {
       // Default state (no button selected)
       this.radioButtonChanged('')
@@ -145,11 +147,11 @@ export default class ApprovalType extends Vue {
 
   /** Triggers the form validation. */
   public validate (): boolean {
-    if (this.approvalTypeSelected === this.ApprovalTypes.VIA_COURT_ORDER) {
+    if (this.approvalTypeSelected === ApprovalTypes.VIA_COURT_ORDER) {
       let status = this.$refs.courtNumRef.validate()
       this.$emit('valid', status)
       return status
-    } else if (this.approvalTypeSelected === this.ApprovalTypes.VIA_REGISTRAR) {
+    } else if (this.approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR) {
       // Emit true (valid) if both dates were selected. Emit false (invalid) if at least one was empty.
       let status = (!!this.noticeDateText && !!this.applicationDateText)
       this.$emit('valid', status)
@@ -167,9 +169,9 @@ export default class ApprovalType extends Vue {
   // Emit the approval type (radio button selected).
   @Emit('radioButtonChange')
   private radioButtonChanged (event: string): void {
-    if (event === this.ApprovalTypes.VIA_REGISTRAR) {
+    if (event === ApprovalTypes.VIA_REGISTRAR) {
       this.courtOrderNumberText = ''
-    } else if (event === this.ApprovalTypes.VIA_COURT_ORDER) {
+    } else if (event === ApprovalTypes.VIA_COURT_ORDER) {
       this.noticeDateChanged('')
       this.applicationDateChanged('')
       this.$emit('valid', false)
@@ -186,9 +188,10 @@ export default class ApprovalType extends Vue {
   }
 
   private getRadioText (option: string): string {
-    if (option === this.ApprovalTypes.VIA_COURT_ORDER) {
+    if (option === ApprovalTypes.VIA_COURT_ORDER) {
       return `This ${this.filingType} is approved by court order.`
-    } else if (option === this.ApprovalTypes.VIA_REGISTRAR) {
+    }
+    if (option === ApprovalTypes.VIA_REGISTRAR) {
       return `This ${this.filingType} is approved by registrar.`
     }
     return '[error]'
@@ -227,7 +230,7 @@ export default class ApprovalType extends Vue {
     } else if (this.courtOrderNumberText.length === 5 || this.courtOrderNumberText.length === 20) {
       this.valid = true
     }
-    if (this.approvalTypeSelected === this.ApprovalTypes.VIA_REGISTRAR || this.valid === false) {
+    if (this.approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR || this.valid === false) {
       this.courtOrderNumberChanged('')
     }
   }
