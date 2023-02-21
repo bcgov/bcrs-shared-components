@@ -53,6 +53,7 @@ export enum CorpTypeCd {
   ULC_CO_1890 = 'UQD',
   ULC_CO_1897 = 'UQE',
   XPRO_COOP= 'XCP',
+  XPRO_CORPORATION = 'XCR',
   XPRO_LL_PARTNR = 'XL',
   XPRO_LIM_PARTNR = 'XP',
   XPRO_SOCIETY = 'XS'
@@ -176,6 +177,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     shortDesc: 'FOREIGN',
     fullDesc: 'Foreign Registration'
   }, {
+    // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
     corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
     colinInd: true,
     corpClass: CorpClass.FIRM,
@@ -314,6 +316,14 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     shortDesc: 'TRAMWAYS',
     fullDesc: 'Tramways'
   }, {
+    // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+    corpTypeCd: CorpTypeCd.BC_UNLIMITED,
+    colinInd: true,
+    corpClass: CorpClass.BC,
+    shortDesc: 'BC ULC COMPANY',
+    fullDesc: 'BC Unlimited Liability Company',
+    numberedDesc: 'Numbered Unlimited Liability Company'
+  }, {
     corpTypeCd: CorpTypeCd.BC_ULC_COMPANY,
     colinInd: true,
     corpClass: CorpClass.BC,
@@ -357,11 +367,17 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     shortDesc: 'XPRO COOP',
     fullDesc: 'Extraprovincial Cooperative Assocation'
   }, {
+    corpTypeCd: CorpTypeCd.XPRO_CORPORATION,
+    colinInd: false,
+    corpClass: CorpClass.OT,
+    shortDesc: 'XPRO CORPORATION',
+    fullDesc: 'Extraprovincial Corporation'
+  }, {
     corpTypeCd: CorpTypeCd.XPRO_LL_PARTNR,
     colinInd: true,
     corpClass: CorpClass.FIRM,
     shortDesc: 'XPRO LL PARTNR',
-    fullDesc: 'Extrapro Limited Liaility Partnership'
+    fullDesc: 'Extrapro Limited Liability Partnership'
   }, {
     corpTypeCd: CorpTypeCd.XPRO_LIM_PARTNR,
     colinInd: true,
