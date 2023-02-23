@@ -17,26 +17,28 @@ export default class GenesysWebMessage extends Vue {
   @Prop({ default: '0' }) readonly deploymentKey!: string
 
   mounted (): void {
-    this.initWebMsg(
-      window,
-      'Genesys',
-      'https://apps.cac1.pure.cloud/genesys-bootstrap/genesys.min.js',
-      {
-        environment: 'cac1',
-        deploymentId: this.deploymentKey
-      },
-      null
-    )
+    if (this.deploymentKey !== '0') {
+      this.initWebMsg(
+        window,
+        'Genesys',
+        'https://apps.cac1.pure.cloud/genesys-bootstrap/genesys.min.js',
+        {
+          environment: 'cac1',
+          deploymentId: this.deploymentKey
+        },
+        null
+      )
+    }
   }
 
   /**
-   * From Maximus.
-   * @param {Window} g the global object
-   * @param {string} e the 'Genesys' string
-   * @param {string} n the link to the Genesys third-party library
-   * @param {string} es the object with the environment and deployment IDs
-   * @param {HTMLScriptElement} ys the script to be created
-   */
+     * From Maximus.
+     * @param {Window} g the global object
+     * @param {string} e the 'Genesys' string
+     * @param {string} n the link to the Genesys third-party library
+     * @param {string} es the object with the environment and deployment IDs
+     * @param {HTMLScriptElement} ys the script to be created
+     */
   private initWebMsg (g, e, n, es, ys): void {
     g['_genesysJs'] = e
     g[e] = g[e] || function () {
