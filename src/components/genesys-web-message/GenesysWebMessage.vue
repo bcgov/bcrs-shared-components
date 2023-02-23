@@ -30,13 +30,13 @@ export default class GenesysWebMessage extends Vue {
   }
 
   /**
-     * From Maximus.
-     * @param {Window} g the global object
-     * @param {string} e the 'Genesys' string
-     * @param {string} n the link to the Genesys third-party library
-     * @param {string} es the object with the environment and deployment IDs
-     * @param {HTMLScriptElement} ys the script to be created
-     */
+   * From Maximus.
+   * @param {Window} g the global object
+   * @param {string} e the 'Genesys' string
+   * @param {string} n the link to the Genesys third-party library
+   * @param {string} es the object with the environment and deployment IDs
+   * @param {HTMLScriptElement} ys the script to be created
+   */
   private initWebMsg (g, e, n, es, ys): void {
     g['_genesysJs'] = e
     g[e] = g[e] || function () {
