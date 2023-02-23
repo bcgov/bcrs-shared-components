@@ -6,7 +6,8 @@
     "src/enums",
     "src/interfaces",
     "src/mixins",
-    "src/modules/*"
+    "src/modules/*",
+    "src/types/*"
   ],
   "command": {
     "publish": {

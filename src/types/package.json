@@ -1,0 +1,10 @@
+{
+  "name": "@bcrs-shared-components/types",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "vue": "^2.7.10"
+  }
+}
