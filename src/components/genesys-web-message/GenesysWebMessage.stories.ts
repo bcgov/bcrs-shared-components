@@ -14,10 +14,14 @@ const Template = (args, { argTypes }) => ({
 
 export const nameRequest = Template.bind({})
 nameRequest.args = {
+  genesysURL: 'https://apps.cac1.pure.cloud/genesys-bootstrap/genesys.min.js',
+  environmentKey: 'cac1',
   deploymentKey: '5c012aaa-1f17-4d0b-8da2-bea9c1133d5d'
 }
 
 export const SPGP = Template.bind({})
 SPGP.args = {
+  genesysURL: 'https://apps.cac1.pure.cloud/genesys-bootstrap/genesys.min.js',
+  environmentKey: 'cac1',
   deploymentKey: '42ed05f4-d545-436b-ba2c-94b66ed3396f'
 }

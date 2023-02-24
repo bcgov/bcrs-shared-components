@@ -8,12 +8,17 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 
 /**
- * This component creates the button to generate a chat with Service BC Helpdesk.
- * This component cannot be unit tested because it heavily relies on a third-party library.
+ * @property {string} genesysURL - the URL to the genesys library
+ * @property {string} environmentKey - the environment key (ID)
  * @property {string} deploymentKey - the deployment key (ID)
+ * Go To README.md for more details.
  */
 @Component({})
 export default class GenesysWebMessage extends Vue {
+  @Prop({ default: '' }) readonly genesysURL!: string
+
+  @Prop({ default: '0' }) readonly environmentKey!: string
+
   @Prop({ default: '0' }) readonly deploymentKey!: string
 
   mounted (): void {
@@ -21,9 +26,9 @@ export default class GenesysWebMessage extends Vue {
       this.initWebMsg(
         window,
         'Genesys',
-        'https://apps.cac1.pure.cloud/genesys-bootstrap/genesys.min.js',
+        this.genesysURL,
         {
-          environment: 'cac1',
+          environment: this.environmentKey,
           deploymentId: this.deploymentKey
         },
         null
@@ -32,12 +37,13 @@ export default class GenesysWebMessage extends Vue {
   }
 
   /**
-   * From Maximus.
+   * From MAXIMUS Canada.
+   * The New Web-Messaging Solution in Genesys.
    * @param {Window} g the global object
    * @param {string} e the 'Genesys' string
    * @param {string} n the link to the Genesys third-party library
    * @param {string} es the object with the environment and deployment IDs
-   * @param {HTMLScriptElement} ys the script to be created
+   * @param {HTMLScriptElement} ys the element to be created
    */
   private initWebMsg (g, e, n, es, ys): void {
     g['_genesysJs'] = e
