@@ -15,14 +15,14 @@ import { Component, Prop } from 'vue-property-decorator'
  */
 @Component({})
 export default class GenesysWebMessage extends Vue {
-  @Prop({ default: '' }) readonly genesysURL!: string
+  @Prop({ default: null }) readonly genesysURL!: string
 
-  @Prop({ default: '0' }) readonly environmentKey!: string
+  @Prop({ default: null }) readonly environmentKey!: string
 
   @Prop({ default: '0' }) readonly deploymentKey!: string
 
   mounted (): void {
-    if (this.deploymentKey !== '0') {
+    if (this.genesysURL && this.environmentKey && this.deploymentKey !== '0') {
       this.initWebMsg(
         window,
         'Genesys',

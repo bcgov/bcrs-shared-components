@@ -15,9 +15,10 @@ How To Use
 - Insert the component into the preferred UI with the correct properties. For example:
 ```
 <GenesysWebMessage
-    genesysURL="https://apps.cac1.pure.cloud/genesys-bootstrap/genesys.min.js"
-    environmentKey="cac1"
-    deploymentKey="5c012aaa-1f17-4d0b-8da2-bea9c1133d5d"
+    v-if="isNameRequest"
+    genesysURL="https://example.cloud/example.min.js"
+    environmentKey="xyz1"
+    deploymentKey="aaaa-bbbb-cccc-dddd-eeee"
 />
 ```
 - A button will appear on the bottom-right of the page.
