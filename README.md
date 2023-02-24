@@ -106,21 +106,19 @@ Note: For this step, you need to be logged in to NPM (along with permissions on 
 
 ## How to Create a New Package You Depend on (eg, new "mixins" folder)
 
-If you want, you can create a new shared package for supporting code (eg, "interfaces"). Or,
+If you want, you can create a new shared package for supporting code (eg, "mixins"). Or,
 you can just create a local copy of the files that you need (eg, with only the content that
 you need) that your shared component will use when running in Storybook. When your component
 is running in your actual app, it would use the app's copy of those files.
 
-Eg, the following will use the bcrs-shared-components files in Storybook, or your app's files
-when deployed:
-```
-import { DateMixin } from '@/mixins'
-```
-
-The only downside to this approach is that the bcrs-shared-components' files need to provide the
-same functionality as the app's files -- duplicate code. Also, the bcrs-shared-component's files
-will be unversioned. However, in some cases, these are acceptable compromises in order to
-maintain clean code.
+To create a new package:
+1. create the new package folder (eg, "./src/mixins")
+2. add the code files
+3. add a package.json file with version = "0.0.0" (see others as examples)
+4. add the package name to the "packages" array in lerna.json
+5. commit the changes
+6. run `lerna version --include-merged-tags` to version your package to "1.0.0"
+7. run `lerna publish from-package` to publish your package to npm
 
 # References
 

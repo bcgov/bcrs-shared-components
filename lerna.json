@@ -7,7 +7,7 @@
     "src/interfaces",
     "src/mixins",
     "src/modules/*",
-    "src/types/*"
+    "src/types"
   ],
   "command": {
     "publish": {
