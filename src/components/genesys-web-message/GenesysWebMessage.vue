@@ -19,10 +19,10 @@ export default class GenesysWebMessage extends Vue {
 
   @Prop({ default: null }) readonly environmentKey!: string
 
-  @Prop({ default: '0' }) readonly deploymentKey!: string
+  @Prop({ default: null }) readonly deploymentKey!: string
 
   mounted (): void {
-    if (this.genesysURL && this.environmentKey && this.deploymentKey !== '0') {
+    if (this.genesysURL && this.environmentKey && this.deploymentKey) {
       this.initWebMsg(
         window,
         'Genesys',

@@ -6,9 +6,9 @@
 
 Props
 -
-- The genesys URL which is the URL provided by Maximus to their Third-Party Library.
-- The Environment Key which is provided by Maximus.
-- The Deployment Key which is also provided by Maximus depending on which UI the component is going to be on.
+- The genesys URL which is the URL provided by MAXIMUS Canada to their Third-Party Library.
+- The Environment Key which is provided by MAXIMUS Canada.
+- The Deployment Key which is also provided by MAXIMUS Canada depending on which UI the component is going to be on.
 
 How To Use
 -
