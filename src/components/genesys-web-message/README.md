@@ -15,7 +15,7 @@ How To Use
 - Insert the component into the preferred UI with the correct properties. For example:
 ```
 <GenesysWebMessage
-    v-if="isNameRequest"
+    v-if="showWebMessage"
     genesysURL="https://example.cloud/example.min.js"
     environmentKey="xyz1"
     deploymentKey="aaaa-bbbb-cccc-dddd-eeee"
