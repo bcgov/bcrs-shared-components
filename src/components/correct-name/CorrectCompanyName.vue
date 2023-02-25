@@ -17,8 +17,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
-import { EmptyNameRequest, NameRequestIF } from '@bcrs-shared-components/interfaces'
-import { NameChangeOptions } from '@bcrs-shared-components/enums'
+import { CorrectNameOptions } from '@bcrs-shared-components/enums'
+import { VuetifyRuleFunction } from '@bcrs-shared-components/types'
 
 @Component({})
 export default class CorrectCompanyName extends Vue {
@@ -27,38 +27,34 @@ export default class CorrectCompanyName extends Vue {
     form: HTMLFormElement
   }
 
-  @Prop({ required: true }) readonly formType!: NameChangeOptions
-  @Prop({ required: true }) readonly nameRequest!: NameRequestIF
   @Prop({ required: true }) readonly companyName!: string
+  @Prop({ required: true }) readonly formType!: CorrectNameOptions
   @Prop({ required: true }) readonly validate!: boolean
 
   // Local properties
-  formValid = false
-  textfield = ''
+  formValid = false // initially invalid
+  textfield = this.companyName
 
   // Rules
-  readonly companyNameRules = [
-    (v: string) => !!v || ' A company name is required'
-  ]
+  get companyNameRules (): Array<VuetifyRuleFunction> {
+    return [
+      (v: string) => !!v || ' A company name is required',
+      (v: string) => (v !== this.companyName) || ' Enter a new company name'
+    ]
+  }
 
   /** Watch for form submission and emit results. */
   @Watch('formType')
   private onSubmit (): void {
     // process only when current form type matches
-    if (this.formType === NameChangeOptions.CORRECT_NAME) {
-      // clear out any existing NR data and set new data
-      this.emitNameRequest(EmptyNameRequest)
-      this.emitApprovedName(this.textfield)
+    if (this.formType === CorrectNameOptions.CORRECT_NAME) {
+      // emit new data
+      this.emitCompanyName(this.textfield)
       this.emitSaved(true)
     }
   }
 
-  @Watch('companyName', { immediate: true, deep: true })
-  private onCompanyName (val: string): void {
-    this.textfield = val
-  }
-
-  /** Validates or resets validation when parent tells us. */
+  /** Validate or reset validation when parent tells us. */
   @Watch('validate')
   private onValidate (val: boolean): void {
     if (val) this.$refs.form.validate()
@@ -76,12 +72,8 @@ export default class CorrectCompanyName extends Vue {
   @Emit('saved')
   private emitSaved (val: boolean): void {}
 
-  /** Inform parent of updated name request object. */
-  @Emit('update:nameRequest')
-  private emitNameRequest (nameRequest: NameRequestIF): void {}
-
-  /** Inform parent of updated approved name. */
-  @Emit('update:approvedName')
-  private emitApprovedName (name: string): void {}
+  /** Inform parent of updated company name. */
+  @Emit('update:companyName')
+  private emitCompanyName (name: string): void {}
 }
 </script>

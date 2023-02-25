@@ -17,8 +17,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
-import { EmptyNameRequest, NameRequestIF } from '@bcrs-shared-components/interfaces'
-import { NameChangeOptions } from '@bcrs-shared-components/enums'
+import { CorpTypeCd, CorrectNameOptions } from '@bcrs-shared-components/enums'
 
 @Component({})
 export default class CorrectNameToNumber extends Vue {
@@ -27,34 +26,40 @@ export default class CorrectNameToNumber extends Vue {
     form: HTMLFormElement
   }
 
-  @Prop({ required: true }) readonly formType!: NameChangeOptions
   @Prop({ required: true }) readonly businessId!: string
-  @Prop({ required: true }) readonly nameRequest!: NameRequestIF
+  @Prop({ required: true }) readonly entityType!: CorpTypeCd
+  @Prop({ required: true }) readonly formType!: CorrectNameOptions
   @Prop({ required: true }) readonly validate!: boolean
 
-  // Local properties
-  formValid = false
   checkbox = false
+  formValid = false // initially invalid
 
   /** The business' numbered name. */
   get numberedName (): string {
-    const businessId = this.businessId?.substring(2) || 'Unknown'
-    return `${businessId} B.C. LTD.`
+    const id = this.businessId?.substring(2) || 'Unknown'
+
+    switch (this.entityType) {
+      case CorpTypeCd.BC_ULC_COMPANY:
+        return `${id} B.C. UNLIMITED LIABILITY COMPANY`
+      case CorpTypeCd.BC_CCC:
+        return `${id} B.C. COMMUNITY CONTRIBUTION COMPANY LTD.`
+      default:
+        return `${id} B.C. LTD.`
+    }
   }
 
   /** Watch for form submission and emit results. */
   @Watch('formType')
-  private async onSubmit (): Promise<any> {
+  private onSubmit (): void {
     // process only when current form type matches
-    if (this.formType === NameChangeOptions.CORRECT_NAME_TO_NUMBER) {
-      // clear out any existing NR data and set new data
-      this.emitNameRequest(EmptyNameRequest)
-      this.emitApprovedName(this.numberedName)
+    if (this.formType === CorrectNameOptions.CORRECT_NAME_TO_NUMBER) {
+      // emit new data
+      this.emitCompanyName(this.numberedName)
       this.emitSaved(true)
     }
   }
 
-  /** Validates or resets validation when parent tells us. */
+  /** Validate or reset validation when parent tells us. */
   @Watch('validate')
   private onValidate (val: boolean): void {
     if (val) this.$refs.form.validate()
@@ -72,13 +77,9 @@ export default class CorrectNameToNumber extends Vue {
   @Emit('saved')
   private emitSaved (val: boolean): void {}
 
-  /** Inform parent of updated name request object. */
-  @Emit('update:nameRequest')
-  private emitNameRequest (nameRequest: NameRequestIF): void {}
-
-  /** Inform parent of updated approved name. */
-  @Emit('update:approvedName')
-  private emitApprovedName (name: string): void {}
+  /** Inform parent of updated company name. */
+  @Emit('update:companyName')
+  private emitCompanyName (name: string): void {}
 }
 </script>
 

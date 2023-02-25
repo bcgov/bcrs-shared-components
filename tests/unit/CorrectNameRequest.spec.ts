@@ -182,7 +182,6 @@ xdescribe('CorrectNameRequest', () => {
     //         requestTypeCd: 'BC',
     //         legalType: 'BC',
     //         request_action_cd: 'CNV',
-    //         entity_type_cd: 'CR',
     //         applicants: {
     //           phoneNumber: '250 516 8257',
     //           emailAddress: 'mock@example.com'
@@ -313,7 +312,6 @@ xdescribe('CorrectNameRequest', () => {
     //         nrNum: 'NR 1234567',
     //         requestTypeCd: 'BC',
     //         request_action_cd: 'CNV',
-    //         entity_type_cd: 'BC',
     //         applicants: {
     //           phoneNumber: '250 516 8257',
     //           emailAddress: 'mock@example.com'
@@ -361,7 +359,6 @@ xdescribe('CorrectNameRequest', () => {
     //         requestTypeCd: 'GP',
     //         legalType: 'GP',
     //         request_action_cd: 'CHG',
-    //         entity_type_cd: 'GP',
     //         applicants: {
     //           phoneNumber: '250 516 8257',
     //           emailAddress: 'mock@example.com'
@@ -407,7 +404,6 @@ xdescribe('CorrectNameRequest', () => {
     //         nrNum: 'NR 1234567',
     //         requestTypeCd: 'SP',
     //         request_action_cd: 'CHG',
-    //         entity_type_cd: 'SP',
     //         applicants: {
     //           phoneNumber: '250 516 8257',
     //           emailAddress: 'mock@example.com'

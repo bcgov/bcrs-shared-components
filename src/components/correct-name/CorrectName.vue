@@ -23,19 +23,19 @@
         <v-expansion-panel-content class="name-options-content pt-4">
           <div v-if="item.description" class="info-text mb-4" color="primary">{{item.description}}</div>
           <component
+            :businessId="businessId"
+            :companyName="companyName"
+            :entityType="entityType"
+            :fetchAndValidateNr="fetchAndValidateNr"
+            :formType="formType"
             :is="item.component"
             :key="item.id"
-            :formType="formType"
-            :businessId="businessId"
-            :entityType="entityType"
             :nameRequest="nameRequest"
-            :companyName="companyName"
-            :fetchAndValidateNr="fetchAndValidateNr"
             :validate="validate"
             @saved="emitSaved($event)"
-            @valid="isSubComponentValid = $event"
             @update:nameRequest="emitNameRequest($event)"
-            @update:approvedName="emitApprovedName($event)"
+            @update:companyName="emitCompanyName($event)"
+            @valid="isSubComponentValid = $event"
           />
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -66,14 +66,14 @@
 import Vue from 'vue'
 import { Component, Emit, Prop } from 'vue-property-decorator'
 import { NameRequestIF } from '@bcrs-shared-components/interfaces'
-import { NameChangeOptions } from '@bcrs-shared-components/enums'
+import { CorrectNameOptions } from '@bcrs-shared-components/enums'
 import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
-import CorrectCompanyName from './CorrectCompanyName.vue'
-import CorrectNameToNumber from './CorrectNameToNumber.vue'
-import CorrectNameRequest from './CorrectNameRequest.vue'
+import CorrectCompanyName from '@bcrs-shared-components/correct-name/CorrectCompanyName.vue'
+import CorrectNameToNumber from '@bcrs-shared-components/correct-name/CorrectNameToNumber.vue'
+import CorrectNameRequest from '@bcrs-shared-components/correct-name/CorrectNameRequest.vue'
 
 interface CorrectNameOptionIF {
-  id: NameChangeOptions,
+  id: CorrectNameOptions,
   title: string,
   description?: string,
   component: any
@@ -93,39 +93,39 @@ interface CorrectNameOptionIF {
     CorrectNameRequest
   }
 })
-export default class CorrectNameOptions extends Vue {
+export default class CorrectName extends Vue {
   @Prop({ default: null }) readonly actionTxt!: string
-  @Prop({ default: () => [] }) readonly correctionNameChoices!: Array<NameChangeOptions>
   @Prop({ required: true }) readonly businessId!: string
-  @Prop({ required: true }) readonly entityType!: CorpTypeCd
-  @Prop({ required: true }) readonly nameRequest!: NameRequestIF
   @Prop({ required: true }) readonly companyName!: string
+  @Prop({ default: () => [] }) readonly correctionNameChoices!: Array<CorrectNameOptions>
+  @Prop({ required: true }) readonly entityType!: CorpTypeCd
   @Prop({ required: true }) readonly fetchAndValidateNr!: () => Promise<NameRequestIF>
+  @Prop({ required: true }) readonly formType!: CorrectNameOptions
+  @Prop({ required: true }) readonly nameRequest!: NameRequestIF
 
   // local properties
   protected displayedOptions: Array<CorrectNameOptionIF> = []
   protected panel: number = null
-  protected formType: NameChangeOptions = null
-  protected currentFormType: NameChangeOptions = null
+  protected currentFormType: CorrectNameOptions = null
   protected isLoading = false
   protected isSubComponentValid = false
   protected validate = false // don't validate initially
 
   readonly correctionNameOptions: Array<CorrectNameOptionIF> = [
     {
-      id: NameChangeOptions.CORRECT_NAME,
+      id: CorrectNameOptions.CORRECT_NAME,
       title: 'Edit the company name',
       description: 'Correct typographical errors in the existing company name.',
       component: CorrectCompanyName
     },
     {
-      id: NameChangeOptions.CORRECT_NAME_TO_NUMBER,
+      id: CorrectNameOptions.CORRECT_NAME_TO_NUMBER,
       title: 'Use the incorporation number as the name',
       description: null,
       component: CorrectNameToNumber
     },
     {
-      id: NameChangeOptions.CORRECT_NEW_NR,
+      id: CorrectNameOptions.CORRECT_NEW_NR,
       title: 'Use a new name request number',
       description: 'Enter the new Name Request Number (e.g., NR 1234567) and either the applicant phone number ' +
         'OR the applicant email that was used when the name was requested.',
@@ -155,7 +155,7 @@ export default class CorrectNameOptions extends Vue {
   protected submitNameCorrection (): void {
     if (this.isSubComponentValid) {
       this.isLoading = true
-      this.formType = this.currentFormType
+      this.emitFormType(this.currentFormType)
       this.validate = false
     } else {
       // tell sub-component to validate
@@ -164,18 +164,9 @@ export default class CorrectNameOptions extends Vue {
   }
 
   /** When a panel is expanded, identifies the selected form. */
-  protected identifyForm (type: NameChangeOptions) {
+  protected identifyForm (type: CorrectNameOptions) {
     this.currentFormType = type
     this.isSubComponentValid = false
-  }
-
-  /** Inform parent that name correction process is done. */
-  @Emit('saved')
-  protected emitSaved (saved: boolean): boolean {
-    this.isLoading = false
-    this.formType = null
-    if (saved) this.panel = null
-    return saved
   }
 
   /** When Cancel button is clicked, informs parent that name correction is cancelled. */
@@ -186,13 +177,26 @@ export default class CorrectNameOptions extends Vue {
     this.panel = null
   }
 
+  /** Inform parent that name correction process is done. */
+  @Emit('saved')
+  protected emitSaved (saved: boolean): boolean {
+    this.isLoading = false
+    this.emitFormType(null)
+    if (saved) this.panel = null
+    return saved
+  }
+
+  /** Inform parent of updated company name. */
+  @Emit('update:companyName')
+  private emitCompanyName (name: string): void {}
+
+  /** Inform parent of updated form type. */
+  @Emit('update:formType')
+  private emitFormType (formType: CorrectNameOptions): void {}
+
   /** Inform parent of updated name request object. */
   @Emit('update:nameRequest')
   private emitNameRequest (nameRequest: NameRequestIF): void {}
-
-  /** Inform parent of updated approved name. */
-  @Emit('update:approvedName')
-  private emitApprovedName (name: string): void {}
 }
 </script>
 

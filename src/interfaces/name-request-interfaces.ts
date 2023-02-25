@@ -1,4 +1,4 @@
-import { CorpTypeCd, NameRequestStates, NrEntityTypeCodes, NrRequestActionCodes, NrRequestTypeCodes }
+import { CorpTypeCd, NameRequestStates, NrRequestActionCodes, NrRequestTypeCodes }
   from '@bcrs-shared-components/enums'
 import { AddressIF } from './addresses-interface'
 import { ApiDateTimeUtc } from './date-interfaces'
@@ -39,7 +39,6 @@ export interface NameRequestIF {
   applicants: NrApplicantIF // object not array
   consentFlag: string // R, N, Y or null
   corpNum?: string // eg, "BC1234567"
-  entity_type_cd: NrEntityTypeCodes // eslint-disable-line camelcase
   expirationDate: ApiDateTimeUtc
   furnished: string // eg, "Y"
   legalType: CorpTypeCd
@@ -55,7 +54,6 @@ export interface NameRequestIF {
 export const EmptyNameRequest: NameRequestIF = {
   applicants: {} as NrApplicantIF,
   consentFlag: null,
-  entity_type_cd: null,
   expirationDate: null,
   furnished: null,
   legalType: null,

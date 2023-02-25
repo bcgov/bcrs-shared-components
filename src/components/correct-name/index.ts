@@ -1,1 +1,1 @@
-export { default as CorrectName } from './CorrectNameOptions.vue'
+export { default as CorrectName } from './CorrectName.vue'
