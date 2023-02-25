@@ -19,6 +19,7 @@ export enum CorpTypeCd {
   BC_CORPORATION = 'CR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   CONT_IN_SOCIETY = 'CS',
   ULC_CONTINUE_IN = 'CUL',
+  DOING_BUSINESS_AS = 'DBA', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   EXTRA_PRO_REG = 'EPR',
   FINANCIAL = 'FI',
   FOREIGN = 'FOR',
@@ -139,14 +140,14 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     fullDesc: 'BC Cooperative Association',
     numberedDesc: 'Numbered Cooperative Association'
   }, {
-    // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
-    corpTypeCd: CorpTypeCd.BC_CORPORATION,
-    colinInd: true,
-    corpClass: CorpClass.BC,
-    shortDesc: 'BC COMPANY',
-    fullDesc: 'BC Company', // BC Company - Incorporation/Amalgamation
-    numberedDesc: 'Numbered Company'
-  }, {
+  //   // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+  //   corpTypeCd: CorpTypeCd.BC_CORPORATION,
+  //   colinInd: true,
+  //   corpClass: CorpClass.BC,
+  //   shortDesc: 'BC COMPANY',
+  //   fullDesc: 'BC Company', // BC Company - Incorporation/Amalgamation
+  //   numberedDesc: 'Numbered Company'
+  // }, {
     corpTypeCd: CorpTypeCd.CONT_IN_SOCIETY,
     colinInd: true,
     corpClass: CorpClass.SOC,
@@ -159,6 +160,13 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     shortDesc: 'ULC CONTINUE IN',
     fullDesc: 'BC Unlimited Liability Company'
   }, {
+  //   // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+  //   corpTypeCd: CorpTypeCd.DOING_BUSINESS_AS,
+  //   colinInd: true,
+  //   corpClass: CorpClass.FIRM,
+  //   shortDesc: 'SOLE PROP',
+  //   fullDesc: 'Sole Proprietorship'
+  // }, {
     corpTypeCd: CorpTypeCd.EXTRA_PRO_REG,
     colinInd: true,
     corpClass: CorpClass.XPRO,
@@ -177,13 +185,13 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     shortDesc: 'FOREIGN',
     fullDesc: 'Foreign Registration'
   }, {
-    // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
-    corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
-    colinInd: true,
-    corpClass: CorpClass.FIRM,
-    shortDesc: 'SOLE PROP',
-    fullDesc: 'Sole Proprietorship'
-  }, {
+  //   // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+  //   corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
+  //   colinInd: true,
+  //   corpClass: CorpClass.FIRM,
+  //   shortDesc: 'SOLE PROP',
+  //   fullDesc: 'Sole Proprietorship'
+  // }, {
     corpTypeCd: CorpTypeCd.PARTNERSHIP,
     colinInd: true,
     corpClass: CorpClass.FIRM,
@@ -316,14 +324,14 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     shortDesc: 'TRAMWAYS',
     fullDesc: 'Tramways'
   }, {
-    // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
-    corpTypeCd: CorpTypeCd.BC_UNLIMITED,
-    colinInd: true,
-    corpClass: CorpClass.BC,
-    shortDesc: 'BC ULC COMPANY',
-    fullDesc: 'BC Unlimited Liability Company',
-    numberedDesc: 'Numbered Unlimited Liability Company'
-  }, {
+  //   // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+  //   corpTypeCd: CorpTypeCd.BC_UNLIMITED,
+  //   colinInd: true,
+  //   corpClass: CorpClass.BC,
+  //   shortDesc: 'BC ULC COMPANY',
+  //   fullDesc: 'BC Unlimited Liability Company',
+  //   numberedDesc: 'Numbered Unlimited Liability Company'
+  // }, {
     corpTypeCd: CorpTypeCd.BC_ULC_COMPANY,
     colinInd: true,
     corpClass: CorpClass.BC,

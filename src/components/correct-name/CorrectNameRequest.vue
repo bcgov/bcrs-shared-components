@@ -63,17 +63,16 @@
 import Vue from 'vue'
 import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
 import { ConfirmDialog as ConfirmDialogShared } from '@bcrs-shared-components/confirm-dialog'
-import { CommonMixin, NameRequestMixin } from '@/mixins'
+import { NameRequestMixin } from '@bcrs-shared-components/mixins'
 import { ConfirmDialogType, NameRequestIF } from '@bcrs-shared-components/interfaces'
-import { NameChangeOptions } from '@bcrs-shared-components/enums'
-import { CorpTypeCd, GetCorpFullDescription } from '@bcrs-shared-components/corp-type-module'
+import { CorpTypeCd, CorrectNameOptions } from '@bcrs-shared-components/enums'
+import { GetCorpFullDescription } from '@bcrs-shared-components/corp-type-module'
 
 @Component({
   components: {
     ConfirmDialogShared
   },
   mixins: [
-    CommonMixin,
     NameRequestMixin
   ]
 })
@@ -84,18 +83,18 @@ export default class CorrectNameRequest extends Vue {
     form: HTMLFormElement
   }
 
-  @Prop({ required: true }) readonly formType!: NameChangeOptions
   @Prop({ required: true }) readonly businessId!: string
   @Prop({ required: true }) readonly entityType!: CorpTypeCd
+  @Prop({ required: true }) readonly fetchAndValidateNr!: (...args) => Promise<NameRequestIF>
+  @Prop({ required: true }) readonly formType!: CorrectNameOptions
   @Prop({ required: true }) readonly nameRequest!: NameRequestIF
   @Prop({ required: true }) readonly validate!: boolean
-  @Prop({ required: true }) readonly fetchAndValidateNr!: () => Promise<NameRequestIF>
 
   // Local properties
-  formValid = false
-  nrNumber = ''
-  applicantPhone = ''
   applicantEmail = ''
+  applicantPhone = ''
+  formValid = false // initially invalid
+  nrNumber = ''
 
   // Validation rules
   readonly nrNumRules = [
@@ -133,18 +132,11 @@ export default class CorrectNameRequest extends Vue {
     return VALID_FORMAT.test(value)
   }
 
-  /** Validates or resets validation when parent tells us. */
-  @Watch('validate')
-  private onValidate (val: boolean): void {
-    if (val) this.$refs.form.validate()
-    else this.$refs.form.resetValidation()
-  }
-
   /** Watch for form submission and emit results. */
   @Watch('formType')
   private async onSubmit (): Promise<any> {
     // process only when current form type matches
-    if (this.formType === NameChangeOptions.CORRECT_NEW_NR) {
+    if (this.formType === CorrectNameOptions.CORRECT_NEW_NR) {
       try {
         // validate and return the name request data
         const nr = await this.fetchAndValidateNr(this.nrNumber, this.businessId, this.applicantPhone,
@@ -155,7 +147,7 @@ export default class CorrectNameRequest extends Vue {
           this.$refs.form.resetValidation()
           this.emitSaved(false)
 
-          const nrFullDescription = GetCorpFullDescription(nr.entity_type_cd)
+          const nrFullDescription = GetCorpFullDescription(nr.legalType)
           const entityFullDescription = GetCorpFullDescription(this.entityType)
           const dialogContent = `<p class="info-text">This ${nrFullDescription} Name Request ` +
             `does not match the current business type <b>${entityFullDescription}</b>.\n\n` +
@@ -167,9 +159,9 @@ export default class CorrectNameRequest extends Vue {
             'OK'
           )
         } else {
-          // set new data
+          // emit new data
           this.emitNameRequest(nr)
-          this.emitApprovedName(this.getNrApprovedName(nr))
+          this.emitCompanyName(this.getNrApprovedName(nr))
           this.emitSaved(true)
         }
       } catch (error) {
@@ -181,12 +173,15 @@ export default class CorrectNameRequest extends Vue {
     }
   }
 
+  /** Validate or reset validation when parent tells us. */
+  @Watch('validate')
+  private onValidate (val: boolean): void {
+    if (val) this.$refs.form.validate()
+    else this.$refs.form.resetValidation()
+  }
+
   /** Watch for changes and inform parent when form is valid. */
-  // *** TODO: do we really have to watch all the fields?
   @Watch('formValid')
-  @Watch('nrNumber')
-  @Watch('applicantPhone')
-  @Watch('applicantEmail')
   @Emit('valid')
   private emitValid (): boolean {
     return (
@@ -200,13 +195,34 @@ export default class CorrectNameRequest extends Vue {
   @Emit('saved')
   private emitSaved (val: boolean): void {}
 
+  /** Inform parent of updated company name. */
+  @Emit('update:companyName')
+  private emitCompanyName (name: string): void {}
+
   /** Inform parent of updated name request object. */
   @Emit('update:nameRequest')
   private emitNameRequest (nameRequest: NameRequestIF): void {}
 
-  /** Inform parent of updated approved name. */
-  @Emit('update:approvedName')
-  private emitApprovedName (name: string): void {}
+  /**
+   * Helper to show the confirm dialogs.
+   * @param ref The dialog reference
+   * @param title The title content in dialog header
+   * @param message The content body
+   * @param yes The YES action label
+   * @param no The NO cancel label
+   * */
+  private async showConfirmDialog (
+    ref: ConfirmDialogType, title: string, message: string, yes: string, no: string = null
+  ):
+    Promise<boolean> {
+    return ref.open(title, message, {
+      width: '45rem',
+      persistent: true,
+      yes,
+      no,
+      cancel: null
+    }).catch(() => false)
+  }
 }
 </script>
 
