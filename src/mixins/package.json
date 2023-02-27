@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/mixins",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/enums": "^1.0.35",
-    "@bcrs-shared-components/interfaces": "^1.0.57",
+    "@bcrs-shared-components/enums": "^1.0.36",
+    "@bcrs-shared-components/interfaces": "^1.0.58",
     "country-list": "^2.2.0",
     "lodash": "4.17.21",
     "vue": "^2.7.10",
