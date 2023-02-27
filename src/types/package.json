@@ -5,6 +5,5 @@
     "access": "public"
   },
   "dependencies": {
-    "vue": "^2.7.10"
   }
 }

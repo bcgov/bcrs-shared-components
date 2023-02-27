@@ -9,6 +9,7 @@
     "@bcrs-shared-components/interfaces": "^1.0.57",
     "country-list": "^2.2.0",
     "lodash": "4.17.21",
+    "vue": "^2.7.10",
     "vue-property-decorator": "^9.1.2"
   }
 }
