@@ -36,7 +36,7 @@ export default class GenesysWebMessage extends Vue {
     }
   }
 
-  destroyed (): void {
+  beforeDestroy (): void {
     localStorage.removeItem('_actmu')
   }
 
