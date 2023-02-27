@@ -36,6 +36,7 @@ export default class GenesysWebMessage extends Vue {
     }
   }
 
+  // Clearing chat history (local variable) when the component is destroyed.
   beforeDestroy (): void {
     localStorage.removeItem('_actmu')
   }
