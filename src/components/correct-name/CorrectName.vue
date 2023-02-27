@@ -156,6 +156,7 @@ export default class CorrectName extends Vue {
     if (this.isSubComponentValid) {
       this.isLoading = true
       this.emitFormType(this.currentFormType)
+      // disable validation for next time
       this.validate = false
     } else {
       // tell sub-component to validate

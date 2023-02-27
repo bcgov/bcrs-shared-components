@@ -112,6 +112,18 @@ export default class CorrectNameRequest extends Vue {
     (v: string) => this.isValidEmail(v) || 'Email is invalid'
   ]
 
+  /** Whether this component is valid. */
+  get componentValid (): boolean {
+    // 1. rules are valid
+    // 2. we have a NR number
+    // 3. we have either a phone number or an email
+    return (
+      this.formValid &&
+      !!this.nrNumber &&
+      (!!this.applicantPhone || !!this.applicantEmail)
+    )
+  }
+
   /** Returns true if NR number is valid. */
   private isValidNrNumber (value: string): boolean {
     const VALID_FORMAT = new RegExp(/^(NR )\d{7}$/)
@@ -121,7 +133,7 @@ export default class CorrectNameRequest extends Vue {
   /** Returns true if email is valid. */
   private isValidEmail (value: string): boolean {
     // don't validate empty value
-    if (value?.length < 1) return true // *** TODO: shouldn't this be False?
+    if (value?.length < 1) return true
 
     // if we have a phone number then email is optional
     if (!!this.applicantPhone && !!value) return true
@@ -180,15 +192,11 @@ export default class CorrectNameRequest extends Vue {
     else this.$refs.form.resetValidation()
   }
 
-  /** Watch for changes and inform parent when form is valid. */
-  @Watch('formValid')
+  /** Watch for changes and inform parent when component is valid. */
+  @Watch('componentValid')
   @Emit('valid')
   private emitValid (): boolean {
-    return (
-      this.formValid &&
-      !!this.nrNumber &&
-      (!!this.applicantPhone || !!this.applicantEmail)
-    )
+    return this.componentValid
   }
 
   /** Inform parent that the process is complete. */

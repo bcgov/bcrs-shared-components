@@ -61,7 +61,7 @@ export default class CorrectCompanyName extends Vue {
     else this.$refs.form.resetValidation()
   }
 
-  /** Watch for changes and inform parent when form is valid. */
+  /** Watch for changes and inform parent when form/component is valid. */
   @Watch('formValid')
   @Emit('valid')
   private emitValid (): boolean {
