@@ -5,7 +5,7 @@
         <label :class="{ 'error-text': invalidSection }">Approval Type</label>
       </v-col>
       <v-col cols="12" sm="9" class="mt-n4">
-        <v-radio-group class="payment-group" v-model="approvalTypeSelected" @change="radioButtonChanged">
+        <v-radio-group class="payment-group pt-0" v-model="approvalTypeSelected" @change="radioButtonChanged">
           <!-- COURT ORDER radio button -->
           <v-radio id="court-order-radio" class="mb-0"
             :label="getRadioText(ApprovalTypes.VIA_COURT_ORDER)"
