@@ -131,7 +131,7 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
 .month-text {
-    color: $gray7;
+  color: $gray7;
 }
 
 ::v-deep .number-months-field{
