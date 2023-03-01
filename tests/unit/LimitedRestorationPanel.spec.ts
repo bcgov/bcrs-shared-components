@@ -15,12 +15,14 @@ localVue.use(VueRouter)
  */
 function createDefaultComponent (
   currentDate: string = '2023-02-03',
-  expiryDate: string = null
+  expiryDate: string = null,
+  maxNumberOfMonths: number = 24
 ): Wrapper<LimitedRestorationPanel> {
   return mount(LimitedRestorationPanel, {
     propsData: {
       currentDate,
-      expiryDate
+      expiryDate,
+      maxNumberOfMonths
     },
     vuetify,
     localVue
@@ -66,12 +68,78 @@ describe('Initialize RelationshipsPanel component', () => {
 
   it('Component emits correct expiry date when we select custom Month(s)', async () => {
     const wrapper: Wrapper<LimitedRestorationPanel> = createDefaultComponent()
+    const limitedRestoration = wrapper.vm as any // wrapper.vm type is Vue
+
     // Selected Month(s):
     const customMonths = wrapper.find('#custom-months')
-    customMonths.setChecked()
-    await Vue.nextTick()
+    await customMonths.setChecked()
 
-    expect(wrapper.emitted('expiry').pop()[0]).toEqual('2023-03-03')
+    // Input text into text-field
+    const input = wrapper.find('#months-text-field')
+    await input.setValue('5')
+
+    expect(limitedRestoration.onMonthsChanged())
+    expect(wrapper.emitted('expiry').pop()[0]).toEqual('2023-07-03')
+    wrapper.destroy()
+  })
+
+  it('Component emits correct validation when we select 2 years', async () => {
+    const wrapper: Wrapper<LimitedRestorationPanel> = createDefaultComponent()
+    const limitedRestoration = wrapper.vm as any // wrapper.vm type is Vue
+
+    expect(limitedRestoration.validate())
+    expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
+    wrapper.destroy()
+  })
+
+  it('Component emits correct validation when we select 5 months', async () => {
+    const wrapper: Wrapper<LimitedRestorationPanel> = createDefaultComponent()
+    const limitedRestoration = wrapper.vm as any // wrapper.vm type is Vue
+
+    // Selected Month(s):
+    const customMonths = wrapper.find('#custom-months')
+    await customMonths.setChecked()
+
+    // Input text into text-field
+    const input = wrapper.find('#months-text-field')
+    await input.setValue('5')
+
+    expect(limitedRestoration.validate())
+    expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
+    wrapper.destroy()
+  })
+
+  it('Component emits correct validation when we select 25 months with a max of 24', async () => {
+    const wrapper: Wrapper<LimitedRestorationPanel> = createDefaultComponent()
+    const limitedRestoration = wrapper.vm as any // wrapper.vm type is Vue
+
+    // Selected Month(s):
+    const customMonths = wrapper.find('#custom-months')
+    await customMonths.setChecked()
+
+    // Input text into text-field
+    const input = wrapper.find('#months-text-field')
+    await input.setValue('25')
+
+    expect(limitedRestoration.validate())
+    expect(wrapper.emitted('valid').pop()[0]).toEqual(false)
+    wrapper.destroy()
+  })
+
+  it('Component emits correct validation when we select 25 months with a max of 36', async () => {
+    const wrapper: Wrapper<LimitedRestorationPanel> = createDefaultComponent('2023-02-03', null, 36)
+    const limitedRestoration = wrapper.vm as any // wrapper.vm type is Vue
+
+    // Selected Month(s):
+    const customMonths = wrapper.find('#custom-months')
+    await customMonths.setChecked()
+
+    // Input text into text-field
+    const input = wrapper.find('#months-text-field')
+    await input.setValue('25')
+
+    expect(limitedRestoration.validate())
+    expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
     wrapper.destroy()
   })
 })
