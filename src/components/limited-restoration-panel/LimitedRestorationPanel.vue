@@ -8,18 +8,16 @@
       <v-radio id="custom-months" name="selectMonths" value="customMonths" />
       <v-form ref="monthsRef">
         <v-text-field
-        id="months-text-field"
-        class="number-months-field"
-        style="width:3.5rem;"
-        type="number"
-        dense
-        hide-spin-buttons
-        :rules="monthRules"
-        v-model="numberOfMonths"
-        :disabled="!customMonths"
-        @change="onMonthsChanged"
-        filled
-        />
+          id="months-text-field"
+          class="number-months-field"
+          type="number"
+          dense
+          hide-spin-buttons
+          :rules="monthRules"
+          v-model="numberOfMonths"
+          :disabled="!customMonths"
+          @change="onMonthsChanged"
+          filled />
       </v-form>
       <div class="ml-2 mt-2 month-text">month(s)</div>
     </v-row>
@@ -76,12 +74,6 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
     ]
   }
 
-  /** Triggers the form validation. */
-  public validate (): void {
-    let status = this.$refs.monthsRef.validate()
-    this.monthsValid(status)
-  }
-
   // Emit the expiry date.
   @Emit('expiry')
   private expiryChanged (event: string): string {
@@ -99,7 +91,9 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
    * Prevent the user from selecting values above 24, lower than 1, and decimals.
    */
   onMonthsChanged (): void {
-    this.validate()
+    // Trigger form validation.
+    let status = this.$refs.monthsRef.validate()
+    this.monthsValid(status)
     this.expiryChanged(this.addMonthsToDate(Number(this.numberOfMonths), this.currentDate))
   }
 
@@ -132,7 +126,12 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
   color: $gray7;
 }
 
-::v-deep .number-months-field{
+/**
+ * Decreasing the month(s) text field's width.
+ * Disabling the reactivity of the month(s) text field width with the error text.
+ */
+::v-deep .number-months-field {
+  width: 3.5rem;
   .error--text {
     margin-left: -0.5rem;
     position: absolute;
