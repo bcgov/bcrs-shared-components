@@ -14,8 +14,6 @@
         type="number"
         dense
         hide-spin-buttons
-        min=1
-        max=24
         :rules="monthRules"
         v-model="numberOfMonths"
         :disabled="!customMonths"
