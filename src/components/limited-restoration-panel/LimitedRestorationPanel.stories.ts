@@ -27,11 +27,13 @@ eighteenMonths.args = {
 export const fourMonths = Template.bind({})
 fourMonths.args = {
   currentDate: '2023-02-03',
-  expiryDate: '2023-06-03'
+  expiryDate: '2023-06-03',
+  maxNumberOfMonths: 36
 }
 
 export const fifteenMonths = Template.bind({})
 fifteenMonths.args = {
   currentDate: '2023-02-03',
-  expiryDate: '2024-05-03'
+  expiryDate: '2024-05-03',
+  maxNumberOfMonths: 36
 }
