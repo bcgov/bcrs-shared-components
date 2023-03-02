@@ -5,7 +5,7 @@
     <v-radio class="radio-button pt-2" id="twelve-radio" name="selectMonths" label="12 months" :value=12 />
     <v-radio class="radio-button pt-2" id="six-radio" name="selectMonths" label="6 months" :value=6 />
     <v-row class="ml-0 mt-0 radio-button pt-2">
-      <v-radio id="custom-months" name="selectMonths" value="customMonths" />
+      <v-radio class="mt-n4" id="custom-months" name="selectMonths" value="customMonths" />
       <v-form ref="monthsRef">
         <v-text-field
           id="months-text-field"
@@ -126,16 +126,23 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
   color: $gray7;
 }
 
-/**
- * Decreasing the month(s) text field's width.
- * Disabling the reactivity of the month(s) text field width with the error text.
- */
-::v-deep .number-months-field {
-  width: 3.5rem;
-  .error--text {
-    margin-left: -0.5rem;
-    position: absolute;
-    width: 10rem;
+:deep() {
+  /** Change border style to solid before the selection of the radio button. */
+  .theme--light.v-text-field.v-input--is-disabled .v-input__slot:before {
+    border-image: none;
+  }
+
+  /**
+  * Decreasing the month(s) text field's width.
+  * Disabling the reactivity of the month(s) text field width with the error text.
+  */
+  .number-months-field {
+    width: 3.5rem;
+    .error--text {
+      margin-left: -0.5rem;
+      position: absolute;
+      width: 10rem;
+    }
   }
 }
 </style>
