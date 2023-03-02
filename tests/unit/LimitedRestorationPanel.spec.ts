@@ -87,7 +87,7 @@ describe('Initialize RelationshipsPanel component', () => {
     const wrapper: Wrapper<LimitedRestorationPanel> = createDefaultComponent()
     const limitedRestoration = wrapper.vm as any // wrapper.vm type is Vue
 
-    expect(limitedRestoration.validate())
+    expect(limitedRestoration.onMonthsChanged())
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
     wrapper.destroy()
   })
@@ -104,7 +104,7 @@ describe('Initialize RelationshipsPanel component', () => {
     const input = wrapper.find('#months-text-field')
     await input.setValue('5')
 
-    expect(limitedRestoration.validate())
+    expect(limitedRestoration.onMonthsChanged())
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
     wrapper.destroy()
   })
@@ -121,7 +121,7 @@ describe('Initialize RelationshipsPanel component', () => {
     const input = wrapper.find('#months-text-field')
     await input.setValue('25')
 
-    expect(limitedRestoration.validate())
+    expect(limitedRestoration.onMonthsChanged())
     expect(wrapper.emitted('valid').pop()[0]).toEqual(false)
     wrapper.destroy()
   })
@@ -138,7 +138,7 @@ describe('Initialize RelationshipsPanel component', () => {
     const input = wrapper.find('#months-text-field')
     await input.setValue('25')
 
-    expect(limitedRestoration.validate())
+    expect(limitedRestoration.onMonthsChanged())
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
     wrapper.destroy()
   })
