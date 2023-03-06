@@ -60,6 +60,10 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
       this.selectMonths = 'customMonths'
       this.numberOfMonths = draftMonths
       this.setCustomMonths(this.numberOfMonths)
+      // Emit validation on load
+      if (this.numberOfMonths > this.maxNumberOfMonths || this.numberOfMonths < 1) {
+        this.monthsValid(false)
+      }
     } else {
       this.selectMonths = draftMonths
     }
