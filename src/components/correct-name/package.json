@@ -1,15 +1,15 @@
 {
   "name": "@bcrs-shared-components/correct-name",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@bcrs-shared-components/confirm-dialog": "^1.2.2",
     "@bcrs-shared-components/corp-type-module": "^1.0.11",
-    "@bcrs-shared-components/enums": "^1.0.36",
-    "@bcrs-shared-components/interfaces": "^1.0.58",
-    "@bcrs-shared-components/mixins": "^1.1.7",
+    "@bcrs-shared-components/enums": "^1.0.37",
+    "@bcrs-shared-components/interfaces": "^1.0.59",
+    "@bcrs-shared-components/mixins": "^1.1.8",
     "vue-property-decorator": "^9.1.2"
   }
 }

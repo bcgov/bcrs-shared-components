@@ -1,14 +1,14 @@
 {
   "name": "@bcrs-shared-components/share-structure",
-  "version": "2.1.15",
+  "version": "2.1.16",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/action-chip": "^1.1.15",
+    "@bcrs-shared-components/action-chip": "^1.1.16",
     "@bcrs-shared-components/confirm-dialog": "^1.2.2",
-    "@bcrs-shared-components/enums": "^1.0.36",
-    "@bcrs-shared-components/interfaces": "^1.0.58",
+    "@bcrs-shared-components/enums": "^1.0.37",
+    "@bcrs-shared-components/interfaces": "^1.0.59",
     "array.prototype.move": "0.0.4",
     "lodash": "4.17.21",
     "uuid": "^9.0.0",
