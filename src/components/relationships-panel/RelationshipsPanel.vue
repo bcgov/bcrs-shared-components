@@ -1,6 +1,6 @@
 <template>
   <v-card flat id="relationships-panel">
-    <div class="relationships-vcard">
+    <div class="relationship-content" :style="{ backgroundColor: bgHex }">
       <v-row no-gutters class="align-center mt-5">
 
         <v-col cols="4">
@@ -43,6 +43,7 @@ import { RelationshipTypes } from '@bcrs-shared-components/enums'
 export default class RelationshipsPanel extends Vue {
   /** Draft restoration relationships */
   @Prop({ default: () => [] }) readonly draftRelationships!: RelationshipTypes[]
+  @Prop({default: '#fff'}) readonly bgHex!: string
 
   // Local properties
   private selectedRelationships: RelationshipTypes[] = []
@@ -101,7 +102,7 @@ export default class RelationshipsPanel extends Vue {
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
 
-.relationships-vcard {
+.relationships-content {
   font-size: 1rem;
   display: flex;
   flex-flow: row nowrap;
