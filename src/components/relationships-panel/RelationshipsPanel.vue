@@ -1,6 +1,6 @@
 <template>
   <v-card flat id="relationships-panel">
-    <v-card flat rounded="sm" class="relationships-vcard">
+    <div class="relationships-vcard">
       <v-row no-gutters class="align-center mt-5">
 
         <v-col cols="4">
@@ -30,7 +30,7 @@
             :rules="relationshipRules" />
         </v-col>
       </v-row>
-    </v-card>
+    </div>
   </v-card>
 </template>
 <script lang="ts">
