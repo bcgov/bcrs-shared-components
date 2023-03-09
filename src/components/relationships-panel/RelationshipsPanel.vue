@@ -1,6 +1,6 @@
 <template>
-  <v-card flat id="relationships-panel" class="pb-4 pl-4">
-    <v-card flat rounded="sm" class="relationships-vcard px-4 mt-3 mr-9 ml-4">
+  <v-card flat id="relationships-panel">
+    <v-card flat rounded="sm" class="relationships-vcard">
       <v-row no-gutters class="align-center mt-5">
 
         <v-col cols="4">
@@ -103,7 +103,6 @@ export default class RelationshipsPanel extends Vue {
 
 .relationships-vcard {
   font-size: 1rem;
-  background-color: rgba(0, 0, 0, 0.06);
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
