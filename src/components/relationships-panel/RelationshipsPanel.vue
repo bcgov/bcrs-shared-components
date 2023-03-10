@@ -43,7 +43,7 @@ import { RelationshipTypes } from '@bcrs-shared-components/enums'
 export default class RelationshipsPanel extends Vue {
   /** Draft restoration relationships */
   @Prop({ default: () => [] }) readonly draftRelationships!: RelationshipTypes[]
-  @Prop({default: '#fff'}) readonly bgHex!: string
+  @Prop({ default: '#fff' }) readonly bgHex!: string
 
   // Local properties
   private selectedRelationships: RelationshipTypes[] = []
