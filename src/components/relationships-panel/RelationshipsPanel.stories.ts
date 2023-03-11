@@ -15,7 +15,8 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default.args = {
-  bgHex: `#fff`
+  bgHex: `#fff`,
+  showValidationErrors: false
 }
 
 export const twoRelationshipsSelected = Template.bind({})
@@ -23,12 +24,12 @@ twoRelationshipsSelected.args = {
   draftRelationships: [RelationshipTypes.HEIR_LEGAL_REP, RelationshipTypes.SHAREHOLDER]
 }
 
-export const blackBackground = Template.bind({})
-blackBackground.args = {
-  bgHex: '#000'
-}
-
 export const greenBackground = Template.bind({})
 greenBackground.args = {
   bgHex: '#00FF00'
+}
+
+export const showValidationErrors = Template.bind({})
+showValidationErrors.args = {
+  showValidationErrors: true
 }
