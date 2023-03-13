@@ -2,32 +2,45 @@
   <v-card flat id="relationships-panel">
     <div class="relationship-content" :style="{ backgroundColor: bgHex }">
       <v-row no-gutters class="align-center mt-5">
-
         <v-col cols="4">
-          <v-checkbox id="heir-legal-rep-checkbox" class="mt-0" v-model="selectedRelationships"
-            :value="RelationshipTypes.HEIR_LEGAL_REP" :label="RelationshipTypes.HEIR_LEGAL_REP"
-            :rules="relationshipRules" />
+          <v-checkbox id="heir-legal-rep-checkbox" class="mt-0"
+            v-model="selectedRelationships"
+            :value="RelationshipTypes.HEIR_LEGAL_REP"
+            :label="RelationshipTypes.HEIR_LEGAL_REP"
+            :error="displayErrorState"
+          />
         </v-col>
-
         <v-col cols="4">
-          <v-checkbox id="officer-checkbox" class="mt-0" v-model="selectedRelationships"
-            :value="RelationshipTypes.OFFICER" :label="RelationshipTypes.OFFICER" :rules="relationshipRules" />
+          <v-checkbox id="officer-checkbox" class="mt-0"
+            v-model="selectedRelationships"
+            :value="RelationshipTypes.OFFICER"
+            :label="RelationshipTypes.OFFICER"
+            :error="displayErrorState"
+          />
         </v-col>
-
         <v-col cols="4">
-          <v-checkbox id="director-checkbox" class="mt-0" v-model="selectedRelationships"
-            :value="RelationshipTypes.DIRECTOR" :label="RelationshipTypes.DIRECTOR" :rules="relationshipRules" />
+          <v-checkbox id="director-checkbox" class="mt-0"
+            v-model="selectedRelationships"
+            :value="RelationshipTypes.DIRECTOR"
+            :label="RelationshipTypes.DIRECTOR"
+            :error="displayErrorState"
+          />
         </v-col>
-
         <v-col cols="4">
-          <v-checkbox id="shareholder-checkbox" class="mt-0" v-model="selectedRelationships"
-            :value="RelationshipTypes.SHAREHOLDER" :label="RelationshipTypes.SHAREHOLDER" :rules="relationshipRules" />
+          <v-checkbox id="shareholder-checkbox" class="mt-0"
+            v-model="selectedRelationships"
+            :value="RelationshipTypes.SHAREHOLDER"
+            :label="RelationshipTypes.SHAREHOLDER"
+            :error="displayErrorState"
+          />
         </v-col>
-
         <v-col cols="4">
-          <v-checkbox id="court-ordered-party-checkbox" class="mt-0" v-model="selectedRelationships"
-            :value="RelationshipTypes.COURT_ORDERED_PARTY" :label="RelationshipTypes.COURT_ORDERED_PARTY"
-            :rules="relationshipRules" />
+          <v-checkbox id="court-ordered-party-checkbox" class="mt-0"
+            v-model="selectedRelationships"
+            :value="RelationshipTypes.COURT_ORDERED_PARTY"
+            :label="RelationshipTypes.COURT_ORDERED_PARTY"
+            :error="displayErrorState"
+          />
         </v-col>
       </v-row>
     </div>
@@ -44,11 +57,11 @@ export default class RelationshipsPanel extends Vue {
   /** Draft restoration relationships */
   @Prop({ default: () => [] }) readonly draftRelationships!: RelationshipTypes[]
   @Prop({ default: '#fff' }) readonly bgHex!: string
+  @Prop({ default: false }) readonly showValidationErrors!: boolean
 
   // Local properties
   private selectedRelationships: RelationshipTypes[] = []
-  private relationshipRules: (() => void)[] = []
-
+  private displayErrorState = false
   readonly RelationshipTypes = RelationshipTypes
 
   /**
@@ -58,16 +71,12 @@ export default class RelationshipsPanel extends Vue {
   mounted (): void {
     if (this.draftRelationships.length > 0) {
       this.selectedRelationships.push(...this.draftRelationships)
-    } else {
-      this.selectedRelationships.push() // This is done to validate component immediately (no need to touch)
     }
   }
 
   /** The validation rules for the Relationships. */
-  private setRelationshipRules (): void {
-    this.relationshipRules = [
-      () => this.selectedRelationships.length > 0 || ''
-    ]
+  private setDisplayErrorState (): void {
+    this.displayErrorState = (this.showValidationErrors && this.selectedRelationships.length === 0)
   }
 
   // Emit the selected relationships array.
@@ -86,13 +95,14 @@ export default class RelationshipsPanel extends Vue {
    * Emit events whenever the relationships array is changed (validation and the selected relationships array).
    */
   @Watch('selectedRelationships')
-  private setRelationships (val) {
-    this.setRelationshipRules()
+  @Watch('showValidationErrors')
+  private setRelationships (event) {
+    this.setDisplayErrorState()
     this.relationshipsChanged()
-    if (this.selectedRelationships.length > 0) {
-      this.relationshipsValid(true)
-    } else {
+    if (this.selectedRelationships.length === 0) {
       this.relationshipsValid(false)
+    } else {
+      this.relationshipsValid(true)
     }
   }
 }
