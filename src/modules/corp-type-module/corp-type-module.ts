@@ -407,7 +407,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
  * @returns the corp info object (or undefined if not found)
  */
 export function GetCorpInfoObject (cd: CorpTypeCd): CorpInfoIF {
-  return CorpInfoArray.find(obj => (cd === obj.corpTypeCd))
+  return CorpInfoArray.find(obj => (cd === obj.corpTypeCd)) || null
 }
 
 /**
