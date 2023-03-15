@@ -18,7 +18,8 @@ function createDefaultComponent (
   approvedByRegistrar: boolean = false,
   noticeDate: string = '',
   applicationDate: string = '',
-  filingType: string = 'restoration'
+  filingType: string = 'restoration',
+  isExtension: boolean = false
 ): Wrapper<ApprovalType> {
   return mount(ApprovalType, {
     propsData: {
@@ -26,7 +27,8 @@ function createDefaultComponent (
       approvedByRegistrar,
       noticeDate,
       applicationDate,
-      filingType
+      filingType,
+      isExtension
     },
     vuetify,
     localVue
@@ -154,6 +156,13 @@ describe('Initialize ApprovalType component', () => {
 
     expect(wrapper.emitted('update:noticeDate').pop()[0]).toEqual('2023-02-05')
     expect(wrapper.emitted('update:applicationDate').pop()[0]).toEqual('2023-01-19')
+    wrapper.destroy()
+  })
+
+  it('loads draft data correctly when court order selected when draft is extension', async () => {
+    const wrapper: Wrapper<ApprovalType> = createDefaultComponent('1234-567890', false, '', '', 'restoration', true)
+    expect(wrapper.vm.$data.courtOrderNumberText).toBe('1234-567890')
+    expect(wrapper.vm.$data.approvalTypeSelected).toEqual('courtOrder')
     wrapper.destroy()
   })
 })

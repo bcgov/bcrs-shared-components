@@ -6,11 +6,16 @@
       </v-col>
       <v-col cols="12" sm="9" class="mt-n4">
         <v-radio-group class="payment-group pt-0" v-model="approvalTypeSelected" @change="radioButtonChanged">
-          <!-- COURT ORDER radio button -->
-          <v-radio id="court-order-radio" class="mb-0"
-            :label="getRadioText(ApprovalTypes.VIA_COURT_ORDER)"
-            :value="ApprovalTypes.VIA_COURT_ORDER"
-          />
+          <!-- COURT ORDER section -->
+          <template v-if="isExtension">
+            <span class="v-label ml-8">{{ getRadioText(ApprovalTypes.VIA_COURT_ORDER) }}</span>
+          </template>
+          <template v-else>
+            <v-radio id="court-order-radio" class="mb-0"
+              :label="getRadioText(ApprovalTypes.VIA_COURT_ORDER)"
+              :value="ApprovalTypes.VIA_COURT_ORDER"
+            />
+          </template>
           <v-form ref="courtNumRef" id="court-num-form" v-model="valid" class="mt-4 ml-8">
             <v-expand-transition class="pb-0 mb-0">
               <v-text-field
@@ -25,7 +30,7 @@
               />
             </v-expand-transition>
           </v-form>
-          <!-- REGISTRAR radio button -->
+          <!-- REGISTRAR section -->
           <v-radio v-if="!isCourtOrderOnly"
             id="registrar-radio" class="mb-0 pt-2"
             :label="getRadioText(ApprovalTypes.VIA_REGISTRAR)"
@@ -108,6 +113,9 @@ export default class ApprovalType extends Vue {
   /** Whether this section is invalid. */
   @Prop({ default: false }) readonly invalidSection!: boolean
 
+  /** Whether the filing is limited restoration extension. */
+  @Prop({ default: false }) readonly isExtension!: boolean
+
   // Local properties
   private courtOrderNumberText = ''
   private valid = false
@@ -142,6 +150,9 @@ export default class ApprovalType extends Vue {
     } else {
       // Default state (no button selected)
       this.radioButtonChanged('')
+    }
+    if (this.isExtension) {
+      this.approvalTypeSelected = ApprovalTypes.VIA_COURT_ORDER
     }
   }
 
@@ -188,8 +199,10 @@ export default class ApprovalType extends Vue {
   }
 
   private getRadioText (option: string): string {
-    if (option === ApprovalTypes.VIA_COURT_ORDER) {
+    if (option === ApprovalTypes.VIA_COURT_ORDER && !this.isExtension) {
       return `This ${this.filingType} is approved by court order.`
+    } else if (option === ApprovalTypes.VIA_COURT_ORDER && this.isExtension) {
+      return 'Enter a Court Order number, as the restoration of this company was ordered by the court'
     }
     if (option === ApprovalTypes.VIA_REGISTRAR) {
       return `This ${this.filingType} is approved by registrar.`
