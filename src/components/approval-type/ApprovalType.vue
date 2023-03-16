@@ -7,7 +7,7 @@
       <v-col cols="12" sm="9" class="mt-n4">
         <v-radio-group class="payment-group pt-0" v-model="approvalTypeSelected" @change="radioButtonChanged">
           <!-- COURT ORDER section -->
-          <template v-if="isExtension">
+          <template v-if="!isCourtOrderRadio">
             <span class="v-label ml-8">{{ getRadioText(ApprovalTypes.VIA_COURT_ORDER) }}</span>
           </template>
           <template v-else>
@@ -113,8 +113,8 @@ export default class ApprovalType extends Vue {
   /** Whether this section is invalid. */
   @Prop({ default: false }) readonly invalidSection!: boolean
 
-  /** Whether the filing is limited restoration extension. */
-  @Prop({ default: false }) readonly isExtension!: boolean
+  /** Whether the display of court order section is a radio button. */
+  @Prop({ default: true }) readonly isCourtOrderRadio!: boolean
 
   // Local properties
   private courtOrderNumberText = ''
@@ -151,8 +151,11 @@ export default class ApprovalType extends Vue {
       // Default state (no button selected)
       this.radioButtonChanged('')
     }
-    if (this.isExtension) {
+    if (!this.isCourtOrderRadio) {
       this.approvalTypeSelected = ApprovalTypes.VIA_COURT_ORDER
+      if (this.courtOrderNumberText === '') {
+        this.$emit('valid', false)
+      }
     }
   }
 
@@ -199,9 +202,9 @@ export default class ApprovalType extends Vue {
   }
 
   private getRadioText (option: string): string {
-    if (option === ApprovalTypes.VIA_COURT_ORDER && !this.isExtension) {
+    if (option === ApprovalTypes.VIA_COURT_ORDER && this.isCourtOrderRadio) {
       return `This ${this.filingType} is approved by court order.`
-    } else if (option === ApprovalTypes.VIA_COURT_ORDER && this.isExtension) {
+    } else if (option === ApprovalTypes.VIA_COURT_ORDER && !this.isCourtOrderRadio) {
       return 'Enter a Court Order number, as the restoration of this company was ordered by the court'
     }
     if (option === ApprovalTypes.VIA_REGISTRAR) {
