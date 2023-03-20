@@ -8,7 +8,7 @@
         <v-radio-group class="payment-group pt-0" v-model="approvalTypeSelected" @change="radioButtonChanged">
           <!-- COURT ORDER section -->
           <template v-if="!isCourtOrderRadio">
-            <span class="v-label ml-8">{{ getRadioText(ApprovalTypes.VIA_COURT_ORDER) }}</span>
+            <span class="v-label ml-8 mb-4">{{ getRadioText(ApprovalTypes.VIA_COURT_ORDER) }}</span>
           </template>
           <template v-else>
             <v-radio id="court-order-radio" class="mb-0"
