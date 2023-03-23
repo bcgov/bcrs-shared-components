@@ -46,5 +46,6 @@ export const draftExtensionWithCourtOrder = Template.bind({})
 draftExtensionWithCourtOrder.args = {
   courtOrderNumber: '99-1234567',
   isExtension: true,
-  isCourtOrderOnly: true
+  isCourtOrderOnly: true,
+  isCourtOrderRadio: false
 }
