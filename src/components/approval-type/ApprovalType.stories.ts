@@ -41,3 +41,11 @@ draftViaRegistrarWithDates.args = {
   noticeDate: '2023-02-02',
   applicationDate: '2023-01-15'
 }
+
+export const draftExtensionWithCourtOrder = Template.bind({})
+draftExtensionWithCourtOrder.args = {
+  courtOrderNumber: '99-1234567',
+  isExtension: true,
+  isCourtOrderOnly: true,
+  isCourtOrderRadio: false
+}
