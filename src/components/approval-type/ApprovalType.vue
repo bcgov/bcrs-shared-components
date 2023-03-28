@@ -32,7 +32,7 @@
           </v-form>
           <!-- REGISTRAR section -->
           <v-radio v-if="!isCourtOrderOnly"
-            id="registrar-radio" class="mb-0 pt-2"
+            id="registrar-radio" class="mb-n5 pt-2"
             :label="getRadioText(ApprovalTypes.VIA_REGISTRAR)"
             :value="ApprovalTypes.VIA_REGISTRAR"
           />
