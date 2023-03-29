@@ -118,6 +118,9 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
       this.monthsValid(true)
       this.expiryChanged(this.addMonthsToDate(val, this.currentDate))
     } else {
+      if (!this.numberOfMonths) {
+        this.numberOfMonths = ''
+      }
       this.expiryChanged(this.addMonthsToDate(this.numberOfMonths, this.currentDate))
     }
   }
