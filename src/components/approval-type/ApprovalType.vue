@@ -8,7 +8,7 @@
         <v-radio-group class="payment-group pt-0" v-model="approvalTypeSelected" @change="radioButtonChanged">
           <!-- COURT ORDER section -->
           <template v-if="!isCourtOrderRadio">
-            <span class="v-label ml-8">{{ getRadioText(ApprovalTypes.VIA_COURT_ORDER) }}</span>
+            <span class="v-label ml-2">{{ getRadioText(ApprovalTypes.VIA_COURT_ORDER) }}</span>
           </template>
           <template v-else>
             <v-radio id="court-order-radio" class="mb-0"
@@ -16,7 +16,7 @@
               :value="ApprovalTypes.VIA_COURT_ORDER"
             />
           </template>
-          <v-form ref="courtNumRef" id="court-num-form" v-model="valid" class="mt-6 ml-8">
+          <v-form ref="courtNumRef" id="court-num-form" v-model="valid" class="mt-8 ml-2">
             <v-expand-transition class="pb-0 mb-0">
               <v-text-field
                 v-if="approvalTypeSelected === ApprovalTypes.VIA_COURT_ORDER"
@@ -26,6 +26,7 @@
                 :rules="courtOrderNumRules"
                 @input="courtOrderNumberChanged"
                 @update:error="emitValidationError($event)"
+                hide-details="auto"
                 filled
               />
             </v-expand-transition>
@@ -205,7 +206,7 @@ export default class ApprovalType extends Vue {
     if (option === ApprovalTypes.VIA_COURT_ORDER && this.isCourtOrderRadio) {
       return `This ${this.filingType} is approved by court order.`
     } else if (option === ApprovalTypes.VIA_COURT_ORDER && !this.isCourtOrderRadio) {
-      return 'Enter a Court Order number, as the restoration of this company was ordered by the court'
+      return 'Enter a Court Order number, as the restoration of this company was ordered by the court:'
     }
     if (option === ApprovalTypes.VIA_REGISTRAR) {
       return `This ${this.filingType} is approved by registrar.`
