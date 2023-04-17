@@ -154,9 +154,6 @@ export default class ApprovalType extends Vue {
     }
     if (!this.isCourtOrderRadio) {
       this.approvalTypeSelected = ApprovalTypes.VIA_COURT_ORDER
-      if (this.courtOrderNumberText === '') {
-        this.$emit('valid', false)
-      }
     }
   }
 
@@ -186,6 +183,7 @@ export default class ApprovalType extends Vue {
   private radioButtonChanged (event: string): void {
     if (event === ApprovalTypes.VIA_REGISTRAR) {
       this.courtOrderNumberText = ''
+      this.courtOrderNumberChanged('')
     } else if (event === ApprovalTypes.VIA_COURT_ORDER) {
       this.noticeDateChanged('')
       this.applicationDateChanged('')
@@ -236,20 +234,6 @@ export default class ApprovalType extends Vue {
     this.applicationDateText = applicationDate
     this.validate()
     return applicationDate
-  }
-
-  /* Set court order number to empty if approved by registrar option is selected. */
- @Watch('courtOrderNumberText')
-  private setCourtOrderNumber () {
-    // When going from valid to invalid (boundaries), the form's validity doesn't update immediately.
-    if (this.courtOrderNumberText.length === 4 || this.courtOrderNumberText.length > 20) {
-      this.valid = false
-    } else if (this.courtOrderNumberText.length === 5 || this.courtOrderNumberText.length === 20) {
-      this.valid = true
-    }
-    if (this.approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR || this.valid === false) {
-      this.courtOrderNumberChanged('')
-    }
   }
 }
 </script>
