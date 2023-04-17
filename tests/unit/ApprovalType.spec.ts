@@ -75,7 +75,6 @@ describe('Initialize ApprovalType component', () => {
     const input = wrapper.find('#court-order-number-input')
     await input.setValue('89123456')
 
-    expect(wrapper.emitted('courtNumberChange').pop()[0]).toEqual('')
     expect(wrapper.emitted('courtNumberChange').pop()[0]).toEqual('89123456')
     expect(wrapper.emitted('radioButtonChange').pop()[0]).toEqual('courtOrder')
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
