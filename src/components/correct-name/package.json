@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/correct-name",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "publishConfig": {
     "access": "public"
   },
@@ -9,7 +9,7 @@
     "@bcrs-shared-components/corp-type-module": "^1.0.12",
     "@bcrs-shared-components/enums": "^1.0.38",
     "@bcrs-shared-components/interfaces": "^1.0.60",
-    "@bcrs-shared-components/mixins": "^1.1.9",
+    "@bcrs-shared-components/mixins": "^1.1.10",
     "vue-property-decorator": "^9.1.2"
   }
 }
