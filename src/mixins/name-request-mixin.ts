@@ -6,9 +6,7 @@ import { NameRequestIF } from '@bcrs-shared-components/interfaces'
 /**
  * Mixin that provides some useful Name Request utilities.
  */
-@Component({
-  extends: Vue
-})
+@Component({})
 export default class NameRequestMixin extends Vue {
   /**
    * Validates a name request against the applicant's information.
