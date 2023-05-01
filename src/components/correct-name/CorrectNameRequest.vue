@@ -60,8 +60,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
+import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
 import { ConfirmDialog as ConfirmDialogShared } from '@bcrs-shared-components/confirm-dialog'
 import { NameRequestMixin } from '@bcrs-shared-components/mixins'
 import { ConfirmDialogType, NameRequestIF } from '@bcrs-shared-components/interfaces'
@@ -71,12 +70,9 @@ import { GetCorpFullDescription } from '@bcrs-shared-components/corp-type-module
 @Component({
   components: {
     ConfirmDialogShared
-  },
-  mixins: [
-    NameRequestMixin
-  ]
+  }
 })
-export default class CorrectNameRequest extends Vue {
+export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
   // Refs
   $refs!: {
     confirm: ConfirmDialogType
@@ -167,8 +163,7 @@ export default class CorrectNameRequest extends Vue {
           await this.showConfirmDialog(
             this.$refs.confirm,
             'Name Request Type Does Not Match Business Type',
-            dialogContent,
-            'OK'
+            dialogContent
           )
         } else {
           // emit new data
@@ -216,18 +211,14 @@ export default class CorrectNameRequest extends Vue {
    * @param ref The dialog reference
    * @param title The title content in dialog header
    * @param message The content body
-   * @param yes The YES action label
-   * @param no The NO cancel label
    * */
-  private async showConfirmDialog (
-    ref: ConfirmDialogType, title: string, message: string, yes: string, no: string = null
-  ):
+  private async showConfirmDialog (ref: ConfirmDialogType, title: string, message: string):
     Promise<boolean> {
     return ref.open(title, message, {
       width: '45rem',
       persistent: true,
-      yes,
-      no,
+      yes: 'OK',
+      no: null,
       cancel: null
     }).catch(() => false)
   }
