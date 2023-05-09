@@ -1,0 +1,74 @@
+name: bcrs-shared-components Web CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  setup-job:
+    runs-on: ubuntu-20.04
+
+    if: github.repository == 'bcgov/bcrs-shared-components'
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: "true"
+
+  linting:
+    needs: setup-job
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        node-version: [16.14.2]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: |
+          make setup
+      - name: Linting
+        run: |
+          make lint
+
+  testing-coverage:
+    needs: setup-job
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        node-version: [16.14.2]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: |
+          make setup
+      - name: Test with Jest
+        id: test
+        run: |
+          make test
+
+  build-check:
+    needs: setup-job
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: build to check strictness
+        id: build
+        run: |
+          make storybook
