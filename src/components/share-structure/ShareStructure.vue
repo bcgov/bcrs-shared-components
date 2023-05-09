@@ -434,7 +434,7 @@
 // Libraries
 import Vue from 'vue'
 import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
-import 'array.prototype.move'
+import { arrayMoveMutable } from 'array-move'
 import { cloneDeep, isEqual, omit } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -829,12 +829,12 @@ export default class ShareStructure extends Vue {
       indexTo = direction === 'up' ? seriesIndex - 1 : seriesIndex + 1
       this.shareClasses[indexFrom].series[seriesIndex].priority = indexTo
       this.shareClasses[indexFrom].series[seriesIndex].priority = indexFrom;
-      (this.shareClasses[indexFrom].series as any).move(seriesIndex, indexTo)
+      arrayMoveMutable(this.shareClasses[indexFrom].series, seriesIndex, indexTo)
     } else {
       indexTo = direction === 'up' ? indexFrom - 1 : indexFrom + 1
       this.shareClasses[indexFrom].priority = indexTo
       this.shareClasses[indexTo].priority = indexFrom;
-      (this.shareClasses as any).move(indexFrom, indexTo)
+      arrayMoveMutable(this.shareClasses, indexFrom, indexTo)
     }
     this.clearDropdowns()
   }
