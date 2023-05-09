@@ -68,6 +68,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          make setup
       - name: build to check strictness
         id: build
         run: |
