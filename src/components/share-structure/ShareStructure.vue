@@ -828,12 +828,12 @@ export default class ShareStructure extends Vue {
     if (seriesIndex >= 0) {
       indexTo = direction === 'up' ? seriesIndex - 1 : seriesIndex + 1
       this.shareClasses[indexFrom].series[seriesIndex].priority = indexTo
-      this.shareClasses[indexFrom].series[seriesIndex].priority = indexFrom;
+      this.shareClasses[indexFrom].series[seriesIndex].priority = indexFrom
       arrayMoveMutable(this.shareClasses[indexFrom].series, seriesIndex, indexTo)
     } else {
       indexTo = direction === 'up' ? indexFrom - 1 : indexFrom + 1
       this.shareClasses[indexFrom].priority = indexTo
-      this.shareClasses[indexTo].priority = indexFrom;
+      this.shareClasses[indexTo].priority = indexFrom
       arrayMoveMutable(this.shareClasses, indexFrom, indexTo)
     }
     this.clearDropdowns()
