@@ -434,9 +434,9 @@
 // Libraries
 import Vue from 'vue'
 import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
-import { arrayMoveMutable } from 'array-move'
 import { cloneDeep, isEqual, omit } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
+import { arrayMoveMutable } from './array-move'
 
 // Components
 import { ActionChip } from '@bcrs-shared-components/action-chip'
