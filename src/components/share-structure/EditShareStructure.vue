@@ -240,7 +240,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
         (v: string) => !(this.shareClasses
           .find((s, index) => {
             // Don't apply uniqueness check to self
-            return index !== this.activeIndex && s.name.split(' Shares')[0].toLowerCase() === v.toLowerCase()
+            return index !== this.activeIndex && s.name?.split(' Shares')[0].toLowerCase() === v.toLowerCase()
           })
         ) || 'Class name must be unique')
       rules.push(
@@ -253,7 +253,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
           .find((s, index) => {
             // Don't apply uniqueness check to self
             return index !== this.activeIndex &&
-                s.name.split(' Shares')[0].toLowerCase() === v.toLowerCase()
+                s.name?.split(' Shares')[0].toLowerCase() === v.toLowerCase()
           })
         ) || 'Series name must be unique')
       rules.push(
