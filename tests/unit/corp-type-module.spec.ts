@@ -18,14 +18,14 @@ describe('Corp Type Module', () => {
   })
 
   it('gets corp info object correctly', () => {
-    const obj = GetCorpInfoObject(CorpTypeCd.BC_CORPORATION)
+    const obj = GetCorpInfoObject(CorpTypeCd.BC_COMPANY)
 
-    expect(obj.corpTypeCd).toBe('CR')
+    expect(obj.corpTypeCd).toBe('BC')
     expect(obj.colinInd).toBe(true)
     expect(obj.corpClass).toBe('BC')
     expect(obj.shortDesc).toBe('BC COMPANY')
-    expect(obj.fullDesc).toBe('BC Company')
-    expect(obj.numberedDesc).toBe('Numbered Company')
+    expect(obj.fullDesc).toBe('BC Limited Company')
+    expect(obj.numberedDesc).toBe('Numbered Limited Company')
   })
 
   it('gets corp full descriptions correctly', () => {

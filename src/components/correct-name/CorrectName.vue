@@ -68,9 +68,9 @@ import { Component, Emit, Prop } from 'vue-property-decorator'
 import { NameRequestIF } from '@bcrs-shared-components/interfaces'
 import { CorrectNameOptions } from '@bcrs-shared-components/enums'
 import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
-import CorrectCompanyName from '@bcrs-shared-components/correct-name/CorrectCompanyName.vue'
-import CorrectNameToNumber from '@bcrs-shared-components/correct-name/CorrectNameToNumber.vue'
-import CorrectNameRequest from '@bcrs-shared-components/correct-name/CorrectNameRequest.vue'
+import CorrectCompanyName from './CorrectCompanyName.vue'
+import CorrectNameToNumber from './CorrectNameToNumber.vue'
+import CorrectNameRequest from './CorrectNameRequest.vue'
 
 interface CorrectNameOptionIF {
   id: CorrectNameOptions,

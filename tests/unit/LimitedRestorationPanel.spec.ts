@@ -38,13 +38,13 @@ describe('Initialize RelationshipsPanel component', () => {
 
   it('It is initialized to 24 months if the expiry field is not provided', async () => {
     const wrapper: Wrapper<LimitedRestorationPanel> = createDefaultComponent()
-    expect(wrapper.vm.$data.selectMonths).toEqual(24)
+    expect(wrapper.vm.$data.selectMonths).toEqual('24')
     wrapper.destroy()
   })
 
   it('Load with previously selected expiry 18 months away', async () => {
     const wrapper: Wrapper<LimitedRestorationPanel> = createDefaultComponent('2023-02-03', '2024-08-03')
-    expect(wrapper.vm.$data.selectMonths).toEqual(18)
+    expect(wrapper.vm.$data.selectMonths).toEqual('18')
     wrapper.destroy()
   })
 
