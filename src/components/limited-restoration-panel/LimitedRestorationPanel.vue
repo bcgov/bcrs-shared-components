@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
-import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
+import { DateMixin } from '@bcrs-shared-components/mixins'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
