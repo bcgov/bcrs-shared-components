@@ -244,7 +244,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
           })
         ) || 'Class name must be unique')
       rules.push(
-        (v: string) => !(v.split(' ').some(r => this.excludedWordsListForClass.includes(r.toLowerCase()))) ||
+        (v: string) => !(v && v.split(' ').some(r => this.excludedWordsListForClass.includes(r.toLowerCase()))) ||
           'Class name should not contain any of the words share, shares or value')
     } else if (this.isSeries) {
       rules.push(
@@ -257,7 +257,7 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
           })
         ) || 'Series name must be unique')
       rules.push(
-        (v: string) => !(v.split(' ').some(r => this.excludedWordsListForSeries.includes(r.toLowerCase()))) ||
+        (v: string) => !(v && v.split(' ').some(r => this.excludedWordsListForSeries.includes(r.toLowerCase()))) ||
           'Series name should not contain any of the words share or shares')
     }
     return rules
