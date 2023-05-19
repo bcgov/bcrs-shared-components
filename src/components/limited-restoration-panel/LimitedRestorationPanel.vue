@@ -104,6 +104,7 @@ export default class LimitedRestorationPanel extends Vue {
    * Emits the numbed of months selected.
    */
   @Emit('months')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitMonths (months: number): void {}
 
   /**
