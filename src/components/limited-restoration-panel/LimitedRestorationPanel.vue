@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
-import { DateMixin } from '@bcrs-shared-components/mixins'
+import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
 import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
@@ -43,10 +43,10 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
   @Prop({ default: 24 }) readonly maxNumberOfMonths!: number
 
   // Local properties
-  customMonths = false
-  selectMonths = ''
-  numberOfMonths = NaN
-  monthRules: ((data: string) => void)[] = []
+  private customMonths = ''
+  private selectMonths = ''
+  private numberOfMonths: number = null
+  private monthRules: ((data: string) => void)[] = []
 
   /**
    * Called when the component is mounted.
@@ -65,16 +65,16 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
         this.monthsValid(false)
       }
     } else {
-      this.selectMonths = draftMonths.toString()
+      this.selectMonths = draftMonths
     }
   }
 
   /** The validation rules for the Month. */
   private setMonthRules (): void {
     this.monthRules = [
-      (v) => !!v || 'Must be between 1 to ' + this.maxNumberOfMonths,
-      (v) => (+v > 0 && +v <= this.maxNumberOfMonths) || 'Must be between 1 to ' + this.maxNumberOfMonths,
-      (v) => (+v % 1 === 0) || 'Must be between 1 to ' + this.maxNumberOfMonths // Check if month is an integer
+      (v:string) => !!v || 'Must be between 1 to ' + this.maxNumberOfMonths,
+      (v:string) => (v > 0 && v <= this.maxNumberOfMonths) || 'Must be between 1 to ' + this.maxNumberOfMonths,
+      (v:string) => (v % 1 === 0) || 'Must be between 1 to ' + this.maxNumberOfMonths // Check if month is an integer
     ]
   }
 
@@ -106,20 +106,20 @@ export default class LimitedRestorationPanel extends Mixins(DateMixin) {
    * Set expiry date by adding the value of the selected radio buttons to current date.
    * @param val The value of the selected radio button
    */
-  @Watch('selectMonths')
+   @Watch('selectMonths')
   private setCustomMonths (val) {
-    this.customMonths = (val === 'customMonths')
+    this.customMonths = val === 'customMonths'
     if (val !== 'customMonths') {
       // Clear text field when another radio button is selected
       if (this.selectMonths !== 'customMonths') {
-        this.numberOfMonths = NaN
+        this.numberOfMonths = null
         this.$refs.monthsRef.reset()
       }
       this.monthsValid(true)
       this.expiryChanged(this.addMonthsToDate(val, this.currentDate))
     } else {
       if (!this.numberOfMonths) {
-        this.numberOfMonths = NaN
+        this.numberOfMonths = ''
       }
       this.expiryChanged(this.addMonthsToDate(this.numberOfMonths, this.currentDate))
     }
