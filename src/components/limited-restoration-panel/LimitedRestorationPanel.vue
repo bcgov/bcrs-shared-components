@@ -7,28 +7,24 @@
     <v-radio
       id="radio-24"
       class="radio-button pt-2"
-      name="radioValue"
       label="2 years"
       value="24"
     />
     <v-radio
       id="radio-18"
       class="radio-button pt-2"
-      name="radioValue"
       label="18 months"
       value="18"
     />
     <v-radio
       id="radio-12"
       class="radio-button pt-2"
-      name="radioValue"
       label="12 months"
       value="12"
     />
     <v-radio
       id="radio-6"
       class="radio-button pt-2"
-      name="radioValue"
       label="6 months"
       value="6"
     />
@@ -36,7 +32,6 @@
       <v-radio
         id="radio-custom"
         class="mt-n4"
-        name="radioValue"
         value="customMonths"
       />
       <v-form ref="monthsRef">
@@ -101,25 +96,13 @@ export default class LimitedRestorationPanel extends Vue {
   }
 
   /**
-   * Emits the numbed of months selected.
-   */
-  @Emit('months')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private emitMonths (months: number): void {}
-
-  /**
-   * Emits whether the number of months selected is valid.
-   */
-  @Emit('valid')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private emitValid (valid: boolean): void {}
-
-  /**
    * Called when months input has changed.
    */
-  onMonthsInput (input: string): void {
+  async onMonthsInput (input: string): Promise<void> {
     // ignore non-inputs
     if (input !== null) {
+      // wait for component updates
+      await this.$nextTick()
       // validate the input
       const valid = this.$refs.monthsRef.validate()
       // emit validity
@@ -133,18 +116,33 @@ export default class LimitedRestorationPanel extends Vue {
    * Called when radio button has changed.
    */
   @Watch('radioValue')
-  private onSelectMonthsChanged () {
+  private onRadioValueChanged () {
     if (this.radioValue !== 'customMonths') {
       // reset months text field when another radio button is selected
       this.$refs.monthsRef.reset()
       // emit months and validity
       this.emitMonths(Number(this.radioValue))
       this.emitValid(true)
-    } else {
-      // leave blank and set invalid initially
+    } else if (!this.inputValue) {
+      // as there is no input value, this component is invalid
+      // otherwise, validation will be done in onMonthsInput()
       this.emitValid(false)
     }
   }
+
+  /**
+   * Emits the numbed of months selected.
+   */
+  @Emit('months')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private emitMonths (months: number): void {}
+
+  /**
+   * Emits whether the number of months selected is valid.
+   */
+  @Emit('valid')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private emitValid (valid: boolean): void {}
 }
 </script>
 
