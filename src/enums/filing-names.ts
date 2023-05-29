@@ -9,6 +9,7 @@ export enum FilingNames {
   CHANGE_OF_REGISTRATION = 'Change of Registration',
   CONVERSION = 'Record Conversion',
   CONSENT_CONTINUATION_OUT = 'Consent to Continuation Out',
+  CONTINUATION_OUT = 'Continuation Out',
   CORRECTION = 'Correction',
   COURT_ORDER = 'Court Order',
   COURT_ORDERED_LIQUIDATION = 'Court Ordered Liquidation',
