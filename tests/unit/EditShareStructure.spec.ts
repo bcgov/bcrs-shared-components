@@ -147,11 +147,7 @@ describe('Edit Share Structure component', () => {
   it('Emits add edit class event', async () => {
     const shareClass = createShareStructure(null, 1, 'Class', 'Class A', true, 100, true, 0.50, 'CAD', true)
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareClass, -1, 1, null, [])
-    await Vue.nextTick()
-
     await wrapper.find(doneButtonSelector).trigger('click')
-    await Vue.nextTick()
-
     expect(wrapper.emitted().addEditClass).toBeTruthy()
     expect(wrapper.emitted(addEditShareClassEvent).length).toBe(1)
     wrapper.destroy()
@@ -172,8 +168,6 @@ describe('Edit Share Structure component', () => {
     const shareSeries = createShareStructure(null, 1, 'Series', 'Series A', true, 100, true, 0.50, 'CAD', true)
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareSeries, -1, 1, 0, [shareClass])
     await wrapper.find(doneButtonSelector).trigger('click')
-    await Vue.nextTick()
-
     expect(wrapper.emitted().addEditSeries).toBeTruthy()
     expect(wrapper.emitted(addEditShareSeriesEvent).length).toBe(1)
     wrapper.destroy()
