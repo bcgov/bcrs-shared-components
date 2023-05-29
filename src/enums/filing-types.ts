@@ -8,6 +8,7 @@ export enum FilingTypes {
   CHANGE_OF_NAME = 'changeOfName',
   CHANGE_OF_REGISTRATION = 'changeOfRegistration',
   CONSENT_CONTINUATION_OUT = 'consentContinuationOut',
+  CONTINUATION_OUT = 'continuationOut',
   CONVERSION = 'conversion',
   CORRECTION = 'correction',
   COURT_ORDER = 'courtOrder',
