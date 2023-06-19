@@ -7,7 +7,7 @@ import { PersonIF } from './person-interface'
 
 export interface SpecialResolutionIF {
   meetingDate?: string
-  resolution: string
+  resolution?: string
   resolutionDate?: string
   signingDate?: string
   signatory?: PersonIF
