@@ -17,4 +17,5 @@ export interface BusinessLookupResultIF {
   bn: string
   status: EntityStates
   name: string
+  disabled?: boolean // for display in v-autocomplete
 }
