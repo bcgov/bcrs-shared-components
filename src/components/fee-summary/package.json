@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/fee-summary",
-  "version": "1.2.20",
+  "version": "1.2.21",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/enums": "^1.0.39",
-    "@bcrs-shared-components/interfaces": "^1.0.63",
+    "@bcrs-shared-components/enums": "^1.0.40",
+    "@bcrs-shared-components/interfaces": "^1.0.64",
     "sbc-common-components": "3.0.1",
     "vue-property-decorator": "^9.1.2"
   }
