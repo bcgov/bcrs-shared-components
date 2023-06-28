@@ -61,7 +61,9 @@ export enum NrRequestActionCodes {
   MOVE = 'MVE',
   NEW_BUSINESS = 'NEW', // incorporate or register
   RESTORE = 'REH', // restore or reinstate
-  RENEW = 'REN',
-  RESTORATION = 'REST', // FUTURE: is this used?
-  RESUBMIT = 'RESUBMIT', // FUTURE: is this used?
+  RENEW = 'REN', // restore with new name request
+  RESTORATION = 'REST', // FUTURE: unused? delete?
+  RESUBMIT = 'RESUBMIT', // FUTURE: unused? delete?
+
+  INFO = 'INFO', // special value for sub-menu
 }
