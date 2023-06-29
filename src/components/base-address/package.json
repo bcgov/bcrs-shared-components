@@ -1,0 +1,15 @@
+{
+  "name": "@bcrs-shared-components/base-address",
+  "version": "2.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "vue-property-decorator": "^9.1.2",
+    "vuelidate": "^0.7.4",
+    "vue-plugin-helper-decorator": "^0.0.11",
+    "lodash.uniqueid": "^4.0.1"
+
+
+  }
+}

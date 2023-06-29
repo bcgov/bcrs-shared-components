@@ -20,6 +20,7 @@
     "lodash": "4.17.21",
     "provinces": "^1.11.0",
     "regenerator-runtime": "^0.13.9",
+    "regular": "^0.1.6",
     "sbc-common-components": "3.0.1",
     "uuid": "^9.0.0",
     "vue": "^2.7.10",
