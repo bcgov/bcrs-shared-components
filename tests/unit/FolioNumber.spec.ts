@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
@@ -7,7 +6,6 @@ import { FolioNumber } from '@/components/folio-number'
 // Prevent the warning "[Vuetify] Unable to locate target [data-app]"
 document.body.setAttribute('data-app', 'true')
 
-Vue.use(Vuetify)
 const vuetify = new Vuetify({})
 
 describe('Folio Number component', () => {

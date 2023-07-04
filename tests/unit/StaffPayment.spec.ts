@@ -7,7 +7,6 @@ import { StaffPayment } from '@/components/staff-payment'
 // https://vue-test-utils.vuejs.org/api/config.html#silent
 Vue.config.silent = true
 
-Vue.use(Vuetify)
 const vuetify = new Vuetify({})
 
 describe('StaffPayment', () => {

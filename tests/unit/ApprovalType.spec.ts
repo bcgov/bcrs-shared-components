@@ -4,9 +4,7 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 import { ApprovalType } from '@/components/approval-type'
 import VueRouter from 'vue-router'
 
-Vue.use(Vuetify)
-let vuetify = new Vuetify({})
-
+const vuetify = new Vuetify({})
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 
@@ -14,12 +12,12 @@ localVue.use(VueRouter)
  * Creates and mounts a blank, un-populated component
  */
 function createDefaultComponent (
-  courtOrderNumber: string = '',
-  approvedByRegistrar: boolean = false,
-  noticeDate: string = '',
-  applicationDate: string = '',
-  filingType: string = 'restoration',
-  isExtension: boolean = false
+  courtOrderNumber = '',
+  approvedByRegistrar = false,
+  noticeDate = '',
+  applicationDate = '',
+  filingType = 'restoration',
+  isExtension = false
 ): Wrapper<ApprovalType> {
   return mount(ApprovalType, {
     propsData: {

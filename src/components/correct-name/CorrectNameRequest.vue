@@ -1,18 +1,31 @@
 <template>
-  <v-form id="correct-name-request-form" ref="form" v-model="formValid" lazy-validation>
+  <v-form
+    id="correct-name-request-form"
+    ref="form"
+    v-model="formValid"
+    lazy-validation
+  >
     <ConfirmDialogShared
       ref="confirm"
       attach="#app"
     />
 
     <v-row no-gutters>
-      <v-col cols="1" class="mt-3">
-        <v-chip outlined class="step-icon">1</v-chip>
+      <v-col
+        cols="1"
+        class="mt-3"
+      >
+        <v-chip
+          outlined
+          class="step-icon"
+        >
+          1
+        </v-chip>
       </v-col>
       <v-col>
         <v-text-field
-          v-model="nrNumber"
           id="nr-number"
+          v-model="nrNumber"
           filled
           persistent-hint
           class="text-input-field"
@@ -24,14 +37,25 @@
       </v-col>
     </v-row>
 
-    <v-row no-gutters class="mt-4 mb-n1">
-      <v-col cols="1" class="mt-3">
-        <v-chip outlined class="step-icon">2</v-chip>
+    <v-row
+      no-gutters
+      class="mt-4 mb-n1"
+    >
+      <v-col
+        cols="1"
+        class="mt-3"
+      >
+        <v-chip
+          outlined
+          class="step-icon"
+        >
+          2
+        </v-chip>
       </v-col>
       <v-col cols="5">
         <v-text-field
-          v-model="applicantPhone"
           id="applicant-phone"
+          v-model="applicantPhone"
           filled
           persistent-hint
           class="text-input-field"
@@ -41,11 +65,13 @@
           :rules="phoneRules"
         />
       </v-col>
-      <div class="ma-5">or</div>
+      <div class="ma-5">
+        or
+      </div>
       <v-col>
         <v-text-field
-          v-model="applicantEmail"
           id="applicant-email"
+          v-model="applicantEmail"
           filled
           persistent-hint
           class="text-input-field"

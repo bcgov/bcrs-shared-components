@@ -1,9 +1,12 @@
 <template>
-  <div class="d-inline" id="staff-comments">
+  <div
+    id="staff-comments"
+    class="d-inline"
+  >
     <!-- NB: attach the menu to component div so we can unit test it -->
     <v-menu
-      bottom
       v-model="showComments"
+      bottom
       attach="#staff-comments"
       :nudge-top="nudgeTop"
       :nudge-left="nudgeLeft"
@@ -11,60 +14,83 @@
       :close-on-content-click="false"
     >
       <!-- the button -->
-      <template v-slot:activator="{ on, attrs }">
+      <template #activator="{ on, attrs }">
         <v-btn
-          small text color="primary"
           id="comments-button"
+          small
+          text
+          color="primary"
           v-bind="attrs"
           v-on="on"
         >
-          <v-icon medium>mdi-comment-text-outline</v-icon>
-          <span>{{numComments}}</span>
+          <v-icon medium>
+            mdi-comment-text-outline
+          </v-icon>
+          <span>{{ numComments }}</span>
         </v-btn>
       </template>
 
       <!-- the menu (panel) -->
-      <v-card flat id="staff-comment-container" class="px-8 py-6">
+      <v-card
+        id="staff-comment-container"
+        flat
+        class="px-8 py-6"
+      >
         <v-card-title class="d-flex justify-space-between pa-0">
           <div>
-            <v-icon medium color="primary">mdi-comment-text-outline</v-icon>
-            <span>{{numComments}}</span>
+            <v-icon
+              medium
+              color="primary"
+            >
+              mdi-comment-text-outline
+            </v-icon>
+            <span>{{ numComments }}</span>
           </div>
-          <v-btn icon large class="mr-n3" id="close-button" @click="close()">
-            <v-icon color="primary">mdi-close</v-icon>
+          <v-btn
+            id="close-button"
+            icon
+            large
+            class="mr-n3"
+            @click="close()"
+          >
+            <v-icon color="primary">
+              mdi-close
+            </v-icon>
           </v-btn>
         </v-card-title>
 
         <v-card-text class="mt-2 pa-0">
           <v-textarea
             ref="textarea"
+            v-model="comment"
             autofocus
             no-resize
             filled
             rows="5"
-            v-model="comment"
             placeholder="Enter Comments"
             :rules="rules"
           />
         </v-card-text>
 
         <v-card-actions class="d-flex justify-space-between pa-0">
-          <div class="body-2 mt-1">{{charsRemaining}}</div>
+          <div class="text-body-2 mt-1">
+            {{ charsRemaining }}
+          </div>
           <div class="mr-n3">
             <v-btn
+              id="save-button"
               text
               color="primary"
               class="font-weight-bold"
-              id="save-button"
               :loading="isSaving"
               @click="save()"
             >
               Save
             </v-btn>
             <v-btn
+              id="cancel-button"
               text
               color="primary"
-              id="cancel-button"
               @click="close()"
             >
               Cancel
@@ -73,13 +99,23 @@
         </v-card-actions>
 
         <v-card-text class="mt-6 pa-0">
-          <div class="pr-5" id="existing-comments">
-            <div v-for="(comment, i) in comments" :key="i" class="body-2">
-              <p class="pre-line" v-html="comment.comment" />
+          <div
+            id="existing-comments"
+            class="pr-5"
+          >
+            <div
+              v-for="(comment, i) in comments"
+              :key="i"
+              class="text-body-2"
+            >
+              <p
+                class="pre-line"
+                v-html="comment.comment"
+              />
               <p class="font-italic">
                 {{ comment.submitterDisplayName }}
                 &hyphen;
-                {{apiToPacificDateTime(comment.timestamp)}}
+                {{ apiToPacificDateTime(comment.timestamp) }}
               </p>
             </div>
           </div>
@@ -90,6 +126,7 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import { Component, Mixins, Prop } from 'vue-property-decorator'
 import { CommentIF, FormIF } from '@bcrs-shared-components/interfaces'
 import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)

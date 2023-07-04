@@ -1,12 +1,11 @@
+import type { Meta } from '@storybook/vue'
 import { ContactInfo } from './index'
 import { ContactPointIF } from '@bcrs-shared-components/interfaces'
 
-export default {
-  title: 'component/ContactInfo',
-  component: ContactInfo,
-  argTypes: {
-  }
+const meta: Meta<typeof ContactInfo> = {
+  title: 'component/ContactInfo'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -36,7 +35,7 @@ const ContactDataOptionalPhone: ContactPointIF = {
 }
 
 export const FiledAlteration = Template.bind({})
-FiledAlteration.args = {
+FiledAlteration['args'] = {
   businessContact: ContactData,
   originalBusinessContact: ContactData,
   hasBusinessContactInfoChange: false,
@@ -45,7 +44,7 @@ FiledAlteration.args = {
 }
 
 export const ChangedAlteration = Template.bind({})
-ChangedAlteration.args = {
+ChangedAlteration['args'] = {
   businessContact: ContactDataChanged,
   originalBusinessContact: ContactDataChanged,
   hasBusinessContactInfoChange: true,
@@ -54,7 +53,7 @@ ChangedAlteration.args = {
 }
 
 export const FiledCorrection = Template.bind({})
-FiledCorrection.args = {
+FiledCorrection['args'] = {
   businessContact: ContactData,
   originalBusinessContact: ContactData,
   hasBusinessContactInfoChange: false,
@@ -63,7 +62,7 @@ FiledCorrection.args = {
 }
 
 export const ChangeFirm = Template.bind({})
-ChangeFirm.args = {
+ChangeFirm['args'] = {
   contactLabel: 'Business',
   disableActionTooltip: true,
   businessContact: ContactData,
@@ -74,7 +73,7 @@ ChangeFirm.args = {
 }
 
 export const ChangedFirm = Template.bind({})
-ChangedFirm.args = {
+ChangedFirm['args'] = {
   contactLabel: 'Business',
   disableActionTooltip: true,
   businessContact: ContactDataChanged,
@@ -85,7 +84,7 @@ ChangedFirm.args = {
 }
 
 export const OptionalPhone = Template.bind({})
-OptionalPhone.args = {
+OptionalPhone['args'] = {
   contactLabel: 'Business',
   disableActionTooltip: true,
   businessContact: ContactDataOptionalPhone,

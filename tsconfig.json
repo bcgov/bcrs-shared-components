@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "esnext",
     "module": "esnext",
-    "strict": false,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
     "jsx": "preserve",
     "importHelpers": true,
-    "resolveJsonModule": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true,
@@ -13,7 +14,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "webpack-env",
+      "vite/client",
       "jest",
       "vuetify"
     ],
@@ -39,5 +40,8 @@
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
+  "vueCompilerOptions": {
+    "target": 2.7
+  }
 }

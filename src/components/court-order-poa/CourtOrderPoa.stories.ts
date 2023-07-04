@@ -1,11 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { CourtOrderPoa } from './index'
 
-export default {
-  title: 'component/CourtOrderPoa',
-  component: CourtOrderPoa,
-  argTypes: {
-  }
+const meta: Meta<typeof CourtOrderPoa> = {
+  title: 'component/CourtOrderPoa'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -14,12 +13,12 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const courtOrderPoa = Template.bind({})
-courtOrderPoa.args = {
+courtOrderPoa['args'] = {
   validate: false
 }
 
 export const courtOrderPoaDraft = Template.bind({})
-courtOrderPoaDraft.args = {
+courtOrderPoaDraft['args'] = {
   draftCourtOrderNumber: '1234-56789',
   hasDraftPlanOfArrangement: true
 }

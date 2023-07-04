@@ -8,35 +8,53 @@
             class="back-btn"
             exact
             :href="backUrl"
-            icon small
+            icon
+            small
             :disabled="breadcrumbs.length <= 1"
           >
-            <v-icon color="primary">mdi-arrow-left</v-icon>
+            <v-icon color="primary">
+              mdi-arrow-left
+            </v-icon>
           </v-btn>
         </v-col>
 
-        <v-divider class="mx-3" color="white" vertical />
+        <v-divider
+          class="mx-3"
+          color="white"
+          vertical
+        />
 
-        <v-col cols="auto" class="breadcrumb-col">
-          <v-breadcrumbs :items="breadcrumbs" class="pa-0 ma-0">
-            <template v-slot:divider>
-              <v-icon color="white" class="mx-n2">mdi-chevron-right</v-icon>
+        <v-col
+          cols="auto"
+          class="breadcrumb-col"
+        >
+          <v-breadcrumbs
+            :items="breadcrumbs"
+            class="pa-0 ma-0"
+          >
+            <template #divider>
+              <v-icon
+                color="white"
+                class="mx-n2"
+              >
+                mdi-chevron-right
+              </v-icon>
             </template>
 
-            <v-breadcrumbs-item
-              slot="item"
-              slot-scope="{ item }"
-              exact
-              :to="item.to"
-              :href="item.href"
-            >
-              <span
-                class="breadcrumb-text"
-                :class="isActiveCrumb(item) ? 'active-crumb': 'inactive-crumb'"
+            <template #item="{ item }">
+              <v-breadcrumbs-item
+                exact
+                :to="item.to"
+                :href="item.href"
               >
-                {{ item.text }}
-              </span>
-            </v-breadcrumbs-item>
+                <span
+                  class="breadcrumb-text"
+                  :class="isActiveCrumb(item) ? 'active-crumb': 'inactive-crumb'"
+                >
+                  {{ item.text }}
+                </span>
+              </v-breadcrumbs-item>
+            </template>
           </v-breadcrumbs>
         </v-col>
       </v-row>
@@ -71,7 +89,7 @@ export default class Breadcrumb extends Vue {
   }
 
   /** Is true when the crumb is not the current route. */
-  protected isActiveCrumb (item: BreadcrumbIF): boolean {
+  isActiveCrumb (item: BreadcrumbIF): boolean {
     return this.$route?.name !== item?.to?.name
   }
 }

@@ -1,9 +1,8 @@
 <template>
-  <div class="d-none"></div>
+  <div class="d-none" />
 </template>
 
 <script lang="ts">
-// Libraries
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 

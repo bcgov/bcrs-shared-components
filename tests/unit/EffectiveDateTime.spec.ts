@@ -7,7 +7,6 @@ import flushPromises from 'flush-promises'
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning
 document.body.setAttribute('data-app', 'true')
 
-Vue.use(Vuetify)
 const vuetify = new Vuetify({})
 
 /**
@@ -17,9 +16,9 @@ const vuetify = new Vuetify({})
  * @returns the value of the last named event for the wrapper.
  */
 function getLastEvent (wrapper: Wrapper<EffectiveDateTime>, name: string): any {
-  const eventsList: Array<any> = wrapper.emitted(name)
+  const eventsList = wrapper.emitted(name) as Array<any>
   if (eventsList) {
-    const events: Array<any> = eventsList[eventsList.length - 1]
+    const events = eventsList[eventsList.length - 1] as Array<any>
     return events[0]
   }
   return null

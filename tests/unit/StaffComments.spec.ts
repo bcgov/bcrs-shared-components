@@ -17,7 +17,6 @@ document.body.setAttribute('id', 'staff-comments')
 // ref: https://github.com/vuejs/vue-test-utils/issues/532
 Vue.config.silent = true
 
-Vue.use(Vuetify)
 const vuetify = new Vuetify({})
 
 // sample comments array for mocking API response

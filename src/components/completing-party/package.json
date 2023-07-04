@@ -7,7 +7,11 @@
   "dependencies": {
     "@bcrs-shared-components/interfaces": "^1.0.65",
     "lodash": "4.17.21",
-    "sbc-common-components": "3.0.1",
+    "sbc-common-components": "3.0.8",
+    "vue": "2.7.10",
+    "vuelidate": "^0.7.7"
+  },
+  "devDependencies": {
     "vue-property-decorator": "^9.1.2"
   }
 }

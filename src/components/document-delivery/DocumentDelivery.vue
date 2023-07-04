@@ -2,54 +2,104 @@
   <div id="document-delivery">
     <!-- Contact (required) -->
     <v-row no-gutters>
-      <v-col cols="12" sm="3" class="pr-4">
-        <label class="title-label">{{contactLabel}}</label>
+      <v-col
+        cols="12"
+        sm="3"
+        class="pr-4"
+      >
+        <label class="title-label">{{ contactLabel }}</label>
       </v-col>
-      <v-col cols="12" sm="9">
-        <span id="contact-value">{{contactValue || '(Not entered)'}}</span>
+      <v-col
+        cols="12"
+        sm="9"
+      >
+        <span id="contact-value">{{ contactValue || '(Not entered)' }}</span>
       </v-col>
     </v-row>
 
     <!-- Custodian of Records (optional) -->
-    <v-row no-gutters v-if="showCustodianEmail" class="pt-5">
-      <v-col cols="12" sm="3" class="pr-4">
+    <v-row
+      v-if="showCustodianEmail"
+      no-gutters
+      class="pt-5"
+    >
+      <v-col
+        cols="12"
+        sm="3"
+        class="pr-4"
+      >
         <label class="title-label">Custodian of Records</label>
       </v-col>
-      <v-col cols="12" sm="9">
-        <span id="custodian-email">{{custodianEmail || '(Not entered)'}}</span>
+      <v-col
+        cols="12"
+        sm="9"
+      >
+        <span id="custodian-email">{{ custodianEmail || '(Not entered)' }}</span>
       </v-col>
     </v-row>
 
     <!-- Additional (optional) -->
-    <v-row no-gutters v-if="additionalLabel" class="pt-5">
-      <v-col cols="12" sm="3" class="pr-4">
-        <label class="title-label">{{additionalLabel}}</label>
+    <v-row
+      v-if="additionalLabel"
+      no-gutters
+      class="pt-5"
+    >
+      <v-col
+        cols="12"
+        sm="3"
+        class="pr-4"
+      >
+        <label class="title-label">{{ additionalLabel }}</label>
       </v-col>
-      <v-col cols="12" sm="9">
-        <span id="additional-value">{{additionalValue || '(Not entered)'}}</span>
+      <v-col
+        cols="12"
+        sm="9"
+      >
+        <span id="additional-value">{{ additionalValue || '(Not entered)' }}</span>
       </v-col>
     </v-row>
 
     <!-- Completing Party (optional) -->
-    <v-row no-gutters v-if="showCompletingParty" class="pt-5">
-      <v-col cols="12" sm="3" class="pr-4">
-        <label class="title-label" :class="{ 'error-text': invalidSection }">
+    <v-row
+      v-if="showCompletingParty"
+      no-gutters
+      class="pt-5"
+    >
+      <v-col
+        cols="12"
+        sm="3"
+        class="pr-4"
+      >
+        <label
+          class="title-label"
+          :class="{ 'error-text': invalidSection }"
+        >
           Completing Party
         </label>
       </v-col>
-      <v-col v-if="editableCompletingParty" cols="12" sm="9">
+      <v-col
+        v-if="editableCompletingParty"
+        cols="12"
+        sm="9"
+      >
         <v-text-field
-          filled persistent-hint validate-on-blur
           id="optionalEmail"
+          v-model="optionalEmail"
+          filled
+          persistent-hint
+          validate-on-blur
           class="text-input-field"
           label="Client Email Address (Optional)"
           hint="Example: name@email.com"
-          v-model="optionalEmail"
           :rules="entityEmailRules"
         />
       </v-col>
-      <v-col v-else cols="12" sm="9">
-        <span id="completing-party-email">{{completingPartyEmail || '(Not entered)'}}</span>
+      <v-col
+        v-else
+        cols="12"
+        sm="9"
+      >
+        <span id="completing-party-email">{{ completingPartyEmail || '(Not entered)' }}</span>
       </v-col>
     </v-row>
   </div>

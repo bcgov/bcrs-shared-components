@@ -1,9 +1,7 @@
-import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { mount } from '@vue/test-utils'
 import { HelpBusinessNumber } from '@/components/help-business-number'
 
-Vue.use(Vuetify)
 const vuetify = new Vuetify({})
 
 describe('HelpBusinessNumber', () => {

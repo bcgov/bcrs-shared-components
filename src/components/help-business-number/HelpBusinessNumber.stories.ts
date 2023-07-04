@@ -1,11 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { HelpBusinessNumber } from './index'
 
-export default {
-  title: 'component/HelpBusinessNumber',
-  component: HelpBusinessNumber,
-  argTypes: {
-  }
+const meta: Meta<typeof HelpBusinessNumber> = {
+  title: 'component/HelpBusinessNumber'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -14,7 +13,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   isTypeSoleProp: false,
   isTypePartnership: false
 }

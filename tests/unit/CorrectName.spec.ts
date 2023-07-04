@@ -6,8 +6,6 @@ import CorrectCompanyName from '@/components/correct-name/CorrectCompanyName.vue
 import CorrectNameRequest from '@/components/correct-name/CorrectNameRequest.vue'
 import CorrectNameToNumber from '@/components/correct-name/CorrectNameToNumber.vue'
 
-Vue.use(Vuetify)
-
 const vuetify = new Vuetify({})
 
 const defaultProps = {
@@ -15,7 +13,8 @@ const defaultProps = {
   entityType: 'BC',
   nameRequest: {},
   companyName: 'Old Company Name',
-  fetchAndValidateNr: () => {}
+  fetchAndValidateNr: () => {},
+  formType: 'correct-name'
 }
 
 describe('CorrectName', () => {

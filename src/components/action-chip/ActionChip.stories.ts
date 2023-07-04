@@ -1,13 +1,13 @@
+import type { Meta } from '@storybook/vue'
 import { ActionChip } from './index'
 import { ActionableItemIF } from '@bcrs-shared-components/interfaces'
 import { ActionTypes } from '@bcrs-shared-components/enums'
 import Vuetify from 'vuetify'
 
-export default {
-  title: 'component/ActionChip',
-  component: ActionChip,
-  argTypes: {}
+const meta: Meta<typeof ActionChip> = {
+  title: 'component/ActionChip'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   vuetify: new Vuetify({ iconfont: 'mdi' }),
@@ -21,23 +21,23 @@ const removedAction: ActionableItemIF = { action: ActionTypes.REMOVED }
 const editedAction: ActionableItemIF = { action: ActionTypes.EDITED }
 
 export const added = Template.bind({})
-added.args = {
+added['args'] = {
   actionableItem: addedAction
 }
 
 export const removed = Template.bind({})
-removed.args = {
+removed['args'] = {
   actionableItem: removedAction
 }
 
 export const editedAlteration = Template.bind({})
-editedAlteration.args = {
+editedAlteration['args'] = {
   actionableItem: editedAction,
   editedLabel: 'CHANGED'
 }
 
 export const editedCorrection = Template.bind({})
-editedCorrection.args = {
+editedCorrection['args'] = {
   actionableItem: editedAction,
   editedLabel: 'CORRECTED'
 }

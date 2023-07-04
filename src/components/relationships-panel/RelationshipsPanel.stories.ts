@@ -1,11 +1,11 @@
+import type { Meta } from '@storybook/vue'
 import { RelationshipTypes } from '@bcrs-shared-components/enums'
 import { RelationshipsPanel } from './index'
 
-export default {
-  title: 'component/RelationshipsPanel',
-  component: RelationshipsPanel,
-  argTypes: {}
+const meta: Meta<typeof RelationshipsPanel> = {
+  title: 'component/RelationshipsPanel'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -14,22 +14,22 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   bgHex: `#fff`,
   showValidationErrors: false
 }
 
 export const twoRelationshipsSelected = Template.bind({})
-twoRelationshipsSelected.args = {
+twoRelationshipsSelected['args'] = {
   draftRelationships: [RelationshipTypes.HEIR_LEGAL_REP, RelationshipTypes.SHAREHOLDER]
 }
 
 export const greenBackground = Template.bind({})
-greenBackground.args = {
+greenBackground['args'] = {
   bgHex: '#00FF00'
 }
 
 export const showValidationErrors = Template.bind({})
-showValidationErrors.args = {
+showValidationErrors['args'] = {
   showValidationErrors: true
 }

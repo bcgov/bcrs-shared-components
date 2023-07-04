@@ -1,12 +1,15 @@
 <template>
-  <v-card flat id="detail-comment-container">
+  <v-card
+    id="detail-comment-container"
+    flat
+  >
     <v-textarea
+      id="detail-comment-textarea"
       ref="textarea"
       :outlined="isStyle('outlined')"
       :filled="isStyle('filled')"
       auto-grow
       :rows="rowCount"
-      id="detail-comment-textarea"
       :counter="maxLength"
       :rules="rules"
       :value="value"
@@ -20,7 +23,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
-import { Debounce } from 'vue-debounce-decorator'
+import { debounce } from 'lodash'
 
 @Component({})
 export default class DetailComment extends Vue {
@@ -70,14 +73,14 @@ export default class DetailComment extends Vue {
    * This method is debounced to prevent excessive validation.
    */
   @Watch('value')
-  @Debounce(300)
-  private onValueChanged (val: string): void {
+  private onValueChanged = debounce((val: string) => {
     this.emitValid(val)
-  }
+  }, 300)
 
   /** Emits an event with the changed comment (ie, updated v-model). */
   @Emit('input')
-  protected emitInput (val: string): void { }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected emitInput (val: string): void {}
 
   /** Emits an event indicating whether or not this component is valid. */
   @Emit('valid')

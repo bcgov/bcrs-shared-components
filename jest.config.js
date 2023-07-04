@@ -17,6 +17,8 @@ module.exports = {
     '@bcrs-shared-components/corp-type-module': '<rootDir>/src/modules/corp-type-module',
     '@bcrs-shared-components/(.*)': '<rootDir>/src/components/$1'
   },
-  preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
-  transformIgnorePatterns: []
+  setupFiles: ['./tests/setup.ts'],
+  // Configure Jest to transform the Storybook packages, ref:
+  // https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#packages-now-available-as-esmodules
+  transformIgnorePatterns: ['/node_modules/(?!@storybook)']
 }

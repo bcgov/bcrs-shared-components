@@ -5,6 +5,9 @@
     "access": "public"
   },
   "dependencies": {
+    "vue": "2.7.10"
+  },
+  "devDependencies": {
     "vue-property-decorator": "^9.1.2"
   }
 }
