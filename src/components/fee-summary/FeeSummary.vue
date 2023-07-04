@@ -58,11 +58,11 @@ import Vue from 'vue'
 import { Component, Emit, Prop } from 'vue-property-decorator'
 
 // Enums and Interfaces
-import { FeeSummaryActions } from '@bcrs-shared-components/enums'
-import { FilingDataIF } from '@bcrs-shared-components/interfaces'
+import { FeeSummaryActions } from '../../enums'
+import { FilingDataIF } from '../../interfaces'
 
 // Component Dependency
-import SbcFeeSummary from 'sbc-common-components/src/components/SbcFeeSummary.vue'
+import SbcFeeSummary from './SbcFeeSummary.vue'
 
 @Component({
   components: { SbcFeeSummary }
