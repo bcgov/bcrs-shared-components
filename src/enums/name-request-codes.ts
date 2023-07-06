@@ -5,14 +5,6 @@
 
 // ref: https://github.com/bcgov/namex/blob/main/api/namex/constants/__init__.py
 export enum NrRequestTypeCodes {
-  // DEPRECATION WARNING - these will be removed!
-  BC_COMPANY = 'BC', // use NEW_BC instead
-  BC_CORPORATION = 'CR', // use NEW_CORP instead
-  BC_UNLIMITED = 'UL', // use NEW_ULC instead
-  COOP = 'CP', // use NEW_COOP instead
-  NR_SOLE_PROP = 'FR', // use NEW_FIRM instead
-  XPRO_CORPORATION = 'XCR', // use NEW_XPRO_CORP instead
-
   // change name (or resubmit)
   CHANGE_BEN = 'BEC',
   CHANGE_CCC = 'CCC',
@@ -35,13 +27,13 @@ export enum NrRequestTypeCodes {
   CONVERT_ULC = 'UC',
 
   // new (or resubmit)
-  NEW_BC = 'BC',
-  NEW_CCC = 'CC',
-  NEW_COOP = 'CP',
-  NEW_CORP = 'CR', // BC Limited
-  NEW_FIRM = 'FR', // SP, DBA or GP
-  NEW_ULC = 'UL',
-  NEW_XPRO_CORP = 'XCR',
+  NEW_BC = 'BC', // BC Benefit Company Incorporation
+  NEW_CCC = 'CC', // CCC - Incorporation/Amalgamation
+  NEW_COOP = 'CP', // Cooperative - Incorporation/Amalgamation
+  NEW_CORP = 'CR', // BC Company - Incorporation/Amalgamation
+  NEW_FIRM = 'FR', // Sole Proprietorship/General Partnership/DBA - Registration
+  NEW_ULC = 'UL', // Unlimited Liability Company
+  NEW_XPRO_CORP = 'XCR', // Corporation (Foreign) - Extrapro Registration/Amalgamation
 
   // restoration
   RESTORATION_CCC = 'RCC',
@@ -57,8 +49,8 @@ export enum NrRequestActionCodes {
   ASSUMED = 'ASSUMED', // FUTURE: should be AS?
   CHANGE_NAME = 'CHG',
   CONVERSION = 'CNV',
-  DBA = 'DBA',
-  MOVE = 'MVE',
+  DBA = 'DBA', // doing business as
+  MOVE = 'MVE', // continuation in
   NEW_BUSINESS = 'NEW', // incorporate or register
   RESTORE = 'REH', // restore or reinstate
   RENEW = 'REN', // restore with new name request
