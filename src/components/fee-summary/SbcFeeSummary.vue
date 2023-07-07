@@ -102,9 +102,6 @@ export default class SbcFeeSummary extends Vue {
   /* watcher */
   @Watch('filingData')
   onFilingDataChanged (val: string, oldVal: string): void {
-    // console.log('%c FeeModule-Watch Activated as %s', 'color: blue; font-size: 12px',
-    //   JSON.stringify(this.filingData))
-
     FeeServices.getFee(this.filingData, this.payURL).then((data: any) => {
       this.fetchError = ''
       this.fees = data

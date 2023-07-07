@@ -2,7 +2,6 @@ import { Component, Vue } from 'vue-property-decorator'
 
 // import these and sort them only once globally
 window['countries'] = window['countries'] || require('country-list/data.json')
-  .filter(country => country.code === 'CA' || country.code === 'US')
   .sort((a, b) => (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0)
 
 window['provinces'] = window['provinces'] || require('provinces/provinces.json')
