@@ -16,14 +16,14 @@ export enum CorpTypeCd {
   CCC_CONTINUE_IN = 'CCC',
   CEMETARY = 'CEM',
   COOP = 'CP',
-  BC_CORPORATION = 'CR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+  CORPORATION = 'CR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   CONT_IN_SOCIETY = 'CS',
   ULC_CONTINUE_IN = 'CUL',
   DOING_BUSINESS_AS = 'DBA', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   EXTRA_PRO_REG = 'EPR',
   FINANCIAL = 'FI',
   FOREIGN = 'FOR',
-  NR_SOLE_PROP = 'FR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+  SOLE_PROPRIETORSHIP = 'FR', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   PARTNERSHIP = 'GP',
   LIBRARY = 'LIB',
   LICENSED = 'LIC',
@@ -40,24 +40,30 @@ export enum CorpTypeCd {
   CO_1890 = 'QD',
   CO_1897 = 'QE',
   REGISTRATION = 'REG',
+  XPRO_LIMITED_LIABILITY_COMPANY = 'RLC', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   RAILWAYS = 'RLY',
   SOCIETY = 'S',
   SOCIETY_BRANCH = 'SB',
+  SOCIETY_NR = 'SO', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   SOLE_PROP = 'SP',
   TRUST = 'T',
   TRAMWAYS = 'TMY',
-  BC_UNLIMITED = 'UL', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+  UNLIMITED_LIABILITY_COMPANY = 'UL', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   BC_ULC_COMPANY = 'ULC',
   ULC_CO_1860 = 'UQA',
   ULC_CO_1862 = 'UQB',
   ULC_CO_1878 = 'UQC',
   ULC_CO_1890 = 'UQD',
   ULC_CO_1897 = 'UQE',
-  XPRO_COOP= 'XCP',
+  XPRO_COOP = 'XCP',
   XPRO_CORPORATION = 'XCR',
   XPRO_LL_PARTNR = 'XL',
+  XPRO_LIMITED_LIABILITY_PARTNERSHIP = 'XLL', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   XPRO_LIM_PARTNR = 'XP',
-  XPRO_SOCIETY = 'XS'
+  XPRO_LIMITED_PARTNERSHIP = 'XLP', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+  XPRO_SOCIETY = 'XS',
+  XPRO_SOCIETY_NR = 'XSO', // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
+  XPRO_UNLIMITED_LIABILITY_COMPANY = 'XUL' // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
 }
 
 /** Corp classes. */
@@ -141,7 +147,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     numberedDesc: 'Numbered Cooperative Association'
   }, {
   //   // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
-  //   corpTypeCd: CorpTypeCd.BC_CORPORATION,
+  //   corpTypeCd: CorpTypeCd.CORPORATION,
   //   colinInd: true,
   //   corpClass: CorpClass.BC,
   //   shortDesc: 'BC COMPANY',
@@ -186,7 +192,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     fullDesc: 'Foreign Registration'
   }, {
   //   // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
-  //   corpTypeCd: CorpTypeCd.NR_SOLE_PROP,
+  //   corpTypeCd: CorpTypeCd.SOLE_PROPRIETORSHIP,
   //   colinInd: true,
   //   corpClass: CorpClass.FIRM,
   //   shortDesc: 'SOLE PROP',
@@ -325,7 +331,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     fullDesc: 'Tramways'
   }, {
   //   // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
-  //   corpTypeCd: CorpTypeCd.BC_UNLIMITED,
+  //   corpTypeCd: CorpTypeCd.UNLIMITED_LIABILITY_COMPANY,
   //   colinInd: true,
   //   corpClass: CorpClass.BC,
   //   shortDesc: 'BC ULC COMPANY',
