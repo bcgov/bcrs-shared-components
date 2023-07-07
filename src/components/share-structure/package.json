@@ -1,14 +1,14 @@
 {
   "name": "@bcrs-shared-components/share-structure",
-  "version": "2.1.22",
+  "version": "2.1.23",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/action-chip": "^1.1.21",
+    "@bcrs-shared-components/action-chip": "^1.1.22",
     "@bcrs-shared-components/confirm-dialog": "^1.2.2",
-    "@bcrs-shared-components/enums": "^1.0.40",
-    "@bcrs-shared-components/interfaces": "^1.0.64",
+    "@bcrs-shared-components/enums": "^1.0.41",
+    "@bcrs-shared-components/interfaces": "^1.0.65",
     "lodash": "4.17.21",
     "uuid": "^9.0.0",
     "vue-property-decorator": "^9.1.2"
