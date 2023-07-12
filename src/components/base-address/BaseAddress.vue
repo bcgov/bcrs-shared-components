@@ -292,7 +292,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   }
 
   /** Array of validation rules used by input elements to prevent extra whitespace. */
-  readonly spaceRules: Array<Function> = [
+  readonly spaceRules: Array<(v: string) => boolean | string> = [
     v => !/^\s/g.test(v) || 'Invalid spaces', // leading spaces
     v => !/\s$/g.test(v) || 'Invalid spaces', // trailing spaces
     v => !/\s\s/g.test(v) || 'Invalid word spacing' // multiple inline spaces
@@ -303,10 +303,9 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
    * NB: As a getter, this is initialized between created() and mounted().
    * @returns the Vuetify validation rules object
    */
-  get rules (): { [attr: string]: Array<Function> } {
-    return this.createVuetifyRulesObject('addressLocal')
+  get rules (): { [attr: string]: Array<() => boolean | string> } {
+    return this.createVuetifyRulesObject('addressLocal') as { [attr: string]: Array<() => boolean | string> }
   }
-
   /** Emits an update message for the address prop, so that the caller can ".sync" with it. */
   @Emit('update:address')
   emitAddress (address: object): void { }
