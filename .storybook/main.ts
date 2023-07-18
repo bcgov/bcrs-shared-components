@@ -1,11 +1,13 @@
-const path = require('path');
+const path = require('path')
+import type { StorybookConfig } from '@storybook/vue-vite'
 
-module.exports = {
+const config: StorybookConfig = {
   framework: {
     name: '@storybook/vue-vite',
     options: {}
   },
   core: {
+    builder: '@storybook/builder-vite',
     disableTelemetry: true
   },
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -21,9 +23,7 @@ module.exports = {
         toolbars: false
       }
     }
-  ],
-  features: {
-    postcss: false, // see https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#deprecated-implicit-postcss-loader
-    previewMdx2: true // see https://github.com/storybookjs/storybook/issues/18094#issuecomment-1134326831
-  }
+  ]
 }
+
+export default config
