@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@bcrs-shared-components/confirm-dialog": "^1.2.2",
-    "@bcrs-shared-components/corp-type-module": "^1.0.14",
+    "@bcrs-shared-components/corp-type-module": "^1.0.13",
     "@bcrs-shared-components/enums": "^1.0.41",
     "@bcrs-shared-components/interfaces": "^1.0.65",
     "@bcrs-shared-components/mixins": "^1.1.15",
