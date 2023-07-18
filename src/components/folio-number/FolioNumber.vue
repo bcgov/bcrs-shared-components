@@ -7,19 +7,17 @@
       no-gutters
     >
       <v-col cols="3">
-        <label>
-          <strong>Business Folio or<br>Reference Number</strong>
-          <v-col>
-            <v-chip
-              v-if="hasFolioNumberChanged"
-              x-small
-              label
-              color="primary"
-              text-color="white"
-            >
-              {{ editedLabel }}
-            </v-chip>
-          </v-col>
+        <label class="reference-number-label">
+          <div>Business Folio or<br>Reference Number</div>
+          <v-chip
+            v-if="hasFolioNumberChanged"
+            x-small
+            label
+            color="primary"
+            text-color="white"
+          >
+            {{ editedLabel }}
+          </v-chip>
         </label>
       </v-col>
 
@@ -275,6 +273,11 @@ export default class FolioNumber extends Vue {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
+
+.reference-number-label{
+  font-weight: bold;
+  color: $gray9;
+}
 
 :deep(.v-input .v-label) {
   font-weight: normal;

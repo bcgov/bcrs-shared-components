@@ -13,18 +13,16 @@
           class="pr-4"
         >
           <label class="contact-info-label">
-            <span>{{ contactLabel }} Contact Information</span>
-            <v-col>
-              <v-chip
-                v-if="hasBusinessContactInfoChange"
-                x-small
-                label
-                color="primary"
-                text-color="white"
-              >
-                {{ editedLabel }}
-              </v-chip>
-            </v-col>
+            <div>{{ contactLabel }} Contact Information</div>
+            <v-chip
+              v-if="hasBusinessContactInfoChange"
+              x-small
+              label
+              color="primary"
+              text-color="white"
+            >
+              {{ editedLabel }}
+            </v-chip>
           </label>
         </v-col>
 
