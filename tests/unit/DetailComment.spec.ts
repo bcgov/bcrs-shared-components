@@ -47,7 +47,7 @@ describe('DetailComment', () => {
   })
 
   // FUTURE: fix this test
-  xit('emits valid event when value prop is changed', async () => {
+  it.skip('emits valid event when value prop is changed', async () => {
     const wrapper = shallowMount(DetailComment,
       {
         vuetify

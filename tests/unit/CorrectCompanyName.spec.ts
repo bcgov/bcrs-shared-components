@@ -12,7 +12,7 @@ function getLastEvent (wrapper: Wrapper<CorrectCompanyName>, name: string): any 
   return null
 }
 
-xdescribe('CorrectCompanyName', () => {
+describe.skip('CorrectCompanyName', () => {
   let vuetify: any
   let wrapperFactory: any
 

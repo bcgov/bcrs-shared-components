@@ -158,7 +158,7 @@ describe('StaffPayment', () => {
 
   // FUTURE
   // see https://vue-test-utils.vuejs.org/api/wrapper/#trigger
-  xit('sets FAS radio button when Routing Slip Number input is focused', async () => {
+  it.skip('sets FAS radio button when Routing Slip Number input is focused', async () => {
     const wrapper = mount(StaffPayment, { vuetify })
     await wrapper.find('#routing-slip-number-textfield').trigger('focus')
 
@@ -169,7 +169,7 @@ describe('StaffPayment', () => {
   })
 
   // FUTURE
-  xit('sets BCOL radio button when BC Online Account Number input is focused', async () => {
+  it.skip('sets BCOL radio button when BC Online Account Number input is focused', async () => {
     const wrapper = mount(StaffPayment, { vuetify })
     await wrapper.find('#bcol-account-number-textfield').trigger('focus')
 
@@ -180,7 +180,7 @@ describe('StaffPayment', () => {
   })
 
   // FUTURE
-  xit('sets BCOL radio button when DAT Number input is focused', async () => {
+  it.skip('sets BCOL radio button when DAT Number input is focused', async () => {
     const wrapper = mount(StaffPayment, { vuetify })
     await wrapper.find('#dat-number-textfield').trigger('focus')
 
@@ -191,7 +191,7 @@ describe('StaffPayment', () => {
   })
 
   // FUTURE
-  xit('sets BCOL radio button when Folio Number input is focused', async () => {
+  it.skip('sets BCOL radio button when Folio Number input is focused', async () => {
     const wrapper = mount(StaffPayment, { vuetify })
     await wrapper.find('#folio-number-textfield').trigger('focus')
 
@@ -241,7 +241,7 @@ describe('StaffPayment', () => {
   })
 
   // FUTURE: fix this test
-  xit('becomes valid when Routing Slip Number is entered', async () => {
+  it.skip('becomes valid when Routing Slip Number is entered', async () => {
     const wrapper = mount(StaffPayment, { vuetify })
 
     wrapper.setProps({
@@ -261,7 +261,7 @@ describe('StaffPayment', () => {
   })
 
   // FUTURE: fix this test
-  xit('becomes valid when BC Online Account Number and DAT Number are entered', async () => {
+  it.skip('becomes valid when BC Online Account Number and DAT Number are entered', async () => {
     const wrapper = mount(StaffPayment, { vuetify })
 
     wrapper.setProps({
@@ -300,7 +300,7 @@ describe('StaffPayment', () => {
   })
 
   // FUTURE: fix this test
-  xit('becomes invalid when Routing Slip Number is cleared', async () => {
+  it.skip('becomes invalid when Routing Slip Number is cleared', async () => {
     const wrapper = mount(StaffPayment, {
       vuetify,
       propsData: {
@@ -327,7 +327,7 @@ describe('StaffPayment', () => {
   })
 
   // FUTURE: fix this test
-  xit('becomes invalid when BC Online Account Number is cleared', async () => {
+  it.skip('becomes invalid when BC Online Account Number is cleared', async () => {
     const wrapper = mount(StaffPayment, {
       vuetify,
       propsData: {
@@ -356,7 +356,7 @@ describe('StaffPayment', () => {
   })
 
   // FUTURE: fix this test
-  xit('becomes invalid when DAT Number is cleared', async () => {
+  it.skip('becomes invalid when DAT Number is cleared', async () => {
     const wrapper = mount(StaffPayment, {
       vuetify,
       propsData: {

@@ -250,7 +250,7 @@ describe('Effective Date Time component', () => {
   })
 
   // FUTURE: this works locally but not in GHA; fix later
-  xit('emits a valid state when Future Effective is selected and valid date and time are entered', async () => {
+  it.skip('emits a valid state when Future Effective is selected and valid date and time are entered', async () => {
     const wrapper = wrapperFactory({
       currentJsDate: today,
       effectiveDateTime: dateTimeDefault,
@@ -276,7 +276,7 @@ describe('Effective Date Time component', () => {
   })
 
   // FUTURE: It was decided not to load FED from draft for now
-  xit('emits a valid state when component mounts with valid Effective Date Time', async () => {
+  it.skip('emits a valid state when component mounts with valid Effective Date Time', async () => {
     const wrapper = wrapperFactory({
       currentJsDate: today,
       effectiveDateTime: dateTimeValid,
@@ -305,7 +305,7 @@ describe('Effective Date Time component', () => {
   })
 
   // FUTURE: this works locally but not in GHA; fix later
-  xit('displays an invalid Date Alert when the date is invalid', async () => {
+  it.skip('displays an invalid Date Alert when the date is invalid', async () => {
     const wrapper = wrapperFactory({
       currentJsDate: today,
       effectiveDateTime: dateTimeOver,

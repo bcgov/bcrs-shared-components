@@ -45,7 +45,7 @@ describe('WebChat component', () => {
   })
 
   // FUTURE: fix this
-  xit('displays the tooltip for the open webchat status', async (done) => {
+  it.skip('displays the tooltip for the open webchat status', async (done) => {
     expect(wrapper.vm.chatStatus).toBe('open')
 
     await wrapper.find('#chat-button-wrapper').trigger('mouseenter')
@@ -59,7 +59,7 @@ describe('WebChat component', () => {
   })
 
   // FUTURE: fix this
-  xit('displays the tooltip for the closed webchat status', async (done) => {
+  it.skip('displays the tooltip for the closed webchat status', async (done) => {
     wrapper.vm.chatStatus = 'closed'
 
     await wrapper.find('#chat-button-wrapper').trigger('mouseenter')
@@ -74,7 +74,7 @@ describe('WebChat component', () => {
   })
 
   // FUTURE: fix this
-  xit('displays the tooltip for the unavailable webchat status', async (done) => {
+  it.skip('displays the tooltip for the unavailable webchat status', async (done) => {
     wrapper.vm.chatStatus = 'response error'
 
     await wrapper.find('#chat-button-wrapper').trigger('mouseenter')

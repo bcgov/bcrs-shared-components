@@ -240,7 +240,7 @@ describe('Staff Comments', () => {
   })
 
   // FUTURE: fix this test
-  xit('validates excessive comment correctly', async () => {
+  it.skip('validates excessive comment correctly', async () => {
     // mock GET comments endpoint
     sinon.stub(axios, 'get').withArgs('businesses/CP0000007/comments')
       .returns(new Promise(resolve => resolve({ data: { comments: [] } })))

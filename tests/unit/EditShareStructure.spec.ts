@@ -144,7 +144,7 @@ describe('Edit Share Structure component', () => {
   })
 
   // FUTURE: fix this
-  xit('Emits add edit class event', async () => {
+  it.skip('Emits add edit class event', async () => {
     const shareClass = createShareStructure(null, 1, 'Class', 'Class A', true, 100, true, 0.50, 'CAD', true)
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareClass, -1, 1, null, [])
     await Vue.nextTick()
@@ -168,7 +168,7 @@ describe('Edit Share Structure component', () => {
   })
 
   // FUTURE: fix this
-  xit('Emits add edit series event', async () => {
+  it.skip('Emits add edit series event', async () => {
     const shareClass = createShareStructure(null, 1, 'Class', 'Class A', true, 100, true, 0.50, 'CAD', true)
     const shareSeries = createShareStructure(null, 1, 'Series', 'Series A', true, 100, true, 0.50, 'CAD', true)
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareSeries, -1, 1, 0, [shareClass])
@@ -460,7 +460,7 @@ describe('Edit Share Structure component', () => {
   })
 
   // FUTURE: fix this
-  xit('Currency dropdown loads and model change is reflected in the drop down selection', async () => {
+  it.skip('Currency dropdown loads and model change is reflected in the drop down selection', async () => {
     const shareClass = createShareStructure(null, 1, 'Class', 'Class A', true, 100, true, 0.50, 'CAD', true)
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareClass, 0, -1, 0, [])
     const items = wrapper.find('.v-select').props('items')

@@ -13,7 +13,7 @@ function getLastEvent (wrapper: Wrapper<CorrectNameToNumber>, name: string): any
   return null
 }
 
-xdescribe('CorrectNameToNumber', () => {
+describe.skip('CorrectNameToNumber', () => {
   let vuetify: any
   let wrapperFactory: any
 
