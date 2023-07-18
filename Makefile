@@ -24,7 +24,7 @@ test:  ## Unit testing
 	npm run test:unit
 
 storybook:
-	npm run storybook:build
+	npm run build-storybook
 #################################################################################
 # Self Documenting Commands                                                     #
 #################################################################################

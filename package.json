@@ -6,6 +6,7 @@
     "storybook": "storybook dev",
     "build-storybook": "storybook build -o ./docs",
     "lint": "eslint . --ext js,ts,vue",
+    "lint:nofix": "eslint . --ext js,ts,vue --no-fix",
     "test:unit": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
