@@ -12,7 +12,9 @@ export default defineConfig({
     }
   },
   test: {
-    environment: 'jsdom',
+    // simulate DOM with happy-dom
+    environment: 'happy-dom',
+    // enable jest-like global test APIs
     globals: true,
     setupFiles: ['./tests/setup.ts'],
     // disable threads on GH actions to speed it up

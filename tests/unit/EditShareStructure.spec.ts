@@ -322,7 +322,7 @@ describe('Edit Share Structure component', () => {
     const inputElement: Wrapper<Vue> = wrapper.find(txtMaxShares)
 
     // before entering anything
-    inputElement.setValue(null)
+    inputElement.setValue('')
     wrapper.find(doneButtonSelector).trigger('click')
     await Vue.nextTick()
 

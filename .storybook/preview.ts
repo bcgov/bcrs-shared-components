@@ -24,7 +24,7 @@ const preview: Preview = {
         <v-app class="app-container theme--light">
           <story />
         </v-app>
-      `
+        `
       })
   ]
 }
