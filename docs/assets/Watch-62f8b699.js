@@ -1,0 +1,2 @@
+import{c as m}from"./_plugin-vue2_normalizer-b11a0120.js";function v(e,a){a===void 0&&(a={});var i=a.deep,d=i===void 0?!1:i,c=a.immediate,t=c===void 0?!1:c;return m(function(f,l){typeof f.watch!="object"&&(f.watch=Object.create(null));var r=f.watch;typeof r[e]=="object"&&!Array.isArray(r[e])?r[e]=[r[e]]:typeof r[e]>"u"&&(r[e]=[]),r[e].push({handler:l,deep:d,immediate:t})})}export{v as W};
+//# sourceMappingURL=Watch-62f8b699.js.map
