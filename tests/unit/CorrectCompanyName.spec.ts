@@ -1,21 +1,18 @@
-import Vue from 'vue'
 import Vuetify from 'vuetify'
 import flushPromises from 'flush-promises'
 import { mount, Wrapper } from '@vue/test-utils'
 import CorrectCompanyName from '@/components/correct-name/CorrectCompanyName.vue'
 
-Vue.use(Vuetify)
-
 function getLastEvent (wrapper: Wrapper<CorrectCompanyName>, name: string): any {
-  const eventsList: Array<any> = wrapper.emitted(name)
+  const eventsList = wrapper.emitted(name) as Array<any>
   if (eventsList) {
-    const events: Array<any> = eventsList[eventsList.length - 1]
+    const events = eventsList[eventsList.length - 1] as Array<any>
     return events[0]
   }
   return null
 }
 
-xdescribe('CorrectCompanyName', () => {
+describe.skip('CorrectCompanyName', () => {
   let vuetify: any
   let wrapperFactory: any
 

@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Vuelidate from 'vuelidate'
 import Vuetify from 'vuetify'
 import { createLocalVue, mount } from '@vue/test-utils'
 import { ShareStructure } from '@/components/share-structure'
@@ -10,9 +9,6 @@ document.body.setAttribute('data-app', 'true')
 
 // suppress the "[Vuetify] Unable to locate target #share-structure" warning
 document.body.setAttribute('id', 'share-structure')
-
-Vue.use(Vuetify)
-Vue.use(Vuelidate)
 
 const vuetify = new Vuetify({})
 const localVue = createLocalVue()
@@ -311,7 +307,7 @@ describe('Share Structure component', () => {
     const seriesListItem1 = wrapper.vm.$el.querySelectorAll('.v-data-table .series-row')[1]
 
     expect(seriesListItem1.querySelectorAll('td')[0].textContent).toContain('Share Series 2')
-    expect(seriesListItem1.querySelectorAll('td')[1].textContent).toContain(100)
+    expect(seriesListItem1.querySelectorAll('td')[1].textContent).toContain('100')
     expect(seriesListItem1.querySelectorAll('td')[2].textContent).toContain('1.58')
     expect(seriesListItem1.querySelectorAll('td')[3].textContent).toContain('CAD')
     expect(seriesListItem1.querySelectorAll('td')[4].textContent).toContain('No')
@@ -319,7 +315,7 @@ describe('Share Structure component', () => {
     const seriesListItem2 = wrapper.vm.$el.querySelectorAll('.v-data-table .series-row')[2]
 
     expect(seriesListItem2.querySelectorAll('td')[0].textContent).toContain('Share Series 3')
-    expect(seriesListItem2.querySelectorAll('td')[1].textContent).toContain(100)
+    expect(seriesListItem2.querySelectorAll('td')[1].textContent).toContain('100')
     expect(seriesListItem2.querySelectorAll('td')[2].textContent).toContain('1.58')
     expect(seriesListItem2.querySelectorAll('td')[3].textContent).toContain('')
     expect(seriesListItem2.querySelectorAll('td')[4].textContent).toContain('No')

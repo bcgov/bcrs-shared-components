@@ -1,15 +1,29 @@
 <template>
   <div id="AR-step-4-container">
-    <v-form ref="certifyForm" lazy-validation v-on:submit.prevent>
+    <v-form
+      ref="certifyForm"
+      lazy-validation
+      @submit.prevent
+    >
       <v-row no-gutters>
-        <v-col cols="12" :sm="firstColumn" class="pr-4 pb-4">
-          <label class="title-label" :class="{'error-text': invalidSection}">Legal Name</label>
+        <v-col
+          cols="12"
+          :sm="firstColumn"
+          class="pr-4 pb-4"
+        >
+          <label
+            class="title-label"
+            :class="{'error-text': invalidSection}"
+          >Legal Name</label>
         </v-col>
-        <v-col cols="12" :sm="secondColumn">
+        <v-col
+          cols="12"
+          :sm="secondColumn"
+        >
           <v-text-field
+            id="certified-by-textfield"
             filled
             persistent-hint
-            id="certified-by-textfield"
             label="Legal name of authorized person"
             :value="certifiedBy"
             :rules="[(v) => !!v || 'A person\'s legal name is required.']"
@@ -20,22 +34,36 @@
       </v-row>
 
       <v-row no-gutters>
-        <v-col cols="12" :sm="firstColumn" />
-        <v-col cols="12" :sm="secondColumn">
+        <v-col
+          cols="12"
+          :sm="firstColumn"
+        />
+        <v-col
+          cols="12"
+          :sm="secondColumn"
+        >
           <v-checkbox
             hide-details
             :value="isCertified"
-            @change="emitIsCertified($event)"
             class="mt-0 pt-0"
+            @change="emitIsCertified($event)"
           >
-            <template v-slot:label>
-              <div class="certify-stmt" :class="{'error-text': invalidSection && !isCertified}" v-if="isStaff">
+            <template #label>
+              <div
+                v-if="isStaff"
+                class="certify-stmt"
+                :class="{'error-text': invalidSection && !isCertified}"
+              >
                 <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
                 certifies that they have relevant knowledge of the
                 {{ entityDisplay || "association" }} and is authorized to
                 make this filing.
               </div>
-              <div class="certify-stmt" :class="{'error-text': invalidSection && !isCertified}" v-else>
+              <div
+                v-else
+                class="certify-stmt"
+                :class="{'error-text': invalidSection && !isCertified}"
+              >
                 I,
                 <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>,
                 certify that I have relevant knowledge of the
@@ -45,13 +73,24 @@
             </template>
           </v-checkbox>
 
-          <ul v-if="statements.length > 0" class="certify-statements mt-4">
-            <li v-for="(statement, index) in statements" :key="`statement-${index}`" class="pt-2">
+          <ul
+            v-if="statements.length > 0"
+            class="certify-statements mt-4"
+          >
+            <li
+              v-for="(statement, index) in statements"
+              :key="`statement-${index}`"
+              class="pt-2"
+            >
               {{ statement }}
             </li>
           </ul>
-          <p class="certify-clause"><strong>Date:</strong> {{ currentDate }}</p>
-          <p class="certify-clause">{{ message }}</p>
+          <p class="certify-clause">
+            <strong>Date:</strong> {{ currentDate }}
+          </p>
+          <p class="certify-clause">
+            {{ message }}
+          </p>
 
           <!-- Incorporation MailTo Section -->
           <template v-if="enableMailTo">
@@ -61,12 +100,18 @@
             <ul class="email-addresses">
               <li id="business-email">
                 <span>Registered office email address:</span>
-                <a v-if="businessEmail" :href="`mailto:${businessEmail}`">{{ businessEmail }}</a>
+                <a
+                  v-if="businessEmail"
+                  :href="`mailto:${businessEmail}`"
+                >{{ businessEmail }}</a>
                 <span v-else>(Not entered)</span>
               </li>
               <li id="completing-party-email">
                 <span>Completing party email address:</span>&nbsp;
-                <a v-if="completingPartyEmail" :href="`mailto:${completingPartyEmail}`">{{ completingPartyEmail }}</a>
+                <a
+                  v-if="completingPartyEmail"
+                  :href="`mailto:${completingPartyEmail}`"
+                >{{ completingPartyEmail }}</a>
                 <span v-else>(Not entered)</span>
               </li>
             </ul>
@@ -167,7 +212,8 @@ export default class Certify extends Vue {
 
   /** Emits an event indicating whether or not the form is valid. */
   @Emit('valid')
-  private emitValid (valid: boolean): void { }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private emitValid (valid: boolean): void {}
 }
 </script>
 

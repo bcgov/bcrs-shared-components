@@ -1,11 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { DatePicker } from './index'
 
-export default {
-  title: 'component/DatePicker',
-  component: DatePicker,
-  argTypes: {
-  }
+const meta: Meta<typeof DatePicker> = {
+  title: 'component/DatePicker'
 }
+export default meta
 
 const minDateStr = '2021-03-01'
 const maxDateStr = '2021-06-01'
@@ -17,7 +16,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const datePickerBaseline = Template.bind({})
-datePickerBaseline.args = {
+datePickerBaseline['args'] = {
   title: 'Date',
   errorMsg: '',
   inputRules: [],
@@ -31,7 +30,7 @@ datePickerBaseline.args = {
 }
 
 export const datePickerError = Template.bind({})
-datePickerError.args = {
+datePickerError['args'] = {
   title: 'Date',
   errorMsg: 'You have some validation errors',
   inputRules: [],
@@ -45,7 +44,7 @@ datePickerError.args = {
 }
 
 export const datePickerMinMax = Template.bind({})
-datePickerMinMax.args = {
+datePickerMinMax['args'] = {
   title: 'Date with rules',
   errorMsg: '',
   inputRules: [],
@@ -59,7 +58,7 @@ datePickerMinMax.args = {
 }
 
 export const datePickerInitialValue = Template.bind({})
-datePickerInitialValue.args = {
+datePickerInitialValue['args'] = {
   title: 'Date with initial value',
   initialValue: '2021-11-18',
   errorMsg: '',
@@ -74,7 +73,7 @@ datePickerInitialValue.args = {
 }
 
 export const datePickerHint = Template.bind({})
-datePickerHint.args = {
+datePickerHint['args'] = {
   title: 'Date',
   errorMsg: '',
   hint: 'this is a hint.',
@@ -90,7 +89,7 @@ datePickerHint.args = {
 }
 
 export const datePickerClearable = Template.bind({})
-datePickerClearable.args = {
+datePickerClearable['args'] = {
   title: 'Date clearable',
   errorMsg: '',
   hint: '',

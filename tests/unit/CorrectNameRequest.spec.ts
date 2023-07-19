@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Vuetify from 'vuetify'
 import flushPromises from 'flush-promises'
 import { mount, Wrapper } from '@vue/test-utils'
@@ -7,18 +6,16 @@ import CorrectNameRequest from '@/components/correct-name/CorrectNameRequest.vue
 // mock the console.warn function to hide "[Vuetify] Unable to locate target XXX"
 // console.warn = jest.fn()
 
-Vue.use(Vuetify)
-
 function getLastEvent (wrapper: Wrapper<any>, name: string): any {
-  const eventsList: Array<any> = wrapper.emitted(name)
+  const eventsList = wrapper.emitted(name) as Array<any>
   if (eventsList) {
-    const events: Array<any> = eventsList[eventsList.length - 1]
+    const events = eventsList[eventsList.length - 1] as Array<any>
     return events[0]
   }
   return null
 }
 
-xdescribe('CorrectNameRequest', () => {
+describe.skip('CorrectNameRequest', () => {
   let vuetify: any
   let wrapperFactory: any
 
@@ -47,9 +44,9 @@ xdescribe('CorrectNameRequest', () => {
     const wrapper = wrapperFactory()
 
     const textFields = wrapper.findAll('.text-input-field')
-    let nrInput = textFields.at(0)
-    let phoneInput = textFields.at(1)
-    let emailInput = textFields.at(2)
+    const nrInput = textFields.at(0)
+    const phoneInput = textFields.at(1)
+    const emailInput = textFields.at(2)
 
     expect(nrInput.text()).toContain('Enter the NR Number')
     expect(phoneInput.text()).toContain('Applicant\'s Phone Number')

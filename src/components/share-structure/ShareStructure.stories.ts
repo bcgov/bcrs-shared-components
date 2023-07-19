@@ -1,15 +1,12 @@
-import Vuetify from 'vuetify'
+import type { Meta } from '@storybook/vue'
 import { ShareStructure } from './index'
 
-export default {
-  title: 'component/ShareStructure',
-  component: ShareStructure,
-  argTypes: {
-  }
+const meta: Meta<typeof ShareStructure> = {
+  title: 'component/ShareStructure'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
-  vuetify: new Vuetify({ iconfont: 'mdi' }),
   props: Object.keys(argTypes),
   components: { ShareStructure },
   template: '<share-structure v-bind="$props" />' // $props comes from args below
@@ -183,7 +180,7 @@ const businessSnapshot = [
 ]
 
 export const correction = Template.bind({})
-correction.args = {
+correction['args'] = {
   isEditMode: true,
   editLabel: 'Correct',
   editedLabel: 'CORRECTED',
@@ -195,7 +192,7 @@ correction.args = {
 }
 
 export const alteration = Template.bind({})
-alteration.args = {
+alteration['args'] = {
   isEditMode: true,
   editLabel: 'Change',
   editedLabel: 'CHANGED',

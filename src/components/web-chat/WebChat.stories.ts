@@ -1,13 +1,13 @@
+import type { Meta } from '@storybook/vue'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { WebChat } from './index'
 import Vuetify from 'vuetify'
 
-export default {
-  title: 'component/WebChat',
-  component: WebChat,
-  argTypes: {}
+const meta: Meta<typeof WebChat> = {
+  title: 'component/WebChat'
 }
+export default meta
 
 const webChatReason = 'WebChatReason'
 const webChatStatusUrl = 'https://web-chat-status-url'
@@ -27,7 +27,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const base = Template.bind({})
-base.args = {
+base['args'] = {
   axios: axios.create(),
   isMobile: false,
   webChatReason,

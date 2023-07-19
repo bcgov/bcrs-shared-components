@@ -1,10 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { ApprovalType } from './index'
 
-export default {
-  title: 'component/ApprovalType',
-  component: ApprovalType,
-  argTypes: {}
+const meta: Meta<typeof ApprovalType> = {
+  title: 'component/ApprovalType'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -13,37 +13,37 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
-Default.args = {}
+Default['args'] = {}
 
 export const defaultCourtOrderOnly = Template.bind({})
-defaultCourtOrderOnly.args = {
+defaultCourtOrderOnly['args'] = {
   isCourtOrderOnly: true
 }
 
 export const conversionToFullRestoration = Template.bind({})
-conversionToFullRestoration.args = {
+conversionToFullRestoration['args'] = {
   filingType: 'conversion to full restoration'
 }
 
 export const draftViaRegistrar = Template.bind({})
-draftViaRegistrar.args = {
+draftViaRegistrar['args'] = {
   approvedByRegistrar: true
 }
 
 export const draftViaCourtOrder = Template.bind({})
-draftViaCourtOrder.args = {
+draftViaCourtOrder['args'] = {
   courtOrderNumber: '99-1234567'
 }
 
 export const draftViaRegistrarWithDates = Template.bind({})
-draftViaRegistrarWithDates.args = {
+draftViaRegistrarWithDates['args'] = {
   approvedByRegistrar: true,
   noticeDate: '2023-02-02',
   applicationDate: '2023-01-15'
 }
 
 export const draftExtensionWithCourtOrder = Template.bind({})
-draftExtensionWithCourtOrder.args = {
+draftExtensionWithCourtOrder['args'] = {
   courtOrderNumber: '99-1234567',
   isExtension: true,
   isCourtOrderOnly: true,

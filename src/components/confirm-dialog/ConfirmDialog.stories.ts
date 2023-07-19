@@ -1,22 +1,19 @@
+import type { Meta } from '@storybook/vue'
 import Vue from 'vue'
-import Vuetify from 'vuetify'
 import { ConfirmDialog } from './index'
 
-export default {
-  title: 'component/ConfirmDialog',
-  component: ConfirmDialog,
-  argTypes: {
-  }
+const meta: Meta<typeof ConfirmDialog> = {
+  title: 'component/ConfirmDialog'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
-  vuetify: new Vuetify({ iconfont: 'mdi' }),
   props: Object.keys(argTypes),
   components: { ConfirmDialog },
   template: '<confirm-dialog v-bind="$props" @hook:mounted="externalMount" />',
   methods: {
     async externalMount () {
-      const vm = this.$children[0] // target the component confirm-dialog
+      const vm = (this as any).$children[0] // target the component confirm-dialog
       await Vue.nextTick() // wait that mounted() finished
       vm.open(
         'Confirm Dialog Title',
@@ -34,4 +31,4 @@ const Template = (args, { argTypes }) => ({
 
 // Passing an ID that doesn't exist to attach the dialog throws an error in StoryBook
 export const base = Template.bind({})
-base.args = {}
+base['args'] = {}

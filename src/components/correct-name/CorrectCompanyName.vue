@@ -1,10 +1,14 @@
 <template>
-  <v-form id="correct-company-name-form" ref="form" v-model="formValid">
+  <v-form
+    id="correct-company-name-form"
+    ref="form"
+    v-model="formValid"
+  >
     <v-row no-gutters>
       <v-col>
         <v-text-field
-          v-model="textfield"
           id="company-name-textfield"
+          v-model="textfield"
           class="mb-n3"
           filled
           :rules="companyNameRules"
