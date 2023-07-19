@@ -6,6 +6,10 @@ import CorrectCompanyName from '@/components/correct-name/CorrectCompanyName.vue
 
 Vue.use(Vuetify)
 
+const vuetify = new Vuetify({})
+
+const inputSelector = '#company-name-textfield'
+
 function getLastEvent (wrapper: Wrapper<CorrectCompanyName>, name: string): any {
   const eventsList: Array<any> = wrapper.emitted(name)
   if (eventsList) {
@@ -15,25 +19,28 @@ function getLastEvent (wrapper: Wrapper<CorrectCompanyName>, name: string): any 
   return null
 }
 
-xdescribe('CorrectCompanyName', () => {
-  let vuetify: any
+const defaultProps = {
+  companyName: 'Old Company Name',
+  formType: 'correct-new-nr',
+  validate: false
+}
+
+describe('CorrectCompanyName', () => {
   let wrapperFactory: any
 
   beforeEach(() => {
-    // *** TODO: assign this outside describe block?
-    vuetify = new Vuetify({})
-
-    // *** TODO: set this as a prop
-    // store.state.stateModel.nameRequest.legalName = 'Bobs Plumbing'
-
     wrapperFactory = (propsData: any) => {
       return mount(CorrectCompanyName, {
-        propsData,
+        propsData: {
+          ...defaultProps,
+          ...propsData
+        },
         vuetify
       })
     }
   })
 
+  // *** TODO: wrapper should be destroyed due to avoid wasting memory?
   it('renders the CorrectCompanyName Component', async () => {
     const wrapper = wrapperFactory()
 
@@ -42,20 +49,21 @@ xdescribe('CorrectCompanyName', () => {
 
   it('verifies the text field populated from prop', async () => {
     const wrapper = wrapperFactory()
-    const companyNameInput = wrapper.find('#company-name-input')
+    const companyNameInput = wrapper.find(inputSelector)
 
-    // *** TODO: replace these with await Vue.nextTick() after wrapper?
     await flushPromises()
 
     // Verify data
-    expect(companyNameInput.element.value).toBe('Bobs Plumbing')
-    expect(getLastEvent(wrapper, 'valid')).toBe(true)
+    expect(companyNameInput.element.value).toBe('Old Company Name')
+
+    // formValid set false initially
+    expect(getLastEvent(wrapper, 'valid')).toBe(false)
   })
 
   it('verifies it is invalid with no Company Name', async () => {
     const wrapper = wrapperFactory()
-    const companyNameInput = wrapper.find('#company-name-input')
-    wrapper.vm.companyName = null
+    const companyNameInput = wrapper.find(inputSelector)
+    wrapper.vm.$data.textfield = ''
 
     await flushPromises()
 
@@ -66,22 +74,22 @@ xdescribe('CorrectCompanyName', () => {
 
   it('verifies the done emission when the change is complete', async () => {
     const wrapper = wrapperFactory()
-    const companyNameInput = wrapper.find('#company-name-input')
-    wrapper.vm.companyName = 'Bob\'s Plumbing Ltd.'
+    const companyNameInput = wrapper.find(inputSelector)
+    wrapper.vm.$data.textfield = 'New Company Name'
 
     await flushPromises()
 
     // Verify data
-    expect(companyNameInput.element.value).toBe('Bob\'s Plumbing Ltd.')
+    expect(companyNameInput.element.value).toBe('New Company Name')
     expect(getLastEvent(wrapper, 'valid')).toBe(true)
 
     // Submit Change
     await wrapper.setProps({ formType: 'correct-name' })
-    await flushPromises()
+    await Vue.nextTick()
 
     expect(getLastEvent(wrapper, 'saved')).toBe(true)
 
     // Verify Data change
-    expect(getLastEvent(wrapper, 'update:nameRequest')).toBe('Bob\'s Plumbing Ltd.')
+    expect(getLastEvent(wrapper, 'update:companyName')).toBe('New Company Name')
   })
 })

@@ -15,7 +15,8 @@ const defaultProps = {
   entityType: 'BC',
   nameRequest: {},
   companyName: 'Old Company Name',
-  fetchAndValidateNr: () => {}
+  fetchAndValidateNr: () => {},
+  formType: ''
 }
 
 describe('CorrectName', () => {
