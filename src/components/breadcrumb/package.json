@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/breadcrumb",
-  "version": "2.1.22",
+  "version": "2.1.23",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.0.65",
+    "@bcrs-shared-components/interfaces": "^1.0.66",
     "vue": "^2.7.14"
   },
   "devDependencies": {
