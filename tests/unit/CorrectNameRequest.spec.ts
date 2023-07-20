@@ -15,7 +15,7 @@ function getLastEvent (wrapper: Wrapper<any>, name: string): any {
   return null
 }
 
-let nameRequest = {
+const nameRequest = {
   state: 'APPROVED',
   expirationDate: '2022-05-19',
   names: [{
@@ -32,7 +32,7 @@ let nameRequest = {
   }
 }
 
-let defaultProps = {
+const defaultProps = {
   businessId: 'BC0871437',
   entityType: 'BC',
   fetchAndValidateNr: () => Promise.resolve(nameRequest),

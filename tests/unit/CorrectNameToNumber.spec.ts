@@ -13,7 +13,7 @@ function getLastEvent (wrapper: Wrapper<CorrectNameToNumber>, name: string): any
   return null
 }
 
-let defaultProps = {
+const defaultProps = {
   businessId: 'BC0871437',
   entityType: 'BC',
   formType: 'correct-name-to-number',
