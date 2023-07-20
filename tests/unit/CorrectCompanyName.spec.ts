@@ -24,7 +24,7 @@ const defaultProps = {
   validate: false
 }
 
-describe.skip('CorrectCompanyName', () => {
+describe('CorrectCompanyName', () => {
   let vuetify: any
   let wrapperFactory: any
 

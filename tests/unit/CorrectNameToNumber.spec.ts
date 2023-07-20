@@ -20,7 +20,7 @@ let defaultProps = {
   validate: false
 }
 
-describe.skip('CorrectNameToNumber', () => {
+describe('CorrectNameToNumber', () => {
   let vuetify: any
   let wrapperFactory: any
 

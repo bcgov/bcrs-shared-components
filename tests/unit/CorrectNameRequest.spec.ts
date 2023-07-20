@@ -41,7 +41,7 @@ let defaultProps = {
   validate: true
 }
 
-describe.skip('CorrectNameRequest', () => {
+describe('CorrectNameRequest', () => {
   let vuetify: any
   let wrapperFactory: any
 
