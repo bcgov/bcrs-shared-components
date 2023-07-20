@@ -1,11 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { Certify } from './index'
 
-export default {
-  title: 'component/Certify',
-  component: Certify,
-  argTypes: {
-  }
+const meta: Meta<typeof Certify> = {
+  title: 'component/Certify'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -14,7 +13,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   currentDate: '2020-01-17',
   isStaff: false,
   certifiedBy: '',

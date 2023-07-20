@@ -3,7 +3,6 @@ import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
 import { BusinessLookup } from '@/components/business-lookup'
 
-Vue.use(Vuetify)
 const vuetify = new Vuetify({})
 
 describe('Business Lookup component', () => {

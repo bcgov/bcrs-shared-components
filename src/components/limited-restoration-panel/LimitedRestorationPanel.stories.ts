@@ -1,10 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { LimitedRestorationPanel } from './index'
 
-export default {
-  title: 'component/LimitedRestorationPanel',
-  component: LimitedRestorationPanel,
-  argTypes: {}
+const meta: Meta<typeof LimitedRestorationPanel> = {
+  title: 'component/LimitedRestorationPanel'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -13,22 +13,22 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   months: 0
 }
 
 export const twentyFourMonths = Template.bind({})
-twentyFourMonths.args = {
+twentyFourMonths['args'] = {
   months: 24
 }
 
 export const oneMonth = Template.bind({})
-oneMonth.args = {
+oneMonth['args'] = {
   months: 1
 }
 
 export const thirtySixMonths = Template.bind({})
-thirtySixMonths.args = {
+thirtySixMonths['args'] = {
   months: 36,
   maxNumberOfMonths: 36
 }

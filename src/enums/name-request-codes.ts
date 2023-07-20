@@ -41,7 +41,7 @@ export enum NrRequestTypeCodes {
   RESTORATION_CORP = 'RCR', // BC Limited
   RESTORATION_SOC = 'RSO',
   RESTORATION_BEN = 'BERE',
-  RESTORATION_ULC = 'RUL',
+  RESTORATION_ULC = 'RUL'
 }
 
 export enum NrRequestActionCodes {
@@ -57,5 +57,5 @@ export enum NrRequestActionCodes {
   RESTORATION = 'REST', // FUTURE: unused? delete?
   RESUBMIT = 'RESUBMIT', // FUTURE: unused? delete?
 
-  INFO = 'INFO', // special value for sub-menu
+  INFO = 'INFO' // special value for sub-menu
 }

@@ -1,5 +1,8 @@
 <template>
-  <div id="web-chat-container" v-if="webChatUrl && webChatReason">
+  <div
+    v-if="webChatUrl && webChatReason"
+    id="web-chat-container"
+  >
     <v-form
       id="webchat"
       target="webchat_window"
@@ -7,13 +10,34 @@
       :action="webChatUrl"
       @submit="onSubmit()"
     >
-      <input type="hidden" name="Reason" :value="webChatReason" />
-      <input type="hidden" name="UserLanguage" value="en" />
-      <input type="hidden" name="Parameters[TimeZoneOffset]" :value="timeZoneOffset" />
+      <input
+        type="hidden"
+        name="Reason"
+        :value="webChatReason"
+      >
+      <input
+        type="hidden"
+        name="UserLanguage"
+        value="en"
+      >
+      <input
+        type="hidden"
+        name="Parameters[TimeZoneOffset]"
+        :value="timeZoneOffset"
+      >
 
-      <v-tooltip top content-class="top-tooltip" nudge-top="5" :disabled="isMobile">
-        <template v-slot:activator="{ on, attrs }">
-          <div id="chat-button-wrapper" v-on="on" v-bind="attrs">
+      <v-tooltip
+        top
+        content-class="top-tooltip"
+        nudge-top="5"
+        :disabled="isMobile"
+      >
+        <template #activator="{ on, attrs }">
+          <div
+            id="chat-button-wrapper"
+            v-bind="attrs"
+            v-on="on"
+          >
             <v-btn
               :disabled="(chatStatus !== 'open')"
               large
@@ -23,22 +47,33 @@
               class="chat-button"
               type="submit"
               v-bind="attrs"
-              v-on="on"
               aria-label="Chat with Helpdesk staff"
+              v-on="on"
             >
-              <v-icon class="mr-2 ml-n2">mdi-forum-outline</v-icon>
+              <v-icon class="mr-2 ml-n2">
+                mdi-forum-outline
+              </v-icon>
               <span class="font-weight-bold">Chat</span>
             </v-btn>
           </div>
         </template>
-        <span v-if="chatStatus === 'open'" id="open-tooltip-message">
-          {{openTooltipMessage}}
+        <span
+          v-if="chatStatus === 'open'"
+          id="open-tooltip-message"
+        >
+          {{ openTooltipMessage }}
         </span>
-        <span v-else-if="chatStatus === 'closed'" id="closed-tooltip-message">
-          {{closedTooltipMessage}}
+        <span
+          v-else-if="chatStatus === 'closed'"
+          id="closed-tooltip-message"
+        >
+          {{ closedTooltipMessage }}
         </span>
-        <span v-else id="unavailable-tooltip-message">
-          {{unavailableTooltipMessage}}
+        <span
+          v-else
+          id="unavailable-tooltip-message"
+        >
+          {{ unavailableTooltipMessage }}
         </span>
       </v-tooltip>
     </v-form>

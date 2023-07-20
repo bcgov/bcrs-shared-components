@@ -9,29 +9,41 @@
       <ul class="list add-share-structure">
         <li class="add-share-structure-container">
           <div class="meta-container">
-            <label class="add-share-structure-header" :class="{'error-text': invalidSection}">
-              <span v-if="activeIndex === -1" class="pl-5" :class="{'pl-10 text-body-3': isSeries}">
+            <label
+              class="add-share-structure-header"
+              :class="{'error-text': invalidSection}"
+            >
+              <span
+                v-if="activeIndex === -1"
+                class="pl-5"
+                :class="{'pl-10 text-body-3': isSeries}"
+              >
                 Add Share {{ shareStructure.type }}
               </span>
-              <span v-else :class="{'pl-10 text-body-3': isSeries}">Edit Share {{ shareStructure.type }}</span>
+              <span
+                v-else
+                :class="{'pl-10 text-body-3': isSeries}"
+              >Edit Share {{ shareStructure.type }}</span>
             </label>
 
             <div class="meta-container__inner">
               <v-form
                 ref="shareStructureForm"
-                class="share-structure-form"
                 v-model="formValid"
-                v-on:submit.prevent="addShareStructure()">
+                class="share-structure-form"
+                @submit.prevent="addShareStructure()"
+              >
                 <v-text-field
-                  filled
-                  :label="shareStructure.type + ' Name [Shares]'"
-                  :hint="'Enter the name of the  '+ shareStructure.type.toLowerCase() +
-                  '  - the word &quot;Shares&quot; is automatically added'"
                   id="txt-name"
                   v-model="shareStructure.name"
+                  filled
+                  :label="shareStructure.type + ' Name [Shares]'"
+                  :hint="'Enter the name of the ' + shareStructure.type.toLowerCase() +
+                    ' - the word &quot;Shares&quot; is automatically added'"
                   :rules="nameRules"
                   suffix="Shares"
-                  persistent-hint/>
+                  persistent-hint
+                />
 
                 <v-divider class="separator" />
 
@@ -39,59 +51,75 @@
                   v-model="hasNoMaximumShares"
                   column
                   class="radio-group"
-                  @change="changeMaximumShareFlag()">
+                  @change="changeMaximumShareFlag()"
+                >
                   <v-radio :value="false">
-                    <template v-slot:label>
-                      <v-row><v-col cols="6">
-                        <v-text-field
-                          filled
-                          label="Maximum Number of Shares"
-                          id="txt-max-shares"
-                          v-model.number="shareStructure.maxNumberOfShares"
-                          persistent-hint
-                          :hint="'Enter the maximum number of shares in the ' + shareStructure.type.toLowerCase()"
-                          :rules="maximumShareRules"
-                          :disabled="hasNoMaximumShares"/>
-                      </v-col></v-row>
+                    <template #label>
+                      <v-row>
+                        <v-col cols="6">
+                          <v-text-field
+                            id="txt-max-shares"
+                            v-model.number="shareStructure.maxNumberOfShares"
+                            filled
+                            label="Maximum Number of Shares"
+                            persistent-hint
+                            :hint="'Enter the maximum number of shares in the ' + shareStructure.type.toLowerCase()"
+                            :rules="maximumShareRules"
+                            :disabled="hasNoMaximumShares"
+                          />
+                        </v-col>
+                      </v-row>
                     </template>
                   </v-radio>
-                  <v-radio :value="true" label="No maximum" id="lbl-no-maximum" v-if="isNoMaxSharesVisible"/>
+                  <v-radio
+                    v-if="isNoMaxSharesVisible"
+                    id="lbl-no-maximum"
+                    :value="true"
+                    label="No maximum"
+                  />
                 </v-radio-group>
 
                 <v-divider class="separator mx-4" />
 
                 <v-radio-group
+                  v-show="isClass"
                   v-model="hasNoParValue"
                   column
                   class="radio-group"
-                  @change="changeParValueFlag()" v-show="isClass">
-                  <v-radio :value="false" id="radio-par-value">
-                    <template v-slot:label>
+                  @change="changeParValueFlag()"
+                >
+                  <v-radio
+                    id="radio-par-value"
+                    :value="false"
+                  >
+                    <template #label>
                       <v-row>
                         <v-col cols="6">
                           <v-text-field
-                            filled
-                            label="Par Value"
                             id="class-par-value"
                             v-model.number="shareStructure.parValue"
+                            filled
+                            label="Par Value"
                             :rules="parValueRules"
                             hint="Enter the initial value of each share"
-                            persistent-hint/>
+                            persistent-hint
+                          />
                         </v-col>
                         <v-col cols="6">
                           <v-select
+                            id="class-currency"
+                            v-model="shareStructure.currency"
                             :items="getCurrencyList()"
                             filled
                             label="Currency"
-                            v-model="shareStructure.currency"
                             :rules="currencyRules"
                             item-text="`${data.item.name}, ${data.item.code}`"
                             item-value="code"
-                            id='class-currency'>
-                            <template slot="selection" slot-scope="data">
+                          >
+                            <template #selection="data">
                               {{ data.item.name }} ({{ data.item.code }})
                             </template>
-                            <template slot="item" slot-scope="data">
+                            <template #item="data">
                               {{ data.item.name }} ({{ data.item.code }})
                             </template>
                           </v-select>
@@ -99,28 +127,42 @@
                       </v-row>
                     </template>
                   </v-radio>
-                  <v-radio :value="true" label="No par value" id="radio-no-par"/>
+                  <v-radio
+                    id="radio-no-par"
+                    :value="true"
+                    label="No par value"
+                  />
                 </v-radio-group>
 
-                <div v-show="isSeries" class="pl-10">
+                <div
+                  v-show="isSeries"
+                  class="pl-10"
+                >
                   <v-row v-if="shareStructure.hasParValue">
                     <v-col cols="6">
                       <v-text-field
-                        label="Par Value"
                         id="series-par-value"
+                        label="Par Value"
                         :value="shareStructure.parValue"
                         :disabled="true"
-                        width="10"/>
+                        width="10"
+                      />
                     </v-col>
                     <v-col cols="6">
                       <v-text-field
                         id="series-currency"
                         label="Currency"
                         :value="`${getCurrencyNameByCode(shareStructure.currency)} (${shareStructure.currency})`"
-                        :disabled="true"/>
+                        :disabled="true"
+                      />
                     </v-col>
                   </v-row>
-                  <v-label id="lbl-no-par" v-else>No par value</v-label>
+                  <v-label
+                    v-else
+                    id="lbl-no-par"
+                  >
+                    No par value
+                  </v-label>
                 </div>
 
                 <v-divider class="separator mx-4" />
@@ -128,19 +170,27 @@
                 <div class="form__row">
                   <v-checkbox
                     id="special-rights-check-box"
-                    :label="'This share ' + shareStructure.type.toLowerCase() + ' has special rights or restrictions'"
                     v-model="shareStructure.hasRightsOrRestrictions"
+                    :label="'This share ' + shareStructure.type.toLowerCase() + ' has special rights or restrictions'"
                     @click="confirmSeriesRemoval()"
                   />
                 </div>
 
                 <div class="form__row form__btns">
-                  <v-btn large outlined color="error" :disabled="activeIndex === -1"
-                         @click="removeShareStructure()" id="remove-btn">Remove</v-btn>
+                  <v-btn
+                    id="remove-btn"
+                    large
+                    outlined
+                    color="error"
+                    :disabled="activeIndex === -1"
+                    @click="removeShareStructure()"
+                  >
+                    Remove
+                  </v-btn>
 
                   <v-btn
-                    large
                     id="done-btn"
+                    large
                     class="form-primary-btn"
                     color="primary"
                     @click="validateForm()"
@@ -148,7 +198,13 @@
                     Done
                   </v-btn>
 
-                  <v-btn id="cancel-btn" large outlined color="primary" @click="resetFormAndData(true)">
+                  <v-btn
+                    id="cancel-btn"
+                    large
+                    outlined
+                    color="primary"
+                    @click="resetFormAndData(true)"
+                  >
                     Cancel
                   </v-btn>
                 </div>
@@ -162,18 +218,11 @@
 </template>
 
 <script lang="ts">
-// Libraries
 import Vue from 'vue'
 import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
-
-// Components
 import { ConfirmDialog } from '@bcrs-shared-components/confirm-dialog'
-
-// Interfaces and Enums
 import { ConfirmDialogType, FormIF, ShareClassIF } from '@bcrs-shared-components/interfaces'
 import { ActionTypes } from '@bcrs-shared-components/enums'
-
-// Mixin
 import CurrencyLookupMixin from './currency-lookup-mixin'
 
 @Component({
@@ -207,10 +256,10 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
 
   // Data Properties
   private shareStructure: ShareClassIF = null
-  private formValid: boolean = true
-  private hasNoMaximumShares: boolean = false
-  private hasNoParValue: boolean = false
-  private hasSeriesShares: boolean = false
+  private formValid = true
+  private hasNoMaximumShares = false
+  private hasNoParValue = false
+  private hasSeriesShares = false
 
   private excludedWordsListForClass: string [] = ['share', 'shares', 'value']
   private excludedWordsListForSeries: string [] = ['share', 'shares']
@@ -471,21 +520,26 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
 
   // Events
   @Emit('addEditClass')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitAddEditShareClassEvent (shareClass: ShareClassIF): void {}
 
   @Emit('addEditSeries')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitAddEditShareSeriesEvent (shareSeries: ShareClassIF): void {}
 
   @Emit('removeClass')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitRemoveShareClassEvent (shareClassIndex: number): void {}
 
   @Emit('removeSeries')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitRemoveShareSeriesEvent (shareSeriesIndex: number): void {}
 
   @Emit('resetEvent')
   private emitResetEvent (): void {}
 
   @Emit('resolutionPrompt')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitResolutionPrompt (requiresPrompt: boolean): void {}
 }
 </script>

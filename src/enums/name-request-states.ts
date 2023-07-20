@@ -20,5 +20,5 @@ export enum NameRequestStates {
   NOT_APPROVED = 'NOT_APPROVED',
   NOT_FOUND = 'NOT_FOUND',
   NEED_CONSENT = 'NEED_CONSENT',
-  INVALID = 'INVALID',
+  INVALID = 'INVALID'
 }

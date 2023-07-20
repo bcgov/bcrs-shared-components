@@ -1,13 +1,8 @@
-import Vue from 'vue'
 import Vuetify from 'vuetify'
-import Affix from 'vue-affix'
 import VueRouter from 'vue-router'
 import { createLocalVue, mount } from '@vue/test-utils'
 import { Breadcrumb } from '@/components/breadcrumb'
 import { BreadcrumbIF } from '@/interfaces'
-
-Vue.use(Vuetify)
-Vue.use(Affix)
 
 const vuetify = new Vuetify({})
 const localVue = createLocalVue()

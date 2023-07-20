@@ -1,11 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { CorrectName } from './index'
 
-export default {
-  title: 'component/CorrectName',
-  component: CorrectName,
-  argTypes: {
-  }
+const meta: Meta<typeof CorrectName> = {
+  title: 'component/CorrectName'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -14,7 +13,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const correctName = Template.bind({})
-correctName.args = {
+correctName['args'] = {
   businessId: 'BC1234567',
   entityType: 'BC',
   nameRequest: {},

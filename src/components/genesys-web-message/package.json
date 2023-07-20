@@ -1,10 +1,13 @@
 {
   "name": "@bcrs-shared-components/genesys-web-message",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
+    "vue": "^2.7.14"
+  },
+  "devDependencies": {
     "vue-property-decorator": "^9.1.2"
   }
 }

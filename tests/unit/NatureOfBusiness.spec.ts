@@ -3,7 +3,6 @@ import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
 import NatureOfBusiness from '@/components/nature-of-business/NatureOfBusiness.vue'
 
-Vue.use(Vuetify)
 const vuetify = new Vuetify({})
 
 describe('Nature Of Business component', () => {

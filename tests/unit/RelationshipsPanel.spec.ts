@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import { RelationshipsPanel } from '@/components/relationships-panel'
 
-Vue.use(Vuetify)
-let vuetify = new Vuetify({})
+const vuetify = new Vuetify({})
 const localVue = createLocalVue()
 
 /**

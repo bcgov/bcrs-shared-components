@@ -1,10 +1,14 @@
 <template>
-  <v-form id="correct-name-to-number-form" ref="form" v-model="formValid">
+  <v-form
+    id="correct-name-to-number-form"
+    ref="form"
+    v-model="formValid"
+  >
     <v-row no-gutters>
       <v-col>
         <v-checkbox
-          v-model="checkbox"
           id="correct-name-to-number-checkbox"
+          v-model="checkbox"
           class="mb-n5"
           :label="`Change the company name to ${numberedName}`"
           :rules="[(v) => v]"

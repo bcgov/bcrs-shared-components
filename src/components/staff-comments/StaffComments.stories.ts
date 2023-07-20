@@ -1,14 +1,14 @@
+import type { Meta } from '@storybook/vue'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { StaffComments } from './index'
 
-export default {
-  title: 'component/StaffComments',
-  component: StaffComments,
-  argTypes: {}
+const meta: Meta<typeof StaffComments> = {
+  title: 'component/StaffComments'
 }
+export default meta
 
-let comments: any[] = [
+const comments: any[] = [
   {
     comment: {
       comment: 'First comment.',
@@ -50,14 +50,14 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   axios: axios.create(),
   businessId: 'CP1234567',
   maxLength: 2000
 }
 
 export const StaffCommentsWithURL = Template.bind({})
-StaffCommentsWithURL.args = {
+StaffCommentsWithURL['args'] = {
   axios: axios.create(),
   businessId: 'RS001',
   maxLength: 2000,

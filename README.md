@@ -61,7 +61,7 @@ npm run test:unit MyComponent
 ### 10. Build Storybook and verify your component
 
 ```
-npm run storybook:build
+npm run build-storybook
 npm run storybook
 ```
 

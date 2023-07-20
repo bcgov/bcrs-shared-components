@@ -1,10 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { FolioNumber } from './index'
 
-export default {
-  title: 'component/FolioNumber',
-  component: FolioNumber,
-  argTypes: {}
+const meta: Meta<typeof FolioNumber> = {
+  title: 'component/FolioNumber'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -18,13 +18,13 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const folioNumberNoProps = Template.bind({})
-folioNumberNoProps.args = {
+folioNumberNoProps['args'] = {
   editLabel: 'Edit',
   editedLabel: 'Edited'
 }
 
 export const folioNumberWithData = Template.bind({})
-folioNumberWithData.args = {
+folioNumberWithData['args'] = {
   editLabel: 'Edit',
   editedLabel: 'Edited',
   initialValue: 'ABC-123',
@@ -32,7 +32,7 @@ folioNumberWithData.args = {
 }
 
 export const folioNumberHideActions = Template.bind({})
-folioNumberHideActions.args = {
+folioNumberHideActions['args'] = {
   editLabel: 'Edit',
   editedLabel: 'Edited',
   hideActions: true

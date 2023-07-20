@@ -7,9 +7,7 @@ import VueRouter from 'vue-router'
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning
 document.body.setAttribute('data-app', 'true')
 
-Vue.use(Vuetify)
-let vuetify = new Vuetify({})
-
+const vuetify = new Vuetify({})
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 
@@ -22,9 +20,9 @@ localVue.use(VueRouter)
  * @returns a Wrapper<DatePicker> object with the given parameters.
  */
 function createComponent (
-  title: string = '',
-  errorMsg: string = '',
-  disablePicker: boolean = false,
+  title = '',
+  errorMsg = '',
+  disablePicker = false,
   inputRules = [(v: string) => v === 'Valid text' || 'Invalid'],
   initialValue = '',
   clearable = false

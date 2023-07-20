@@ -5,9 +5,7 @@ import { ContactInfo } from '@/components/contact-info'
 import { ContactPointIF } from '@/interfaces'
 import VueRouter from 'vue-router'
 
-Vue.use(Vuetify)
-let vuetify = new Vuetify({})
-
+const vuetify = new Vuetify({})
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 

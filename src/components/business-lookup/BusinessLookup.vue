@@ -2,55 +2,70 @@
   <div id="business-lookup">
     <div v-if="state !== States.SUMMARY">
       <v-autocomplete
-        filled no-filter append-icon="" return-object
+        v-model="selectedBusiness"
+        v-model:search-input="searchField"
+        filled
+        no-filter
+        append-icon=""
+        return-object
         class="mt-5"
         autocomplete="chrome-off"
         menu-props="{ maxHeight: 380 }"
         label="Business or Corporation Name or Incorporation Number"
         item-text="identifier"
-        v-model="selectedBusiness"
         :name="Math.random()"
         :rules="showErrors ? businessLookupRules: []"
         :items="searchResults"
         :loading="state == States.SEARCHING"
-        :search-input.sync="searchField"
         :hide-no-data="state != States.NO_RESULTS"
       >
         <!-- Empty selection slot will stop re-triggering of searchField @Watch -->
-        <template v-slot:selection=""></template>
+        <template #selection="" />
 
-        <template v-slot:no-data>
+        <template #no-data>
           <v-list-item>
             <div>No matches found.</div>
           </v-list-item>
         </template>
 
-        <template v-slot:item="{ item }">
+        <template #item="{ item }">
           <v-row class="business-lookup-result pt-1">
             <v-col cols="2">
-              <div class="result-identifier">{{item.identifier}}</div>
+              <div class="result-identifier">
+                {{ item.identifier }}
+              </div>
             </v-col>
             <v-col cols="10">
-              <div class="result-name">{{item.name}}</div>
-              <div class="result-bn">{{item.bn}}</div>
+              <div class="result-name">
+                {{ item.name }}
+              </div>
+              <div class="result-bn">
+                {{ item.bn }}
+              </div>
             </v-col>
           </v-row>
         </template>
       </v-autocomplete>
     </div>
 
-    <div v-if="state === States.SUMMARY && haveBusiness" class="summary-block mt-5">
+    <div
+      v-if="state === States.SUMMARY && haveBusiness"
+      class="summary-block mt-5"
+    >
       <v-row no-gutters>
         <v-col cols="10">
           <v-row no-gutters>
             <v-col cols="12">
-              <div v-if="editableBusinessName" class="d-flex align-center">
+              <div
+                v-if="editableBusinessName"
+                class="d-flex align-center"
+              >
                 <label>Business or Corporation Name:</label>
                 <v-text-field
+                  id="organization-name"
                   dense
                   filled
                   hide-details="auto"
-                  id="organization-name"
                   class="mx-4 mr-md-0"
                   :rules="businessNameRules"
                   :value="businessName"
@@ -59,30 +74,43 @@
               </div>
               <template v-else>
                 <label>Name: </label>
-                <span>{{businessName}}</span>
+                <span>{{ businessName }}</span>
               </template>
             </v-col>
           </v-row>
 
-          <v-row no-gutters class="mt-1">
+          <v-row
+            no-gutters
+            class="mt-1"
+          >
             <v-col cols="12">
               <label>Incorporation Number: </label>
-              <span>{{identifier}}</span>
+              <span>{{ identifier }}</span>
             </v-col>
           </v-row>
 
-          <v-row no-gutters class="mt-1">
+          <v-row
+            no-gutters
+            class="mt-1"
+          >
             <v-col cols="12">
               <label>Business Number: </label>
-              <span>{{businessNumber}}</span>
+              <span>{{ businessNumber }}</span>
             </v-col>
           </v-row>
         </v-col>
 
         <v-col cols="2">
           <div id="bl-more-actions">
-            <v-btn text color="primary" id="bl-undo-btn" @click="emitUndo()">
-              <v-icon small>mdi-undo</v-icon>
+            <v-btn
+              id="bl-undo-btn"
+              text
+              color="primary"
+              @click="emitUndo()"
+            >
+              <v-icon small>
+                mdi-undo
+              </v-icon>
               <span>Undo</span>
             </v-btn>
           </div>
@@ -95,7 +123,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
-import { Debounce } from 'vue-debounce-decorator'
+import { debounce } from 'lodash'
 import { BusinessLookupIF, BusinessLookupResultIF } from '@/interfaces'
 
 enum States {
@@ -178,10 +206,12 @@ export default class BusinessLookup extends Vue {
     this.onSelectedBusiness({ ...this.businessLookup, name } as any)
   }
 
-  /** Called when searchField property has changed. */
+  /**
+   * Called when searchField property has changed.
+   * This method is debounced to prevent excessive calls to the API.
+   */
   @Watch('searchField')
-  @Debounce(600)
-  private async onSearchField (): Promise<void> {
+  private onSearchField = debounce(async () => {
     // safety check
     if (this.searchField && this.searchField.length > 2) {
       this.state = States.SEARCHING
@@ -193,7 +223,7 @@ export default class BusinessLookup extends Vue {
       this.searchResults = []
       this.state = States.INITIAL
     }
-  }
+  }, 600)
 
   /** Called when selectedBusiness property has changed. */
   @Watch('selectedBusiness')
@@ -224,6 +254,7 @@ export default class BusinessLookup extends Vue {
 
   /** Emits event to update the Business object. */
   @Emit('setBusiness')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private setBusiness (val: BusinessLookupIF): void {}
 
   /** Emits event to undo the selected business. */
@@ -232,6 +263,7 @@ export default class BusinessLookup extends Vue {
 
   /** Emits event to update this component's validity. */
   @Emit('valid')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitValid (val: boolean): void {}
 }
 </script>

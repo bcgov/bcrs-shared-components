@@ -1,11 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { DocumentDelivery } from './index'
 
-export default {
-  title: 'component/DocumentDelivery',
-  component: DocumentDelivery,
-  argTypes: {
-  }
+const meta: Meta<typeof DocumentDelivery> = {
+  title: 'component/DocumentDelivery'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -14,7 +13,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   contactLabel: 'Contact',
   contactValue: 'contact@example.com',
   editableCompletingParty: false,
@@ -27,7 +26,7 @@ Default.args = {
 }
 
 export const EditableCompletingParty = Template.bind({})
-EditableCompletingParty.args = {
+EditableCompletingParty['args'] = {
   contactLabel: 'Contact',
   contactValue: 'contact@example.com',
   editableCompletingParty: true,

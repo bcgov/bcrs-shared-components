@@ -1,13 +1,11 @@
+import type { Meta } from '@storybook/vue'
 import { CompletingParty } from './index'
-import Vuetify from 'vuetify'
 import { required, maxLength } from 'vuelidate/lib/validators'
 
-export default {
-  title: 'component/CompletingParty',
-  component: CompletingParty,
-  argTypes: {
-  }
+const meta: Meta<typeof CompletingParty> = {
+  title: 'component/CompletingParty'
 }
+export default meta
 
 const PersonAddressSchema = {
   streetAddress: {
@@ -37,14 +35,13 @@ const PersonAddressSchema = {
 }
 
 const Template = (args, { argTypes }) => ({
-  vuetify: new Vuetify({ iconfont: 'mdi' }),
   props: Object.keys(argTypes),
   components: { CompletingParty },
-  template: '<v-card flat ><completing-party v-bind="$props" /></v-card>'
+  template: '<v-card flat><completing-party v-bind="$props" /></v-card>'
 })
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   completingParty: {
     firstName: 'Cameron',
     middleName: 'D',
