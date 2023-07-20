@@ -1,11 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { FolioNumberInput } from './index'
 
-export default {
-  title: 'component/FolioNumberInput',
-  component: FolioNumberInput,
-  argTypes: {
-  }
+const meta: Meta<typeof FolioNumberInput> = {
+  title: 'component/FolioNumberInput'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -14,6 +13,6 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   folioNumber: '01234567890123456789012345678901234567890123456789ABC@123/*!$ ...'
 }

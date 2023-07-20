@@ -3,13 +3,12 @@ import Vuetify from 'vuetify'
 import { mount, Wrapper } from '@vue/test-utils'
 import { Certify } from '@/components/certify'
 
-Vue.use(Vuetify)
-let vuetify = new Vuetify({})
+const vuetify = new Vuetify({})
 
 // Input field selectors to test changes to the DOM elements.
-const certifiedBySelector: string = 'input[type=text]'
-const isCertifiedSelector: string = 'input[type=checkbox]'
-const statementSelector: string = '.certify-stmt'
+const certifiedBySelector = 'input[type=text]'
+const isCertifiedSelector = 'input[type=checkbox]'
+const statementSelector = '.certify-stmt'
 
 const trimmedCertifier = 'Some Certifier'
 const whitespaceCertifier = '  Some  Certifier  '
@@ -24,8 +23,8 @@ const defaultDate = '2019-01-01'
  * @returns the value of the last named event for the wrapper.
  */
 function getLastEvent (wrapper: Wrapper<Certify>, name: string): any {
-  const eventsList: Array<any> = wrapper.emitted(name)
-  const events: Array<any> = eventsList[eventsList.length - 1]
+  const eventsList = wrapper.emitted(name) as Array<any>
+  const events = eventsList[eventsList.length - 1] as Array<any>
 
   return events[0]
 }
@@ -42,13 +41,13 @@ function createComponent (
   isCertified: boolean = undefined,
   isStaff: boolean = undefined,
   currentDate: string = defaultDate,
-  validate: boolean = false,
-  invalidSection: boolean = false,
+  validate = false,
+  invalidSection = false,
   statements: Array<string> = [],
-  enableMailTo: boolean = false,
-  businessEmail: string = '',
-  completingPartyEmail: string = '',
-  disableEdit: boolean = false
+  enableMailTo = false,
+  businessEmail = '',
+  completingPartyEmail = '',
+  disableEdit = false
 ): Wrapper<Certify> {
   return mount(Certify, {
     propsData: {

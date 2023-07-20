@@ -1,46 +1,75 @@
 <template>
-  <v-form :attach="attach" ref="form" class="date-picker-form">
-    <v-menu v-model="displayPicker"
-            :close-on-click="false"
-            :close-on-content-click="false"
-            :nudge-top="nudgeTop"
-            :nudge-bottom="nudgeBottom"
-            :nudge-left="nudgeLeft"
-            :nudge-right="nudgeRight"
-            transition="scale-transition"
-            offset-y
-            bottom
-            min-width="290"
+  <v-form
+    ref="form"
+    :attach="attach"
+    class="date-picker-form"
+  >
+    <v-menu
+      v-model="displayPicker"
+      :close-on-click="false"
+      :close-on-content-click="false"
+      :nudge-top="nudgeTop"
+      :nudge-bottom="nudgeBottom"
+      :nudge-left="nudgeLeft"
+      :nudge-right="nudgeRight"
+      transition="scale-transition"
+      offset-y
+      bottom
+      min-width="290"
     >
-      <template v-slot:activator="{ on }">
-        <span :class="{'date-text-field-pointer': enableSelector}" v-on="enableSelector && on">
-          <v-text-field id="date-text-field"
-                        ref="dateTextField"
-                        append-icon="mdi-calendar"
-                        autocomplete="chrome-off"
-                        :clearable="clearable"
-                        :error-messages="errorMsg"
-                        :error="!!errorMsg"
-                        :value="displayDate"
-                        :label="title"
-                        :name="Math.random()"
-                        :rules="inputRules"
-                        :disabled="disablePicker"
-                        :hint="hint"
-                        :persistent-hint="persistentHint"
-                        @click:clear="emitClear()"
-                        @keydown="$event.preventDefault()"
-                        @keyup.enter="emitDate(dateText)"
-                        readonly
-                        filled
+      <template #activator="{ on }">
+        <span
+          :class="{'date-text-field-pointer': enableSelector}"
+          v-on="enableSelector && on"
+        >
+          <v-text-field
+            id="date-text-field"
+            ref="dateTextField"
+            append-icon="mdi-calendar"
+            autocomplete="chrome-off"
+            :clearable="clearable"
+            :error-messages="errorMsg"
+            :error="!!errorMsg"
+            :value="displayDate"
+            :label="title"
+            :name="Math.random()"
+            :rules="inputRules"
+            :disabled="disablePicker"
+            :hint="hint"
+            :persistent-hint="persistentHint"
+            readonly
+            filled
+            @click:clear="emitClear()"
+            @keydown="$event.preventDefault()"
+            @keyup.enter="emitDate(dateText)"
           />
         </span>
       </template>
-      <v-date-picker id="date-picker-calendar" width="490" v-model="dateText" :min="minDate" :max="maxDate">
-        <template v-slot:default>
+      <v-date-picker
+        id="date-picker-calendar"
+        v-model="dateText"
+        width="490"
+        :min="minDate"
+        :max="maxDate"
+      >
+        <template #default>
           <div>
-            <v-btn id="btn-done" text color="primary" @click="emitDate(dateText)"><strong>OK</strong></v-btn>
-            <v-btn id="btn-cancel" text color="primary" @click="emitCancel()">Cancel</v-btn>
+            <v-btn
+              id="btn-done"
+              text
+              color="primary"
+              @click="emitDate(dateText)"
+            >
+              <strong>OK</strong>
+            </v-btn>
+            <v-btn
+              id="btn-cancel"
+              text
+              color="primary"
+              @click="emitCancel()"
+            >
+              Cancel
+            </v-btn>
           </div>
         </template>
       </v-date-picker>
@@ -113,19 +142,29 @@ export default class DatePicker extends Mixins(DateMixin) {
 
   /** Emit date to add or remove. */
   @Emit('emitDate')
-  protected emitDate (date: string): void { this.displayPicker = false }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected emitDate (date: string): void {
+    this.displayPicker = false
+  }
 
   /** Emit cancel event and clear the date. */
   @Emit('emitCancel')
-  protected emitCancel (): void { this.clearDate() }
+  protected emitCancel (): void {
+    this.clearDate()
+  }
 
   /** Emit clear event and clear the date. */
   @Emit('emitClear')
-  protected emitClear (): void { this.clearDate() }
+  protected emitClear (): void {
+    this.clearDate()
+  }
 
   @Watch('dateText')
   @Emit('emitDateSync')
-  private emitDateSync (date: string): string { return this.dateText }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private emitDateSync (date: string): string {
+    return this.dateText
+  }
 
   @Watch('$route')
   private hidePicker (): void {

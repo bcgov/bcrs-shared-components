@@ -1,13 +1,12 @@
+import type { Meta } from '@storybook/vue'
 import { StaffPayment } from './index'
 import { StaffPaymentOptions } from '@bcrs-shared-components/enums'
 import { StaffPaymentIF } from '@bcrs-shared-components/interfaces'
 
-export default {
-  title: 'component/StaffPayment',
-  component: StaffPayment,
-  argTypes: {
-  }
+const meta: Meta<typeof StaffPayment> = {
+  title: 'component/StaffPayment'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -25,6 +24,6 @@ const staffPaymentData: StaffPaymentIF = {
 }
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   staffPaymentData: staffPaymentData
 }

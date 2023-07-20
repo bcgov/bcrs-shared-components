@@ -1,11 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { DetailComment } from './index'
 
-export default {
-  title: 'component/DetailComment',
-  component: DetailComment,
-  argTypes: {
-  }
+const meta: Meta<typeof DetailComment> = {
+  title: 'component/DetailComment'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -14,14 +13,14 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Outlined = Template.bind({})
-Outlined.args = {
+Outlined['args'] = {
   placeholder: 'Provide a detail comment',
   textAreaStyle: 'outlined',
   maxLength: 4096
 }
 
 export const Filled = Template.bind({})
-Filled.args = {
+Filled['args'] = {
   placeholder: 'Provide a detail comment',
   textAreaStyle: 'filled',
   maxLength: 1000,

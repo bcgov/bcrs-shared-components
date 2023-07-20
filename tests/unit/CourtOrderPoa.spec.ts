@@ -4,9 +4,7 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 import { CourtOrderPoa } from '@/components/court-order-poa'
 import VueRouter from 'vue-router'
 
-Vue.use(Vuetify)
-let vuetify = new Vuetify({})
-
+const vuetify = new Vuetify({})
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 
@@ -19,8 +17,8 @@ localVue.use(VueRouter)
  * @returns a Wrapper<CourtOrderPoa> object with the given parameters.
  */
 function createComponent (
-  draftCourtOrderNumber: string = '',
-  hasDraftPlanOfArrangement: boolean = false,
+  draftCourtOrderNumber = '',
+  hasDraftPlanOfArrangement = false,
   displaySideLabels: boolean = undefined
 ): Wrapper<CourtOrderPoa> {
   return mount(CourtOrderPoa, {

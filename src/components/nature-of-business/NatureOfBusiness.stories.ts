@@ -1,11 +1,10 @@
+import type { Meta } from '@storybook/vue'
 import { NatureOfBusiness } from './index'
 
-export default {
-  title: 'component/NatureOfBusiness',
-  component: NatureOfBusiness,
-  argTypes: {
-  }
+const meta: Meta<typeof NatureOfBusiness> = {
+  title: 'component/NatureOfBusiness'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -36,7 +35,7 @@ class NaicsServices {
 }
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   showErrors: false,
   naics: {
     naicsCode: naicsResult.code,
@@ -48,7 +47,7 @@ Default.args = {
 }
 
 export const hasChanges = Template.bind({})
-hasChanges.args = {
+hasChanges['args'] = {
   showErrors: false,
   naics: {
     naicsCode: naicsResult.code,

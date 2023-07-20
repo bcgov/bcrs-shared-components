@@ -1,10 +1,13 @@
 {
   "name": "@bcrs-shared-components/confirm-dialog",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
+    "vue": "^2.7.14"
+  },
+  "devDependencies": {
     "vue-property-decorator": "^9.1.2"
   }
 }

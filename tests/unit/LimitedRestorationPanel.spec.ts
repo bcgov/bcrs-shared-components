@@ -4,9 +4,7 @@ import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 import { LimitedRestorationPanel } from '@/components/limited-restoration-panel'
 import VueRouter from 'vue-router'
 
-Vue.use(Vuetify)
-let vuetify = new Vuetify({})
-
+const vuetify = new Vuetify({})
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 

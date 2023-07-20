@@ -1,11 +1,11 @@
+import type { Meta } from '@storybook/vue'
 import { EffectiveDateTime } from './index'
 import Vuetify from 'vuetify'
 
-export default {
-  title: 'component/EffectiveDateTime',
-  component: EffectiveDateTime,
-  argTypes: {}
+const meta: Meta<typeof EffectiveDateTime> = {
+  title: 'component/EffectiveDateTime'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   vuetify: new Vuetify({ iconfont: 'mdi' }),
@@ -15,7 +15,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   parseInitial: true,
   currentJsDate: new Date(),
   effectiveDateTime: {

@@ -6,7 +6,10 @@
     />
 
     <v-row no-gutters>
-      <v-col v-if="isSummaryMode" class="pt-3 pr-3">
+      <v-col
+        v-if="isSummaryMode"
+        class="pt-3 pr-3"
+      >
         <v-btn
           id="back-btn"
           large
@@ -44,24 +47,24 @@
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.CONFIRM)"
         >
-          <span>{{confirmLabel}}<v-icon>mdi-chevron-right</v-icon></span>
+          <span>{{ confirmLabel }}<v-icon>mdi-chevron-right</v-icon></span>
         </v-btn>
       </v-col>
     </v-row>
 
-    <div v-if="errorMessage" v-html="errorMessage" class="error-msg pre-wrap mt-1" />
+    <div
+      v-if="errorMessage"
+      class="error-msg pre-wrap mt-1"
+      v-html="errorMessage"
+    />
   </aside>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Emit, Prop } from 'vue-property-decorator'
-
-// Enums and Interfaces
 import { FeeSummaryActions } from '../../enums'
 import { FilingDataIF } from '../../interfaces'
-
-// Component Dependency
 import SbcFeeSummary from './SbcFeeSummary.vue'
 
 @Component({
@@ -93,6 +96,7 @@ export default class FeeSummary extends Vue {
 
   /** Emit action event. */
   @Emit('action')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected emitAction (action: string): void {}
 }
 </script>

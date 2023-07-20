@@ -1,24 +1,29 @@
 <template>
-    <v-form id="folio-number-form" ref="folioForm" v-model="folioFormValid">
-      <v-text-field
-        filled
-        id="folio-number-textfield"
-        label="Folio Number (Optional)"
-        :value="folioNumber"
-        :rules="folioNumberRules"
-        :disabled="disabled"
-        @input="emitFolioNumber($event)"
-        @focus="emitFocus($event)"
-        autocomplete="chrome-off"
-        :name="Math.random()"
-      />
-    </v-form>
+  <v-form
+    id="folio-number-form"
+    ref="folioForm"
+    v-model="folioFormValid"
+  >
+    <v-text-field
+      id="folio-number-textfield"
+      filled
+      label="Folio Number (Optional)"
+      :value="folioNumber"
+      :rules="folioNumberRules"
+      :disabled="disabled"
+      autocomplete="chrome-off"
+      :name="Math.random()"
+      @input="emitFolioNumber($event)"
+      @focus="emitFocus($event)"
+    />
+  </v-form>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
+import { VuetifyRuleFunction } from '@/types'
 
 @Component({})
 export default class FolioNumberInput extends Vue {
@@ -39,9 +44,11 @@ export default class FolioNumberInput extends Vue {
   protected folioFormValid = false
 
   /** Validation rules for Folio Number. */
-  readonly folioNumberRules: Array<(v) => boolean | string> = [
-    v => (!v || !this.validate || v.length <= 50) || 'Cannot exceed 50 characters' // maximum character count
-  ]
+  get folioNumberRules (): Array<VuetifyRuleFunction> {
+    return [
+      v => (!v || !this.validate || v.length <= 50) || 'Cannot exceed 50 characters' // maximum character count
+    ]
+  }
 
   /** Emits an event indicating whether or not this component is valid. */
   @Emit('valid')
@@ -51,10 +58,12 @@ export default class FolioNumberInput extends Vue {
 
   /** Emits an event indicating whether or not this component is focused. */
   @Emit('focus')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected emitFocus (val: boolean): void {}
 
   /** Emits an event to update the Folio Number. */
   @Emit('emitFolioNumber')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected emitFolioNumber (val: string): void {}
 
   /** Prompt the field validations. */

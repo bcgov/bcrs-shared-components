@@ -1,3 +1,4 @@
+import type { Meta } from '@storybook/vue'
 import Vue from 'vue'
 import { FeeSummary } from './index'
 import { FilingCodes, CorpTypeCd } from '@bcrs-shared-components/enums/'
@@ -6,11 +7,10 @@ import { FilingDataIF } from '@bcrs-shared-components/interfaces/'
 // for SbcFeeSummary
 Vue.filter('currency', x => `$${x}`)
 
-export default {
-  title: 'component/FeeSummary',
-  component: FeeSummary,
-  argTypes: {}
+const meta: Meta<typeof FeeSummary> = {
+  title: 'component/FeeSummary'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
@@ -25,7 +25,7 @@ const filingData = [{
 }] as FilingDataIF[]
 
 export const Default = Template.bind({})
-Default.args = {
+Default['args'] = {
   filingData: filingData,
   payApiUrl: 'https://pay-api-dev.apps.silver.devops.gov.bc.ca/api/v1/',
   hasConflicts: false,
@@ -35,7 +35,7 @@ Default.args = {
 }
 
 export const summaryMode = Template.bind({})
-summaryMode.args = {
+summaryMode['args'] = {
   filingData: filingData,
   payApiUrl: 'https://pay-api-dev.apps.silver.devops.gov.bc.ca/api/v1/',
   hasConflicts: false,

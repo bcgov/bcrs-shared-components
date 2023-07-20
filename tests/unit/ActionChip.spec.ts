@@ -1,11 +1,6 @@
-import Vue from 'vue'
 import Vuetify from 'vuetify'
-import Affix from 'vue-affix'
 import { mount } from '@vue/test-utils'
 import { ActionChip } from '@/components/action-chip'
-
-Vue.use(Vuetify)
-Vue.use(Affix)
 
 const vuetify = new Vuetify({})
 

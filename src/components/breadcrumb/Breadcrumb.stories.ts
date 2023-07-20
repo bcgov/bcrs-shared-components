@@ -1,22 +1,19 @@
+import type { Meta } from '@storybook/vue'
 import { Breadcrumb } from './index'
-import Vuetify from 'vuetify'
 
-export default {
-  title: 'component/Breadcrumb',
-  component: Breadcrumb,
-  argTypes: {
-  }
+const meta: Meta<typeof Breadcrumb> = {
+  title: 'component/Breadcrumb'
 }
+export default meta
 
 const Template = (args, { argTypes }) => ({
-  vuetify: new Vuetify({ iconfont: 'mdi' }),
   props: Object.keys(argTypes),
   components: { Breadcrumb },
   template: '<Breadcrumb v-bind="$props" />' // $props comes from args below
 })
 
 export const homeRoute = Template.bind({})
-homeRoute.args = {
+homeRoute['args'] = {
   breadcrumbs: [
     {
       text: 'BC Registries Dashboard'
@@ -25,7 +22,7 @@ homeRoute.args = {
 }
 
 export const baseRoute = Template.bind({})
-baseRoute.args = {
+baseRoute['args'] = {
   breadcrumbs: [
     {
       text: 'BC Registries Dashboard',
@@ -38,7 +35,7 @@ baseRoute.args = {
 }
 
 export const navigationRoute = Template.bind({})
-navigationRoute.args = {
+navigationRoute['args'] = {
   breadcrumbs: [
     {
       text: 'BC Registries Dashboard',
