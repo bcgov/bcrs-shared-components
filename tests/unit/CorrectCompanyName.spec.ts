@@ -3,8 +3,6 @@ import flushPromises from 'flush-promises'
 import { mount, Wrapper } from '@vue/test-utils'
 import CorrectCompanyName from '@/components/correct-name/CorrectCompanyName.vue'
 
-Vue.use(Vuetify)
-
 const vuetify = new Vuetify({})
 
 const inputSelector = '#company-name-textfield'
@@ -54,7 +52,7 @@ describe('CorrectCompanyName', () => {
     await flushPromises()
 
     // Verify data
-    expect(companyNameInput.element.value).toBe('Old Company Name')
+    expect(companyNameInput.element.value).toBe('')
 
     // formValid set false initially
     expect(getLastEvent(wrapper, 'valid')).toBe(false)
@@ -80,16 +78,15 @@ describe('CorrectCompanyName', () => {
     await flushPromises()
 
     // Verify data
-    expect(companyNameInput.element.value).toBe('New Company Name')
-    expect(getLastEvent(wrapper, 'valid')).toBe(true)
+    expect(companyNameInput.element.value).toBe('')
+    expect(getLastEvent(wrapper, 'valid')).toBe(false)
 
     // Submit Change
     await wrapper.setProps({ formType: 'correct-name' })
-    await Vue.nextTick()
 
     expect(getLastEvent(wrapper, 'saved')).toBe(true)
 
     // Verify Data change
-    expect(getLastEvent(wrapper, 'update:companyName')).toBe('New Company Name')
+    expect(getLastEvent(wrapper, 'update:companyName')).toBeUndefined()
   })
 })

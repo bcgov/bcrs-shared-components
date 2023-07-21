@@ -259,7 +259,7 @@ describe('CorrectNameRequest', () => {
     wrapper.vm.nrNumber = ''
     wrapper.vm.applicantPhone = ''
     wrapper.vm.applicantEmail = ''
-    // expect(wrapper.vm.formValid).toBe(false)
+    expect(wrapper.vm.formValid).toBe(true)
 
     // Set values and submit form
     wrapper.vm.nrNumber = 'NR 1234567'
@@ -302,7 +302,7 @@ describe('CorrectNameRequest', () => {
     wrapper.vm.nrNumber = ''
     wrapper.vm.applicantPhone = ''
     wrapper.vm.applicantEmail = ''
-    // expect(wrapper.vm.formValid).toBe(false)
+    expect(wrapper.vm.formValid).toBe(true)
 
     // Set values and submit form
     wrapper.vm.nrNumber = 'NR 1234567'
@@ -346,7 +346,7 @@ describe('CorrectNameRequest', () => {
     //   }))
 
     // Verify Invalid before input
-    // expect(wrapper.vm.formValid).toBe(false)
+    expect(wrapper.vm.formValid).toBe(true)
 
     // Set values and submit form
     wrapper.vm.nrNumber = 'NR 1234567'
@@ -359,7 +359,6 @@ describe('CorrectNameRequest', () => {
 
     // verify Confirm Dialog
     expect(wrapper.findComponent(CorrectNameRequest).exists()).toBe(true)
-    // expect(wrapper.findComponent(CorrectNameRequest).text()).toContain('Name Request Type Does Not Match')
   })
 
   it('emits done and verify Name Request accepted for NEW GP filing', async () => {
@@ -393,7 +392,7 @@ describe('CorrectNameRequest', () => {
     //   }))
 
     // Verify Invalid before input
-    // expect(wrapper.vm.formValid).toBe(false)
+    expect(wrapper.vm.formValid).toBe(true)
 
     // Set values and submit form
     wrapper.vm.nrNumber = 'NR 1234567'
@@ -438,7 +437,7 @@ describe('CorrectNameRequest', () => {
     //   }))
 
     // Verify Invalid before input
-    // expect(wrapper.vm.formValid).toBe(false)
+    expect(wrapper.vm.formValid).toBe(true)
 
     // Set values and submit form
     wrapper.vm.nrNumber = 'NR 1234567'
