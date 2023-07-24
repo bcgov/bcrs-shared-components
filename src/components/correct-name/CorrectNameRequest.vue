@@ -223,9 +223,7 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
 
   /** Inform parent that the process is complete. */
   @Emit('saved')
-  private emitSaved (val: boolean): void {
-    console.log('emit saved', val)
-  }
+  private emitSaved (val: boolean): void {}
 
   /** Inform parent of updated company name. */
   @Emit('update:companyName')
