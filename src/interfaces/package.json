@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/interfaces",
-  "version": "1.0.66",
+  "version": "1.0.67",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/enums": "^1.0.42",
+    "@bcrs-shared-components/enums": "^1.0.43",
     "vue": "^2.7.14"
   }
 }
