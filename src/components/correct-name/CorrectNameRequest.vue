@@ -198,10 +198,11 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
           this.emitSaved(true)
         }
       } catch (error) {
-        alert((error as any).message)
         // inform parent that process is complete
         this.$refs.form.resetValidation()
         this.emitSaved(false)
+
+        alert((error as any).message)
       }
     }
   }
@@ -222,7 +223,9 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
 
   /** Inform parent that the process is complete. */
   @Emit('saved')
-  private emitSaved (val: boolean): void {}
+  private emitSaved (val: boolean): void {
+    console.log('emit saved', val)
+  }
 
   /** Inform parent of updated company name. */
   @Emit('update:companyName')

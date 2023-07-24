@@ -18,7 +18,7 @@ function getLastEvent (wrapper: Wrapper<CorrectNameToNumber>, name: string): any
 const defaultProps = {
   businessId: 'BC0871437',
   entityType: CorpTypeCd.BC_COMPANY,
-  formType: '',
+  formType: null,
   validate: false
 }
 

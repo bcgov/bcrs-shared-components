@@ -39,17 +39,18 @@ export default class CorrectCompanyName extends Vue {
   @Provide() formValid = false // initially invalid
   @Provide() textfield = ''
 
-  mounted (): void {
-    // Filter the options to be displayed by what id's were passed from the parent component
-    this.textfield = this.companyName
-  }
-
   // Rules
   get companyNameRules (): Array<VuetifyRuleFunction> {
     return [
       (v: string) => !!v || ' A company name is required',
       (v: string) => (v !== this.companyName) || ' Enter a new company name'
     ]
+  }
+
+  /** Watch for company name changed. */
+  @Watch('companyName', { immediate: true })
+  onCompanyNameChanged (val: string) {
+    this.textfield = val
   }
 
   /** Watch for form submission and emit results. */

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Vuetify from 'vuetify'
 import flushPromises from 'flush-promises'
 import { mount, Wrapper } from '@vue/test-utils'
@@ -20,7 +19,7 @@ function getLastEvent (wrapper: Wrapper<CorrectCompanyName>, name: string): any 
 
 const defaultProps = {
   companyName: 'Old Company Name',
-  formType: '',
+  formType: null,
   validate: false
 }
 
@@ -84,7 +83,7 @@ describe('CorrectCompanyName', () => {
 
     // Submit Change
     await wrapper.setProps({ formType: CorrectNameOptions.CORRECT_NAME })
-    await Vue.nextTick()
+    await flushPromises()
 
     expect(getLastEvent(wrapper, 'saved')).toBe(true)
 

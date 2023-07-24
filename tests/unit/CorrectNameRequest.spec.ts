@@ -32,11 +32,19 @@ const nameRequest = {
   }
 }
 
+const fetchAndValidateNr = (nrNumber, businessId, applicantPhone, applicantEmail) => {
+  if(nrNumber != nameRequest.nrNum) return null
+  if(applicantEmail && applicantEmail != nameRequest.applicants.emailAddress) return null
+  if(applicantPhone && applicantPhone != nameRequest.applicants.phoneNumber) return null
+
+  return Promise.resolve(nameRequest)
+}
+
 const defaultProps = {
   businessId: 'BC0871437',
   entityType: 'BC',
-  fetchAndValidateNr: () => Promise.resolve(nameRequest),
-  formType: 'correct-new-nr',
+  fetchAndValidateNr,
+  formType: null,
   nameRequest: nameRequest,
   validate: true
 }
@@ -85,7 +93,7 @@ describe('CorrectNameRequest', () => {
   it('verifies inputs when valid', async () => {
     const wrapper = wrapperFactory()
 
-    // Verify Invalid before input
+    // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true) // default formValid is not false
 
     wrapper.vm.nrNumber = 'NR 1234567'
@@ -100,7 +108,7 @@ describe('CorrectNameRequest', () => {
   it('verifies invalid NR', async () => {
     const wrapper = wrapperFactory()
 
-    // Verify Invalid before input
+    // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
 
     wrapper.vm.nrNumber = '123123NR'
@@ -114,7 +122,7 @@ describe('CorrectNameRequest', () => {
   it('verifies invalid email', async () => {
     const wrapper = wrapperFactory()
 
-    // Verify Invalid before input
+    // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
 
     wrapper.vm.nrNumber = '123123NR'
@@ -128,7 +136,7 @@ describe('CorrectNameRequest', () => {
   it('verifies invalid phone', async () => {
     const wrapper = wrapperFactory()
 
-    // Verify Invalid before input
+    // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
 
     wrapper.vm.nrNumber = '123123NR'
@@ -142,7 +150,7 @@ describe('CorrectNameRequest', () => {
   it('verifies missing values', async () => {
     const wrapper = wrapperFactory()
 
-    // Verify Invalid before input
+    // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
 
     wrapper.vm.nrNumber = '123123NR'
@@ -157,7 +165,7 @@ describe('CorrectNameRequest', () => {
   it('emits true when the form is valid', async () => {
     const wrapper = wrapperFactory()
 
-    // Verify Invalid before input
+    // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
 
     wrapper.vm.nrNumber = 'NR 1234567'
@@ -173,7 +181,7 @@ describe('CorrectNameRequest', () => {
   it('emits false when the form is invalid', async () => {
     const wrapper = wrapperFactory()
 
-    // Verify Invalid before input
+    // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
 
     wrapper.vm.nrNumber = 'NR 1234567'
@@ -189,35 +197,6 @@ describe('CorrectNameRequest', () => {
   it('emits done and true when the process is done and the Name Request accepted', async () => {
     const wrapper = wrapperFactory()
 
-    // *** TODO: set this as a prop
-    // store.state.stateModel.tombstone.currentDate = '2021-01-20'
-
-    // *** TODO: set this as a prop
-    // GET NR Data
-    // get.withArgs('nameRequests/NR 1234567')
-    //   .returns(Promise.resolve({
-    //     data:
-    //       {
-    //         state: 'APPROVED',
-    //         expirationDate: '2022-05-19',
-    //         names: [{
-    //           state: 'APPROVED',
-    //           name: 'Bobs Plumbing'
-    //         }],
-    //         nrNum: 'NR 1234567',
-    //         requestTypeCd: 'BC',
-    //         legalType: 'BC',
-    //         request_action_cd: 'CNV',
-    //         applicants: {
-    //           phoneNumber: '250 516 8257',
-    //           emailAddress: 'mock@example.com'
-    //         }
-    //       }
-    //   }))
-
-    // Verify Invalid before input
-    // expect(wrapper.vm.formValid).toBe(true)
-
     // Set values and submit form
     wrapper.vm.nrNumber = 'NR 1234567'
     wrapper.vm.applicantPhone = '250 516 8257'
@@ -228,32 +207,12 @@ describe('CorrectNameRequest', () => {
     expect(wrapper.vm.formValid).toBe(true)
 
     // verify form emission
-    expect(getLastEvent(wrapper, 'saved')).toBe(null)
+    expect(getLastEvent(wrapper, 'valid')).toBe(true)
+    expect(getLastEvent(wrapper, 'saved')).toBe(true)
   })
 
   it('emits done and false when the process is done but Name Request phone is rejected', async () => {
     const wrapper = wrapperFactory()
-
-    // *** TODO: set this as a prop
-    // GET NR Data
-    // get.withArgs('nameRequests/NR 1234567')
-    //   .returns(Promise.resolve({
-    //     data:
-    //       {
-    //         state: 'APPROVED',
-    //         expirationDate: '2022-05-19',
-    //         names: [{
-    //           state: 'APPROVED',
-    //           name: 'Bobs Plumbing'
-    //         }],
-    //         nrNum: 'NR 1234567',
-    //         requestTypeCd: 'BC',
-    //         applicants: {
-    //           phoneNumber: '250 516 8257',
-    //           emailAddress: 'mock@example.com'
-    //         }
-    //       }
-    //   }))
 
     // Verify Invalid before input
     wrapper.vm.nrNumber = ''
@@ -271,32 +230,11 @@ describe('CorrectNameRequest', () => {
     expect(wrapper.vm.formValid).toBe(true)
 
     // verify form emission
-    expect(getLastEvent(wrapper, 'saved')).toBe(null)
+    expect(getLastEvent(wrapper, 'saved')).toBe(false)
   })
 
   it('emits done and false when the process is done but Name Request email is rejected', async () => {
     const wrapper = wrapperFactory()
-
-    // *** TODO: set this as a prop
-    // GET NR Data
-    // get.withArgs('nameRequests/NR 1234567')
-    //   .returns(Promise.resolve({
-    //     data:
-    //       {
-    //         state: 'APPROVED',
-    //         expirationDate: '2022-05-19',
-    //         names: [{
-    //           state: 'APPROVED',
-    //           name: 'Bobs Plumbing'
-    //         }],
-    //         nrNum: 'NR 1234567',
-    //         requestTypeCd: 'BC',
-    //         applicants: {
-    //           phoneNumber: '250 516 8257',
-    //           emailAddress: 'mock@example.com'
-    //         }
-    //       }
-    //   }))
 
     // Verify Invalid before input
     wrapper.vm.nrNumber = ''
@@ -314,36 +252,11 @@ describe('CorrectNameRequest', () => {
     expect(wrapper.vm.formValid).toBe(true)
 
     // verify form emission
-    expect(getLastEvent(wrapper, 'saved')).toBe(null)
+    expect(getLastEvent(wrapper, 'saved')).toBe(false)
   })
 
   it('emits done and prompts confirm dialog when the Name Request is a type mismatch', async () => {
     const wrapper = wrapperFactory()
-
-    // *** TODO: set this as a prop
-    // store.state.stateModel.tombstone.currentDate = '2021-01-20'
-
-    // *** TODO: set this as a prop
-    // GET NR Data
-    // get.withArgs('nameRequests/NR 1234567')
-    //   .returns(Promise.resolve({
-    //     data:
-    //       {
-    //         state: 'APPROVED',
-    //         expirationDate: '2022-05-19',
-    //         names: [{
-    //           state: 'APPROVED',
-    //           name: 'Bobs Plumbing'
-    //         }],
-    //         nrNum: 'NR 1234567',
-    //         requestTypeCd: 'BC',
-    //         request_action_cd: 'CNV',
-    //         applicants: {
-    //           phoneNumber: '250 516 8257',
-    //           emailAddress: 'mock@example.com'
-    //         }
-    //       }
-    //   }))
 
     // Verify Invalid before input
     expect(wrapper.vm.formValid).toBe(true)
@@ -359,39 +272,13 @@ describe('CorrectNameRequest', () => {
 
     // verify Confirm Dialog
     expect(wrapper.findComponent(CorrectNameRequest).exists()).toBe(true)
+    expect(wrapper.findComponent(CorrectNameRequest).text()).toContain('Name Request Type Does Not Match')
   })
 
   it('emits done and verify Name Request accepted for NEW GP filing', async () => {
     const wrapper = wrapperFactory()
 
-    // *** TODO: set these as props
-    // store.state.stateModel.tombstone.currentDate = '2021-01-20'
-    // store.state.stateModel.tombstone.entityType = 'GP'
-
-    // *** TODO: set this as a prop
-    // GET NR Data
-    // get.withArgs('nameRequests/NR 1234567')
-    //   .returns(Promise.resolve({
-    //     data:
-    //       {
-    //         state: 'APPROVED',
-    //         expirationDate: '2022-05-19',
-    //         names: [{
-    //           state: 'APPROVED',
-    //           name: 'Bobs Plumbing'
-    //         }],
-    //         nrNum: 'NR 1234567',
-    //         requestTypeCd: 'GP',
-    //         legalType: 'GP',
-    //         request_action_cd: 'CHG',
-    //         applicants: {
-    //           phoneNumber: '250 516 8257',
-    //           emailAddress: 'mock@example.com'
-    //         }
-    //       }
-    //   }))
-
-    // Verify Invalid before input
+    // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
 
     // Set values and submit form
@@ -404,7 +291,7 @@ describe('CorrectNameRequest', () => {
     expect(wrapper.vm.formValid).toBe(true)
 
     // verify form emission
-    // expect(getLastEvent(wrapper, 'saved')).toBe(true)
+    expect(getLastEvent(wrapper, 'saved')).toBe(true)
   })
 
   it('emits done and verify Name Request is a type mismatch for NEW SP filing', async () => {
@@ -436,7 +323,27 @@ describe('CorrectNameRequest', () => {
     //       }
     //   }))
 
-    // Verify Invalid before input
+    // Verify valid before input
+    expect(wrapper.vm.formValid).toBe(true)
+
+    // Set values and submit form
+    wrapper.vm.nrNumber = 'NR 1234567'
+    wrapper.vm.applicantPhone = '250 516 8257'
+    wrapper.vm.applicantEmail = ''
+    await wrapper.setProps({ formType: 'correct-new-nr', entityType: 'SP' })
+    await flushPromises()
+
+    expect(wrapper.vm.formValid).toBe(true)
+
+    // verify Confirm Dialog
+    expect(wrapper.findComponent(CorrectNameRequest).exists()).toBe(true)
+    expect(wrapper.findComponent(CorrectNameRequest).text()).toContain('Name Request Type Does Not Match')
+  })
+
+  it('emits done and verify data changes', async () => {
+    const wrapper = wrapperFactory()
+
+    // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
 
     // Set values and submit form
@@ -448,8 +355,15 @@ describe('CorrectNameRequest', () => {
 
     expect(wrapper.vm.formValid).toBe(true)
 
-    // verify Confirm Dialog
-    expect(wrapper.findComponent(CorrectNameRequest).exists()).toBe(true)
-    // expect(wrapper.findComponent(CorrectNameRequest).text()).toContain('Name Request Type Does Not Match')
+    // verify form emission
+    expect(getLastEvent(wrapper, 'saved')).toBe(true)
+
+    // verify data change
+    const updatedNr = getLastEvent(wrapper, 'update:nameRequest')
+    expect(updatedNr.legalType).toBe('BC')
+    expect(updatedNr.legalName).toBeUndefined()
+    expect(updatedNr.nrNumber).toBeUndefined()
+
+    expect(getLastEvent(wrapper, 'update:companyName')).toBe('Bobs Plumbing')
   })
 })
