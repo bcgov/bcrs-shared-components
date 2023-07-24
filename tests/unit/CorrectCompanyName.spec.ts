@@ -3,6 +3,7 @@ import Vuetify from 'vuetify'
 import flushPromises from 'flush-promises'
 import { mount, Wrapper } from '@vue/test-utils'
 import CorrectCompanyName from '@/components/correct-name/CorrectCompanyName.vue'
+import { CorrectNameOptions } from '@bcrs-shared-components/enums'
 
 const vuetify = new Vuetify({})
 
@@ -19,7 +20,7 @@ function getLastEvent (wrapper: Wrapper<CorrectCompanyName>, name: string): any 
 
 const defaultProps = {
   companyName: 'Old Company Name',
-  formType: 'correct-new-nr',
+  formType: '',
   validate: false
 }
 
@@ -82,7 +83,7 @@ describe('CorrectCompanyName', () => {
     expect(getLastEvent(wrapper, 'valid')).toBe(true)
 
     // Submit Change
-    await wrapper.setProps({ formType: 'correct-name' })
+    await wrapper.setProps({ formType: CorrectNameOptions.CORRECT_NAME })
     await Vue.nextTick()
 
     expect(getLastEvent(wrapper, 'saved')).toBe(true)
