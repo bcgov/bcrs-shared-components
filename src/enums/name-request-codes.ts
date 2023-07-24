@@ -71,7 +71,7 @@ export enum NrRequestTypeCodes {
   XCP = 'XCP', // new XPRO_COOP
   XCCP = 'XCCP', // change XPRO_COOP
   XRCP = 'XRCP', // restoration XPRO_COOP
-  FIN = 'FIN', // new FINANCIAL
+  FI = 'FI', // new FINANCIAL
   CFI = 'CFI', // change FINANCIAL
   RFI = 'RFI', // restoration FINANCIAL
   PA = 'PA', // new PRIVATE_ACT
