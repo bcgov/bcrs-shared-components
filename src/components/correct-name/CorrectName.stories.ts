@@ -23,7 +23,7 @@ correctName['args'] = {
 }
 
 export const correctNameNR = Template.bind({})
-correctNameNR.args = {
+correctNameNR['args'] = {
   businessId: 'BC1234567',
   entityType: 'BC',
   nameRequest: {},

@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, Prop, Watch, Provide } from 'vue-property-decorator'
 import { CorrectNameOptions } from '@bcrs-shared-components/enums'
 import { VuetifyRuleFunction } from '@bcrs-shared-components/types'
 
@@ -36,8 +36,13 @@ export default class CorrectCompanyName extends Vue {
   @Prop({ required: true }) readonly validate!: boolean
 
   // Local properties
-  formValid = false // initially invalid
-  textfield = this.companyName
+  @Provide() formValid = false // initially invalid
+  @Provide() textfield = ''
+
+  mounted (): void {
+    // Filter the options to be displayed by what id's were passed from the parent component
+    this.textfield = this.companyName
+  }
 
   // Rules
   get companyNameRules (): Array<VuetifyRuleFunction> {

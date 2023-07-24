@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import Vuetify from 'vuetify'
 import flushPromises from 'flush-promises'
 import { mount, Wrapper } from '@vue/test-utils'
@@ -8,9 +9,9 @@ const vuetify = new Vuetify({})
 const inputSelector = '#company-name-textfield'
 
 function getLastEvent (wrapper: Wrapper<CorrectCompanyName>, name: string): any {
-  const eventsList = wrapper.emitted(name) as Array<any>
+  const eventsList: Array<any> = wrapper.emitted(name)
   if (eventsList) {
-    const events = eventsList[eventsList.length - 1] as Array<any>
+    const events: Array<any> = eventsList[eventsList.length - 1]
     return events[0]
   }
   return null
@@ -23,7 +24,6 @@ const defaultProps = {
 }
 
 describe('CorrectCompanyName', () => {
-  let vuetify: any
   let wrapperFactory: any
 
   beforeEach(() => {
@@ -52,7 +52,7 @@ describe('CorrectCompanyName', () => {
     await flushPromises()
 
     // Verify data
-    expect(companyNameInput.element.value).toBe('')
+    expect(companyNameInput.element.value).toBe('Old Company Name')
 
     // formValid set false initially
     expect(getLastEvent(wrapper, 'valid')).toBe(false)
@@ -78,15 +78,16 @@ describe('CorrectCompanyName', () => {
     await flushPromises()
 
     // Verify data
-    expect(companyNameInput.element.value).toBe('')
-    expect(getLastEvent(wrapper, 'valid')).toBe(false)
+    expect(companyNameInput.element.value).toBe('New Company Name')
+    expect(getLastEvent(wrapper, 'valid')).toBe(true)
 
     // Submit Change
     await wrapper.setProps({ formType: 'correct-name' })
+    await Vue.nextTick()
 
     expect(getLastEvent(wrapper, 'saved')).toBe(true)
 
     // Verify Data change
-    expect(getLastEvent(wrapper, 'update:companyName')).toBeUndefined()
+    expect(getLastEvent(wrapper, 'update:companyName')).toBe('New Company Name')
   })
 })
