@@ -33,9 +33,9 @@ const nameRequest = {
 }
 
 const fetchAndValidateNr = (nrNumber, businessId, applicantPhone, applicantEmail) => {
-  if(nrNumber != nameRequest.nrNum) return null
-  if(applicantEmail && applicantEmail != nameRequest.applicants.emailAddress) return null
-  if(applicantPhone && applicantPhone != nameRequest.applicants.phoneNumber) return null
+  if (nrNumber !== nameRequest.nrNum) return null
+  if (applicantEmail && applicantEmail !== nameRequest.applicants.emailAddress) return null
+  if (applicantPhone && applicantPhone !== nameRequest.applicants.phoneNumber) return null
 
   return Promise.resolve(nameRequest)
 }

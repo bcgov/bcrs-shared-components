@@ -112,7 +112,8 @@ describe('CorrectNameToNumber', () => {
     expect(getLastEvent(wrapper, 'update:companyName')).toBe('0871437 B.C. LTD.')
 
     // Submit Change
-    await wrapper.setProps({ formType: CorrectNameOptions.CORRECT_NAME_TO_NUMBER, entityType: CorpTypeCd.BC_ULC_COMPANY })
+    await wrapper.setProps({ formType: CorrectNameOptions.CORRECT_NAME_TO_NUMBER,
+      entityType: CorpTypeCd.BC_ULC_COMPANY })
     await flushPromises()
 
     // Verify Data changes
@@ -137,7 +138,8 @@ describe('CorrectNameToNumber', () => {
     expect(getLastEvent(wrapper, 'update:companyName')).toBe(null)
 
     // Submit Change
-    await wrapper.setProps({ formType: CorrectNameOptions.CORRECT_NAME_TO_NUMBER, entityType: CorpTypeCd.BC_ULC_COMPANY })
+    await wrapper.setProps({ formType: CorrectNameOptions.CORRECT_NAME_TO_NUMBER,
+      entityType: CorpTypeCd.BC_ULC_COMPANY })
     await flushPromises()
 
     expect(getLastEvent(wrapper, 'saved')).toBe(true)
