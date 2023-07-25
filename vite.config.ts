@@ -19,6 +19,7 @@ export default defineConfig({
       '@bcrs-shared-components/interfaces': new URL('./src/interfaces', import.meta.url).pathname,
       '@bcrs-shared-components/mixins': new URL('./src/mixins', import.meta.url).pathname,
       '@bcrs-shared-components/types': new URL('./src/types', import.meta.url).pathname,
+      '@bcrs-shared-components/services': new URL('./src/services', import.meta.url).pathname,
       '@bcrs-shared-components/': new URL('./src/components/', import.meta.url).pathname
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
