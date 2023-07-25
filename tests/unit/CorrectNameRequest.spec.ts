@@ -8,6 +8,8 @@ console.warn = vitest.fn()
 // mock window.alert to fix "TypeError: alert is not a function"
 window.alert = vitest.fn()
 
+const vuetify = new Vuetify({})
+
 function getLastEvent (wrapper: Wrapper<any>, name: string): any {
   const eventsList = wrapper.emitted(name) as Array<any>
   if (eventsList) {
@@ -52,16 +54,10 @@ const defaultProps = {
 }
 
 describe('CorrectNameRequest', () => {
-  let vuetify: any
   let wrapperFactory: any
+  let wrapper: any
 
   beforeEach(() => {
-    // *** TODO: assign this outside describe block?
-    vuetify = new Vuetify({})
-
-    // *** TODO: set this as a prop
-    // store.state.stateModel.tombstone.entityType = 'BC'
-
     wrapperFactory = (propsData: any) => {
       return mount(CorrectNameRequest, {
         propsData: {
@@ -73,14 +69,18 @@ describe('CorrectNameRequest', () => {
     }
   })
 
+  afterEach(() => {
+    wrapper.destroy()
+  })
+
   it('renders the CorrectNameRequest Component', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     expect(wrapper.findComponent(CorrectNameRequest).exists()).toBe(true)
   })
 
   it('verify the text fields and there label', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     const textFields = wrapper.findAll('.text-input-field')
     const nrInput = textFields.at(0)
@@ -93,7 +93,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('verifies inputs when valid', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true) // default formValid is not false
@@ -108,7 +108,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('verifies invalid NR', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
@@ -122,7 +122,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('verifies invalid email', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
@@ -136,7 +136,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('verifies invalid phone', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
@@ -150,7 +150,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('verifies missing values', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
@@ -165,7 +165,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('emits true when the form is valid', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
@@ -181,7 +181,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('emits false when the form is invalid', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
@@ -197,7 +197,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('emits done and true when the process is done and the Name Request accepted', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Set values and submit form
     wrapper.vm.nrNumber = 'NR 1234567'
@@ -214,7 +214,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('emits done and false when the process is done but Name Request phone is rejected', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify Invalid before input
     wrapper.vm.nrNumber = ''
@@ -236,7 +236,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('emits done and false when the process is done but Name Request email is rejected', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify Invalid before input
     wrapper.vm.nrNumber = ''
@@ -258,7 +258,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('emits done and prompts confirm dialog when the Name Request is a type mismatch', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify Invalid before input
     expect(wrapper.vm.formValid).toBe(true)
@@ -278,7 +278,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('emits done and verify Name Request accepted for NEW GP filing', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)
@@ -297,7 +297,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('emits done and verify Name Request is a type mismatch for NEW SP filing', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // *** TODO: set these as props
     // store.state.stateModel.tombstone.currentDate = '2021-01-20'
@@ -343,7 +343,7 @@ describe('CorrectNameRequest', () => {
   })
 
   it('emits done and verify data changes', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     // Verify valid before input
     expect(wrapper.vm.formValid).toBe(true)

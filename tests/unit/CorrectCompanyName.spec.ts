@@ -25,6 +25,7 @@ const defaultProps = {
 
 describe('CorrectCompanyName', () => {
   let wrapperFactory: any
+  let wrapper: any
 
   beforeEach(() => {
     wrapperFactory = (propsData: any) => {
@@ -38,15 +39,19 @@ describe('CorrectCompanyName', () => {
     }
   })
 
+  afterEach(() => {
+    wrapper.destroy()
+  })
+
   // *** TODO: wrapper should be destroyed due to avoid wasting memory?
   it('renders the CorrectCompanyName Component', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     expect(wrapper.findComponent(CorrectCompanyName).exists()).toBe(true)
   })
 
   it('verifies the text field populated from prop', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
     const companyNameInput = wrapper.find(inputSelector)
 
     await flushPromises()
@@ -59,7 +64,7 @@ describe('CorrectCompanyName', () => {
   })
 
   it('verifies it is invalid with no Company Name', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
     const companyNameInput = wrapper.find(inputSelector)
     wrapper.vm.$data.textfield = ''
 
@@ -71,7 +76,7 @@ describe('CorrectCompanyName', () => {
   })
 
   it('verifies the done emission when the change is complete', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
     const companyNameInput = wrapper.find(inputSelector)
     wrapper.vm.$data.textfield = 'New Company Name'
 

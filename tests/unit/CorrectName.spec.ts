@@ -19,20 +19,25 @@ const defaultProps = {
 
 describe('CorrectName', () => {
   let wrapperFactory: any
+  let wrapper: any
 
   beforeEach(() => {
     wrapperFactory = async (propsData: any) => {
-      const wrapper = shallowMount(CorrectName, {
+      const initialWrapper = shallowMount(CorrectName, {
         propsData,
         vuetify
       })
       await Vue.nextTick()
-      return wrapper
+      return initialWrapper
     }
   })
 
+  afterEach(() => {
+    wrapper.destroy()
+  })
+
   it('renders the CorrectName Component and default subcomponents', async () => {
-    const wrapper = await wrapperFactory({
+    wrapper = await wrapperFactory({
       ...defaultProps,
       correctionNameChoices: ['correct-new-nr']
     })
@@ -41,7 +46,7 @@ describe('CorrectName', () => {
   })
 
   it('renders the CorrectNameRequest when a numbered company', async () => {
-    const wrapper = await wrapperFactory({
+    wrapper = await wrapperFactory({
       ...defaultProps,
       correctionNameChoices: ['correct-new-nr']
     })
@@ -53,7 +58,7 @@ describe('CorrectName', () => {
   })
 
   it('renders the Correction selector when correcting a Named Company', async () => {
-    const wrapper = await wrapperFactory({
+    wrapper = await wrapperFactory({
       ...defaultProps,
       correctionNameChoices: ['correct-name', 'correct-new-nr', 'correct-name-to-number']
     })

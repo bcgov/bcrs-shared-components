@@ -24,14 +24,9 @@ const defaultProps = {
 
 describe('CorrectNameToNumber', () => {
   let wrapperFactory: any
+  let wrapper: any
 
   beforeEach(() => {
-    // *** TODO: set this as a prop
-    // store.state.stateModel.nameRequest = {
-    //   legalName: 'Bobs Plumbing',
-    //   legalType: 'BEN'
-    // }
-
     wrapperFactory = (propsData: any) => {
       return mount(CorrectNameToNumber, {
         propsData: {
@@ -43,14 +38,18 @@ describe('CorrectNameToNumber', () => {
     }
   })
 
+  afterEach(() => {
+    wrapper.destroy()
+  })
+
   it('renders the CorrectNameToNumber Component', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
 
     expect(wrapper.findComponent(CorrectNameToNumber).exists()).toBe(true)
   })
 
   it('verifies the checkbox default state', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
     const nameToNumberInput = wrapper.find('#correct-name-to-number-checkbox')
 
     await flushPromises()
@@ -63,7 +62,7 @@ describe('CorrectNameToNumber', () => {
   })
 
   it('verifies the emission when checkbox state changes', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
     const nameToNumberInput = wrapper.find('#correct-name-to-number-checkbox')
 
     await flushPromises()
@@ -86,7 +85,7 @@ describe('CorrectNameToNumber', () => {
   })
 
   it('verifies the form submission and verify global state change', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
     const nameToNumberInput = wrapper.find('#correct-name-to-number-checkbox')
 
     await flushPromises()
@@ -121,7 +120,7 @@ describe('CorrectNameToNumber', () => {
   })
 
   it('verifies the form submission, verify global state change, verify name rules', async () => {
-    const wrapper = wrapperFactory()
+    wrapper = wrapperFactory()
     const nameToNumberInput = wrapper.find('#correct-name-to-number-checkbox')
 
     await flushPromises()
