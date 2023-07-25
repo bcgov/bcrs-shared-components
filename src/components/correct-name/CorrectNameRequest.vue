@@ -198,11 +198,11 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
           this.emitSaved(true)
         }
       } catch (error) {
+        alert((error as any).message)
+
         // inform parent that process is complete
         this.$refs.form.resetValidation()
         this.emitSaved(false)
-
-        alert((error as any).message)
       }
     }
   }
