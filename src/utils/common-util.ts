@@ -1,5 +1,5 @@
 import ConfigHelper from './config-helper'
-import { SessionStorageKeys, ACCOUNT_ID } from './constants'
+import { SessionStorageKeys, ACCOUNT_ID } from '../enums/sbc-common-components-constants'
 
 /**
  * Place to put all the custom utility methods

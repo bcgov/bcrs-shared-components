@@ -63,8 +63,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Emit, Prop } from 'vue-property-decorator'
-import { FeeSummaryActions } from '../../enums'
-import { FilingDataIF } from '../../interfaces'
+import { FeeSummaryActions } from '@bcrs-shared-components/enums'
+import { FilingDataIF } from '@bcrs-shared-components/interfaces'
 import SbcFeeSummary from './SbcFeeSummary.vue'
 
 @Component({

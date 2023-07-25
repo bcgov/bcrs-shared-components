@@ -1,5 +1,5 @@
-import { SessionStorageKeys } from './constants'
-import { trimTrailingSlashURL } from './common-util'
+import { SessionStorageKeys } from '@/enums/sbc-common-components-constants'
+import { trimTrailingSlashURL } from '@/utils/common-util'
 
 export default class ConfigHelper {
   static keycloakConfigUrl = ''

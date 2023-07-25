@@ -4,4 +4,4 @@
 export { default as DateMixin } from './date-mixin'
 export { default as NameRequestMixin } from './name-request-mixin'
 export { default as CountriesProvincesMixin } from './countries-provinces-mixin'
-export { default as validationMixin } from './validation-mixin'
+export { default as ValidationMixin } from './validation-mixin'

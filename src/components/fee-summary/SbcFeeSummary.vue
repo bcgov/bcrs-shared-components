@@ -10,7 +10,6 @@
 
     <v-slide-y-transition group tag="ul" class="fee-list" v-show="!fetchError">
       <template
-        v-show="(totalFilingFees > 0 && lineItem.fee) || (totalFilingFees == 0)"
         v-for="lineItem in fees"
         >
         <li class="container fee-list__item"
@@ -58,9 +57,9 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Emit } from 'vue-property-decorator'
-import FeeServices from './fee.services'
-import { Fee } from './fee'
-import { FilingData } from './FilingData'
+import FeeServices from '@/services/fee.services'
+import { Fee } from '@/interfaces/fee-interface'
+import { FilingData } from '@/interfaces/FilingData'
 
 @Component({})
 export default class SbcFeeSummary extends Vue {
@@ -76,7 +75,7 @@ export default class SbcFeeSummary extends Vue {
 
   /* class properties */
   fees: Fee[] = []
-  fetchError: string = ''
+  fetchError = ''
 
   /* lifecycle event */
   mounted (): void {
@@ -86,7 +85,8 @@ export default class SbcFeeSummary extends Vue {
     FeeServices.getFee(this.filingData, this.payURL)
       .then(data => {
         this.fetchError = ''
-        this.fees = data
+        this.fees = data || []
+        this.fees = this.fees.filter(f => (this.totalFilingFees > 0 && f.fee) || (this.totalFilingFees === 0))
         this.emitTotalFee(this.totalFilingFees)
       })
       .catch((error: any) => {

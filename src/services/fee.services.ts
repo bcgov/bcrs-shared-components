@@ -1,7 +1,7 @@
 import Axios from 'axios'
-import { Fee, FilingData, PayData } from '../fee-summary'
-import ConfigHelper from './config-helper'
-import { SessionStorageKeys } from './constants'
+import { Fee, FilingData, PayData } from '@/interfaces'
+import ConfigHelper from '@/utils/config-helper'
+import { SessionStorageKeys } from '@/enums/sbc-common-components-constants'
 
 // sample Microcks URLs =
 //   https://mock-lear-tools.pathfinder.gov.bc.ca/rest/SBC+Pay+API+Reference/1.0.1/api/v1/fees/CP/OTANN
@@ -22,7 +22,7 @@ export default {
       if (!filing.filingTypeCode) {
         Promise.resolve()
       }
-      let url = prepareUrl(filing, payApiUrl)
+      const url = prepareUrl(filing, payApiUrl)
       promises.push(Axios.get(url, { headers: { Authorization: `Bearer ${token}`, 'Account-Id': accountId } }))
     }
 
@@ -66,7 +66,7 @@ export default {
 }
 
 const prepareUrl = (filing: FilingData, payApiUrl: string) => {
-  let queryParams = []
+  const queryParams = []
   if (filing.waiveFees) {
     queryParams.push(`waiveFees=${!!filing.waiveFees}`)
   }
