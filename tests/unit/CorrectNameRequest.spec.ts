@@ -3,8 +3,9 @@ import flushPromises from 'flush-promises'
 import { mount, Wrapper } from '@vue/test-utils'
 import CorrectNameRequest from '@/components/correct-name/CorrectNameRequest.vue'
 
-// mock the window.alert function, console.warn to hide "[Vuetify] Unable to locate target XXX"
+// mock console.warn to hide "[Vuetify] Unable to locate target XXX"
 console.warn = vitest.fn()
+// mock window.alert to fix "TypeError: alert is not a function"
 window.alert = vitest.fn()
 
 function getLastEvent (wrapper: Wrapper<any>, name: string): any {
