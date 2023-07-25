@@ -1,1 +1,1 @@
-export { default as FeeServices } from './fee.services'
+export * from './fee.services'

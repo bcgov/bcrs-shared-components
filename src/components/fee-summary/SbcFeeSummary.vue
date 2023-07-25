@@ -57,9 +57,8 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Emit } from 'vue-property-decorator'
-import FeeServices from '@/services/fee.services'
-import { Fee } from '@/interfaces/fee-interface'
-import { FilingData } from '@/interfaces/FilingData'
+import { FeeServices } from '@bcrs-shared-components/services/'
+import { Fee, FilingData } from '@bcrs-shared-components/interfaces/'
 
 @Component({})
 export default class SbcFeeSummary extends Vue {

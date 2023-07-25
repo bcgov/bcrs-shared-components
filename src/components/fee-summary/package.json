@@ -7,6 +7,7 @@
   "dependencies": {
     "@bcrs-shared-components/enums": "^1.0.42",
     "@bcrs-shared-components/interfaces": "^1.0.66",
+    "@bcrs-shared-components/services": "^1.0.0",
     "sbc-common-components": "3.0.8",
     "vue": "^2.7.14"
   },
