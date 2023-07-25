@@ -150,7 +150,7 @@ import { Component, Mixins, Emit, Prop, Watch } from 'vue-property-decorator'
 import { Validation } from 'vue-plugin-helper-decorator'
 import { uniqueId } from 'lodash'
 // NB: local mixin (StoryBook can't find it otherwise)
-import { ValidationMixin, CountriesProvincesMixin } from '@/mixins'
+import { ValidationMixin, CountriesProvincesMixin } from '@bcrs-shared-components/mixins'
 
 /**
  * The component for displaying and editing an address.
