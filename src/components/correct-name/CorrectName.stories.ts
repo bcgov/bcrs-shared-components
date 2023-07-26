@@ -18,5 +18,16 @@ correctName['args'] = {
   entityType: 'BC',
   nameRequest: {},
   companyName: 'Old Company Name',
-  fetchAndValidateNr: () => {}
+  fetchAndValidateNr: () => {},
+  correctionNameChoices: ['correct-name']
+}
+
+export const correctNameNR = Template.bind({})
+correctNameNR['args'] = {
+  businessId: 'BC1234567',
+  entityType: 'BC',
+  nameRequest: {},
+  companyName: 'Old Company Name',
+  fetchAndValidateNr: () => {},
+  correctionNameChoices: ['correct-name-to-number', 'correct-new-nr']
 }

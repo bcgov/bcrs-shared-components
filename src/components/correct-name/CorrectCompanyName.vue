@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, Prop, Watch, Provide } from 'vue-property-decorator'
 import { CorrectNameOptions } from '@bcrs-shared-components/enums'
 import { VuetifyRuleFunction } from '@bcrs-shared-components/types'
 
@@ -36,8 +36,8 @@ export default class CorrectCompanyName extends Vue {
   @Prop({ required: true }) readonly validate!: boolean
 
   // Local properties
-  formValid = false // initially invalid
-  textfield = this.companyName
+  @Provide() formValid = false // initially invalid
+  @Provide() textfield = ''
 
   // Rules
   get companyNameRules (): Array<VuetifyRuleFunction> {
@@ -45,6 +45,12 @@ export default class CorrectCompanyName extends Vue {
       (v: string) => !!v || ' A company name is required',
       (v: string) => (v !== this.companyName) || ' Enter a new company name'
     ]
+  }
+
+  /** Watch for company name changed. */
+  @Watch('companyName', { immediate: true })
+  onCompanyNameChanged (val: string) {
+    this.textfield = val
   }
 
   /** Watch for form submission and emit results. */
