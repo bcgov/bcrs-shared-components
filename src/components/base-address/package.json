@@ -1,14 +1,16 @@
 {
   "name": "@bcrs-shared-components/base-address",
-  "version": "2.0.0",
+  "version": "0.0.0",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@bcrs-shared-components/mixins": "^1.1.16",
     "lodash.uniqueid": "^4.0.1",
-    "vue-property-decorator": "^9.1.2",
-    "vuelidate": "^0.7.4",
-    "vue-plugin-helper-decorator": "^0.0.11"
+    "vuelidate": "^0.7.4"
+  },
+  "devDependencies": {
+    "vue-plugin-helper-decorator": "^0.0.11",
+    "vue-property-decorator": "^9.1.2"
   }
 }

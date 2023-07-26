@@ -15,7 +15,10 @@
   <div class="base-address">
     <!-- Display fields -->
     <v-expand-transition>
-      <div v-if="!editing" class="address-block">
+      <div
+        v-if="!editing"
+        class="address-block"
+      >
         <div class="address-block__info pre-line">
           <div class="address-block__info-row street-address">
             {{ addressLocal.streetAddress }}
@@ -52,90 +55,107 @@
 
     <!-- Edit fields -->
     <v-expand-transition>
-      <v-form v-if="editing" ref="addressForm" name="address-form" lazy-validation>
+      <v-form
+        v-if="editing"
+        ref="addressForm"
+        name="address-form"
+        lazy-validation
+      >
         <div class="form__row">
           <!-- NB1: AddressComplete needs to be enabled each time user clicks in this search field.
                NB2: Only process first keypress -- assumes if user moves between instances of this
                    component then they are using the mouse (and thus, clicking). -->
-          <v-text-field autocomplete="chrome-off"
-                        :name="Math.random()"
-                        filled
-                        class="street-address"
-                        :hint="streetAddressHint"
-                        persistent-hint
-                        :id="streetAddressId"
-                        :label="streetAddressLabel"
-                        v-model="addressLocal.streetAddress"
-                        :rules="[...rules.streetAddress, ...spaceRules]"
-                        @keypress.once="enableAddressComplete()"
-                        @click="enableAddressComplete()"
+          <v-text-field
+            :id="streetAddressId"
+            v-model="addressLocal.streetAddress"
+            autocomplete="chrome-off"
+            :name="Math.random()"
+            filled
+            class="street-address"
+            :hint="streetAddressHint"
+            persistent-hint
+            :label="streetAddressLabel"
+            :rules="[...rules.streetAddress, ...spaceRules]"
+            @keypress.once="enableAddressComplete()"
+            @click="enableAddressComplete()"
           />
         </div>
         <div class="form__row">
-          <v-textarea auto-grow
-                      filled
-                      class="street-address-additional"
-                      :label="streetAddressAdditionalLabel"
-                      rows="1"
-                      v-model="addressLocal.streetAddressAdditional"
-                      :rules="[...rules.streetAddressAdditional, ...spaceRules]"
+          <v-textarea
+            v-model="addressLocal.streetAddressAdditional"
+            auto-grow
+            filled
+            class="street-address-additional"
+            :label="streetAddressAdditionalLabel"
+            rows="1"
+            :rules="[...rules.streetAddressAdditional, ...spaceRules]"
           />
         </div>
         <div class="form__row three-column">
-          <v-text-field filled
-                        class="item address-city"
-                        :label="addressCityLabel"
-                        v-model="addressLocal.addressCity"
-                        :rules="[...rules.addressCity, ...spaceRules]"
+          <v-text-field
+            v-model="addressLocal.addressCity"
+            filled
+            class="item address-city"
+            :label="addressCityLabel"
+            :rules="[...rules.addressCity, ...spaceRules]"
           />
-          <v-select v-if="useCountryRegions(addressCountry)"
-                    filled
-                    class="item address-region"
-                    :menu-props="{maxHeight:'40rem'}"
-                    :label="addressRegionLabel"
-                    item-text="name"
-                    item-value="short"
-                    v-model="addressLocal.addressRegion"
-                    :items="getCountryRegions(addressCountry)"
-                    :rules="[...rules.addressRegion, ...spaceRules]"
+          <v-select
+            v-if="useCountryRegions(addressCountry)"
+            v-model="addressLocal.addressRegion"
+            filled
+            class="item address-region"
+            :menu-props="{maxHeight:'40rem'}"
+            :label="addressRegionLabel"
+            item-text="name"
+            item-value="short"
+            :items="getCountryRegions(addressCountry)"
+            :rules="[...rules.addressRegion, ...spaceRules]"
           />
-          <v-text-field v-else
-                        filled
-                        class="item address-region"
-                        :label="addressRegionLabel"
-                        v-model="addressLocal.addressRegion"
-                        :rules="[...rules.addressRegion, ...spaceRules]"
+          <v-text-field
+            v-else
+            v-model="addressLocal.addressRegion"
+            filled
+            class="item address-region"
+            :label="addressRegionLabel"
+            :rules="[...rules.addressRegion, ...spaceRules]"
           />
-          <v-text-field filled
-                        class="item postal-code"
-                        :label="postalCodeLabel"
-                        v-model="addressLocal.postalCode"
-                        :rules="[...rules.postalCode, ...spaceRules]"
+          <v-text-field
+            v-model="addressLocal.postalCode"
+            filled
+            class="item postal-code"
+            :label="postalCodeLabel"
+            :rules="[...rules.postalCode, ...spaceRules]"
           />
         </div>
         <div class="form__row">
-          <v-select filled
-                    class="address-country"
-                    :label="addressCountryLabel"
-                    menu-props="auto"
-                    item-text="name"
-                    item-value="code"
-                    v-model="addressLocal.addressCountry"
-                    :items="getCountries()"
-                    :rules="[...rules.addressCountry, ...spaceRules]"
-                    v-on:change="resetRegion()"
+          <v-select
+            v-model="addressLocal.addressCountry"
+            filled
+            class="address-country"
+            :label="addressCountryLabel"
+            menu-props="auto"
+            item-text="name"
+            item-value="code"
+            :items="getCountries()"
+            :rules="[...rules.addressCountry, ...spaceRules]"
+            @change="resetRegion()"
           />
           <!-- special field to select AddressComplete country, separate from our model field -->
-          <input type="hidden" :id="addressCountryId" :value="addressCountry" />
+          <input
+            :id="addressCountryId"
+            type="hidden"
+            :value="addressCountry"
+          >
         </div>
         <div class="form__row">
-          <v-textarea auto-grow
-                      filled
-                      class="delivery-instructions"
-                      :label="deliveryInstructionsLabel"
-                      rows="2"
-                      v-model="addressLocal.deliveryInstructions"
-                      :rules="[...rules.deliveryInstructions, ...spaceRules]"
+          <v-textarea
+            v-model="addressLocal.deliveryInstructions"
+            auto-grow
+            filled
+            class="delivery-instructions"
+            :label="deliveryInstructionsLabel"
+            rows="2"
+            :rules="[...rules.deliveryInstructions, ...spaceRules]"
           />
         </div>
       </v-form>
