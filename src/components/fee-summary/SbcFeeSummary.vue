@@ -102,7 +102,7 @@
       v-show="!fetchError"
       class="container fee-total"
     >
-      <div 
+      <div
         class="fee-total__name"
       >
         Total Fees
