@@ -4,6 +4,7 @@ export enum FilingCodes {
   ADDRESS_CHANGE_OT = 'OTADD', // Others - Change of Address
   AFFIDAVIT = 'AFDVT',
   ALTERATION = 'ALTER',
+  ALTERATION_BC_TO_ULC = 'NOALU', // More expensive for BC to ULC.
   ANNUAL_REPORT_BC = 'BCANN', // BCOMP - Annual Report
   ANNUAL_REPORT_OT = 'OTANN', // Others - Annual Report
   CHANGE_OF_REGISTRATION = 'FMCHANGE',
