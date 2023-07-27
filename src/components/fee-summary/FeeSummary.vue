@@ -97,7 +97,7 @@ export default class FeeSummary extends Vue {
   /** Emit action event. */
   @Emit('action')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected emitAction (action: string): void {}
+  emitAction (action: FeeSummaryActions): void {}
 }
 </script>
 

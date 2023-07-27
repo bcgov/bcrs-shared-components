@@ -20,7 +20,7 @@ const Template = (args, { argTypes }) => ({
 
 const filingData = [{
   filingTypeCode: FilingCodes.ALTERATION,
-  entityType: CorpTypeCd.BC_CORPORATION,
+  entityType: CorpTypeCd.CORPORATION,
   priority: false
 }] as FilingDataIF[]
 
