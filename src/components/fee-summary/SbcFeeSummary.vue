@@ -1,54 +1,127 @@
 <template>
   <v-card>
     <header class="font-weight-bold px-3 py-3">
-      <slot name="header">Fee Summary</slot>
+      <slot name="header">
+        Fee Summary
+      </slot>
     </header>
 
     <div v-show="fetchError">
-      <v-alert color="error" icon="warning" outlined>{{fetchError}}</v-alert>
+      <v-alert
+        color="error"
+        icon="warning"
+        outlined
+      >
+        {{ fetchError }}
+      </v-alert>
     </div>
 
-    <v-slide-y-transition group tag="ul" class="fee-list" v-show="!fetchError">
+    <v-slide-y-transition
+      v-show="!fetchError"
+      group
+      tag="ul"
+      class="fee-list"
+    >
       <template
         v-for="lineItem in fees"
-        >
-        <li class="container fee-list__item"
+      >
+        <li
+          class="container fee-list__item"
           :key="lineItem.filingType"
+        >
+          <div
+            class="fee-list__item-name"
           >
-          <div class="fee-list__item-name">{{filingLabel ? filingLabel : lineItem.filingType}}</div>
-          <div class="fee-list__item-value" v-if="lineItem.fee > 0">{{lineItem.fee | currency}}</div>
-          <div class="fee-list__item-value" v-else>No Fee</div>
+            {{ filingLabel ? filingLabel : lineItem.filingType }}
+          </div>
+          <div
+            v-if="lineItem.fee > 0"
+            class="fee-list__item-value"
+          >
+            {{ lineItem.fee | currency }}
+          </div>
+          <div
+            v-else
+            class="fee-list__item-value"
+          >
+            No Fee
+          </div>
         </li>
-        <li class="container fee-list__item"
+        <li
           v-if="lineItem.priorityFees"
           :key="lineItem.filingType+'-priority'"
+          class="container fee-list__item"
+        >
+          <div
+            class="fee-list__item-name pl-3"
           >
-          <div class="fee-list__item-name pl-3">Priority Fee</div>
-          <div class="fee-list__item-value">{{lineItem.priorityFees | currency}}</div>
+            Priority Fee
+          </div>
+          <div
+            class="fee-list__item-value"
+          >
+            {{ lineItem.priorityFees | currency }}
+          </div>
         </li>
-        <li class="container fee-list__item"
+        <li
           v-if="lineItem.futureEffectiveFees"
           :key="lineItem.filingType+'-futureEffective'"
+          class="container fee-list__item"
+        >
+          <div
+            class="fee-list__item-name pl-3"
           >
-          <div class="fee-list__item-name pl-3">Future Effective Fee</div>
-          <div class="fee-list__item-value">{{lineItem.futureEffectiveFees | currency}}</div>
+            Future Effective Fee
+          </div>
+          <div
+            class="fee-list__item-value"
+          >
+            {{ lineItem.futureEffectiveFees | currency }}
+          </div>
         </li>
-        <li class="container fee-list__item"
+        <li
           v-if="lineItem.serviceFees"
           :key="lineItem.filingType+'-transaction'"
+          class="container fee-list__item"
+        >
+          <div
+            class="fee-list__item-name pl-3"
           >
-          <div class="fee-list__item-name pl-3">Service Fee</div>
-          <div class="fee-list__item-value">{{lineItem.serviceFees | currency}}</div>
+            Service Fee
+          </div>
+          <div
+            class="fee-list__item-value"
+          >
+            {{ lineItem.serviceFees | currency }}
+          </div>
         </li>
       </template>
     </v-slide-y-transition>
 
-    <div class="container fee-total" v-show="!fetchError">
-      <div class="fee-total__name">Total Fees</div>
-      <div class="fee-total__currency">CAD</div>
-      <div class="fee-total__value">
-        <v-slide-y-reverse-transition name="slide" mode="out-in">
-          <div>{{totalFilingFees | currency}}</div>
+    <div
+      v-show="!fetchError"
+      class="container fee-total"
+    >
+      <div 
+        class="fee-total__name"
+      >
+        Total Fees
+      </div>
+      <div
+        class="fee-total__currency"
+      >
+        CAD
+      </div>
+      <div
+        class="fee-total__value"
+      >
+        <v-slide-y-reverse-transition
+          name="slide"
+          mode="out-in"
+        >
+          <div>
+            {{ totalFilingFees | currency }}
+          </div>
         </v-slide-y-reverse-transition>
       </div>
     </div>

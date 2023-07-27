@@ -147,7 +147,7 @@
 import Vue from 'vue'
 import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
 import { AddressIF, CompletingPartyIF, FormIF } from '@bcrs-shared-components/interfaces/'
-import BaseAddress from '../base-address/BaseAddress.vue'
+import BaseAddress from '@bcrs-shared-components/base-address/BaseAddress.vue'
 import { isEqual } from 'lodash'
 
 @Component({
