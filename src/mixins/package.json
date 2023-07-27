@@ -8,6 +8,7 @@
     "@bcrs-shared-components/enums": "^1.0.45",
     "@bcrs-shared-components/interfaces": "^1.0.69",
     "country-list": "^2.3.0",
+    "provinces": "^1.11.0",
     "lodash": "4.17.21",
     "vue": "^2.7.14"
   },

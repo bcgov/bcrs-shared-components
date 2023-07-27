@@ -7,7 +7,7 @@
   "dependencies": {
     "@bcrs-shared-components/interfaces": "^1.0.69",
     "lodash": "4.17.21",
-    "sbc-common-components": "3.0.8",
+    "@bcrs-shared-components/base-address": "^0.0.0",
     "vue": "^2.7.14",
     "vuelidate": "^0.7.7"
   },

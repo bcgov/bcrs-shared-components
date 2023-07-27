@@ -11,6 +11,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@bcrs-shared-components/mixins": "^1.1.16",
     "@mdi/font": "^5.9.55",
     "axios": "^0.27.2",
     "country-list": "^2.3.0",
