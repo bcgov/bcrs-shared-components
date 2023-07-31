@@ -484,7 +484,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/theme.scss";
+@import "@/assets/styles/theme.scss";
 
 // Address Block Layout
 .address-block {
