@@ -210,20 +210,20 @@ export default class BusinessLookup extends Vue {
    * This method is debounced to prevent excessive calls to the API.
    */
   onSearchInput (searchInput: string) {
-    this.onSearchInputDebounced(searchInput)
+    this.onSearchInputDebounced(this, searchInput)
   }
 
-  private onSearchInputDebounced = debounce(async (searchInput: string) => {
+  private onSearchInputDebounced = debounce(async (that: this, searchInput: string) => {
     // safety check
     if (searchInput?.length > 2) {
-      this.state = States.SEARCHING
-      this.searchResults =
-        await this.BusinessLookupServices.search(searchInput, this.searchStatus).catch(() => [])
+      that.state = States.SEARCHING
+      that.searchResults =
+        await that.BusinessLookupServices.search(searchInput, that.searchStatus).catch(() => [])
       // display appropriate section
-      this.state = (this.searchResults.length > 0) ? States.SHOW_RESULTS : States.NO_RESULTS
+      that.state = (that.searchResults.length > 0) ? States.SHOW_RESULTS : States.NO_RESULTS
     } else {
-      this.searchResults = []
-      this.state = States.INITIAL
+      that.searchResults = []
+      that.state = States.INITIAL
     }
   }, 600)
 
@@ -232,12 +232,7 @@ export default class BusinessLookup extends Vue {
   private onSelectedBusiness (result: BusinessLookupResultIF): void {
     // safety check
     if (result) {
-      // set store value
-      this.setBusiness({
-        identifier: result.identifier,
-        name: result.name,
-        bn: result.bn
-      })
+      this.setBusiness(result)
       this.selectedBusiness = null
     }
   }
@@ -257,7 +252,7 @@ export default class BusinessLookup extends Vue {
   /** Emits event to update the Business object. */
   @Emit('setBusiness')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private setBusiness (val: BusinessLookupIF): void {}
+  private setBusiness (val: BusinessLookupResultIF): void {}
 
   /** Emits event to undo the selected business. */
   @Emit('undoBusiness')
