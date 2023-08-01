@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/services",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@bcrs-shared-components/enums": "^1.0.46",
-    "@bcrs-shared-components/interfaces": "^1.0.70",
+    "@bcrs-shared-components/interfaces": "^1.0.71",
     "axios": "^0.27.2",
     "lodash": "4.17.21",
     "vue": "^2.7.14"
