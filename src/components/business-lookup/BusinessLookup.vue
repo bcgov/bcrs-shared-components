@@ -3,7 +3,6 @@
     <div v-if="state !== States.SUMMARY">
       <v-autocomplete
         v-model="selectedBusiness"
-        v-model:search-input="searchField"
         filled
         no-filter
         append-icon=""
@@ -18,8 +17,9 @@
         :items="searchResults"
         :loading="state == States.SEARCHING"
         :hide-no-data="state != States.NO_RESULTS"
+        @update:search-input="onSearchInput($event)"
       >
-        <!-- Empty selection slot will stop re-triggering of searchField @Watch -->
+        <!-- Empty selection slot will stop re-triggering of search-input event -->
         <template #selection="" />
 
         <template #no-data>
@@ -158,10 +158,9 @@ export default class BusinessLookup extends Vue {
   readonly States = States
 
   // local variables
-  protected state = States.INITIAL
-  protected searchField = ''
-  protected searchResults: Array<BusinessLookupResultIF> = []
-  protected selectedBusiness: BusinessLookupResultIF = null
+  state = States.INITIAL
+  searchResults: Array<BusinessLookupResultIF> = []
+  selectedBusiness: BusinessLookupResultIF = null
 
   /** The business lookup validation rules. */
   readonly businessLookupRules: Array<(v) => boolean | string> = [
@@ -201,27 +200,30 @@ export default class BusinessLookup extends Vue {
   }
 
   /** Sets the business name. */
-  protected setBusinessName (val: string): void {
+  setBusinessName (val: string): void {
     const name = val?.trim()
     this.onSelectedBusiness({ ...this.businessLookup, name } as any)
   }
 
   /**
-   * Called when searchField property has changed.
+   * Called when Search Input has been updated.
    * This method is debounced to prevent excessive calls to the API.
    */
-  @Watch('searchField')
-  private onSearchField = debounce(async () => {
+  onSearchInput (searchInput: string) {
+    this.onSearchInputDebounced(this, searchInput)
+  }
+
+  private onSearchInputDebounced = debounce(async (that: this, searchInput: string) => {
     // safety check
-    if (this.searchField && this.searchField.length > 2) {
-      this.state = States.SEARCHING
-      this.searchResults =
-        await this.BusinessLookupServices.search(this.searchField, this.searchStatus).catch(() => [])
+    if (searchInput?.length > 2) {
+      that.state = States.SEARCHING
+      that.searchResults =
+        await that.BusinessLookupServices.search(searchInput, that.searchStatus).catch(() => [])
       // display appropriate section
-      this.state = (this.searchResults.length > 0) ? States.SHOW_RESULTS : States.NO_RESULTS
+      that.state = (that.searchResults.length > 0) ? States.SHOW_RESULTS : States.NO_RESULTS
     } else {
-      this.searchResults = []
-      this.state = States.INITIAL
+      that.searchResults = []
+      that.state = States.INITIAL
     }
   }, 600)
 
@@ -230,12 +232,7 @@ export default class BusinessLookup extends Vue {
   private onSelectedBusiness (result: BusinessLookupResultIF): void {
     // safety check
     if (result) {
-      // set store value
-      this.setBusiness({
-        identifier: result.identifier,
-        name: result.name,
-        bn: result.bn
-      })
+      this.setBusiness(result)
       this.selectedBusiness = null
     }
   }
@@ -255,11 +252,11 @@ export default class BusinessLookup extends Vue {
   /** Emits event to update the Business object. */
   @Emit('setBusiness')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private setBusiness (val: BusinessLookupIF): void {}
+  private setBusiness (val: BusinessLookupResultIF): void {}
 
   /** Emits event to undo the selected business. */
   @Emit('undoBusiness')
-  private emitUndo (): void {}
+  emitUndo (): void {}
 
   /** Emits event to update this component's validity. */
   @Emit('valid')

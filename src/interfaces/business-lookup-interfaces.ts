@@ -12,10 +12,11 @@ export const EmptyBusinessLookup: BusinessLookupIF = {
 }
 
 export interface BusinessLookupResultIF {
+  bn?: string
   identifier: string
   legalType: CorpTypeCd
-  bn: string
-  status: EntityStates
   name: string
+  score?: number
+  status: EntityStates
   disabled?: boolean // for display in v-autocomplete
 }
