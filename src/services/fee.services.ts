@@ -34,7 +34,9 @@ export default {
           .map(data => {
             const filingDatum = filingData.find(fd => fd.filingTypeCode === data.filingTypeCode)
             // default the title if client hasn't passed this on
-            const filingType = (filingDatum && filingDatum.filingDescription) ? filingDatum.filingDescription : data.filingType
+            const filingType = (filingDatum && filingDatum.filingDescription)
+              ? filingDatum.filingDescription
+              : data.filingType
             const fee = data.filingFees
             const priorityFees = (data.priorityFees) || 0
             const futureEffectiveFees = (data.futureEffectiveFees) || 0

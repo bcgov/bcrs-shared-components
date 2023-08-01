@@ -22,12 +22,12 @@
       tag="ul"
       class="fee-list"
     >
-      <template
+      <div
         v-for="lineItem in fees"
+        :key="lineItem.filingType"
       >
         <li
           class="container fee-list__item"
-          :key="lineItem.filingType"
         >
           <div
             class="fee-list__item-name"
@@ -95,7 +95,7 @@
             {{ lineItem.serviceFees | currency }}
           </div>
         </li>
-      </template>
+      </div>
     </v-slide-y-transition>
 
     <div
