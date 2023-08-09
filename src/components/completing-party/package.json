@@ -9,7 +9,7 @@
     "@bcrs-shared-components/interfaces": "^1.0.71",
     "lodash": "4.17.21",
     "vue": "^2.7.14",
-    "vuelidate": "^0.7.7"
+    "vuelidate": "0.6.2"
   },
   "devDependencies": {
     "vue-property-decorator": "^9.1.2"

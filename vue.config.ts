@@ -3,7 +3,6 @@ module.exports = {
     devtool: 'source-map'
   },
   transpileDependencies: [
-    'vue-plugin-helper-decorator',
     'vuetify'
   ]
 }

@@ -167,7 +167,7 @@
 import Vue from 'vue'
 import { required } from 'vuelidate/lib/validators'
 import { Component, Mixins, Emit, Prop, Watch } from 'vue-property-decorator'
-import { Validation } from 'vue-plugin-helper-decorator'
+import { Validations } from 'vuelidate-property-decorators'
 import { uniqueId } from 'lodash'
 import { ValidationMixin, CountriesProvincesMixin } from '@bcrs-shared-components/mixins'
 
@@ -185,7 +185,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
    * The validation object used by Vuelidate to compute address model validity.
    * @returns the Vuelidate validations object
    */
-  @Validation()
+  @Validations()
   public validations (): any {
     return { addressLocal: { ...this.schemaLocal } }
   }
