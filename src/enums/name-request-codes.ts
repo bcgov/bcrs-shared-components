@@ -83,7 +83,7 @@ export enum NrRequestActionCodes {
   AMALGAMATE = 'AML',
   ASSUMED = 'ASSUMED', // FUTURE: should be AS (as in LEAR)?
   CHANGE_NAME = 'CHG',
-  CONVERSION = 'CNV',
+  CONVERSION = 'CNV', // aka Alteration
   DBA = 'DBA', // doing business as
   MOVE = 'MVE', // continuation in
   NEW_BUSINESS = 'NEW', // incorporate or register
