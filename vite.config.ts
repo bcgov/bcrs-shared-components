@@ -25,8 +25,8 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   },
   test: {
-    // simulate DOM with happy-dom
-    environment: 'happy-dom',
+    // simulate DOM with jsdom
+    environment: 'jsdom',
     // enable jest-like global test APIs
     globals: true,
     setupFiles: ['./tests/setup.ts'],
