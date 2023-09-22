@@ -65,6 +65,8 @@ npm run build-storybook
 npm run storybook
 ```
 
+**NOTE: rebuilding Storybook will delete file `.nojekyll`. Do not commit this change, ie, restore this file.**
+
 Storybook should open in your browser (and will auto-rebuild on code changes).
 
 Note: GitHub Pages are used to serve the Storybook app folder. As this requires a developer to
