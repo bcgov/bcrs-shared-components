@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/base-address",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/mixins": "^1.1.23",
+    "@bcrs-shared-components/mixins": "^1.1.24",
     "lodash.uniqueid": "^4.0.1",
     "vue": "^2.7.14",
     "vuelidate": "0.6.2"
