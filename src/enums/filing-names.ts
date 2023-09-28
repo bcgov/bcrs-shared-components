@@ -1,5 +1,7 @@
 export enum FilingNames {
   ADMIN_FREEZE = 'Freeze Business',
+  AGM_EXTENSION = 'AGM Extension',
+  AGM_LOCATION_CHG = 'AGM Location Change',
   ALTERATION = 'Alteration',
   ANNUAL_REPORT = 'Annual Report',
   CHANGE_OF_ADDRESS = 'Address Change',
