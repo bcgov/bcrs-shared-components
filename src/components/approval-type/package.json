@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/approval-type",
-  "version": "1.0.32",
+  "version": "1.0.31",
   "publishConfig": {
     "access": "public"
   },
