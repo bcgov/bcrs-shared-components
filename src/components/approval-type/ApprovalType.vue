@@ -20,12 +20,12 @@
         >
           <!-- COURT ORDER section -->
           <template v-if="!isCourtOrderRadio">
-            <span class="v-label ml-2">{{ getRadioText(ApprovalTypes.VIA_COURT_ORDER) }}</span>
+            <span class="v-label ml-2 mb-2">{{ getRadioText(ApprovalTypes.VIA_COURT_ORDER) }}</span>
           </template>
           <template v-else>
             <v-radio
               id="court-order-radio"
-              class="mb-0"
+              class="mb-n3"
               :label="getRadioText(ApprovalTypes.VIA_COURT_ORDER)"
               :value="ApprovalTypes.VIA_COURT_ORDER"
             />
