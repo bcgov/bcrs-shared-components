@@ -60,4 +60,17 @@ export default class CountriesProvincesMixin extends Vue {
     window['countryRegionsCache'][code] = result
     return result
   }
+
+  getCanadaRegionsExcludeBC (code: string): Array<object> {
+    if (!code) return null
+    if (window['countryRegionsCache'][code]) return window['countryRegionsCache'][code]
+    const result = window['provinces']
+      .filter(p => p.country === code && p.short !== 'BC')
+      .map(p => ({
+        name: p.english || p.name,
+        short: (p.short && p.short.length <= 2) ? p.short : '--'
+      }))
+    window['countryRegionsCache'][code] = result
+    return result
+  }
 }

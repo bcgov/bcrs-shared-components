@@ -108,7 +108,8 @@
             :label="addressRegionLabel"
             item-text="name"
             item-value="short"
-            :items="getCountryRegions(addressCountry)"
+            :items="isAddressCountryCanadaAndExcludeBc ? getCanadaRegionsExcludeBC('CA') :
+              getCountryRegions(addressCountry)"
             :rules="[...rules.addressRegion, ...spaceRules]"
           />
           <v-text-field
@@ -218,6 +219,12 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   @Prop({ default: false })
   readonly noPoBox: boolean
 
+  @Prop({ default: '' })
+  readonly deliveryInstructionsText: string
+
+  @Prop({ default: false })
+  readonly excludeBC: boolean
+
   resetRegion () {
     this.addressLocal['addressRegion'] = ''
   }
@@ -244,6 +251,10 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   /** The Address Country, to simplify the template and so we can watch it below. */
   get addressCountry (): string {
     return this.addressLocal['addressCountry']
+  }
+
+  get isAddressCountryCanadaAndExcludeBc (): boolean {
+    return this.addressLocal['addressCountry'] === 'CA' && this.excludeBC
   }
 
   /** The Street Address Additional label with 'optional' as needed. */
@@ -298,7 +309,11 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
 
   /** The Delivery Instructions label with 'optional' as needed. */
   get deliveryInstructionsLabel (): string {
-    return 'Delivery Instructions' + (this.isSchemaRequired('deliveryInstructions') ? '' : ' (Optional)')
+    if (this.deliveryInstructionsText) {
+      return this.deliveryInstructionsText + (this.isSchemaRequired('deliveryInstructions') ? '' : ' (Optional)')
+    } else {
+      return 'Delivery Instructions' + (this.isSchemaRequired('deliveryInstructions') ? '' : ' (Optional)')
+    }
   }
 
   get streetAddressHint (): string {
