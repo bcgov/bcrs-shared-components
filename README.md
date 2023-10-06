@@ -8,7 +8,7 @@ The Storybook (sample) pages for this library are at https://bcgov.github.io/bcr
 
 # Workflow
 
-**\*\*\* NOTE: USE NODE VERSION 16 FOR THE STEPS BELOW \*\*\***
+**\*\*\* NOTE: USE NODE VERSION 20 FOR THE STEPS BELOW \*\*\***
 
 ### 1. Clone this repo to your workstation
 
