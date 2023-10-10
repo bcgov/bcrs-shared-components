@@ -13,7 +13,7 @@ window['provinces'] = window['provinces'] || provinces
 // global caching to improve performance when called multiple times
 window['countryNameCache'] = {}
 window['countryRegionsCache'] = {}
-window['canadaRegionsCache'] = {}
+window['canadaRegionsNoBCCache'] = {}
 
 /**
  * Mixin that allows VM access to useful country/province data and functions.
@@ -68,14 +68,14 @@ export default class CountriesProvincesMixin extends Vue {
    */
   getCanadaRegionsExcludeBC (): Array<object> {
     const countryCode = 'CA'
-    if (window['canadaRegionsCache'][countryCode]) return window['canadaRegionsCache'][countryCode]
+    if (window['canadaRegionsNoBCCache'][countryCode]) return window['canadaRegionsNoBCCache'][countryCode]
     const result = window['provinces']
       .filter(p => p.country === 'CA' && p.short !== 'BC')
       .map(p => ({
         name: p.english || p.name,
         short: (p.short && p.short.length <= 2) ? p.short : '--'
       }))
-    window['canadaRegionsCache'][countryCode] = result
+    window['canadaRegionsNoBCCache'][countryCode] = result
     return result
   }
 }
