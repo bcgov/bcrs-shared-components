@@ -13,6 +13,7 @@ window['provinces'] = window['provinces'] || provinces
 // global caching to improve performance when called multiple times
 window['countryNameCache'] = {}
 window['countryRegionsCache'] = {}
+window['canadaRegionsCache'] = {}
 
 /**
  * Mixin that allows VM access to useful country/province data and functions.
@@ -61,16 +62,20 @@ export default class CountriesProvincesMixin extends Vue {
     return result
   }
 
-  getCanadaRegionsExcludeBC (code: string): Array<object> {
-    if (!code) return null
-    if (window['countryRegionsCache'][code]) return window['countryRegionsCache'][code]
+  /**
+   * Helper function to return a list of Canadian provinces (excluding BC).
+   * @returns An array of province objects (excluding BC), sorted alphabetically.
+   */
+  getCanadaRegionsExcludeBC (): Array<object> {
+    const countryCode = 'CA'
+    if (window['canadaRegionsCache'][countryCode]) return window['canadaRegionsCache'][countryCode]
     const result = window['provinces']
-      .filter(p => p.country === code && p.short !== 'BC')
+      .filter(p => p.country === 'CA' && p.short !== 'BC')
       .map(p => ({
         name: p.english || p.name,
         short: (p.short && p.short.length <= 2) ? p.short : '--'
       }))
-    window['countryRegionsCache'][code] = result
+    window['canadaRegionsCache'][countryCode] = result
     return result
   }
 }

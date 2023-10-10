@@ -108,7 +108,7 @@
             :label="addressRegionLabel"
             item-text="name"
             item-value="short"
-            :items="isAddressCountryCanadaAndExcludeBc ? getCanadaRegionsExcludeBC('CA') :
+            :items="isAddressCountryCanadaAndExcludeBc ? getCanadaRegionsExcludeBC() :
               getCountryRegions(addressCountry)"
             :rules="[...rules.addressRegion, ...spaceRules]"
           />
@@ -222,7 +222,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   @Prop({ default: '' })
   readonly deliveryInstructionsText: string
 
-  @Prop({ default: false })
+  @Prop({ default: true })
   readonly excludeBC: boolean
 
   resetRegion () {
