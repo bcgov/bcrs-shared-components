@@ -222,7 +222,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   @Prop({ default: '' })
   readonly deliveryInstructionsText: string
 
-  @Prop({ default: true })
+  @Prop({ default: false })
   readonly excludeBC: boolean
 
   resetRegion () {
