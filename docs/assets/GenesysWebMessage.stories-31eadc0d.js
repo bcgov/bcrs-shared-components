@@ -1,0 +1,18 @@
+var K=Object.defineProperty;var R=(t,s,e)=>s in t?K(t,s,{enumerable:!0,configurable:!0,writable:!0,value:e}):t[s]=e;var c=(t,s,e)=>(R(t,typeof s!="symbol"?s+"":s,e),e);import{V as w}from"./vue.esm-b1e57a2f.js";import{C as G,P as i,n as P}from"./_plugin-vue2_normalizer-b11a0120.js";var M=Object.defineProperty,W=Object.getOwnPropertyDescriptor,y=(t,s,e,n)=>{for(var r=n>1?void 0:n?W(s,e):s,p=t.length-1,a;p>=0;p--)(a=t[p])&&(r=(n?a(s,e,r):a(r))||r);return n&&r&&M(s,e,r),r};let o=class extends w{constructor(){super(...arguments);c(this,"genesysURL");c(this,"environmentKey");c(this,"deploymentKey")}mounted(){this.genesysURL&&this.environmentKey&&this.deploymentKey!=="0"&&this.initWebMsg(window,"Genesys",this.genesysURL,{environment:this.environmentKey,deploymentId:this.deploymentKey},null)}beforeDestroy(){localStorage.removeItem("_actmu")}initWebMsg(e,n,r,p,a){e._genesysJs=n,e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},e[n].t=new Date().getTime(),e[n].c=p,a=document.createElement("script"),a.async=1,a.src=r,a.charset="utf-8",document.head.appendChild(a),localStorage.removeItem("_actmu")}};y([i({default:null})],o.prototype,"genesysURL",2);y([i({default:null})],o.prototype,"environmentKey",2);y([i({default:"0"})],o.prototype,"deploymentKey",2);o=y([G({})],o);var L=function(){var s=this,e=s._self._c;return s._self._setupProxy,e("div",{staticClass:"d-none"})},U=[],_=P(o,L,U,!1,null,null,null,null);const O=_.exports;_.exports.__docgenInfo={description:"",tags:{property:[{title:"property",type:{name:"string"},name:"genesysURL",description:"the URL to the genesys library"},{title:"property",type:{name:"string"},name:"environmentKey",description:"the environment key (ID)"},{title:"property",type:{name:"string"},name:"deploymentKey",description:"the deployment key (ID)"}]},exportName:"default",displayName:"GenesysWebMessage",props:[{name:"genesysURL",tags:{},type:{name:"string"},defaultValue:{func:!1,value:"null"}},{name:"environmentKey",tags:{},type:{name:"string"},defaultValue:{func:!1,value:"null"}},{name:"deploymentKey",tags:{},type:{name:"string"},defaultValue:{func:!1,value:"'0'"}}],sourceFiles:["/home/kdeodhar/gitRepo/bcrs-shared-components/src/components/genesys-web-message/GenesysWebMessage.vue"]};const I={title:"component/GenesysWebMessage"},h=(t,{argTypes:s})=>({props:Object.keys(s),components:{GenesysWebMessage:O},template:'<genesys-web-message v-bind="$props" />'}),m=h.bind({});m.args={genesysURL:"https://apps.cac1.pure.cloud/genesys-bootstrap/genesys.min.js",environmentKey:"cac1",deploymentKey:"5c012aaa-1f17-4d0b-8da2-bea9c1133d5d"};const l=h.bind({});l.args={genesysURL:"https://apps.cac1.pure.cloud/genesys-bootstrap/genesys.min.js",environmentKey:"cac1",deploymentKey:"42ed05f4-d545-436b-ba2c-94b66ed3396f"};var d,g,u;m.parameters={...m.parameters,docs:{...(d=m.parameters)==null?void 0:d.docs,source:{originalSource:`(args, {
+  argTypes
+}) => ({
+  props: Object.keys(argTypes),
+  components: {
+    GenesysWebMessage
+  },
+  template: '<genesys-web-message v-bind="$props" />' // $props comes from args below
+})`,...(u=(g=m.parameters)==null?void 0:g.docs)==null?void 0:u.source}}};var f,b,v;l.parameters={...l.parameters,docs:{...(f=l.parameters)==null?void 0:f.docs,source:{originalSource:`(args, {
+  argTypes
+}) => ({
+  props: Object.keys(argTypes),
+  components: {
+    GenesysWebMessage
+  },
+  template: '<genesys-web-message v-bind="$props" />' // $props comes from args below
+})`,...(v=(b=l.parameters)==null?void 0:b.docs)==null?void 0:v.source}}};const S=["nameRequest","SPGP"];export{l as SPGP,S as __namedExportsOrder,I as default,m as nameRequest};
+//# sourceMappingURL=GenesysWebMessage.stories-31eadc0d.js.map
