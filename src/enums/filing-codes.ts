@@ -3,7 +3,7 @@ export enum FilingCodes {
   ADDRESS_CHANGE_BC = 'BCADD', // BCOMP - Change of Address
   ADDRESS_CHANGE_OT = 'OTADD', // Others - Change of Address
   AGM_EXTENSION = 'AGMDT',
-  AGM_LOCATION_CHG = 'AGMLC',
+  AGM_LOCATION_CHANGE = 'AGMLC',
   AFFIDAVIT = 'AFDVT',
   ALTERATION = 'ALTER',
   ALTERATION_BC_TO_ULC = 'NOALU', // More expensive for BC to ULC.
