@@ -2,7 +2,7 @@ export enum FilingTypes {
   ADMIN_FREEZE = 'adminFreeze',
   ALTERATION = 'alteration',
   AGM_EXTENSION = 'agmExtension',
-  AGM_LOCATION_CHG = 'agmLocationChg',
+  AGM_LOCATION_CHANGE = 'agmLocationChange',
   ANNUAL_REPORT = 'annualReport',
   CHANGE_OF_ADDRESS = 'changeOfAddress',
   CHANGE_OF_COMPANY_INFO = 'changeOfCompanyInfo', // a type of alteration
