@@ -6,6 +6,7 @@
     <v-textarea
       id="detail-comment-textarea"
       ref="textarea"
+      :hint="testText"
       :outlined="isStyle('outlined')"
       :filled="isStyle('filled')"
       auto-grow
@@ -57,6 +58,9 @@ export default class DetailComment extends Vue {
   @Prop({ default: 5 }) readonly rowCount!: number
 
   @Prop({ default: 'outlined' }) readonly textAreaStyle!: string
+
+  // Added for Lerna upgrade test only
+  @Prop({ default: 'Lerna Test Text' }) readonly testText!: string
 
   /** Called when component is created. */
   created (): void {
