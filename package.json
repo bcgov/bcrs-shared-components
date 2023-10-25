@@ -1,5 +1,6 @@
 {
   "name": "bcrs-shared-components",
+  "version": "3.0.0",
   "private": true,
   "appName": "BCRS Shared Components",
   "scripts": {
@@ -52,6 +53,7 @@
     "eslint-plugin-vuetify": "^1.1.0",
     "flush-promises": "^1.0.2",
     "jsdom": "^22.1.0",
+    "lerna": "^7.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^16.13.1",
