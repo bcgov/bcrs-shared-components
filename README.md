@@ -34,31 +34,23 @@ git co -b my-feature-branch
 ### 4. Install dependencies
 
 ```
-npm i                         // if new repo
-npm i --global lerna@^5.6.2   // if you didn't do this previously
+npm i                                 // if new repo
+./node_modules/.bin/lerna --version   // Use Lerna locally instead of globally
 ```
 
 ### 5. Create your component in its own folder (eg, `src/components/MyComponent/MyComponent.vue`)
 
 ### 6. Create `package.json file` for your component with version "0.0.0" (see others as examples)
 
-### 7. Update Lerna dependencies
+### 7. Create new Storybook file for your component (see others as examples)
 
-```
-lerna bootstrap --hoist
-```
-
-This updates the node_modules/ in the sub-folders.
-
-### 8. Create new Storybook file for your component (see others as examples)
-
-### 9. Create unit test file for your component and verify locally
+### 8. Create unit test file for your component and verify locally
 
 ```
 npm run test:unit MyComponent
 ```
 
-### 10. Build Storybook and verify your component
+### 9. Build Storybook and verify your component
 
 ```
 npm run build-storybook
@@ -73,28 +65,28 @@ Note: GitHub Pages are used to serve the Storybook app folder. As this requires 
 build before committing, they should ensure that they are building the latest code (ie,
 including all other recent changes in the repo).
 
-### 11. Commit your changes to main repo
+### 10. Commit your changes to main repo
 
 ```
 git push --set-upstream origin my-feature-branch
 ```
 
-### 12. Create a PR from your branch to "main" in GitHub
+### 11. Create a PR from your branch to "main" in GitHub
 
-### 13. After reviews/fixes, merge your PR
+### 12. After reviews/fixes, merge your PR
 
-### 14. Update your main branch and have Lerna update the versions of the affected components
+### 13. Update your main branch and have Lerna update the versions of the affected components
 
 ```
 git co main
 git fetch origin
 git rebase
-lerna version --include-merged-tags
+./node_modules/.bin/lerna version --include-merged-tags
 ```
 
 Note: This step will create new tags and commit them!
 
-### 15. Publish to npm
+### 14. Publish to npm
 
 ```
 lerna publish from-package
@@ -102,7 +94,7 @@ lerna publish from-package
 
 Note: For this step, you need to be logged in to NPM (along with permissions on this library)... follow the prompts if applicable.
 
-### 16. You can now import your new component into a Vue project!
+### 15. You can now import your new component into a Vue project!
 
 # Special Procedures
 
@@ -119,7 +111,7 @@ To create a new package:
 3. add a package.json file with version = "0.0.0" (see others as examples)
 4. add the package name to the "packages" array in lerna.json
 5. commit the changes
-6. run `lerna version --include-merged-tags` to version your package to "1.0.0"
+6. run `./node_modules/.bin/lerna version --include-merged-tags` to version your package to "1.0.0"
 7. run `lerna publish from-package` to publish your package to npm
 
 # References
