@@ -1,5 +1,6 @@
 {
   "name": "bcrs-shared-components",
+  "version": "3.0.0",
   "private": true,
   "appName": "BCRS Shared Components",
   "scripts": {

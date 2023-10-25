@@ -33,9 +33,11 @@ git co -b my-feature-branch
 
 ### 4. Install dependencies
 
+**\*\*\* NOTE: Lerna doesn't need to be installed globally any more, so it can be deleted \*\*\***
+
 ```
 npm i                                 // if new repo
-./node_modules/.bin/lerna --version   // Use Lerna locally instead of globally
+./node_modules/.bin/lerna --version   // verify that Lerna is installed locally
 ```
 
 ### 5. Create your component in its own folder (eg, `src/components/MyComponent/MyComponent.vue`)
@@ -89,7 +91,7 @@ Note: This step will create new tags and commit them!
 ### 14. Publish to npm
 
 ```
-lerna publish from-package
+./node_modules/.bin/lerna publish from-package
 ```
 
 Note: For this step, you need to be logged in to NPM (along with permissions on this library)... follow the prompts if applicable.
@@ -112,7 +114,7 @@ To create a new package:
 4. add the package name to the "packages" array in lerna.json
 5. commit the changes
 6. run `./node_modules/.bin/lerna version --include-merged-tags` to version your package to "1.0.0"
-7. run `lerna publish from-package` to publish your package to npm
+7. run `./node_modules/.bin/lerna publish from-package` to publish your package to npm
 
 # References
 
