@@ -34,8 +34,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop } from 'vue-property-decorator'
-import Vue from 'vue'
+import { Component, Prop, Vue } from 'vue-facing-decorator'
 
 @Component({})
 export default class ExpandableHelp extends Vue {

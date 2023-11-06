@@ -82,8 +82,7 @@
 </template>
 <script lang="ts">
 
-import Vue from 'vue'
-import { Component, Watch, Emit, Prop } from 'vue-property-decorator'
+import { Component, Watch, Emit, Prop, Vue } from 'vue-facing-decorator'
 import { RelationshipTypes } from '@bcrs-shared-components/enums'
 
 @Component({})

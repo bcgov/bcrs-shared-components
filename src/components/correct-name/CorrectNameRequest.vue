@@ -86,7 +86,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, mixins, Prop, Watch, Vue } from 'vue-facing-decorator'
 import { ConfirmDialog as ConfirmDialogShared } from '@bcrs-shared-components/confirm-dialog'
 import { NameRequestMixin } from '@bcrs-shared-components/mixins'
 import { ConfirmDialogType, NameRequestIF } from '@bcrs-shared-components/interfaces'
@@ -96,9 +96,10 @@ import { GetCorpFullDescription } from '@bcrs-shared-components/corp-type-module
 @Component({
   components: {
     ConfirmDialogShared
-  }
+  },
+  mixins: [NameRequestMixin]
 })
-export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
+export default class CorrectNameRequest extends Vue {
   // Refs
   $refs!: {
     confirm: ConfirmDialogType

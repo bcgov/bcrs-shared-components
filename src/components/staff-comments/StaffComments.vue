@@ -126,13 +126,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Mixins, Prop } from 'vue-property-decorator'
+import { Component, mixins, Prop, Vue } from 'vue-facing-decorator'
 import { CommentIF, FormIF } from '@bcrs-shared-components/interfaces'
 import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
 
-@Component({})
-export default class StaffComments extends Mixins(DateMixin) {
+@Component({
+  mixins: [DateMixin]
+})
+export default class StaffComments extends Vue {
   $refs!: Vue['$refs'] & {
     textarea: FormIF
   }

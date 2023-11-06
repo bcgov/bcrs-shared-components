@@ -34,8 +34,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-facing-decorator'
 import { ActionTypes } from '@bcrs-shared-components/enums'
 import { ActionableItemIF } from '@bcrs-shared-components/interfaces'
 

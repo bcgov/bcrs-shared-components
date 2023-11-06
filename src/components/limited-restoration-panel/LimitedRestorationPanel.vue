@@ -54,8 +54,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, Prop, Watch, Vue } from 'vue-facing-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})

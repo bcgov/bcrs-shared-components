@@ -317,8 +317,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
+import { Component, Prop, Watch, Emit, Vue } from 'vue-facing-decorator'
 import { mask } from 'vue-the-mask'
 import { ContactPointIF, FormIF } from '@bcrs-shared-components/interfaces'
 

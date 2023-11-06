@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { DetailComment } from './index'
 
 const meta: Meta<typeof DetailComment> = {

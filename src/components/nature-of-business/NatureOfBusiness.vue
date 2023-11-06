@@ -216,8 +216,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, Prop, Watch, Vue } from 'vue-facing-decorator'
 import NaicsHelpText from './NaicsHelpText.vue'
 import NaicsResult from './NaicsResult.vue'
 import { NaicsIF, NaicsResultIF } from '@bcrs-shared-components/interfaces'
