@@ -129,7 +129,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch, Emit } from 'vue-property-decorator'
+import { Vue, Component, Prop, Watch, Emit } from 'vue-facing-decorator'
 import { FeeServices } from '@bcrs-shared-components/services/'
 import { Fee, FilingData } from '@bcrs-shared-components/interfaces/'
 

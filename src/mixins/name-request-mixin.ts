@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-facing-decorator'
 import { NameRequestStates, NrRequestActionCodes } from '@bcrs-shared-components/enums'
 import { NameRequestIF } from '@bcrs-shared-components/interfaces'
 

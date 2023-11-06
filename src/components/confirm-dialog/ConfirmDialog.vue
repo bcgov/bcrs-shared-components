@@ -85,8 +85,7 @@
  *   this.$root.$confirm = this.$refs.confirm.open
  * }
  */
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-facing-decorator'
 
 interface OptionsObject {
   width?: number | string,

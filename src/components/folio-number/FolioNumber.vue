@@ -191,8 +191,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, Prop, Watch, Vue } from 'vue-facing-decorator'
 
 @Component({})
 export default class FolioNumber extends Vue {

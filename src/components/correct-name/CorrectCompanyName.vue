@@ -19,8 +19,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Emit, Prop, Watch, Provide } from 'vue-property-decorator'
+import { Component, Emit, Prop, Watch, Provide, Vue } from 'vue-facing-decorator'
 import { CorrectNameOptions } from '@bcrs-shared-components/enums'
 import { VuetifyRuleFunction } from '@bcrs-shared-components/types'
 

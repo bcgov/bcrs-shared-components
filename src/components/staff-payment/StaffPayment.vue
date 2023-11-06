@@ -120,8 +120,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
+import { Component, Prop, Watch, Emit, Vue } from 'vue-facing-decorator'
 import { StaffPaymentOptions } from '@bcrs-shared-components/enums'
 import { FolioNumberInput } from '@bcrs-shared-components/folio-number-input'
 import { FormIF, StaffPaymentIF } from '@bcrs-shared-components/interfaces'

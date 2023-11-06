@@ -64,8 +64,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-facing-decorator'
 
 /**
  * Adapted from https://codepen.io/Moloth/pen/ZEBOzQP.

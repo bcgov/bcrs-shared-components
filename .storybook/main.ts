@@ -1,9 +1,9 @@
 const path = require('path')
-import type { StorybookConfig } from '@storybook/vue-vite'
+import type { StorybookConfig } from '@storybook/vue3-vite'
 
 const config: StorybookConfig = {
   framework: {
-    name: '@storybook/vue-vite',
+    name: '@storybook/vue3-vite',
     options: {}
   },
   core: {

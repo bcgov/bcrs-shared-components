@@ -78,12 +78,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, mixins, Prop, Watch, Vue } from 'vue-facing-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
 
-@Component({})
-export default class DatePicker extends Mixins(DateMixin) {
+@Component({
+  mixins: [DateMixin]
+})
+export default class DatePicker extends Vue {
   // Add element types to refs
   $refs!: {
     form: FormIF,
