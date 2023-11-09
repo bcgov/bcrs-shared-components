@@ -11,7 +11,7 @@
       <span class="pl-2 help-label">{{ !helpToggle ? helpLabel : 'Hide Help' }}</span>
     </div>
 
-    <v-expand-transition>
+    <v-slide-y-transition hide-on-leave>
       <div
         v-show="helpToggle"
         class="help-section mt-3 pa-6"
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-    </v-expand-transition>
+    </v-slide-y-transition>
   </div>
 </template>
 
