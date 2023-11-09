@@ -7,7 +7,7 @@ import '@/assets/styles/overrides.scss'
 import vuetify from '../src/plugins/vuetify'
 
 setup((app:App) => {
-  app.use(vuetify);
+  app.use(vuetify)
 })
 
 // you can define global your Vuetify decorators

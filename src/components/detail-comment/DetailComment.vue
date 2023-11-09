@@ -6,16 +6,15 @@
     <v-textarea
       id="detail-comment-textarea"
       ref="textarea"
-      :outlined="isStyle('outlined')"
-      :filled="isStyle('filled')"
+      :variant="textStyle"
       auto-grow
       :rows="rowCount"
       :counter="maxLength"
       :rules="rules"
-      :value="value"
+      :model-value="value"
       :placeholder="placeholder"
       :autofocus="autofocus"
-      @input="emitInput($event)"
+      @update:value="emitInput($event)"
     />
   </v-card>
 </template>
@@ -63,12 +62,12 @@ export default class DetailComment extends Vue {
     this.emitValid(this.value)
   }
 
-  protected isStyle (style: string): boolean {
-    return this.textAreaStyle.toLowerCase() === style.toLowerCase()
+  get textStyle (): any {
+    return this.textAreaStyle.toLowerCase()
   }
 
   /**
-   * Called when prop changes (ie, v-model is updated by parent).
+   * Called when prop changes (ie, vmodel-value is updated by parent).
    * This method is debounced to prevent excessive validation.
    */
   @Watch('value')
@@ -76,10 +75,9 @@ export default class DetailComment extends Vue {
     this.emitValid(val)
   }, 300)
 
-  /** Emits an event with the changed comment (ie, updated v-model). */
+  /** Emits an event with the changed comment (ie, updated model-value). */
   @Emit('input')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected emitInput (val: string): void {}
+  emitInput (val: string): void {}
 
   /** Emits an event indicating whether or not this component is valid. */
   @Emit('valid')
