@@ -10,7 +10,7 @@
         class="mt-5"
         autocomplete="chrome-off"
         menu-props="{ maxHeight: 380 }"
-        label="Business or Corporation Name or Incorporation Number"
+        label="Business Name or Incorporation/Registration Number"
         item-text="identifier"
         :name="Math.random()"
         :rules="showErrors ? businessLookupRules: []"
