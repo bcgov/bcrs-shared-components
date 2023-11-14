@@ -38,6 +38,8 @@ npm i                         // if new repo
 npm i --global lerna@^5.6.2   // if you didn't do this previously
 ```
 
+**NOTE: Step 5 to 9 are only for adding new component**
+
 ### 5. Create your component in its own folder (eg, `src/components/MyComponent/MyComponent.vue`)
 
 ### 6. Create `package.json file` for your component with version "0.0.0" (see others as examples)
