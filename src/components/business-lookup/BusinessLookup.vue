@@ -11,7 +11,7 @@
         autocomplete="chrome-off"
         menu-props="{ maxHeight: 380 }"
         item-text="identifier"
-        :label="defaultLabel"
+        :label="label"
         :name="Math.random()"
         :rules="showErrors ? businessLookupRules: []"
         :items="searchResults"
@@ -155,7 +155,7 @@ export default class BusinessLookup extends Vue {
   @Prop({ default: 'ACTIVE' }) readonly searchStatus!: string
 
   /** Label for BusinessLookup component. */
-  @Prop({ default: 'Business or Corporation Name or Incorporation Number' }) readonly defaultLabel!: string
+  @Prop({ default: 'Business or Corporation Name or Incorporation Number' }) readonly label!: string
 
   // enum for template
   readonly States = States
