@@ -10,8 +10,8 @@
         class="mt-5"
         autocomplete="chrome-off"
         menu-props="{ maxHeight: 380 }"
-        label="Business or Corporation Name or Incorporation Number"
         item-text="identifier"
+        :label="label"
         :name="Math.random()"
         :rules="showErrors ? businessLookupRules: []"
         :items="searchResults"
@@ -153,6 +153,9 @@ export default class BusinessLookup extends Vue {
 
   /** Business status to search for (eg, ACTIVE or HISTORICAL or '' to match all. */
   @Prop({ default: 'ACTIVE' }) readonly searchStatus!: string
+
+  /** Label for BusinessLookup component. */
+  @Prop({ default: 'Business or Corporation Name or Incorporation Number' }) readonly label!: string
 
   // enum for template
   readonly States = States
