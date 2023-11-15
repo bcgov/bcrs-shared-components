@@ -35,5 +35,5 @@ Default['args'] = {
   },
   BusinessLookupServices,
   hasBusinessLookupChanges: true,
-  label: "Business or Corporation Name or Incorporation Number"
+  label: 'Business or Corporation Name or Incorporation Number'
 }
