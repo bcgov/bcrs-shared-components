@@ -34,5 +34,6 @@ Default['args'] = {
     name: result.name
   },
   BusinessLookupServices,
-  hasBusinessLookupChanges: true
+  hasBusinessLookupChanges: true,
+  label: "Business or Corporation Name or Incorporation Number"
 }
