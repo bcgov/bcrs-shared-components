@@ -71,9 +71,7 @@ export default class DetailComment extends Vue {
    * This method is debounced to prevent excessive validation.
    */
   @Watch('value')
-  private onValueChanged = debounce((val: string) => {
-    this.emitValid(val)
-  }, 300)
+  private onValueChanged = debounce((val: string) => { this.emitValid(val) }, 300)
 
   /** Emits an event with the changed comment (ie, updated model-value). */
   @Emit('input')

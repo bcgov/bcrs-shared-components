@@ -8,8 +8,8 @@ export default meta
 
 const Template = (args) => ({
   components: { DetailComment },
-  setup() {
-    return { args };
+  setup () {
+    return { args }
   },
   template: '<detail-comment v-bind="args" />'
 })
