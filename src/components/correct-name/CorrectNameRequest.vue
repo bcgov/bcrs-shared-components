@@ -90,8 +90,8 @@ import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
 import { ConfirmDialog as ConfirmDialogShared } from '@bcrs-shared-components/confirm-dialog'
 import { NameRequestMixin } from '@bcrs-shared-components/mixins'
 import { ConfirmDialogType, NameRequestIF } from '@bcrs-shared-components/interfaces'
-import { CorpTypeCd, CorrectNameOptions } from '@bcrs-shared-components/enums'
-import { GetCorpFullDescription } from '@bcrs-shared-components/corp-type-module'
+import { CorrectNameOptions } from '@bcrs-shared-components/enums'
+import { CorpTypeCd, GetCorpFullDescription } from '@bcrs-shared-components/corp-type-module'
 
 @Component({
   components: {

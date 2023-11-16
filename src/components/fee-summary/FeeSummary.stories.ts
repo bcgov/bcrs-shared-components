@@ -1,8 +1,9 @@
 import type { Meta } from '@storybook/vue'
 import Vue from 'vue'
 import { FeeSummary } from './index'
-import { FilingCodes, CorpTypeCd } from '@bcrs-shared-components/enums/'
-import { FilingDataIF } from '@bcrs-shared-components/interfaces/'
+import { FilingCodes } from '@bcrs-shared-components/enums'
+import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
+import { FilingDataIF } from '@bcrs-shared-components/interfaces'
 
 // for SbcFeeSummary
 Vue.filter('currency', x => `$${x}`)

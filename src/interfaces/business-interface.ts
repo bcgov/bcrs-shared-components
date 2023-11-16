@@ -1,4 +1,4 @@
-import { CorpTypeCd } from '@bcrs-shared-components/enums'
+import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
 
 /**
  * A filing's business object from the API. See:

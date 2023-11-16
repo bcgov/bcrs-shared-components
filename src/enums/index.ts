@@ -18,4 +18,5 @@ export * from './staff-payment-options'
 export * from './relationship-types'
 
 // export the enums from corp type module
+// DEPRECATED: stop this -- import from corp-type-module instead
 export { CorpTypeCd, CorpClass } from '@bcrs-shared-components/corp-type-module'
