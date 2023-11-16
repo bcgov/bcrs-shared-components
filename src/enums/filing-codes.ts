@@ -1,4 +1,4 @@
-/** Filing codes to send to pay. */
+/** Filing codes to send to Pay API. */
 export enum FilingCodes {
   ADDRESS_CHANGE_BC = 'BCADD', // BCOMP - Change of Address
   ADDRESS_CHANGE_OT = 'OTADD', // Others - Change of Address
@@ -6,7 +6,10 @@ export enum FilingCodes {
   AGM_LOCATION_CHANGE = 'AGMLC',
   AFFIDAVIT = 'AFDVT',
   ALTERATION = 'ALTER',
-  ALTERATION_BC_TO_ULC = 'NOALU', // More expensive for BC to ULC.
+  ALTERATION_BC_TO_ULC = 'NOALU', // different fee for BC to ULC
+  AMALGAMATION_HORIZONTAL = 'AMALH', // Amalgamation Application (Short Form - Horizontal)
+  AMALGAMATION_REGULAR = 'AMALR', // Amalgamation Application (Regular)
+  AMALGAMATION_VERTICAL = 'AMALV', // Amalgamation Application (Short Form - Vertical)
   ANNUAL_REPORT_BC = 'BCANN', // BCOMP - Annual Report
   ANNUAL_REPORT_OT = 'OTANN', // Others - Annual Report
   CHANGE_OF_REGISTRATION = 'FMCHANGE',

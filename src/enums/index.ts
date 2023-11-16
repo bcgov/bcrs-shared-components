@@ -1,5 +1,6 @@
 export * from './account-types'
 export * from './action-types'
+export * from './amalgamation-types'
 export * from './approval-types'
 export * from './association-types'
 export * from './correct-name-options'

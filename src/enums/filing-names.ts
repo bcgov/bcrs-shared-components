@@ -3,6 +3,7 @@ export enum FilingNames {
   AGM_EXTENSION = 'AGM Extension',
   AGM_LOCATION_CHANGE = 'AGM Location Change',
   ALTERATION = 'Alteration',
+  AMALGAMATION = 'Amalgamation Application',
   ANNUAL_REPORT = 'Annual Report',
   CHANGE_OF_ADDRESS = 'Address Change',
   CHANGE_OF_COMPANY_INFO = 'Change of Company Information',
