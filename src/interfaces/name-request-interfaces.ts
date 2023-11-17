@@ -1,5 +1,5 @@
-import { CorpTypeCd, NameRequestStates, NrRequestActionCodes, NrRequestTypeCodes }
-  from '@bcrs-shared-components/enums'
+import { NameRequestStates, NrRequestActionCodes, NrRequestTypeCodes } from '@bcrs-shared-components/enums'
+import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
 import { AddressIF } from './addresses-interface'
 import { ApiDateTimeUtc } from './date-interfaces'
 

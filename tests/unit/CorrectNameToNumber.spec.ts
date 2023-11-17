@@ -2,7 +2,8 @@ import Vuetify from 'vuetify'
 import flushPromises from 'flush-promises'
 import { mount, Wrapper } from '@vue/test-utils'
 import CorrectNameToNumber from '@/components/correct-name/CorrectNameToNumber.vue'
-import { CorpTypeCd, CorrectNameOptions } from '@bcrs-shared-components/enums'
+import { CorrectNameOptions } from '@bcrs-shared-components/enums'
+import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
 
 const vuetify = new Vuetify({})
 

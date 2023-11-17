@@ -21,7 +21,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Watch, Emit } from 'vue-property-decorator'
-import { CorpTypeCd, CorrectNameOptions } from '@bcrs-shared-components/enums'
+import { CorrectNameOptions } from '@bcrs-shared-components/enums'
+import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
 
 @Component({})
 export default class CorrectNameToNumber extends Vue {
