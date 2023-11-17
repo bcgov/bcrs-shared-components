@@ -165,10 +165,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import { required } from 'vuelidate/lib/validators'
-import { Component, Mixins, Emit, Prop, Watch } from 'vue-property-decorator'
-import { Validations } from 'vuelidate-property-decorators'
+import { Component, mixins, Emit, Prop, Watch , Vue } from 'vue-facing-decorator'
+// import { Validations } from 'vuelidate-property-decorators'
 import { uniqueId } from 'lodash'
 import { ValidationMixin, CountriesProvincesMixin } from '@bcrs-shared-components/mixins'
 
@@ -181,15 +180,20 @@ import { ValidationMixin, CountriesProvincesMixin } from '@bcrs-shared-component
 @Component({
   mixins: [ValidationMixin, CountriesProvincesMixin]
 })
-export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvincesMixin) {
+export default class BaseAddress extends Vue {
+  /**
+   * NOTE for DEVELOPER: 
+   * Commented out Validations as'vuelidate-property-decorators' is not compatible with Vue and Vuetify versions.
+   * Need to fnd a replacement or a different way to implement the Validations.
+   */
   /**
    * The validation object used by Vuelidate to compute address model validity.
    * @returns the Vuelidate validations object
    */
-  @Validations()
-  public validations (): any {
-    return { addressLocal: { ...this.schemaLocal } }
-  }
+  // @Validations()
+  // public validations (): any {
+  //   return { addressLocal: { ...this.schemaLocal } }
+  // }
 
   /**
    * The address to be displayed/edited.

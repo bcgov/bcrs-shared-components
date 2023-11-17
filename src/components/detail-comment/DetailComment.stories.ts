@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { DetailComment } from './index'
 
 const meta: Meta<typeof DetailComment> = {
@@ -6,10 +6,12 @@ const meta: Meta<typeof DetailComment> = {
 }
 export default meta
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { DetailComment },
-  template: '<detail-comment v-bind="$props" />' // $props comes from args below
+  setup () {
+    return { args }
+  },
+  template: '<detail-comment v-bind="args" />'
 })
 
 export const Outlined = Template.bind({})

@@ -123,8 +123,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Prop, Emit, Watch } from 'vue-property-decorator'
+import { Component, Prop, Emit, Watch, Vue } from 'vue-facing-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})

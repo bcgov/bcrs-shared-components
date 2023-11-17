@@ -121,8 +121,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, mixins, Prop, Watch, Vue } from 'vue-facing-decorator'
 import { DatePicker } from '@bcrs-shared-components/date-picker'
 import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
 import { EffectiveDateTypes } from '@bcrs-shared-components/enums'
@@ -136,9 +135,10 @@ enum PeriodTypes {
 @Component({
   components: {
     DatePicker
-  }
+  },
+  mixins: [DateMixin]
 })
-export default class EffectiveDateTime extends Mixins(DateMixin) {
+export default class EffectiveDateTime extends Vue {
   readonly MIN_DIFF_MINUTES = 3
   readonly MAX_DIFF_DAYS = 10
 

@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-facing-decorator'
 import { isDate } from 'lodash'
 import { ApiDateTimeUtc, IsoDatePacific } from '@bcrs-shared-components/interfaces'
 
@@ -10,9 +9,7 @@ import { ApiDateTimeUtc, IsoDatePacific } from '@bcrs-shared-components/interfac
  * When imported into an app project, the shared components should use the mixins
  * local to that project.
  */
-@Component({
-  extends: Vue
-})
+@Component({})
 export default class DateMixin extends Vue {
   /**
    * Creates and returns a new Date object in UTC, given parameters in Pacific timezone.

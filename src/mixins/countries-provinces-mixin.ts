@@ -1,4 +1,4 @@
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-facing-decorator'
 
 import countries from 'country-list/data.json'
 import provinces from 'provinces/provinces.json'

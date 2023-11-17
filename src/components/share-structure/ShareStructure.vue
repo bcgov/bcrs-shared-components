@@ -524,8 +524,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, Prop, Watch, Vue } from 'vue-facing-decorator'
 import { cloneDeep, isEqual, omit } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 import { arrayMoveMutable } from './array-move'

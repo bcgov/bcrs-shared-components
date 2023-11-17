@@ -144,8 +144,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, Prop, Watch, Vue } from 'vue-facing-decorator'
 import { AddressIF, CompletingPartyIF, FormIF } from '@bcrs-shared-components/interfaces/'
 import BaseAddress from '@bcrs-shared-components/base-address/BaseAddress.vue'
 import { isEqual } from 'lodash'

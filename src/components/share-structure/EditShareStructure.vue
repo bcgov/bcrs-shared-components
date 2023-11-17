@@ -218,8 +218,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
+import { Component, Emit, mixins, Prop, Watch, Vue } from 'vue-facing-decorator'
 import { ConfirmDialog } from '@bcrs-shared-components/confirm-dialog'
 import { ConfirmDialogType, FormIF, ShareClassIF } from '@bcrs-shared-components/interfaces'
 import { ActionTypes } from '@bcrs-shared-components/enums'
@@ -228,9 +227,10 @@ import CurrencyLookupMixin from './currency-lookup-mixin'
 @Component({
   components: {
     ConfirmDialog
-  }
+  },
+  mixins: [CurrencyLookupMixin]
 })
-export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
+export default class EditShareStructure extends Vue {
   // Refs
   $refs!: Vue['$refs'] & {
     confirm: ConfirmDialogType,
