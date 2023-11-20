@@ -48,6 +48,7 @@
       <v-date-picker
         id="date-picker-calendar"
         v-model="dateText"
+        :show-current="showCurrent"
         width="490"
         :min="minDate"
         :max="maxDate"
@@ -96,6 +97,7 @@ export default class DatePicker extends Mixins(DateMixin) {
   @Prop({ default: () => [] }) readonly inputRules!: Array<(v) => boolean | string>
   @Prop({ default: false }) readonly disablePicker!: boolean
   @Prop({ default: '' }) readonly initialValue!: string
+  @Prop({ default: true }) readonly showCurrent!: boolean | string
   @Prop({ default: '' }) readonly minDate!: string
   @Prop({ default: '' }) readonly maxDate!: string
   @Prop({ default: null }) readonly nudgeTop!: number
