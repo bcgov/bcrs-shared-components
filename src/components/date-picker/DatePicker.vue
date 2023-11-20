@@ -48,8 +48,8 @@
       <v-date-picker
         id="date-picker-calendar"
         v-model="dateText"
-        :show-current="showCurrent"
         width="490"
+        :show-current="showCurrent"
         :min="minDate"
         :max="maxDate"
       >
