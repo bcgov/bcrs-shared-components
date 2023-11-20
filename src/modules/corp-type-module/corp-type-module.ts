@@ -385,7 +385,7 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     colinInd: false,
     corpClass: CorpClass.OT,
     shortDesc: 'XPRO CORPORATION',
-    fullDesc: 'Extraprovincial Corporation'
+    fullDesc: 'Extraprovincial Limited Company'
   }, {
     corpTypeCd: CorpTypeCd.XPRO_LL_PARTNR,
     colinInd: true,
