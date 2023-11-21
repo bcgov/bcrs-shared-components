@@ -49,6 +49,7 @@ datePickerMinMax['args'] = {
   errorMsg: '',
   inputRules: [],
   disablePicker: false,
+  showCurrent: minDateStr,
   minDate: minDateStr,
   maxDate: maxDateStr,
   nudgeTop: 0,
