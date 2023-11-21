@@ -1,5 +1,5 @@
 {
-  "name": "@bcrs-shared-components/base-date-picker",
+  "name": "@bcrs-shared-components/range-date-picker",
   "version": "0.0.0",
   "publishConfig": {
     "access": "public"
