@@ -16,5 +16,5 @@ const Template = (args) => ({
 
 export const Basic = Template.bind({})
 Basic['args'] = {
-  enableTimePicker: true
+  enableTimePicker: false
 }
