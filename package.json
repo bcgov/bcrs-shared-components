@@ -25,7 +25,8 @@
     "vue-router": "^3.6.5",
     "vue-the-mask": "^0.11.1",
     "vuelidate": "^0.7.4",
-    "vuetify": "^3.1.8"
+    "vuetify": "^3.1.8",
+    "@vuepic/vue-datepicker": "^7.2.2"
   },
   "devDependencies": {
     "@mdx-js/react": "^2.3.0",
