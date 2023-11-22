@@ -69,3 +69,12 @@ export function removeAccountIdFromUrl (url, key = ACCOUNT_ID) {
   return url?.replace(new RegExp(key + '=\\w+'), '').replace('?&', '?').replace(/\?$/, '')
     .replace('&&', '&').replace(/&$/, '')
 }
+
+// Converts date to string and pacific date string
+// Example Output: August 11, 2023
+export function shortPacificDate (date: Date | string): string {
+  return new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'long',
+    timeZone: 'America/Vancouver'
+  }).format(new Date(date))
+}
