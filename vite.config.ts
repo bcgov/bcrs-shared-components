@@ -32,6 +32,9 @@ export default defineConfig({
     // enable jest-like global test APIs
     globals: true,
     setupFiles: ['./tests/setup.ts'],
+    deps: {
+      inline: ['vuetify']
+    },
     // disable threads on GH actions to speed it up
     threads: !process.env.GITHUB_ACTIONS,
     // hide Vue Devtools message
