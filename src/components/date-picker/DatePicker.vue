@@ -33,7 +33,7 @@
             :value="displayDate"
             :label="title"
             :name="Math.random()"
-            :rules="inputRules"
+            :rules="dateText == null ? [] : inputRules"
             :disabled="disablePicker"
             :hint="hint"
             :persistent-hint="persistentHint"
@@ -96,7 +96,7 @@ export default class DatePicker extends Mixins(DateMixin) {
   @Prop({ default: null }) readonly errorMsg!: string
   @Prop({ default: () => [] }) readonly inputRules!: Array<(v) => boolean | string>
   @Prop({ default: false }) readonly disablePicker!: boolean
-  @Prop({ default: '' }) readonly initialValue!: string
+  @Prop({ default: null }) readonly initialValue!: string
   @Prop({ default: true }) readonly showCurrent!: boolean | string
   @Prop({ default: '' }) readonly minDate!: string
   @Prop({ default: '' }) readonly maxDate!: string

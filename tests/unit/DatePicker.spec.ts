@@ -190,7 +190,7 @@ describe('DatePicker component', () => {
     await Vue.nextTick()
 
     // Verify model and date text field value are initialized correctly when initialValue is set as prop
-    expect(wrapper.vm.$data.dateText).toEqual('')
+    expect(wrapper.vm.$data.dateText).toBeNull()
     expect((<HTMLInputElement>wrapper.find('#date-text-field').element).value).toEqual('')
   })
 
