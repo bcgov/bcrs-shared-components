@@ -43,6 +43,20 @@ datePickerError['args'] = {
   nudgeLeft: 0
 }
 
+export const datePickerValidation = Template.bind({})
+datePickerValidation['args'] = {
+  title: 'Date with validation',
+  errorMsg: '',
+  inputRules: [v => !!v || 'A date is required.'],
+  disablePicker: false,
+  minDate: '',
+  maxDate: '',
+  nudgeTop: 0,
+  nudgeBottom: 0,
+  nudgeRight: 0,
+  nudgeLeft: 0
+}
+
 export const datePickerMinMax = Template.bind({})
 datePickerMinMax['args'] = {
   title: 'Date with rules',
