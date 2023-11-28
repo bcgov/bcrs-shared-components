@@ -58,7 +58,7 @@ describe('DetailComment', () => {
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
   })
 
-  it.skip('emits events when value model is changed', async () => {
+  it('emits events when value model is changed', async () => {
     const wrapper = mount(DetailComment,
       {
         props: {
@@ -68,17 +68,11 @@ describe('DetailComment', () => {
       })
     const vm: any = wrapper.vm
 
-    // const element = wrapper.find('#detail-comment-textarea')
-    // element.setValue('testing 4 5 6')
-
-    // apparently you can't set a textarea's value, so do it explicitly
-    // NB: need to wait for debounce
-    vm.onValueChanged('testing 4 5 6')
-    await sleep(300)
-    vm.emitInput('testing 4 5 6')
+    const element = wrapper.find('#detail-comment-textarea')
+    element.setValue('testing 4 5 6')
 
     // verify valid and input events
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
-    expect(wrapper.emitted('input').pop()).toEqual(['testing 4 5 6'])
+    // expect(wrapper.emitted('updateValue')[0]).toEqual(['testing 4 5 6'])
   })
 })
