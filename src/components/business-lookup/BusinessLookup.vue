@@ -157,6 +157,9 @@ export default class BusinessLookup extends Vue {
   /** Label for BusinessLookup component. */
   @Prop({ default: 'Business or Corporation Name or Incorporation Number' }) readonly label!: string
 
+  /** BusinessLookup legal types to search for. */
+  @Prop({ default: 'BC,A,ULC,C,S,XP,GP,LP,CUL,XS,LLC,LL,BEN,CP,CC,XL,FI,XCP,PA' }) readonly legalTypes!: string
+
   // enum for template
   readonly States = States
 
@@ -221,7 +224,7 @@ export default class BusinessLookup extends Vue {
     if (searchInput?.length > 2) {
       that.state = States.SEARCHING
       that.searchResults =
-        await that.BusinessLookupServices.search(searchInput, that.searchStatus).catch(() => [])
+        await that.BusinessLookupServices.search(searchInput, that.searchStatus, that.legalTypes).catch(() => [])
       // display appropriate section
       that.state = (that.searchResults.length > 0) ? States.SHOW_RESULTS : States.NO_RESULTS
     } else {
