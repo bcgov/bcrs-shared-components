@@ -38,6 +38,7 @@ WithData['args'] = {
   country: 'Canada',
   deliveryInstructions: 'Leave at front door',
   schema: DefaultSchema,
+  editing: true
 }
 
 export const WithValidation = Template.bind({})
