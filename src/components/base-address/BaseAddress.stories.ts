@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/vue3'
+import { Meta } from '@storybook/vue3'
 import BaseAddress from './BaseAddress.vue'
 import { AddressIF } from './interfaces/address-interface'
 import { DefaultSchema } from './resources/default-schema'
