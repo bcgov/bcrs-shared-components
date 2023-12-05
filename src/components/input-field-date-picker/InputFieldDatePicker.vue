@@ -70,7 +70,6 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs, watch } from 'vue'
 import useRoute from 'vue-router'
-// import {dateToYyyyMmDd, shortPacificDate} from '@/utils'
 import { shortPacificDate } from '@/utils/date-helper'
 import { FormIF } from '@bcrs-shared-components/interfaces/'
 import { BaseDatePicker } from '@bcrs-shared-components/base-date-picker'

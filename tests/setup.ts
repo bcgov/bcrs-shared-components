@@ -1,8 +1,3 @@
-/**
- * This file is to provide the correct setup for the Vue instance.
- * It can save people time when writing tests, as they won't need to figure out
- * why some of the errors are showing up due to Vue not having the plugins it needs.
- */
 import { config } from '@vue/test-utils'
 import vuetify from '@/plugins/vuetify'
 import * as matchers from 'vitest-axe/matchers'
@@ -14,6 +9,7 @@ expect.extend(matchers)
 
 // Add properties to the wrapper
 config.global.plugins.push([vuetify])
+
 // Suppress Vue warnings
 config.global.config.warnHandler = () => null
 global.css = { supports: () => false }

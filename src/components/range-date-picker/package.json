@@ -5,9 +5,7 @@
     "access": "public"
   },
   "dependencies": {
-    "lodash": "4.17.21"
-  },
-  "devDependencies": {
-    "vue-facing-decorator": "^3.0.3"
+    "@bcrs-shared-components/base-date-picker": "^0.0.0",
+    "vue": "^3.3.4"
   }
 }

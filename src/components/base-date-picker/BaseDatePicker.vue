@@ -158,7 +158,7 @@ const props = defineProps<{
   resetTrigger?: boolean
   enableTimePicker?:boolean
 }>()
-const emit = defineEmits<{ (e: 'selectedDate', value: Date): void }>()
+const emit = defineEmits<{(e: 'selectedDate', value: Date): void }>()
 
 // date selection
 const selectedDate: Ref<Date> = ref(props.defaultSelectedDate || null)
@@ -379,7 +379,7 @@ const getMonth = (d: Date) => {
 
   .dp__main {
     display: block;
-    width: 298px;
+    width: auto;
   }
 
   .dp__theme_light {

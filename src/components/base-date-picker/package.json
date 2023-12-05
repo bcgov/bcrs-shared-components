@@ -5,9 +5,7 @@
     "access": "public"
   },
   "dependencies": {
-    "lodash": "4.17.21"
-  },
-  "devDependencies": {
-    "vue-facing-decorator": "^3.0.3"
+    "vue": "^3.3.4",
+    "@vuepic/vue-datepicker": "^7.2.2"
   }
 }

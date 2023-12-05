@@ -3,6 +3,9 @@ import { mount } from '@vue/test-utils'
 import { DetailComment } from '@/components/detail-comment'
 import { sleep } from '@/utils/sleep'
 import flushPromises from 'flush-promises'
+import { nextTick } from 'vue'
+
+const detailCommentTxt = '#detail-comment-textarea'
 
 describe('DetailComment', () => {
   const vuetify = createVuetify()
@@ -41,7 +44,6 @@ describe('DetailComment', () => {
     expect(vm.autofocus).toBe(true)
   })
 
-  // FUTURE: fix this test
   it('emits valid event when value prop is changed', async () => {
     const wrapper = mount(DetailComment,
       {
@@ -69,7 +71,6 @@ describe('DetailComment', () => {
     const vm: any = wrapper.vm
 
     const element = wrapper.find('#detail-comment-textarea')
-    element.setValue('testing 4 5 6')
 
     // verify valid and input events
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
