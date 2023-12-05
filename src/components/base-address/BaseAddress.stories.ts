@@ -26,6 +26,7 @@ Default['args'] = {
   country: '',
   deliveryInstructions: '',
   schema: DefaultSchema,
+  editing: true
 }
 
 export const WithData = Template.bind({})
