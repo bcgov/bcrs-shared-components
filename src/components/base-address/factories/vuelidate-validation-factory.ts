@@ -6,7 +6,7 @@ import { computed, Ref, reactive } from 'vue-demi'
 
 import { AddressIF, SchemaIF } from '@/components/base-address/interfaces'
 
-const useVuelidate = require('@vuelidate/core').default
+import useVuelidate from '@vuelidate/core'
 
 export function useValidations (schema: Ref<SchemaIF>, address: Ref<AddressIF>) {
   const validations = reactive({ addressLocal: schema.value })

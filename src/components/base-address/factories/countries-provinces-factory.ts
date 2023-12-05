@@ -1,10 +1,11 @@
-import countriesData from 'country-list/data.json';
-import provincesData from 'provinces/provinces.json';
+import countriesData from 'country-list/data.json'
+import provincesData from 'provinces/provinces.json'
 
-window['countries'] = window['countries'] || countriesData.sort((a, b) => (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0);
+window['countries'] = window['countries'] || countriesData.sort((a, b) =>
+  (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0)
 
-window['provinces'] = window['provinces'] || provincesData.sort((a, b) => (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0);
-
+window['provinces'] = window['provinces'] || provincesData.sort((a, b) =>
+  (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0)
 
 // global caching to improve performance when called multiple times
 window['countryNameCache'] = {}
@@ -50,7 +51,7 @@ export function useCountriesProvinces () {
    * @param overrideDefault A flag to bypass manual defaults.
    * @returns An array of province objects, sorted alphabetically.
    */
-  const getCountryRegions = (code: string, overrideDefault: boolean = false): Array<object> => {
+  const getCountryRegions = (code: string, overrideDefault = false): Array<object> => {
     if (!code) return []
     if (window['countryRegionsCache'][code]) return window['countryRegionsCache'][code]
     let regions = []

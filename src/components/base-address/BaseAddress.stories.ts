@@ -5,15 +5,15 @@ import { DefaultSchema } from './resources/default-schema'
 
 export default {
   title: 'Component/BaseAddress',
-  component: BaseAddress,
+  component: BaseAddress
 } as Meta
 
 const Template = (args: AddressIF) => ({
   components: { BaseAddress },
-  setup() {
+  setup () {
     return { args }
   },
-  template: '<BaseAddress v-bind="args" />',
+  template: '<BaseAddress v-bind="args" />'
 })
 
 export const Default = Template.bind({})
@@ -44,6 +44,6 @@ WithData['args'] = {
 
 export const WithValidation = Template.bind({})
 WithValidation['args'] = {
-  ...WithData['args'],
+  ...WithData['args']
   // Additional logic for showcasing validation can be added here
 }
