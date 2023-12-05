@@ -30,12 +30,12 @@ Default['args'] = {
 
 export const WithData = Template.bind({})
 WithData['args'] = {
-  street: '123 Main St',
-  streetAdditional: 'Apt 4',
-  city: 'Springfield',
-  region: 'IL',
-  postalCode: '62704',
-  country: 'USA',
+  street: '1234 Sesame Street',
+  streetAdditional: '4th Floor',
+  city: 'Victoria',
+  region: 'BC',
+  postalCode: 'V8N 1A1',
+  country: 'Canada',
   deliveryInstructions: 'Leave at front door',
   schema: DefaultSchema,
 }
