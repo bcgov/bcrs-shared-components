@@ -243,8 +243,8 @@ export default defineComponent({
         localSchema.postalCode = origPostalCodeRules.concat([baseRules.zipCode])
         localSchema.region = origRegionRules
       } else {
-        localSchema.postalCode = origPostalCodeRules.concat([baseRules.maxLength(15)])
-        localSchema.region = [baseRules.maxLength(2), ...spaceRules]
+        localSchema.postalCode = origPostalCodeRules.concat([baseRules[AddressValidationRules.MAX_LENGTH](15)])
+        localSchema.region = [baseRules[AddressValidationRules.MAX_LENGTH](2), ...spaceRules]
       }
       // reset other address fields (check is for loading an existing address)
       if (oldVal) {

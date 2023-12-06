@@ -1,6 +1,6 @@
 import { ref } from 'vue-demi'
 
-import { ValidationRule } from '@bcrs-shared-components/enums/address-validation-rules'
+import { AddressValidationRules } from '@bcrs-shared-components/enums/address-validation-rules'
 
 /* Sets up form validation functions */
 export function useBaseValidations () {
@@ -17,20 +17,20 @@ export function useBaseValidations () {
 
 /* Rules used in most schemas */
 export const baseRules = {
-  [ValidationRule.BC]: (v: string) => v === 'BC' || v === 'British Columbia' || 'Address must be in BC',
-  [ValidationRule.CANADA]: (v: string) => v === 'CA' || 'Address must be in Canada',
-  [ValidationRule.MAX_LENGTH]: (max: number) => {
+  [AddressValidationRules.BC]: (v: string) => v === 'BC' || v === 'British Columbia' || 'Address must be in BC',
+  [AddressValidationRules.CANADA]: (v: string) => v === 'CA' || 'Address must be in Canada',
+  [AddressValidationRules.MAX_LENGTH]: (max: number) => {
     return (v: string) => (v || '').length <= max || `Maximum ${max} characters`
   },
-  [ValidationRule.MIN_LENGTH]: (min: number) => {
+  [AddressValidationRules.MIN_LENGTH]: (min: number) => {
     return (v: string) => (v || '').length >= min || `Minimum ${min} characters`
   },
-  [ValidationRule.POSTAL_CODE]: (v: string) => (
+  [AddressValidationRules.POSTAL_CODE]: (v: string) => (
     /^\s*[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][\s-]?\d[ABCEGHJ-NPRSTV-Z]\d\s*$/i.test(v) ||
     'Must be a valid postal code'
   ),
-  [ValidationRule.REQUIRED]: (v: string) => v?.length > 0 || 'This field is required',
-  [ValidationRule.ZIP_CODE]: (v: string) => (
+  [AddressValidationRules.REQUIRED]: (v: string) => v?.length > 0 || 'This field is required',
+  [AddressValidationRules.ZIP_CODE]: (v: string) => (
     /^\s*[0-9]{5}([\s-]?[0-9]{4})?\s*$/i.test(v) ||
     'Must be a valid zip code'
   )

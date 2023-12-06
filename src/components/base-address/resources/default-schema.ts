@@ -1,29 +1,29 @@
-import { ValidationRule } from '@bcrs-shared-components/enums/address-validation-rules'
+import { AddressValidationRules } from '@bcrs-shared-components/enums/address-validation-rules'
 import { SchemaIF } from '@/components/base-address/interfaces'
 import { baseRules, spaceRules } from '@/components/base-address/factories/validation-factory'
 
 /* example of what to pass in for the schema */
 export const DefaultSchema: SchemaIF = {
   street: [
-    baseRules[ValidationRule.REQUIRED],
-    baseRules[ValidationRule.MAX_LENGTH](50),
+    baseRules[AddressValidationRules.REQUIRED],
+    baseRules[AddressValidationRules.MAX_LENGTH](50),
     ...spaceRules
   ],
   streetAdditional: [
-    baseRules[ValidationRule.MAX_LENGTH](50),
+    baseRules[AddressValidationRules.MAX_LENGTH](50),
     ...spaceRules
   ],
   city: [
-    baseRules[ValidationRule.REQUIRED],
-    baseRules[ValidationRule.MAX_LENGTH](40),
+    baseRules[AddressValidationRules.REQUIRED],
+    baseRules[AddressValidationRules.MAX_LENGTH](40),
     ...spaceRules
   ],
   country: [
-    baseRules[ValidationRule.REQUIRED],
+    baseRules[AddressValidationRules.REQUIRED],
     ...spaceRules
   ],
   region: [
-    baseRules[ValidationRule.REQUIRED],
+    baseRules[AddressValidationRules.REQUIRED],
     ...spaceRules
   ],
   /* NOTE: Canada/US postal code and zip code regex rules
@@ -31,12 +31,12 @@ export const DefaultSchema: SchemaIF = {
    * inside the address components
    */
   postalCode: [
-    baseRules[ValidationRule.REQUIRED],
-    baseRules[ValidationRule.MAX_LENGTH](15),
+    baseRules[AddressValidationRules.REQUIRED],
+    baseRules[AddressValidationRules.MAX_LENGTH](15),
     ...spaceRules
   ],
   deliveryInstructions: [
-    baseRules[ValidationRule.MAX_LENGTH](80),
+    baseRules[AddressValidationRules.MAX_LENGTH](80),
     ...spaceRules
   ]
 }
