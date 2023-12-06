@@ -133,7 +133,10 @@ export default class DatePicker extends DateMixin {
 
   /** The display Date. */
   get displayDate (): string {
-    return this.dateToPacificDate(this.date, true, false, false)
+    return this.yyyyMmDdToPacificDate(
+      this.dateToYyyyMmDd(this.date, false),
+      true
+    )
   }
 
   /** True when the picker is not displayed or disabled. */
@@ -163,7 +166,7 @@ export default class DatePicker extends DateMixin {
   @Watch('date')
   @Emit('emitDateSync')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private emitDateSync (date: string): string {
+  private emitDateSync (date: Date): string {
     return this.date
   }
 
