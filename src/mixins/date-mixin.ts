@@ -92,22 +92,23 @@ export default class DateMixin extends Vue {
    * Converts a Date object to a date string (Month Day, Year) in Pacific timezone.
    * @param longMonth whether to show long month name (eg, December vs Dec)
    * @param showWeekday whether to show the weekday name (eg, Thursday)
+   * @param convertTimezone whether to convert the timzone to Pacific
    * @example "2021-01-01 07:00:00 GMT" -> "Dec 31, 2020"
    * @example "2021-01-01 08:00:00 GMT" -> "Jan 1, 2021"
    */
-  dateToPacificDate (date: Date, longMonth = false, showWeekday = false): string {
+  dateToPacificDate (date: Date, longMonth = false, showWeekday = false, convertTimezone = true): string {
     // safety check
     if (!isDate(date) || isNaN(date.getTime())) return null
 
     // NB: some versions of Node have only en-US locale
     // so use that and convert results accordingly
-    let dateStr = date.toLocaleDateString('en-US', {
-      timeZone: 'America/Vancouver',
-      weekday: showWeekday ? 'long' : undefined, // Thursday or nothing
-      month: longMonth ? 'long' : 'short', // December or Dec.
-      day: 'numeric', // 31
-      year: 'numeric' // 2020
-    })
+    let dateStr = date.toLocaleDateString("en-US", {
+      timeZone: convertTimezone ? "America/Vancouver" : undefined, // Pacific
+      weekday: showWeekday ? "long" : undefined, // Thursday or nothing
+      month: longMonth ? "long" : "short", // December or Dec.
+      day: "numeric", // 31
+      year: "numeric", // 2020
+    });
 
     // remove period after month
     dateStr = dateStr.replace('.', '')

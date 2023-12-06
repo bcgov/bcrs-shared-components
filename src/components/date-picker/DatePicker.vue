@@ -133,7 +133,7 @@ export default class DatePicker extends DateMixin {
 
   /** The display Date. */
   get displayDate (): string {
-    return this.dateToPacificDate(this.date, true)
+    return this.dateToPacificDate(this.date, true, false, false)
   }
 
   /** True when the picker is not displayed or disabled. */
