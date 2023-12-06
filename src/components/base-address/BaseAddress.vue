@@ -169,7 +169,7 @@ import {
   useBaseValidations,
   spaceRules
 } from '@/components/base-address/factories'
-import { AddressIF, SchemaIF } from '@/interfaces/addresses-interface'
+import { AddressIF, SchemaIF } from '@/interfaces'
 
 export default defineComponent({
   name: 'BaseAddress',
