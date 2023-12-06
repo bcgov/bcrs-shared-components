@@ -17,10 +17,10 @@
       bottom
       min-width="290"
     >
-      <template #activator="{ on }">
+      <template #activator="{ props }">
         <span
           :class="{'date-text-field-pointer': enableSelector}"
-          v-on="enableSelector && on"
+          v-bind="enableSelector && props"
         >
           <v-text-field
             id="date-text-field"
@@ -30,9 +30,9 @@
             :clearable="clearable"
             :error-messages="errorMsg"
             :error="!!errorMsg"
-            :value="displayDate"
+            :model-value="displayDate"
             :label="title"
-            :name="Math.random()"
+            :name="Math.random().toString()"
             :rules="inputRules"
             :disabled="disablePicker"
             :hint="hint"
@@ -41,24 +41,25 @@
             filled
             @click:clear="emitClear()"
             @keydown="$event.preventDefault()"
-            @keyup.enter="emitDate(dateText)"
+            @keyup.enter="emitDate(date)"
           />
         </span>
       </template>
       <v-date-picker
         id="date-picker-calendar"
-        v-model="dateText"
+        v-model="date"
+        color="primary"
         width="490"
         :min="minDate"
         :max="maxDate"
       >
-        <template #default>
+        <template #actions>
           <div>
             <v-btn
               id="btn-done"
               text
               color="primary"
-              @click="emitDate(dateText)"
+              @click="emitDate(date)"
             >
               <strong>OK</strong>
             </v-btn>
@@ -72,20 +73,18 @@
             </v-btn>
           </div>
         </template>
-      </v-date-picker>
+      </v-date-picker> 
     </v-menu>
   </v-form>
 </template>
 
 <script lang="ts">
-import { Component, Emit, mixins, Prop, Watch, Vue } from 'vue-facing-decorator'
+import { Component, Emit, Prop, Watch } from 'vue-facing-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
 
-@Component({
-  mixins: [DateMixin]
-})
-export default class DatePicker extends Vue {
+@Component({})
+export default class DatePicker extends DateMixin {
   // Add element types to refs
   $refs!: {
     form: FormIF,
@@ -108,12 +107,12 @@ export default class DatePicker extends Vue {
   @Prop({ default: false }) readonly persistentHint!: boolean
   @Prop({ default: false }) readonly clearable!: boolean
 
-  private dateText = null
+  private date = null
   private displayPicker = false
 
   /** Clear local model after each action. */
   public clearDate (): void {
-    this.dateText = ''
+    this.date = null
     this.displayPicker = false
   }
 
@@ -129,12 +128,12 @@ export default class DatePicker extends Vue {
 
   /** Called when component is created. */
   created (): void {
-    this.dateText = this.initialValue
+    this.date = this.yyyyMmDdToDate(this.initialValue)
   }
 
   /** The display Date. */
   get displayDate (): string {
-    return this.yyyyMmDdToPacificDate(this.dateText, true)
+    return this.dateToPacificDate(this.date, true)
   }
 
   /** True when the picker is not displayed or disabled. */
@@ -145,7 +144,7 @@ export default class DatePicker extends Vue {
   /** Emit date to add or remove. */
   @Emit('emitDate')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected emitDate (date: string): void {
+  protected emitDate (date: Date): void {
     this.displayPicker = false
   }
 
@@ -161,11 +160,11 @@ export default class DatePicker extends Vue {
     this.clearDate()
   }
 
-  @Watch('dateText')
+  @Watch('date')
   @Emit('emitDateSync')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitDateSync (date: string): string {
-    return this.dateText
+    return this.date
   }
 
   @Watch('$route')
