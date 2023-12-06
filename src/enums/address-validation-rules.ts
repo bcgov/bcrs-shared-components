@@ -1,4 +1,4 @@
-export enum ValidationRule {
+export enum AddressValidationRules {
     BC = 'BC',
     CANADA = 'Canada',
     MAX_LENGTH = 'maxLength',
