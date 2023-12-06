@@ -5,6 +5,7 @@ import { Component, Vue } from 'vue-facing-decorator'
  */
 @Component({})
 export default class ValidationMixin extends Vue {
+  $v: any
   /**
    * Creates a Vuetify rules object from the Vuelidate state.
    * @param model The name of the model we are validating.
