@@ -41,7 +41,7 @@
             filled
             @click:clear="emitClear()"
             @keydown="$event.preventDefault()"
-            @keyup.enter="emitDate(date)"
+            @keyup.enter="emitDate()"
           />
         </span>
       </template>
@@ -59,7 +59,7 @@
               id="btn-done"
               text
               color="primary"
-              @click="emitDate(date)"
+              @click="emitDate()"
             >
               <strong>OK</strong>
             </v-btn>
@@ -81,7 +81,7 @@
 <script lang="ts">
 import { Component, Emit, Prop, Watch } from 'vue-facing-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
-import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
+import { DateMixin } from '@bcrs-shared-components/mixins'
 
 @Component({})
 export default class DatePicker extends DateMixin {
@@ -133,10 +133,8 @@ export default class DatePicker extends DateMixin {
 
   /** The display Date. */
   get displayDate (): string {
-    return this.yyyyMmDdToPacificDate(
-      this.dateToYyyyMmDd(this.date, false),
-      true
-    )
+    // Remove time portion and convert to pacific date
+    return this.yyyyMmDdToPacificDate(this.date.toISOString().slice(0, 10), true)
   }
 
   /** True when the picker is not displayed or disabled. */
@@ -146,9 +144,10 @@ export default class DatePicker extends DateMixin {
 
   /** Emit date to add or remove. */
   @Emit('emitDate')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected emitDate (date: Date): void {
+  protected emitDate (): string {
     this.displayPicker = false
+    // Convert to ISO string and truncate to just date portion
+    return this.date.toISOString().slice(0, 10)
   }
 
   /** Emit cancel event and clear the date. */
@@ -166,8 +165,9 @@ export default class DatePicker extends DateMixin {
   @Watch('date')
   @Emit('emitDateSync')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private emitDateSync (date: Date): string {
-    return this.date
+  private emitDateSync (): string {
+    // Convert to ISO string and truncate to just date portion
+    return this.date.toISOString().slice(0, 10)
   }
 
   @Watch('$route')
