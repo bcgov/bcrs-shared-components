@@ -8,13 +8,13 @@
       >
         <div class="address-block__info pre-wrap">
           <p class="address-block__info-row">
-            {{ addressLocal.street }}
+            {{ addressLocal.streetAddress }}
           </p>
           <p
-            v-if="addressLocal.streetAdditional"
+            v-if="addressLocal.streetAddressAdditional"
             class="address-block__info-row"
           >
-            {{ addressLocal.streetAdditional }}
+            {{ addressLocal.streetAddressAdditional }}
           </p>
           <p class="address-block__info-row">
             <span>{{ addressLocal.city }}</span>
@@ -169,7 +169,7 @@ import {
   useBaseValidations,
   spaceRules
 } from '@/components/base-address/factories'
-import { AddressIF, SchemaIF } from '@/components/base-address/interfaces'
+import { AddressIF, SchemaIF } from '@/interfaces/addresses-interface'
 
 export default defineComponent({
   name: 'BaseAddress',

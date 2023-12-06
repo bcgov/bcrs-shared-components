@@ -2,7 +2,7 @@
 import { computed, reactive, ref, Ref } from 'vue-demi'
 import { uniqueId } from 'lodash'
 
-import { AddressIF, SchemaIF } from '@/components/base-address/interfaces'
+import { AddressIF, SchemaIF } from '@/interfaces/addresses-interface'
 
 export function useAddress (address: Ref<AddressIF>, schema: SchemaIF) {
   const addressLocal = address
@@ -89,9 +89,9 @@ export function useAddressComplete (addressLocal: Ref<AddressIF>) {
    * @param address the data object returned by the AddressComplete Retrieve API
    */
   const addressCompletePopulate = (addressComplete: object): void => {
-    addressLocal.value.street = addressComplete['Line1'] || 'N/A'
+    addressLocal.value.streetAddress = addressComplete['Line1'] || 'N/A'
     // Combine extra address lines into Street Address Additional field.
-    addressLocal.value.streetAdditional = combineLines(
+    addressLocal.value.streetAddressAdditional = combineLines(
       combineLines(addressComplete['Line2'], addressComplete['Line3']),
       combineLines(addressComplete['Line4'], addressComplete['Line5'])
     )

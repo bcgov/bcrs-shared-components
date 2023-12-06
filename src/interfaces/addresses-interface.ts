@@ -4,6 +4,7 @@
  * https://github.com/bcgov/business-schemas/blob/main/src/registry_schemas/schemas/address.json
  */
 export interface AddressIF {
+[x: string]: any
   addressCity: string // max 40 chars
   addressCountry: string
   addressRegion?: string // max 2 chars
@@ -32,6 +33,16 @@ export interface BaseAddressObjIF {
   // Delivery Address is required for directors and offices.
   // Delivery Address is optional for completing party and incorporators.
   deliveryAddress?: AddressIF
+}
+
+export interface SchemaIF {
+  street: Array<(v:string) => true | string>
+  streetAdditional: Array<(v:string) => true | string>
+  city: Array<(v:string) => true | string>
+  region: Array<(v:string) => true | string>
+  postalCode: Array<(v:string) => true | string>
+  country: Array<(v:string) => true | string>
+  deliveryInstructions: Array<(v:string) => true | string>
 }
 
 /** Interface to define the incorporation addresses. */
