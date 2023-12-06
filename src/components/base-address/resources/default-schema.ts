@@ -1,4 +1,4 @@
-import { ValidationRule } from '@/components/base-address/enums'
+import { ValidationRule } from '@/enums/address-validation-rules'
 import { SchemaIF } from '@/components/base-address/interfaces'
 import { baseRules, spaceRules } from '@/components/base-address/factories/validation-factory'
 

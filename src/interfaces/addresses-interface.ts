@@ -4,7 +4,6 @@
  * https://github.com/bcgov/business-schemas/blob/main/src/registry_schemas/schemas/address.json
  */
 export interface AddressIF {
-[x: string]: any
   addressCity: string // max 40 chars
   addressCountry: string
   addressRegion?: string // max 2 chars
@@ -13,6 +12,7 @@ export interface AddressIF {
   postalCode: string // max 15 chars
   streetAddress: string // max 50 chars
   streetAddressAdditional?: string // max 50 chars
+  [x: string]: any
 }
 
 /** Empty address for initializing address objects. */

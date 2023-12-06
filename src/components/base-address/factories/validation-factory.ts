@@ -1,6 +1,6 @@
 import { ref } from 'vue-demi'
 
-import { ValidationRule } from '@/components/base-address/enums'
+import { ValidationRule } from '@/enums/address-validation-rules'
 
 /* Sets up form validation functions */
 export function useBaseValidations () {
