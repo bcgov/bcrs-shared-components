@@ -1,4 +1,4 @@
-import { AddressValidationRules } from '@bcrs-shared-components/enums/address-validation-rules'
+import { AddressValidationRules } from '@bcrs-shared-components/enums'
 import { SchemaIF } from '@/components/base-address/interfaces'
 import { baseRules, spaceRules } from '@/components/base-address/factories/validation-factory'
 
