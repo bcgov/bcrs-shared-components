@@ -25,6 +25,7 @@ describe('DetailComment', () => {
 
     // verify that component reports initial validity (false)
     expect(wrapper.emitted('valid').pop()[0]).toEqual(false)
+    wrapper.unmount()
   })
 
   it('handles props correctly', () => {
@@ -42,6 +43,7 @@ describe('DetailComment', () => {
     expect(vm.value).toBe('Initial comment')
     expect(vm.placeholder).toBe('Enter Comment Here')
     expect(vm.autofocus).toBe(true)
+    wrapper.unmount()
   })
 
   it('emits valid event when prop value is set', async () => {
@@ -58,6 +60,7 @@ describe('DetailComment', () => {
 
     // verify valid event
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
+    wrapper.unmount()
   })
 
   // FUTURE: Fix this unit test
@@ -73,6 +76,7 @@ describe('DetailComment', () => {
 
     // verify valid event
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
+    wrapper.unmount()
   })
 
   // FUTURE: Fix this unit test
@@ -95,5 +99,6 @@ describe('DetailComment', () => {
     // verify valid and input events
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
     expect(wrapper.emitted('input').pop()).toEqual(['testing 4 5 6'])
+    wrapper.unmount()
   })
 })
