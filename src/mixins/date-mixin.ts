@@ -66,18 +66,17 @@ export default class DateMixin extends Vue {
 
   /**
    * Converts a Date object to a date string (YYYY-MM-DD)
-   * @param convertTimezone whether to convert the timzone to Pacific
    * @example "2021-01-01 07:00:00 GMT" -> "2020-12-31"
    * @example "2021-01-01 08:00:00 GMT" -> "2021-01-01"
    */
-  dateToYyyyMmDd (date: Date, convertTimezone = true): IsoDatePacific {
+  dateToYyyyMmDd (date: Date): IsoDatePacific {
     // safety check
     if (!isDate(date) || isNaN(date.getTime())) return null
 
     // NB: some versions of Node have only en-US locale
     // so use that and convert results accordingly
     const dateStr = date.toLocaleDateString('en-US', {
-      timeZone: convertTimezone ? 'America/Vancouver' : undefined,
+      timeZone: 'America/Vancouver',
       month: 'numeric', // 12
       day: 'numeric', // 31
       year: 'numeric' // 2020
