@@ -134,7 +134,7 @@ export default class DatePicker extends DateMixin {
   /** The display Date. */
   get displayDate (): string {
     // Remove time portion and convert to pacific date
-    return this.yyyyMmDdToPacificDate(this.date.toISOString().slice(0, 10), true)
+    return this.yyyyMmDdToPacificDate(this.date?.toISOString()?.slice(0, 10), true)
   }
 
   /** True when the picker is not displayed or disabled. */
@@ -147,7 +147,7 @@ export default class DatePicker extends DateMixin {
   protected emitDate (): string {
     this.displayPicker = false
     // Convert to ISO string and truncate to just date portion
-    return this.date.toISOString().slice(0, 10)
+    return this.date?.toISOString()?.slice(0, 10)
   }
 
   /** Emit cancel event and clear the date. */
@@ -167,7 +167,7 @@ export default class DatePicker extends DateMixin {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitDateSync (): string {
     // Convert to ISO string and truncate to just date portion
-    return this.date.toISOString().slice(0, 10)
+    return this.date?.toISOString()?.slice(0, 10)
   }
 
   @Watch('$route')

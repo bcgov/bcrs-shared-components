@@ -1,15 +1,13 @@
 import Vue from 'vue'
-import Vuetify from 'vuetify'
-import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
+import { createVuetify } from 'vuetify'
+import { mount, VueWrapper } from '@vue/test-utils'
 import { DatePicker } from '@/components/date-picker'
 import VueRouter from 'vue-router'
 
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning
 document.body.setAttribute('data-app', 'true')
 
-const vuetify = new Vuetify({})
-const localVue = createLocalVue()
-localVue.use(VueRouter)
+const vuetify = createVuetify()
 
 /**
  * Creates and mounts a component, so that it can be tested.
@@ -26,9 +24,9 @@ function createComponent (
   inputRules = [(v: string) => v === 'Valid text' || 'Invalid'],
   initialValue = '',
   clearable = false
-): Wrapper<DatePicker> {
+): VueWrapper {
   return mount(DatePicker, {
-    propsData: {
+    props: {
       title,
       errorMsg,
       disablePicker,
@@ -37,15 +35,15 @@ function createComponent (
       clearable
     },
     vuetify,
-    localVue
+    VueRouter
   })
 }
 
 describe('DatePicker component', () => {
-  let wrapper: Wrapper<DatePicker>
+  let wrapper: VueWrapper
 
   afterEach(() => {
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('loads the component', async () => {
@@ -170,7 +168,7 @@ describe('DatePicker component', () => {
 
   it('displays the correct initialValue', async () => {
     wrapper = mount(DatePicker, {
-      propsData: {
+      props: {
         initialValue: '2021-11-18'
       },
       vuetify
@@ -184,7 +182,7 @@ describe('DatePicker component', () => {
 
   it('dateText is initialized properly when initialValue prop is not set', async () => {
     wrapper = mount(DatePicker, {
-      propsData: {},
+      props: {},
       vuetify
     })
     await Vue.nextTick()
