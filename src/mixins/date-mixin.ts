@@ -65,7 +65,7 @@ export default class DateMixin extends Vue {
   }
 
   /**
-   * Converts a Date object to a date string (YYYY-MM-DD)
+   * Converts a Date object to a date string (YYYY-MM-DD) in Pacific timezone.
    * @example "2021-01-01 07:00:00 GMT" -> "2020-12-31"
    * @example "2021-01-01 08:00:00 GMT" -> "2021-01-01"
    */
