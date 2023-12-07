@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Watch } from 'vue-facing-decorator'
+import { Component, Emit, Prop, Watch, Vue } from 'vue-facing-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 import { DateMixin } from '@bcrs-shared-components/mixins'
 
@@ -127,9 +127,25 @@ export default class DatePicker extends DateMixin {
     this.date = this.yyyyMmDdToDate(this.initialValue)
   }
 
+  /** The formatted picker date string (YYYY-MM-DD) */
+  get pickerDate (): string {
+    if (!this.date) return ''
+
+    const dateStr = this.date.toLocaleDateString('en-US', {
+      month: 'numeric', // 12
+      day: 'numeric', // 31
+      year: 'numeric' // 2020
+    })
+
+    // convert mm/dd/yyyy to yyyy-mm-dd
+    // and make sure month and day are 2 digits (eg, 03)
+    const [ mm, dd, yyyy ] = dateStr.split('/')
+    return `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`
+  }
+
   /** The display Date. */
   get displayDate (): string {
-    return this.dateToPacificDate(this.date, true)
+    return this.yyyyMmDdToPacificDate(this.pickerDate, true)
   }
 
   /** True when the picker is not displayed or disabled. */
@@ -141,7 +157,7 @@ export default class DatePicker extends DateMixin {
   @Emit('emitDate')
   protected emitDate (): string {
     this.displayPicker = false
-    return this.dateToYyyyMmDd(this.date)
+    return this.pickerDate
   }
 
   /** Emit cancel event and clear the date. */
@@ -160,7 +176,7 @@ export default class DatePicker extends DateMixin {
   @Emit('emitDateSync')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitDateSync (): string {
-    return this.dateToYyyyMmDd(this.date)
+    return this.pickerDate
   }
 
   @Watch('$route')
