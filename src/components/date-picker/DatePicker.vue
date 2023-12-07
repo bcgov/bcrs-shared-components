@@ -127,7 +127,12 @@ export default class DatePicker extends DateMixin {
     this.date = this.yyyyMmDdToDate(this.initialValue)
   }
 
-  /** The formatted picker date string (YYYY-MM-DD) */
+  /**
+   * The formatted picker date string (YYYY-MM-DD)
+   * The DatePicker returns a Date object with 00:00 UTC. Converting to Pacific
+   * results in an incorrect display date. We need to convert to string without
+   * changing the timezone info in order to get an accurate date.
+  */
   get pickerDate (): string {
     if (!this.date) return ''
 
