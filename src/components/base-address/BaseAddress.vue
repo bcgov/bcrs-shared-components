@@ -170,6 +170,7 @@ import {
   spaceRules
 } from '@/components/base-address/factories'
 import { AddressIF, SchemaIF } from '@/interfaces'
+import { AddressValidationRules } from '@/enums'
 
 export default defineComponent({
   name: 'BaseAddress',

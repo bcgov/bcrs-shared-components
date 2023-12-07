@@ -1,5 +1,5 @@
-import { AddressValidationRules } from '@bcrs-shared-components/enums'
-import { SchemaIF } from '@/components/base-address/interfaces'
+import { AddressValidationRules } from '@/enums'
+import { SchemaIF } from '@/interfaces'
 import { baseRules, spaceRules } from '@/components/base-address/factories/validation-factory'
 
 /* example of what to pass in for the schema */

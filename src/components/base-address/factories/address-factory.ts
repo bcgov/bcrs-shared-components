@@ -2,7 +2,7 @@
 import { computed, reactive, ref, Ref } from 'vue-demi'
 import { uniqueId } from 'lodash'
 
-import { AddressIF, SchemaIF } from '@/interfaces/addresses-interface'
+import { AddressIF, SchemaIF } from '@/interfaces'
 
 export function useAddress (address: Ref<AddressIF>, schema: SchemaIF) {
   const addressLocal = address
