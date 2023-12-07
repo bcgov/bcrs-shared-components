@@ -4,7 +4,7 @@
  */
 import { computed, Ref, reactive } from 'vue-demi'
 
-import { AddressIF, SchemaIF } from '@/interfaces'
+import { AddressIF, SchemaIF } from '@bcrs-shared-components/interfaces'
 
 import useVuelidate from '@vuelidate/core'
 

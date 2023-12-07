@@ -1,6 +1,6 @@
 import { ref } from 'vue-demi'
 
-import { AddressValidationRules } from '@/enums'
+import { AddressValidationRules } from '@bcrs-shared-components/enums'
 
 /* Sets up form validation functions */
 export function useBaseValidations () {

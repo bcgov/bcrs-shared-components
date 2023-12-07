@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/vue3'
 import BaseAddress from './BaseAddress.vue'
-import { AddressIF } from '@/interfaces'
+import { AddressIF } from '@bcrs-shared-components/interfaces'
 import { DefaultSchema } from './resources/default-schema'
 
 export default {
