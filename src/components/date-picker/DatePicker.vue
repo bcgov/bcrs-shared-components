@@ -6,15 +6,11 @@
   >
     <v-menu
       v-model="displayPicker"
-      :close-on-click="false"
+      :persistent="true"
       :close-on-content-click="false"
-      :nudge-top="nudgeTop"
-      :nudge-bottom="nudgeBottom"
-      :nudge-left="nudgeLeft"
-      :nudge-right="nudgeRight"
+      :offset="[nudgeBottom, nudgeLeft, nudgeTop, nudgeRight]"
       transition="scale-transition"
-      offset-y
-      bottom
+      location="bottom"
       min-width="290"
     >
       <template #activator="{ props }">
@@ -38,7 +34,7 @@
             :hint="hint"
             :persistent-hint="persistentHint"
             readonly
-            filled
+            variant="filled"
             @click:clear="emitClear()"
             @keydown="$event.preventDefault()"
             @keyup.enter="emitDate()"
@@ -57,7 +53,7 @@
           <div>
             <v-btn
               id="btn-done"
-              text
+              variant="text"
               color="primary"
               @click="emitDate()"
             >
@@ -65,7 +61,7 @@
             </v-btn>
             <v-btn
               id="btn-cancel"
-              text
+              variant="text"
               color="primary"
               @click="emitCancel()"
             >
@@ -73,7 +69,7 @@
             </v-btn>
           </div>
         </template>
-      </v-date-picker> 
+      </v-date-picker>
     </v-menu>
   </v-form>
 </template>
@@ -133,8 +129,7 @@ export default class DatePicker extends DateMixin {
 
   /** The display Date. */
   get displayDate (): string {
-    // Remove time portion and convert to pacific date
-    return this.yyyyMmDdToPacificDate(this.date?.toISOString()?.slice(0, 10), true)
+    return this.dateToPacificDate(this.date, true)
   }
 
   /** True when the picker is not displayed or disabled. */
@@ -146,8 +141,7 @@ export default class DatePicker extends DateMixin {
   @Emit('emitDate')
   protected emitDate (): string {
     this.displayPicker = false
-    // Convert to ISO string and truncate to just date portion
-    return this.date?.toISOString()?.slice(0, 10)
+    return this.dateToYyyyMmDd(this.date)
   }
 
   /** Emit cancel event and clear the date. */
@@ -166,8 +160,7 @@ export default class DatePicker extends DateMixin {
   @Emit('emitDateSync')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitDateSync (): string {
-    // Convert to ISO string and truncate to just date portion
-    return this.date?.toISOString()?.slice(0, 10)
+    return this.dateToYyyyMmDd(this.date)
   }
 
   @Watch('$route')
