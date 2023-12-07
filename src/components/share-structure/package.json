@@ -11,7 +11,7 @@
     "@bcrs-shared-components/interfaces": "^1.0.76",
     "lodash": "4.17.21",
     "uuid": "^9.0.0",
-    "vue": "^2.7.14"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "vue-facing-decorator": "^3.0.3"
