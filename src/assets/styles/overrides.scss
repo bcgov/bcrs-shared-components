@@ -7,7 +7,8 @@
   text-transform: none;
   font-weight: 500;
   letter-spacing: normal;
-
+  text-transform: none !important; //otherwise the label will be uppercase
+  
   .v-icon + span,
   span + .v-icon {
     margin-left: 0.25rem;

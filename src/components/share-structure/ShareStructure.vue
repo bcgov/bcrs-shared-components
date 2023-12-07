@@ -1187,10 +1187,6 @@ export default class ShareStructure extends Vue {
   opacity: .4;
 }
 
-.v-btn {
-  text-transform: none !important;
-}
-
 :deep() {
   .v-table--density-default > .v-table__wrapper > table > thead > tr > th {
     box-shadow: 1px 2px 0 0 rgba(0,0,0,0.1);
