@@ -38,7 +38,7 @@
       <div class="btn-container py-6 px-4">
         <v-btn
           id="btn-add-person"
-          outlined
+          variant="outlined"
           color="primary"
           :disabled="addEditInProgress"
           @click="initNewShareClass()"
@@ -73,7 +73,7 @@
     </div>
 
     <v-data-table
-      class="share-structure-table"
+      headerProps="share-structure-table"
       :headers="headers"
       :items="shareClasses"
       disable-pagination
@@ -128,7 +128,7 @@
               >
                 <v-btn
                   :id="'class-' + row.index + '-change-btn'"
-                  text
+                  variant="text"
                   color="primary"
                   :disabled="addEditInProgress"
                   @click="initShareClassForEdit(row.index)"
@@ -145,7 +145,7 @@
               >
                 <v-btn
                   :id="'class-' + row.index + '-undo-btn'"
-                  text
+                  variant="text"
                   color="primary"
                   :disabled="addEditInProgress"
                   @click="undoCorrection(true, row.item.action, row.index)"
@@ -162,7 +162,7 @@
               >
                 <v-btn
                   :id="'class-' + row.index + '-change-added-btn'"
-                  text
+                  variant="text"
                   color="primary"
                   :disabled="addEditInProgress"
                   @click="initShareClassForEdit(row.index)"
@@ -179,13 +179,13 @@
                   offset-y
                   left
                 >
-                  <template #activator="{ on }">
+                  <template #activator="{ props }">
                     <v-btn
-                      text
+                      variant="text"
                       color="primary"
                       class="actions__more-actions__btn"
                       :disabled="addEditInProgress"
-                      v-on="on"
+                      v-bind="props"
                     >
                       <v-icon>{{ classDropdown[row.index] ? 'mdi-menu-up' : 'mdi-menu-down' }}</v-icon>
                     </v-btn>
@@ -339,7 +339,7 @@
                 >
                   <v-btn
                     :id="'series-' + index + '-change-btn'"
-                    text
+                    variant="text"
                     color="primary"
                     :disabled="addEditInProgress"
                     @click="editSeries(row.index, index)"
@@ -356,7 +356,7 @@
                 >
                   <v-btn
                     :id="'series-' + index + '-undo-btn'"
-                    text
+                    variant="text"
                     color="primary"
                     :disabled="addEditInProgress"
                     @click="
@@ -375,7 +375,7 @@
                 >
                   <v-btn
                     :id="'series-' + index + '-change-added-btn'"
-                    text
+                    variant="text"
                     color="primary"
                     :disabled="addEditInProgress"
                     @click="editSeries(row.index, index)"
@@ -392,13 +392,13 @@
                     offset-y
                     left
                   >
-                    <template #activator="{ on }">
+                    <template #activator="{ props }">
                       <v-btn
-                        text
+                        variant="text"
                         color="primary"
                         class="actions__more-actions__btn"
                         :disabled="addEditInProgress"
-                        v-on="on"
+                        v-bind="props"
                       >
                         <v-icon>{{ seriesDropdown[row.index][index] ? 'mdi-menu-up' : 'mdi-menu-down' }}</v-icon>
                       </v-btn>
@@ -595,15 +595,15 @@ export default class ShareStructure extends Vue {
 
   readonly headers = [
     {
-      text: 'Name of Share Class or Series',
+      title: 'Name of Share Class or Series',
       align: 'start',
       sortable: false,
       value: 'name'
     },
-    { text: 'Maximum Number of Shares', value: 'maxNumberOfShares' },
-    { text: 'Par Value', value: 'parValue' },
-    { text: 'Currency', value: 'currency' },
-    { text: 'Special Rights or Restrictions', value: 'hasRightsOrRestrictions' }
+    { title: 'Maximum Number of Shares', value: 'maxNumberOfShares' },
+    { title: 'Par Value', value: 'parValue' },
+    { title: 'Currency', value: 'currency' },
+    { title: 'Special Rights or Restrictions', value: 'hasRightsOrRestrictions' }
   ]
 
   readonly newShareClass: ShareClassIF = {
@@ -1187,24 +1187,30 @@ export default class ShareStructure extends Vue {
   opacity: .4;
 }
 
+.v-btn {
+  text-transform: none !important;
+}
+
 :deep() {
-  .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  .v-table--density-default > .v-table__wrapper > table > thead > tr > th {
     box-shadow: 1px 2px 0 0 rgba(0,0,0,0.1);
     border: none !important;
+    color: $gray9 !important;
   }
 
-  .v-data-table > .v-data-table__wrapper > table > thead > tr > th:nth-child(2) {
+  .v-table--density-default > .v-table__wrapper > table > thead > tr > th:nth-child(2) {
     max-width: 140px;
   }
 
-  .v-data-table > .v-data-table__wrapper > table > thead > tr > th:nth-child(5) {
+  .v-table--density-default > .v-table__wrapper > table > thead > tr > th:nth-child(5) {
     border-right: thin solid rgba(0, 0, 0, 0);
   }
 
-  .theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  .v-table--density-default > .v-table__wrapper > table > thead > tr > th {
     font-size: .875rem;
     color: $gray9;
     line-height: 1.25;
+    font-weight: bold;
   }
 
   .theme--light.v-list-item .v-list-item__subtitle {
