@@ -4,7 +4,7 @@
 // Buttons
 .v-btn {
   min-width: 0;
-  text-transform: none;
+  text-transform: none !important; //otherwise the label will be uppercase
   font-weight: 500;
   letter-spacing: normal;
 
