@@ -1,4 +1,4 @@
-import { getBoolean, decodeKCToken } from '../../src/utils/common-util'
+import { getBoolean, decodeKCToken, getAccountIdFromCurrentUrl } from '../../src/utils/common-util'
 
 const KEYCLOAK_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUbWdtZUk0MnVsdUZ0N3F' +
   'QbmUtcTEzdDUwa0JDbjF3bHF6dHN0UGdUM1dFIn0.eyJqdGkiOiI0MmMzOWQzYi1iMTZkLTRiYWMtOWU1Ny1hNDYyZjQ3NWY0M2UiLCJleHAiO' +
@@ -15,7 +15,7 @@ const KEYCLOAK_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUbWdt
   'OutPePeAmozIQhmf5jlZBW_J8qSzx9GmkQvT41hxpNLkaMPjPYVM2Iy6vL4Pnu0Xma-wCN1GCPwvJGQXCuh3IsR_iTMoig8qcFS0a0lUTx_cCj' +
   'G-zf_goG4vDTeKn6Mk50FToRtYGXkzWdfQn1T_yeS_2zrL8Ifg1QhJe74U_w40v4ikAFl-BofYnIRjopP57H-5g9_SGg'
 
-describe('Common Util Test', () => {
+describe('Common Util', () => {
   beforeAll(() => {
     sessionStorage.clear()
     sessionStorage.setItem('KEYCLOAK_TOKEN', KEYCLOAK_TOKEN)
@@ -23,7 +23,7 @@ describe('Common Util Test', () => {
     sessionStorage.setItem('CURRENT_ACCOUNT', '{ "id": "2288" }')
   })
 
-  it('Test getBoolean works', () => {
+  it('Returns correct values for getBoolean()', () => {
     expect(getBoolean(true)).toBe(true)
     expect(getBoolean('True')).toBe(true)
     expect(getBoolean('true')).toBe(true)
@@ -36,9 +36,30 @@ describe('Common Util Test', () => {
     expect(getBoolean('')).toBe(false)
   })
 
-  it('Test1', () => {
+  it('Returns parsed decodeKCToken()', () => {
     expectTypeOf(decodeKCToken()).toBeObject()
     expect(decodeKCToken()).toHaveProperty('username')
     expect(decodeKCToken()).toHaveProperty('jti')
+  })
+
+  it('Returns correct accountid getAccountIdFromCurrentUrl()', () => {
+    delete window.location
+    window.location = {
+      origin: 'http://localhost',
+      pathname: '/businesses/edit/BC1234567/correction',
+      search: '?accountid=2288'
+    } as any
+
+    expect(getAccountIdFromCurrentUrl()).toBe('2288')
+  })
+
+  it('Returns false when accountid parameter not passed in url getAccountIdFromCurrentUrl()', () => {
+    delete window.location
+    window.location = {
+      origin: 'http://localhost',
+      pathname: '/staff/dashboard/active'
+    } as any
+
+    expect(getAccountIdFromCurrentUrl()).toBe(false)
   })
 })
