@@ -6,65 +6,62 @@
   >
     <v-menu
       v-model="displayPicker"
-      :close-on-click="false"
+      :persistent="true"
       :close-on-content-click="false"
-      :nudge-top="nudgeTop"
-      :nudge-bottom="nudgeBottom"
-      :nudge-left="nudgeLeft"
-      :nudge-right="nudgeRight"
+      :offset="[nudgeBottom, nudgeLeft, nudgeTop, nudgeRight]"
       transition="scale-transition"
-      offset-y
-      bottom
+      location="bottom"
       min-width="290"
     >
-      <template #activator="{ on }">
+      <template #activator="{ props }">
         <span
           :class="{'date-text-field-pointer': enableSelector}"
-          v-on="enableSelector && on"
+          v-bind="enableSelector && props"
         >
           <v-text-field
             id="date-text-field"
             ref="dateTextField"
-            append-icon="mdi-calendar"
+            append-inner-icon="mdi-calendar"
             autocomplete="chrome-off"
             :clearable="clearable"
             :error-messages="errorMsg"
             :error="!!errorMsg"
-            :value="displayDate"
+            :model-value="displayDate"
             :label="title"
-            :name="Math.random()"
+            :name="Math.random().toString()"
             :rules="inputRules"
             :disabled="disablePicker"
             :hint="hint"
             :persistent-hint="persistentHint"
             readonly
-            filled
+            variant="filled"
             @click:clear="emitClear()"
             @keydown="$event.preventDefault()"
-            @keyup.enter="emitDate(dateText)"
+            @keyup.enter="emitDate()"
           />
         </span>
       </template>
       <v-date-picker
         id="date-picker-calendar"
-        v-model="dateText"
+        v-model="date"
+        color="primary"
         width="490"
         :min="minDate"
         :max="maxDate"
       >
-        <template #default>
+        <template #actions>
           <div>
             <v-btn
               id="btn-done"
-              text
+              variant="text"
               color="primary"
-              @click="emitDate(dateText)"
+              @click="emitDate()"
             >
               <strong>OK</strong>
             </v-btn>
             <v-btn
               id="btn-cancel"
-              text
+              variant="text"
               color="primary"
               @click="emitCancel()"
             >
@@ -78,14 +75,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, mixins, Prop, Watch, Vue } from 'vue-facing-decorator'
+import { Component, Emit, Prop, Watch, Vue } from 'vue-facing-decorator'
 import { FormIF } from '@bcrs-shared-components/interfaces'
-import { DateMixin } from '@/mixins' // NB: local mixin (StoryBook can't find it otherwise)
+import { DateMixin } from '@bcrs-shared-components/mixins'
 
-@Component({
-  mixins: [DateMixin]
-})
-export default class DatePicker extends Vue {
+@Component({})
+export default class DatePicker extends DateMixin {
   // Add element types to refs
   $refs!: {
     form: FormIF,
@@ -108,12 +103,12 @@ export default class DatePicker extends Vue {
   @Prop({ default: false }) readonly persistentHint!: boolean
   @Prop({ default: false }) readonly clearable!: boolean
 
-  private dateText = null
+  private date = null
   private displayPicker = false
 
   /** Clear local model after each action. */
   public clearDate (): void {
-    this.dateText = ''
+    this.date = null
     this.displayPicker = false
   }
 
@@ -129,12 +124,33 @@ export default class DatePicker extends Vue {
 
   /** Called when component is created. */
   created (): void {
-    this.dateText = this.initialValue
+    this.date = this.yyyyMmDdToDate(this.initialValue)
+  }
+
+  /**
+   * The formatted picker date string (YYYY-MM-DD)
+   * The DatePicker returns a Date object with 00:00 UTC. Converting to Pacific
+   * results in an incorrect display date. We need to convert to string without
+   * changing the timezone info in order to get an accurate date.
+  */
+  get pickerDate (): string {
+    if (!this.date) return ''
+
+    const dateStr = this.date.toLocaleDateString('en-US', {
+      month: 'numeric', // 12
+      day: 'numeric', // 31
+      year: 'numeric' // 2020
+    })
+
+    // convert mm/dd/yyyy to yyyy-mm-dd
+    // and make sure month and day are 2 digits (eg, 03)
+    const [ mm, dd, yyyy ] = dateStr.split('/')
+    return `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`
   }
 
   /** The display Date. */
   get displayDate (): string {
-    return this.yyyyMmDdToPacificDate(this.dateText, true)
+    return this.yyyyMmDdToPacificDate(this.pickerDate, true)
   }
 
   /** True when the picker is not displayed or disabled. */
@@ -144,9 +160,9 @@ export default class DatePicker extends Vue {
 
   /** Emit date to add or remove. */
   @Emit('emitDate')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected emitDate (date: string): void {
+  protected emitDate (): string {
     this.displayPicker = false
+    return this.pickerDate
   }
 
   /** Emit cancel event and clear the date. */
@@ -161,11 +177,11 @@ export default class DatePicker extends Vue {
     this.clearDate()
   }
 
-  @Watch('dateText')
+  @Watch('date')
   @Emit('emitDateSync')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private emitDateSync (date: string): string {
-    return this.dateText
+  private emitDateSync (): string {
+    return this.pickerDate
   }
 
   @Watch('$route')

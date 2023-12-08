@@ -1,6 +1,6 @@
 {
   "name": "bcrs-shared-components",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "private": true,
   "appName": "BCRS Shared Components",
   "scripts": {
@@ -26,7 +26,7 @@
     "vue-router": "^3.6.5",
     "vue-the-mask": "^0.11.1",
     "vuelidate": "^0.7.4",
-    "vuetify": "^3.1.8"
+    "vuetify": "^3.4.5"
   },
   "devDependencies": {
     "@mdx-js/react": "^2.3.0",
