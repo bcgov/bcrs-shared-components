@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { DatePicker } from './index'
 
 const meta: Meta<typeof DatePicker> = {
@@ -9,10 +9,12 @@ export default meta
 const minDateStr = '2021-03-01'
 const maxDateStr = '2021-06-01'
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { DatePicker },
-  template: '<date-picker v-bind="$props" />' // $props comes from args below
+  setup () {
+    return { args }
+  },
+  template: '<date-picker v-bind="args" />'
 })
 
 export const datePickerBaseline = Template.bind({})
