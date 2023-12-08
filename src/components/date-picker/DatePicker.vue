@@ -21,7 +21,7 @@
           <v-text-field
             id="date-text-field"
             ref="dateTextField"
-            append-icon="mdi-calendar"
+            append-inner-icon="mdi-calendar"
             autocomplete="chrome-off"
             :clearable="clearable"
             :error-messages="errorMsg"
