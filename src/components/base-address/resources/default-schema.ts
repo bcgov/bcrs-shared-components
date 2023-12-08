@@ -1,6 +1,6 @@
 import { AddressValidationRules } from '@bcrs-shared-components/enums'
 import { SchemaIF } from '@bcrs-shared-components/interfaces'
-import { baseRules, spaceRules } from './factories/validation-factory'
+import { baseRules, spaceRules } from '../factories/validation-factory'
 
 /* example of what to pass in for the schema */
 export const DefaultSchema: SchemaIF = {
