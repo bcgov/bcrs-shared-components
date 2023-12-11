@@ -3,6 +3,7 @@
     <div v-if="state !== States.SUMMARY">
       <v-autocomplete
         v-model="selectedBusiness"
+        autofocus
         filled
         no-filter
         append-icon=""
