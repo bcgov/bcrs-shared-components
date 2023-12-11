@@ -6,6 +6,9 @@
   },
   "dependencies": {
     "@bcrs-shared-components/mixins": "^1.1.27",
+    "@bcrs-shared-components/enums": "^1.0.51",
+    "@bcrs-shared-components/interfaces": "^1.0.76",
+    "@vuelidate/core": "^2.0.3",
     "lodash.uniqueid": "^4.0.1",
     "vue": "^2.7.14",
     "vuelidate": "0.6.2"
