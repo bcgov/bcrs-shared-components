@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { ShareStructure } from './index'
 
 const meta: Meta<typeof ShareStructure> = {
@@ -6,10 +6,12 @@ const meta: Meta<typeof ShareStructure> = {
 }
 export default meta
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { ShareStructure },
-  template: '<share-structure v-bind="$props" />' // $props comes from args below
+  setup () {
+    return { args }
+  },
+  template: '<share-structure v-bind="args" />'
 })
 
 const IA = {
