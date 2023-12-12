@@ -3,20 +3,20 @@
 </template>
 
 <script lang="ts">
-import { Component, mixins } from 'vue-facing-decorator'
+import { Component, toNative, Vue } from 'vue-facing-decorator'
 import { CountriesProvincesMixin,
   DateMixin,
   NameRequestMixin,
   ValidationMixin
 } from '@/mixins'
 
-@Component({})
-export default class MixinTester extends mixins(
-  CountriesProvincesMixin,
-  DateMixin,
-  NameRequestMixin,
-  ValidationMixin
-) {}
+@Component({
+  mixins: [toNative(CountriesProvincesMixin),
+    toNative(DateMixin),
+    toNative(NameRequestMixin),
+    toNative(ValidationMixin)]
+})
+export default class MixinTester extends Vue {}
 </script>
 
 <style>

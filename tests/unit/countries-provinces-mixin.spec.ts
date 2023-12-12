@@ -18,21 +18,6 @@ const canadaProvinces = [
   { name: 'Yukon', short: 'YT' }
 ]
 
-const canadaProvincesExcludeBC = [
-  { name: 'Alberta', short: 'AB' },
-  { name: 'Manitoba', short: 'MB' },
-  { name: 'New Brunswick', short: 'NB' },
-  { name: 'Newfoundland and Labrador', short: 'NL' },
-  { name: 'Northwest Territories', short: 'NT' },
-  { name: 'Nova Scotia', short: 'NS' },
-  { name: 'Nunavut', short: 'NU' },
-  { name: 'Ontario', short: 'ON' },
-  { name: 'Prince Edward Island', short: 'PE' },
-  { name: 'Quebec', short: 'QC' },
-  { name: 'Saskatchewan', short: 'SK' },
-  { name: 'Yukon', short: 'YT' }
-]
-
 describe('Countries Provinces Mixin', () => {
   let vm: any
 
@@ -53,7 +38,8 @@ describe('Countries Provinces Mixin', () => {
   })
 
   it('returns correct country name getCanadaRegionsExcludeBC()', () => {
+    const testExcludeBc = canadaProvinces.filter(p => p.short !== 'BC')
     expect(vm.getCanadaRegionsExcludeBC('CA')).length(12)
-    expect(vm.getCanadaRegionsExcludeBC('CA')).toMatchObject(canadaProvincesExcludeBC)
+    expect(vm.getCanadaRegionsExcludeBC('CA')).toMatchObject(testExcludeBc)
   })
 })
