@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/input-field-date-picker",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.0.76",
-    "@bcrs-shared-components/base-date-picker": "^0.0.0",
+    "@bcrs-shared-components/base-date-picker": "^1.0.0",
+    "@bcrs-shared-components/interfaces": "^2.0.0",
     "vue": "^3.3.4",
     "vue-router": "^3.6.5"
   }

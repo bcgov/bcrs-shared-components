@@ -1,4 +1,5 @@
 export * from './account-types'
+export * from './address-validation-rules'
 export * from './action-types'
 export * from './approval-types'
 export * from './association-types'
