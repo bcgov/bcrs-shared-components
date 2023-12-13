@@ -1,0 +1,14 @@
+{
+  "name": "@bcrs-shared-components/jurisdiction",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@bcrs-shared-components/enums": "^1.1.2",
+    "vue": "^2.7.14"
+  },
+  "devDependencies": {
+    "vue-property-decorator": "^9.1.2"
+  }
+}
