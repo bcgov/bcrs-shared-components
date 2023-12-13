@@ -1,4 +1,4 @@
-import { JurisdictionLocation as Location } from '@bcrs-shared-components/enums'
+import { JurisdictionLocation  } from '@bcrs-shared-components/enums'
 import { JurisdictionI } from '../interfaces'
 
 export const CanJurisdictions: JurisdictionI[] = [
@@ -8,7 +8,7 @@ export const CanJurisdictions: JurisdictionI[] = [
     text: 'Alberta'
   },
   {
-    value: Location.BC,
+    value: JurisdictionLocation.BC,
     SHORT_DESC: 'BC',
     text: 'British Columbia'
   },
@@ -68,7 +68,7 @@ export const CanJurisdictions: JurisdictionI[] = [
     text: 'Yukon'
   },
   {
-    value: Location.FD,
+    value: JurisdictionLocation.FD,
     SHORT_DESC: 'FED',
     text: 'Federal'
   }
