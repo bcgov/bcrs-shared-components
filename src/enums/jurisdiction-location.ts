@@ -1,5 +1,5 @@
 /** Enum for location code. */
-export enum Location {
+export enum JurisdictionLocation {
   BC = 'BC', // British Columbia
   CA = 'CA', // Canadian
   FD = 'FD', // Federal

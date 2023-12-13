@@ -12,7 +12,7 @@
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
 import NestedSelect from './NestedSelect.vue'
-import { Location } from '@bcrs-shared-components/enums'
+import { JurisdictionLocation } from '@bcrs-shared-components/enums'
 import { CanJurisdictions, IntlJurisdictions } from './list-data'
 
 @Component({
@@ -33,18 +33,18 @@ export default class Jurisdiction extends Vue {
     // add in Canadian jurisdictions (not including BC)
     array.push({ isHeader: true, group: 0, text: 'Canadian' })
     CanJurisdictions
-      .filter(jur => jur.value !== Location.BC)
+      .filter(jur => jur.value !== JurisdictionLocation.BC)
       .forEach(jur => array.push({
         group: 0,
         text: jur.text,
         value: jur.value,
-        separator: (jur.value === Location.FD)
+        separator: (jur.value === JurisdictionLocation.FD)
       }))
 
     // add in International jurisdictions (not including CA)
     array.push({ isHeader: true, group: 1, text: 'International' })
     IntlJurisdictions
-      .filter(jur => jur.value !== Location.CA)
+      .filter(jur => jur.value !== JurisdictionLocation.CA)
       .forEach(jur => array.push({
         group: 1,
         text: jur.text,
