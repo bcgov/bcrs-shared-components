@@ -1,10 +1,12 @@
 import { Component, Vue } from 'vue-facing-decorator'
+import useVuelidate from '@vuelidate/core'
 
 /**
  * Mixin that provides some useful validation utilities.
  */
 @Component({})
 export default class ValidationMixin extends Vue {
+  $v = useVuelidate()
   /**
    * Creates a Vuetify rules object from the Vuelidate state.
    * @param model The name of the model we are validating.

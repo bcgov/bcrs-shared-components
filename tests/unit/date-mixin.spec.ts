@@ -1,21 +1,15 @@
-/* eslint max-len: 0 */
-import Vue from 'vue'
-import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
-import DatePicker from '@/components/date-picker/DatePicker.vue'
-import DateMixin from '@/mixins/date-mixin'
-
-const vuetify = new Vuetify({})
+import MixinTester from '@/mixin-tester.vue'
+import { nextTick } from 'vue'
 
 describe('Date Mixin', () => {
   let vm: any
 
   beforeAll(async () => {
     // mount the component and wait for everything to stabilize
-    // (this can be any component since we are not really using it)
-    const wrapper = shallowMount(DatePicker, { vuetify, mixins: [DateMixin] })
+    const wrapper = shallowMount(MixinTester)
     vm = wrapper.vm
-    await Vue.nextTick()
+    await nextTick()
   })
 
   it('returns correct values for createUtcDate()', () => {
@@ -71,7 +65,8 @@ describe('Date Mixin', () => {
   })
 
   it('returns correct values for apiToPacificDateTime()', () => {
-    expect(vm.apiToPacificDateTime('2021-01-01T00:00:00+00:00')).toBe('December 31, 2020 at 4:00 pm Pacific time') // PST
+    expect(vm.apiToPacificDateTime('2021-01-01T00:00:00+00:00'))
+      .toBe('December 31, 2020 at 4:00 pm Pacific time') // PST
     expect(vm.apiToPacificDateTime('2021-07-01T00:00:00+00:00')).toBe('June 30, 2021 at 5:00 pm Pacific time') // PDT
   })
 
