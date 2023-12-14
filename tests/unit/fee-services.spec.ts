@@ -2,12 +2,6 @@ import { describe, expect, vi } from 'vitest'
 import axios from 'axios'
 import FeeServices from '../../src/services/fee-services'
 
-vi.mock('axios', () => ({
-  get: vi.fn(),
-  all: vi.fn(),
-  spread: vi.fn()
-}))
-
 vi.mock('axios')
 
 const API_URL = 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/'
