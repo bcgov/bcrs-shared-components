@@ -7,9 +7,9 @@ export enum FilingCodes {
   AFFIDAVIT = 'AFDVT',
   ALTERATION = 'ALTER',
   ALTERATION_BC_TO_ULC = 'NOALU', // different fee for BC to ULC
-  AMALGAMATION_HORIZONTAL = 'AMALH', // Amalgamation Application (Short Form - Horizontal)
-  AMALGAMATION_REGULAR = 'AMALR', // Amalgamation Application (Regular)
-  AMALGAMATION_VERTICAL = 'AMALV', // Amalgamation Application (Short Form - Vertical)
+  AMALGAMATION_APPLICATION_HORIZONTAL = 'AMALH', // Amalgamation Application (Short Form - Horizontal)
+  AMALGAMATION_APPLICATION_REGULAR = 'AMALR', // Amalgamation Application (Regular)
+  AMALGAMATION_APPLICATION_VERTICAL = 'AMALV', // Amalgamation Application (Short Form - Vertical)
   ANNUAL_REPORT_BC = 'BCANN', // BCOMP - Annual Report
   ANNUAL_REPORT_OT = 'OTANN', // Others - Annual Report
   CHANGE_OF_REGISTRATION = 'FMCHANGE',
