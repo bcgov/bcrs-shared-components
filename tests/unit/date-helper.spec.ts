@@ -5,7 +5,7 @@ describe('Date Helper', () => {
     expect(shortPacificDate(new Date('2021-06-30 07:00:00 GMT'))).toBe('June 30, 2021')
   })
 
-  it('returns RangeError when empty string is passed shortPacificDate()', () => {
+  it('returns null when empty string is passed shortPacificDate()', () => {
     expect(shortPacificDate('')).toBe(null)
   })
 })
