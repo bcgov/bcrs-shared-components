@@ -3,7 +3,7 @@ export enum FilingTypes {
   ALTERATION = 'alteration',
   AGM_EXTENSION = 'agmExtension',
   AGM_LOCATION_CHANGE = 'agmLocationChange',
-  AMALGAMATION = 'amalgamation',
+  AMALGAMATION_APPLICATION = 'amalgamationApplication',
   ANNUAL_REPORT = 'annualReport',
   CHANGE_OF_ADDRESS = 'changeOfAddress',
   CHANGE_OF_COMPANY_INFO = 'changeOfCompanyInfo', // a type of alteration
