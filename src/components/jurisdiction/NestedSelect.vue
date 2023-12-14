@@ -3,7 +3,7 @@
     class="nested-select"
     item-value="[group,value]"
     return-object
-    variant="filled"
+    filled
     :error-messages="errorMessages"
     :hide-details="hideDetails"
     :items="items"
