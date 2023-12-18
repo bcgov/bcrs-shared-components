@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/date-picker",
-  "version": "1.2.41",
+  "version": "1.2.42",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.1.4",
-    "@bcrs-shared-components/mixins": "^1.1.32",
+    "@bcrs-shared-components/interfaces": "^1.1.5",
+    "@bcrs-shared-components/mixins": "^1.1.33",
     "vue": "^2.7.14"
   },
   "devDependencies": {
