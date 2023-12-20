@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { NameRequestStates, NrRequestActionCodes } from '@bcrs-shared-components/enums'
 import { NameRequestIF } from '@bcrs-shared-components/interfaces'
+import { CorpTypeCd } from '@/modules/corp-type-module'
 
 /**
  * Mixin that provides some useful Name Request utilities.
@@ -16,6 +17,7 @@ export default class NameRequestMixin extends Vue {
    * @param businessId the business identifier to match
    * @param phone the applicant's phone number to match
    * @param email the applicant's email address to match
+   * @param legalType the business legal type to match
    * @returns the name request object
    */
   validateNameRequest (
@@ -23,7 +25,8 @@ export default class NameRequestMixin extends Vue {
     nrRequestActionCode: NrRequestActionCodes,
     businessId?: string,
     phone?: string,
-    email?: string
+    email?: string,
+    legalType?: CorpTypeCd
   ): NameRequestIF {
     // ensure NR is valid
     const invalid = this.isNrInvalid(nameRequest)
@@ -31,6 +34,7 @@ export default class NameRequestMixin extends Vue {
       throw new Error(`Invalid Name Request: ${invalid}`)
     }
 
+    // match action code
     if (nameRequest.request_action_cd !== nrRequestActionCode) {
       throw new Error('Incorrect Request Action Code')
     }
@@ -48,6 +52,11 @@ export default class NameRequestMixin extends Vue {
     // match phone
     if (phone && nameRequest.applicants?.phoneNumber !== phone) {
       throw new Error('Incorrect Phone Number')
+    }
+
+    // match legal type
+    if (legalType && nameRequest.legalType !== legalType) {
+      throw new Error('Incorrect Legal Type')
     }
 
     // ensure NR is consumable
