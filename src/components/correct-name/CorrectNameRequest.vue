@@ -26,6 +26,7 @@
         <v-text-field
           id="nr-number"
           v-model="nrNumber"
+          autofocus
           filled
           persistent-hint
           class="text-input-field"

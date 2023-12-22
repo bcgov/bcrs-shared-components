@@ -1,14 +1,15 @@
 <template>
   <v-form
-    id="correct-name-to-number-form"
+    id="correct-aml-numbered-form"
     ref="form"
     v-model="formValid"
   >
+    <pre>formValid={{ formValid }}</pre>
     <v-checkbox
-      id="correct-name-to-number-checkbox"
+      id="correct-new-numbered-checkbox"
       v-model="checkbox"
-      class="mb-n5"
-      :label="`Change the company name to ${numberedName}`"
+      hide-details
+      :label="label"
       :rules="[(v) => v]"
     />
   </v-form>
@@ -21,26 +22,28 @@ import { CorrectNameOptions } from '@bcrs-shared-components/enums'
 import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
 
 @Component({})
-export default class CorrectNameToNumber extends Vue {
+export default class CorrectAmlNumbered extends Vue {
   // Refs
   $refs: {
     form: HTMLFormElement
   }
 
-  @Prop({ required: true }) readonly businessId!: string
   @Prop({ required: true }) readonly entityType!: CorpTypeCd
   @Prop({ required: true }) readonly formType!: CorrectNameOptions
   @Prop({ required: true }) readonly validate!: boolean
 
-  checkbox = false
+  checkbox = false // initially unchecked
   formValid = false // initially invalid
+
+  readonly label = 'The resulting company name will be the incorporation number followed ' +
+    'by a suffix. The suffix will reflect the type of resulting business type.'
 
   /**
    * The business' numbered name.
-   * It is created from existing business ID.
+   * It will be created from the new incorporation number.
    */
   get numberedName (): string {
-    const id = this.businessId?.substring(2) || 'Unknown'
+    const id = '[Incorporation Number]'
     switch (this.entityType) {
       case CorpTypeCd.BC_ULC_COMPANY:
         return `${id} B.C. UNLIMITED LIABILITY COMPANY`
@@ -55,7 +58,7 @@ export default class CorrectNameToNumber extends Vue {
   @Watch('formType')
   private onSubmit (): void {
     // process only when current form type matches
-    if (this.formType === CorrectNameOptions.CORRECT_NAME_TO_NUMBER) {
+    if (this.formType === CorrectNameOptions.CORRECT_AML_NUMBERED) {
       // emit new data
       this.emitCompanyName(this.numberedName)
       this.emitSaved(true)
@@ -70,7 +73,7 @@ export default class CorrectNameToNumber extends Vue {
   }
 
   /** Watch for changes and inform parent when form/component is valid. */
-  @Watch('formValid')
+  @Watch('formValid', { immediate: true })
   @Emit('valid')
   private emitValid (): boolean {
     return this.formValid
@@ -78,11 +81,11 @@ export default class CorrectNameToNumber extends Vue {
 
   /** Inform parent that the process is complete. */
   @Emit('saved')
-  private emitSaved (val: boolean): void {}
+  private emitSaved (saved: boolean): void {}
 
   /** Inform parent of updated company name. */
   @Emit('update:companyName')
-  private emitCompanyName (name: string): void {}
+  private emitCompanyName (companyName: string): void {}
 }
 </script>
 

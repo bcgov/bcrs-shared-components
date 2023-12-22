@@ -5,7 +5,7 @@
   >
     <p
       v-if="!isOneOption"
-      class="info-text mb-5 pb-5 bottom-border"
+      class="info-text mb-0 pb-5 bottom-border"
     >
       You can {{ actionTxt || 'correct the company name' }} in one of the following ways:
     </p>
@@ -19,7 +19,7 @@
         v-for="(item,i) in displayedOptions"
         :id="`x-panel-${item.id}`"
         :key="i"
-        class="mb-4"
+        class="py-4"
         :disabled="isOneOption"
         @click="identifyForm(item.id)"
       >
@@ -32,10 +32,10 @@
           </template>
         </v-expansion-panel-header>
 
-        <v-expansion-panel-content class="name-options-content pt-4">
+        <v-expansion-panel-content class="name-options-content py-4">
           <div
             v-if="item.description"
-            class="info-text mb-4"
+            class="info-text pb-6"
             color="primary"
           >
             {{ item.description }}
@@ -43,6 +43,7 @@
           <component
             :is="item.component"
             :key="item.id"
+            :amalgamatingBusinesses="amalgamatingBusinesses"
             :businessId="businessId"
             :companyName="companyName"
             :entityType="entityType"
@@ -65,7 +66,7 @@
         large
         color="primary"
         :loading="isLoading"
-        @click="submitNameCorrection()"
+        @click="onDoneClicked()"
       >
         <span>Done</span>
       </v-btn>
@@ -75,7 +76,7 @@
         large
         outlined
         color="primary"
-        @click="emitCancel()"
+        @click="onCancelClicked()"
       >
         <span>Cancel</span>
       </v-btn>
@@ -89,6 +90,8 @@ import { Component, Emit, Prop } from 'vue-property-decorator'
 import { NameRequestIF } from '@bcrs-shared-components/interfaces'
 import { CorrectNameOptions } from '@bcrs-shared-components/enums'
 import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
+import CorrectAmlAdopt from './CorrectAmlAdopt.vue'
+import CorrectAmlNumbered from './CorrectAmlNumbered.vue'
 import CorrectCompanyName from './CorrectCompanyName.vue'
 import CorrectNameToNumber from './CorrectNameToNumber.vue'
 import CorrectNameRequest from './CorrectNameRequest.vue'
@@ -109,6 +112,8 @@ interface CorrectNameOptionIF {
  */
 @Component({
   components: {
+    CorrectAmlAdopt,
+    CorrectAmlNumbered,
     CorrectCompanyName,
     CorrectNameToNumber,
     CorrectNameRequest
@@ -116,6 +121,7 @@ interface CorrectNameOptionIF {
 })
 export default class CorrectName extends Vue {
   @Prop({ default: null }) readonly actionTxt!: string
+  @Prop({ default: () => [] }) readonly amalgamatingBusinesses!: any[]
   @Prop({ required: true }) readonly businessId!: string
   @Prop({ required: true }) readonly companyName!: string
   @Prop({ default: () => [] }) readonly correctionNameChoices!: Array<CorrectNameOptions>
@@ -125,14 +131,20 @@ export default class CorrectName extends Vue {
   @Prop({ required: true }) readonly nameRequest!: NameRequestIF
 
   // local properties
-  protected displayedOptions: Array<CorrectNameOptionIF> = []
-  protected panel: number = null
-  protected currentFormType: CorrectNameOptions = null
-  protected isLoading = false
-  protected isSubComponentValid = false
-  protected validate = false // don't validate initially
+  displayedOptions: Array<CorrectNameOptionIF> = []
+  panel: number = null
+  currentFormType: CorrectNameOptions = null
+  isLoading = false // for button animation
+  isSubComponentValid = false
+  validate = false // don't validate initially
 
   readonly correctionNameOptions: Array<CorrectNameOptionIF> = [
+    {
+      id: CorrectNameOptions.CORRECT_AML_ADOPT,
+      title: 'Adopt from one of the amalgamating businesses',
+      description: null, // 'You can choose the name of the resulting business in one of the following ways:',
+      component: CorrectAmlAdopt
+    },
     {
       id: CorrectNameOptions.CORRECT_NAME,
       title: 'Edit the company name',
@@ -151,12 +163,23 @@ export default class CorrectName extends Vue {
       description: 'Enter the new Name Request Number (e.g., NR 1234567) and either the applicant phone number ' +
         'OR the applicant email that was used when the name was requested.',
       component: CorrectNameRequest
+    },
+    {
+      id: CorrectNameOptions.CORRECT_AML_NUMBERED,
+      title: 'Use the new incorporation number as the name',
+      description: null,
+      component: CorrectAmlNumbered
     }
   ]
 
+  /** True if only one correction name choice is configured. */
+  get isOneOption (): boolean {
+    return (this.correctionNameChoices.length === 1)
+  }
+
   /** Called when component is mounted. */
   mounted (): void {
-    // Filter the options to be displayed by what id's were passed from the parent component
+    // filter the options to be displayed by which ids were passed from the parent component
     this.displayedOptions = this.correctionNameOptions.filter(
       option => this.correctionNameChoices.includes(option.id)
     )
@@ -167,33 +190,31 @@ export default class CorrectName extends Vue {
     }
   }
 
-  /** True if only one correction name choice is configured. */
-  get isOneOption (): boolean {
-    return (this.correctionNameChoices.length === 1)
-  }
-
   /** When Done button is clicked, triggers form submission. */
-  protected submitNameCorrection (): void {
+  onDoneClicked (): void {
     if (this.isSubComponentValid) {
       this.isLoading = true
+      // inform parent of new form type
+      // this should come back to us as an updated formType prop
       this.emitFormType(this.currentFormType)
       // disable validation for next time
       this.validate = false
     } else {
       // tell sub-component to validate
+      // (user will have to click Done again with valid once sub-component)
       this.validate = true
     }
   }
 
   /** When a panel is expanded, identifies the selected form. */
-  protected identifyForm (type: CorrectNameOptions) {
+  identifyForm (type: CorrectNameOptions) {
     this.currentFormType = type
     this.isSubComponentValid = false
   }
 
   /** When Cancel button is clicked, informs parent that name correction is cancelled. */
   @Emit('cancel')
-  protected emitCancel (): void {
+  onCancelClicked (): void {
     // first disable validation, then clear current panel
     this.validate = false
     this.panel = null
@@ -201,7 +222,7 @@ export default class CorrectName extends Vue {
 
   /** Inform parent that name correction process is done. */
   @Emit('saved')
-  protected emitSaved (saved: boolean): boolean {
+  emitSaved (saved: boolean): boolean {
     this.isLoading = false
     this.emitFormType(null)
     if (saved) this.panel = null
@@ -210,15 +231,15 @@ export default class CorrectName extends Vue {
 
   /** Inform parent of updated company name. */
   @Emit('update:companyName')
-  private emitCompanyName (name: string): void {}
+  emitCompanyName (name: string): void {}
 
   /** Inform parent of updated form type. */
   @Emit('update:formType')
-  private emitFormType (formType: CorrectNameOptions): void {}
+  emitFormType (formType: CorrectNameOptions): void {}
 
   /** Inform parent of updated name request object. */
   @Emit('update:nameRequest')
-  private emitNameRequest (nameRequest: NameRequestIF): void {}
+  emitNameRequest (nameRequest: NameRequestIF): void {}
 }
 </script>
 
@@ -234,10 +255,6 @@ export default class CorrectName extends Vue {
   border-bottom: 1px solid;
 }
 
-.v-expansion-panel:not(:first-child) {
-  padding-top: 1.25rem;
-}
-
 .names-option-title {
   font-size: 1rem;
   color: $app-blue;
@@ -250,7 +267,7 @@ export default class CorrectName extends Vue {
 }
 
 .v-expansion-panel-header {
-  padding: .25rem 0 0;
+  padding: 0;
   color: $app-blue;
 }
 
@@ -268,10 +285,6 @@ export default class CorrectName extends Vue {
   display: flex;
   justify-content: flex-end;
 
-  .v-btn + .v-btn {
-    margin-left: 0.5rem;
-  }
-
   .v-btn {
     min-width: 6.5rem;
   }
@@ -280,6 +293,10 @@ export default class CorrectName extends Vue {
     color: white !important;
     background-color: $app-blue !important;
     opacity: 0.2;
+  }
+
+  #cancel-btn {
+    margin-left: 0.5rem;
   }
 }
 </style>
