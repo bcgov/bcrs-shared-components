@@ -4,7 +4,6 @@
     ref="form"
     v-model="formValid"
   >
-    <pre>formValid={{ formValid }}</pre>
     <v-checkbox
       id="correct-new-numbered-checkbox"
       v-model="checkbox"
