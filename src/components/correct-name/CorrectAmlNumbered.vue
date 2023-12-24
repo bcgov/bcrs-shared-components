@@ -100,6 +100,7 @@ export default class CorrectAmlNumbered extends Vue {
   font-size: 1rem;
   color: $gray7;
   font-weight: normal;
+  padding-top: 2px;
 }
 
 // align checkbox with label
