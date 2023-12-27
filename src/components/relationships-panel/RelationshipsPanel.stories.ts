@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { RelationshipTypes } from '@bcrs-shared-components/enums'
 import { RelationshipsPanel } from './index'
 
@@ -7,10 +7,12 @@ const meta: Meta<typeof RelationshipsPanel> = {
 }
 export default meta
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { RelationshipsPanel },
-  template: '<relationships-panel v-bind="$props" />' // $props comes from args below
+  setup () {
+    return { args }
+  },
+  template: '<relationships-panel v-bind="args" />'
 })
 
 export const Default = Template.bind({})
