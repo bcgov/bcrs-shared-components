@@ -16,6 +16,8 @@
             id="heir-legal-rep-checkbox"
             v-model="selectedRelationships"
             class="mt-0"
+            color="primary"
+            density="compact"
             :value="RelationshipTypes.HEIR_LEGAL_REP"
             :error="displayErrorState"
           >
@@ -29,6 +31,8 @@
             id="officer-checkbox"
             v-model="selectedRelationships"
             class="mt-0"
+            color="primary"
+            density="compact"
             :value="RelationshipTypes.OFFICER"
             :error="displayErrorState"
           >
@@ -42,6 +46,8 @@
             id="director-checkbox"
             v-model="selectedRelationships"
             class="mt-0"
+            color="primary"
+            density="compact"
             :value="RelationshipTypes.DIRECTOR"
             :error="displayErrorState"
           >
@@ -55,6 +61,8 @@
             id="shareholder-checkbox"
             v-model="selectedRelationships"
             class="mt-0"
+            color="primary"
+            density="compact"
             :value="RelationshipTypes.SHAREHOLDER"
             :error="displayErrorState"
           >
@@ -68,6 +76,8 @@
             id="court-ordered-party-checkbox"
             v-model="selectedRelationships"
             class="mt-0"
+            color="primary"
+            density="compact"
             :value="RelationshipTypes.COURT_ORDERED_PARTY"
             :error="displayErrorState"
           >
