@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { ContactInfo } from './index'
 import { ContactPointIF } from '@bcrs-shared-components/interfaces'
 
@@ -7,10 +7,12 @@ const meta: Meta<typeof ContactInfo> = {
 }
 export default meta
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { ContactInfo },
-  template: '<contact-info v-bind="$props" />' // $props comes from args below
+  setup () {
+    return { args }
+  },
+  template: '<contact-info v-bind="args" />'
 })
 
 const ContactData: ContactPointIF = {

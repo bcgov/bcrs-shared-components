@@ -16,10 +16,10 @@
             <div>{{ contactLabel }} Contact Information</div>
             <v-chip
               v-if="hasBusinessContactInfoChange"
-              x-small
+              size="x-small"
               label
               color="primary"
-              text-color="white"
+              variant="flat"
             >
               {{ editedLabel }}
             </v-chip>
@@ -70,11 +70,11 @@
             <v-btn
               v-if="hasBusinessContactInfoChange"
               id="contact-info-undo-btn"
-              text
+              variant="text"
               color="primary"
               @click="resetContactInfo()"
             >
-              <v-icon small>
+              <v-icon size="small">
                 mdi-undo
               </v-icon>
               <span>Undo</span>
@@ -82,21 +82,21 @@
 
             <v-tooltip
               v-else
-              top
+              location="top"
               content-class="top-tooltip"
               transition="fade-transition"
-              nudge-right="3"
+              :offset="[0, 0, 0, 3]"
               :disabled="disableActionTooltip"
             >
-              <template #activator="{ on }">
+              <template #activator="{ props }">
                 <v-btn
                   id="contact-info-edit-btn"
-                  text
+                  variant="text"
                   color="primary"
-                  v-on="on"
+                  v-bind="props"
                   @click="isEditing = true"
                 >
-                  <v-icon small>
+                  <v-icon size="small">
                     mdi-pencil
                   </v-icon>
                   <span>{{ editLabel }}</span>
@@ -112,17 +112,16 @@
             >
               <v-menu
                 v-model="dropdown"
-                offset-y
-                left
-                nudge-bottom="4"
+                location="bottom"
+                :offset="[4, 0, 0, 0]"
               >
-                <template #activator="{ on }">
+                <template #activator="{ props }">
                   <v-btn
                     id="btn-more-actions"
-                    text
-                    small
+                    variant="text"
+                    size="small"
                     color="primary"
-                    v-on="on"
+                    v-bind="props"
                   >
                     <v-icon>{{ dropdown ? 'mdi-menu-up' : 'mdi-menu-down' }}</v-icon>
                   </v-btn>
@@ -135,7 +134,7 @@
                   >
                     <v-list-item-subtitle>
                       <v-icon
-                        small
+                        size="small"
                         color="primary"
                       >mdi-pencil</v-icon>
                       <span class="drop-down-action ml-1">Change</span>
@@ -209,12 +208,12 @@
             <v-text-field
               id="txt-email"
               v-model="contactInfo.email"
-              filled
+              variant="filled"
               label="Email Address"
               req
               persistent-hint
               :rules="emailRules"
-              validate-on-blur
+              validate-on="blur"
             />
           </v-col>
         </v-row>
@@ -236,12 +235,12 @@
             <v-text-field
               id="txt-confirm-email"
               v-model="contactInfo.confirmEmail"
-              filled
+              variant="filled"
               label="Confirm Email Address"
               req
               persistent-hint
               :rules="confirmEmailRules"
-              validate-on-blur
+              validate-on="blur"
             />
           </v-col>
         </v-row>
@@ -265,13 +264,13 @@
               id="txt-phone"
               v-model="contactInfo.phone"
               v-mask="['(###) ###-####']"
-              filled
+              variant="filled"
               :label="phoneLabel"
               persistent-hint
               hint="Example: (555) 555-5555"
               type="tel"
               :rules="phoneRules"
-              validate-on-blur
+              validate-on="blur"
             />
           </v-col>
 
@@ -283,7 +282,7 @@
               id="txt-phone-extension"
               v-model="contactInfo.extension"
               v-mask="'#####'"
-              filled
+              variant="filled"
               label="Extension (Optional)"
               persistent-hint
             />
@@ -294,7 +293,7 @@
         <div class="action-btns d-flex justify-center justify-sm-end">
           <v-btn
             id="contact-info-done-btn"
-            large
+            size="large"
             color="primary"
             type="submit"
             value="Submit"
@@ -303,8 +302,8 @@
           </v-btn>
           <v-btn
             id="contact-info-cancel-btn"
-            large
-            outlined
+            size="large"
+            variant="outlined"
             color="primary"
             @click="cancelEdit()"
           >
@@ -317,6 +316,7 @@
 </template>
 
 <script lang="ts">
+import { nextTick } from 'vue'
 import { Component, Prop, Watch, Emit, Vue } from 'vue-facing-decorator'
 import { mask } from 'vue-the-mask'
 import { ContactPointIF, FormIF } from '@bcrs-shared-components/interfaces'
@@ -427,7 +427,7 @@ export default class ContactInfo extends Vue {
 
     // Validate form and wait for v-model to get updated
     this.$refs.editContactForm.validate()
-    await Vue.nextTick()
+    await nextTick()
 
     // When valid, submit data
     if (this.formValid) this.updateContactInfo()
