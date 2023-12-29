@@ -85,9 +85,9 @@
         <v-text-field
           id="optionalEmail"
           v-model="optionalEmail"
-          filled
+          variant="filled"
           persistent-hint
-          validate-on-blur
+          validate-on="blur"
           class="text-input-field"
           label="Client Email Address (Optional)"
           hint="Example: name@email.com"
