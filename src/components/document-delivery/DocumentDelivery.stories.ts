@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { DocumentDelivery } from './index'
 
 const meta: Meta<typeof DocumentDelivery> = {
@@ -6,10 +6,12 @@ const meta: Meta<typeof DocumentDelivery> = {
 }
 export default meta
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { DocumentDelivery },
-  template: '<document-delivery v-bind="$props" />' // $props comes from args below
+  setup () {
+    return { args }
+  },
+  template: '<document-delivery v-bind="args" />'
 })
 
 export const Default = Template.bind({})
