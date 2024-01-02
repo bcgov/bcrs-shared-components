@@ -6,33 +6,36 @@
   >
     <v-radio
       id="radio-24"
-      class="radio-button pt-2"
+      class="pt-2"
+      color="#1976d2"
       label="2 years"
       value="24"
     />
     <v-radio
       id="radio-18"
-      class="radio-button pt-2"
+      color="#1976d2"
       label="18 months"
       value="18"
     />
     <v-radio
       id="radio-12"
-      class="radio-button pt-2"
+      color="#1976d2"
       label="12 months"
       value="12"
     />
     <v-radio
       id="radio-6"
-      class="radio-button pt-2"
+      color="#1976d2"
       label="6 months"
       value="6"
     />
-    <v-row class="ml-0 mt-0 radio-button pt-2">
+    <v-row class="ml-0 mt-0 pt-2">
       <v-radio
         id="radio-custom"
         class="mt-n4"
+        color="#1976d2"
         value="customMonths"
+        inline
       />
       <v-form ref="monthsRef">
         <v-text-field
@@ -40,12 +43,12 @@
           v-model="inputValue"
           class="text-field-months"
           type="number"
-          dense
-          filled
+          density="compact"
+          variant="filled"
           hide-spin-buttons
           :rules="monthsRules"
           :disabled="(radioValue !== 'customMonths')"
-          @input="onMonthsInput($event)"
+          @update:model-value="onMonthsInput($event)"
         />
       </v-form>
       <span class="ml-2 mt-2 month-text">month(s)</span>
@@ -160,10 +163,9 @@ export default class LimitedRestorationPanel extends Vue {
   // decrease the month text field's width
   .text-field-months {
     width: 3.5rem;
-    .error--text {
-      margin-left: -0.5rem;
-      position: absolute;
-      width: 10rem;
+    .v-input__details{
+      width: 200px;
+      padding-left: 2px;
     }
   }
 }
