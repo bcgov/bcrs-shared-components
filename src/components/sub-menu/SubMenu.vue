@@ -5,28 +5,27 @@
     :transition="transition"
     :model-value="openMenu"
   >
-    <template #activator="{ on }">
+    <template #activator="{ props }">
       <v-btn
         v-if="icon"
         :color="color"
-        v-on="on"
+        v-bind="props"
       >
         <v-icon>{{ icon }}</v-icon>
       </v-btn>
       <v-list-item
         v-else-if="isSubMenu"
         class="d-flex justify-space-between"
-        v-on="on"
+        append-icon="mdi-chevron-right"
+        v-bind="props"
       >
         {{ name }}
-        <div class="flex-grow-1" />
-        <v-icon>mdi-chevron-right</v-icon>
       </v-list-item>
       <v-btn
         v-else
         :color="color"
         variant="text"
-        v-on="on"
+        v-bind="props"
         @click="openMenu=true"
       >
         {{ name }}
