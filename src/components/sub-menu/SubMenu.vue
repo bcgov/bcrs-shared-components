@@ -1,11 +1,9 @@
 <template>
   <v-menu
     :close-on-content-click="false"
-    :offset-x="isOffsetX"
-    :offset-y="isOffsetY"
     :open-on-hover="isOpenOnHover"
     :transition="transition"
-    :value="openMenu"
+    :model-value="openMenu"
   >
     <template #activator="{ on }">
       <v-btn
@@ -27,7 +25,7 @@
       <v-btn
         v-else
         :color="color"
-        text
+        variant="text"
         v-on="on"
         @click="openMenu=true"
       >
@@ -35,14 +33,15 @@
       </v-btn>
     </template>
     <v-list>
-      <template v-for="(item, index) in menuItems">
+      <template
+        v-for="(item, index) in menuItems"
+        :key="index"
+      >
         <v-divider
           v-if="item.isDivider"
-          :key="index"
         />
         <sub-menu
           v-else-if="item.menu"
-          :key="index"
           :is-open-on-hover="false"
           :is-offset-x="true"
           :is-offset-y="false"
@@ -53,7 +52,6 @@
         />
         <v-list-item
           v-else
-          :key="index"
           @click="emitClickEvent(item)"
         >
           <v-list-item-title>{{ item.name }}</v-list-item-title>

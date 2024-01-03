@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { SubMenu } from './index'
 
 const meta: Meta<typeof SubMenu> = {
@@ -7,9 +7,11 @@ const meta: Meta<typeof SubMenu> = {
 export default meta
 
 const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
   components: { SubMenu },
-  template: '<sub-menu name="Click me" v-bind="$props" />' // $props comes from args below
+  setup () {
+    return { args }
+  },
+  template: '<sub-menu name="Click me" v-bind="args" />'
 })
 
 export const Default = Template.bind({})
