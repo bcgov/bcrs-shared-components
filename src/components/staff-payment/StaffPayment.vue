@@ -35,14 +35,14 @@
           >
             <v-text-field
               id="routing-slip-number-textfield"
-              filled
+              variant="filled"
               label="Routing Slip Number"
-              :value="staffPaymentData.routingSlipNumber"
+              :model-value="staffPaymentData.routingSlipNumber"
               :rules="validate ? routingSlipNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
               @keyup="staffPaymentData.routingSlipNumber = staffPaymentData.routingSlipNumber.trim()"
               @focus="paymentOption = StaffPaymentOptions.FAS"
-              @input="emitStaffPaymentData({ option: StaffPaymentOptions.FAS, routingSlipNumber: $event })"
+              @update:model-value="emitStaffPaymentData({ option: StaffPaymentOptions.FAS, routingSlipNumber: $event })"
             />
           </v-form>
 
@@ -60,25 +60,27 @@
           >
             <v-text-field
               id="bcol-account-number-textfield"
-              filled
+              variant="filled"
               label="BC Online Account Number"
-              :value="staffPaymentData.bcolAccountNumber"
+              :model-value="staffPaymentData.bcolAccountNumber"
               :rules="validate ? bcolAccountNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
               @keyup="staffPaymentData.bcolAccountNumber = staffPaymentData.bcolAccountNumber.trim()"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
-              @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, bcolAccountNumber: $event })"
+              @update:model-value="emitStaffPaymentData({
+                option: StaffPaymentOptions.BCOL, bcolAccountNumber: $event
+              })"
             />
             <v-text-field
               id="dat-number-textfield"
-              filled
+              variant="filled"
               label="DAT Number"
-              :value="staffPaymentData.datNumber"
+              :model-value="staffPaymentData.datNumber"
               :rules="validate ? datNumberRules : []"
               :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
               @keyup="staffPaymentData.datNumber = staffPaymentData.datNumber.trim()"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
-              @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, datNumber: $event })"
+              @update:model-value="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, datNumber: $event })"
             />
             <FolioNumberInput
               ref="folioNumberInputRef"
@@ -108,9 +110,9 @@
               class="priority-checkbox mt-6 pt-0"
               label="Priority (add $100.00)"
               hide-details
-              :input-value="staffPaymentData.isPriority"
+              :model-value="staffPaymentData.isPriority"
               :disabled="paymentOption === StaffPaymentOptions.NO_FEE"
-              @change="emitStaffPaymentData({ isPriority: !!$event })"
+              @update:model-value="emitStaffPaymentData({ isPriority: !!$event })"
             />
           </template>
         </v-radio-group>
@@ -259,6 +261,7 @@ export default class StaffPayment extends Vue {
   /** Watches for changes to Staff Payment Data prop. */
   @Watch('staffPaymentData', { deep: true, immediate: true })
   private async onStaffPaymentDataChanged (val: StaffPaymentIF): Promise<void> {
+    console.log(val)
     this.paymentOption = val.option
     await this.$nextTick()
     this.emitValid()
