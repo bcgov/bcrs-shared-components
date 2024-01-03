@@ -91,7 +91,7 @@ describe('Initialize LimitedRelationshipsPanel component', () => {
     expect(wrapper.emitted('valid').pop()[0]).toBe(true)
     expect(wrapper.emitted('months').pop()[0]).toEqual(24)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it.skip('emits events when we select a custom expiry (1 month)', async () => {
@@ -104,7 +104,7 @@ describe('Initialize LimitedRelationshipsPanel component', () => {
     expect(wrapper.emitted('valid').pop()[0]).toBe(true)
     expect(wrapper.emitted('months').pop()[0]).toEqual(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it.skip('emits valid=false when we select 25 months with a max of 24', async () => {
@@ -128,6 +128,6 @@ describe('Initialize LimitedRelationshipsPanel component', () => {
     await wrapper.find('#text-field-months').setValue('25')
     expect(wrapper.emitted('valid').pop()[0]).toEqual(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })
