@@ -6,14 +6,14 @@
   >
     <v-text-field
       id="folio-number-textfield"
-      filled
+      variant="filled"
       label="Folio Number (Optional)"
-      :value="folioNumber"
+      :model-value="folioNumber"
       :rules="folioNumberRules"
       :disabled="disabled"
       autocomplete="chrome-off"
-      :name="Math.random()"
-      @input="emitFolioNumber($event)"
+      :name="Math.random().toString()"
+      @update:model-value="emitFolioNumber($event)"
       @focus="emitFocus($event)"
     />
   </v-form>
@@ -97,7 +97,7 @@ export default class FolioNumberInput extends Vue {
    * @returns True if form is valid and False if not
    */
   public validateFolioNumber (): boolean {
-    return this.$refs.folioForm.validate()
+    return this.$refs.folioForm?.validate()
   }
 }
 </script>
