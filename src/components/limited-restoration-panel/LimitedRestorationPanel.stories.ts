@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { LimitedRestorationPanel } from './index'
 
 const meta: Meta<typeof LimitedRestorationPanel> = {
@@ -6,10 +6,12 @@ const meta: Meta<typeof LimitedRestorationPanel> = {
 }
 export default meta
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { LimitedRestorationPanel },
-  template: '<limited-restoration-panel v-bind="$props" />' // $props comes from args below
+  setup () {
+    return { args }
+  },
+  template: '<limited-restoration-panel v-bind="args" />'
 })
 
 export const Default = Template.bind({})
