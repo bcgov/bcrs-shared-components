@@ -7,25 +7,25 @@
     <v-radio
       id="radio-24"
       class="pt-2"
-      color="#1976d2"
+      color="primary"
       label="2 years"
       value="24"
     />
     <v-radio
       id="radio-18"
-      color="#1976d2"
+      color="primary"
       label="18 months"
       value="18"
     />
     <v-radio
       id="radio-12"
-      color="#1976d2"
+      color="primary"
       label="12 months"
       value="12"
     />
     <v-radio
       id="radio-6"
-      color="#1976d2"
+      color="primary"
       label="6 months"
       value="6"
     />
@@ -33,7 +33,7 @@
       <v-radio
         id="radio-custom"
         class="mt-n4"
-        color="#1976d2"
+        color="primary"
         value="customMonths"
         inline
       />
