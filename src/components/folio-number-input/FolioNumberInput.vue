@@ -6,14 +6,13 @@
   >
     <v-text-field
       id="folio-number-textfield"
+      v-model="_folioNumber"
       variant="filled"
       label="Folio Number (Optional)"
-      :model-value="folioNumber"
       :rules="folioNumberRules"
       :disabled="disabled"
       autocomplete="chrome-off"
       :name="Math.random().toString()"
-      @update:model-value="emitFolioNumber($event)"
       @focus="emitFocus($event)"
     />
   </v-form>
@@ -39,6 +38,9 @@ export default class FolioNumberInput extends Vue {
   /** Disabled prop. */
   @Prop({ default: false }) readonly disabled!: boolean
 
+  /** Local properties */
+  private _folioNumber: string
+
   /** Folio form model property. */
   protected folioFormValid = false
 
@@ -47,6 +49,27 @@ export default class FolioNumberInput extends Vue {
     return [
       v => (!v || !this.validate || v.length <= 50) || 'Cannot exceed 50 characters' // maximum character count
     ]
+  }
+
+  /** Called when component is created. */
+  created (): void {
+    this._folioNumber = this.folioNumber
+  }
+
+  /** Emit folio number on change. */
+  @Watch('_folioNumber')
+  private onFolioNumberChange (): void {
+    this.emitFolioNumber(this._folioNumber)
+  }
+
+  /** Prompt the field validations. */
+  @Watch('folioFormValid')
+  @Watch('validate')
+  private validateField (): void {
+    if (this.validate) {
+      this.validateFolioNumber()
+      this.emitValid()
+    }
   }
 
   /** Emits an event indicating whether or not this component is valid. */
@@ -64,16 +87,6 @@ export default class FolioNumberInput extends Vue {
   @Emit('emitFolioNumber')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected emitFolioNumber (val: string): void {}
-
-  /** Prompt the field validations. */
-  @Watch('folioFormValid')
-  @Watch('validate')
-  private validateField (): void {
-    if (this.validate) {
-      this.validateFolioNumber()
-      this.emitValid()
-    }
-  }
 
   /**
    * Public method that can be used through $refs from a parent
