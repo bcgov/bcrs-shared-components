@@ -83,7 +83,7 @@
               :disabled="bcolFormInputDisabled"
               validate="true"
               @focus="staffPaymentData.option = StaffPaymentOptions.BCOL"
-              @emitFolioNumber="console.log($event)"
+              @emitFolioNumber="staffPaymentData.folioNumber = $event"
             />
           </v-form>
 
