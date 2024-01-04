@@ -39,7 +39,7 @@
               label="Routing Slip Number"
               :model-value="staffPaymentData.routingSlipNumber"
               :rules="validate ? routingSlipNumberRules : []"
-              :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
+              :disabled="fasFormInputDisabled"
               @keyup="staffPaymentData.routingSlipNumber = staffPaymentData.routingSlipNumber.trim()"
               @focus="paymentOption = StaffPaymentOptions.FAS"
               @update:model-value="emitStaffPaymentData({ option: StaffPaymentOptions.FAS, routingSlipNumber: $event })"
@@ -64,7 +64,7 @@
               label="BC Online Account Number"
               :model-value="staffPaymentData.bcolAccountNumber"
               :rules="validate ? bcolAccountNumberRules : []"
-              :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              :disabled="bcolFormInputDisabled"
               @keyup="staffPaymentData.bcolAccountNumber = staffPaymentData.bcolAccountNumber.trim()"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
               @update:model-value="emitStaffPaymentData({
@@ -77,7 +77,7 @@
               label="DAT Number"
               :model-value="staffPaymentData.datNumber"
               :rules="validate ? datNumberRules : []"
-              :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              :disabled="bcolFormInputDisabled"
               @keyup="staffPaymentData.datNumber = staffPaymentData.datNumber.trim()"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
               @update:model-value="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, datNumber: $event })"
@@ -85,7 +85,7 @@
             <FolioNumberInput
               ref="folioNumberInputRef"
               :folioNumber="staffPaymentData.folioNumber"
-              :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              :disabled="bcolFormInputDisabled"
               validate="true"
               @focus="paymentOption = StaffPaymentOptions.BCOL"
               @emitFolioNumber="paymentOption === StaffPaymentOptions.BCOL &&
@@ -176,8 +176,20 @@ export default class StaffPayment extends Vue {
   /** FAS form model property. */
   private fasFormValid = false
 
+  /** If FAS form inputs are disabled. */
+  private get fasFormInputDisabled (): boolean {
+    return this.paymentOption === StaffPaymentOptions.BCOL ||
+      this.paymentOption === StaffPaymentOptions.NO_FEE
+  }
+
   /** BCOL form model property. */
   private bcolFormValid = false
+
+  /** If BCOL form inputs are disabled. */
+  private get bcolFormInputDisabled (): boolean {
+    return this.paymentOption === StaffPaymentOptions.FAS ||
+      this.paymentOption === StaffPaymentOptions.NO_FEE
+  }
 
   /** Whether this component has been mounted. */
   private isMounted = false
