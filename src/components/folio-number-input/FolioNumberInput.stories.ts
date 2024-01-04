@@ -16,5 +16,6 @@ const Template = (args) => ({
 
 export const Default = Template.bind({})
 Default['args'] = {
-  folioNumber: '01234567890123456789012345678901234567890123456789ABC@123/*!$ ...'
+  folioNumber: '01234567890123456789012345678901234567890123456789ABC@123/*!$ ...',
+  validate: false
 }

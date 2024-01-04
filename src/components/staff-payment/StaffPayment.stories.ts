@@ -27,5 +27,7 @@ const staffPaymentData: StaffPaymentIF = {
 
 export const Default = Template.bind({})
 Default['args'] = {
-  staffPaymentData: staffPaymentData
+  staffPaymentData: staffPaymentData,
+  validate: false,
+  invalidSection: false
 }
