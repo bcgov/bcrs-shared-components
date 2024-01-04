@@ -6,7 +6,7 @@
   >
     <v-text-field
       id="folio-number-textfield"
-      v-model="_folioNumber"
+      v-model="folioNumberString"
       variant="filled"
       label="Folio Number (Optional)"
       :rules="folioNumberRules"
@@ -39,7 +39,7 @@ export default class FolioNumberInput extends Vue {
   @Prop({ default: false }) readonly disabled!: boolean
 
   /** Local properties */
-  private _folioNumber: string
+  private folioNumberString: string
 
   /** Folio form model property. */
   protected folioFormValid = false
@@ -53,13 +53,13 @@ export default class FolioNumberInput extends Vue {
 
   /** Called when component is created. */
   created (): void {
-    this._folioNumber = this.folioNumber
+    this.folioNumberString = this.folioNumber
   }
 
   /** Emit folio number on change. */
-  @Watch('_folioNumber')
+  @Watch('folioNumberString')
   private onFolioNumberChange (): void {
-    this.emitFolioNumber(this._folioNumber)
+    this.emitFolioNumber(this.folioNumberString)
   }
 
   /** Prompt the field validations. */
