@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/limited-restoration-panel",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "publishConfig": {
     "access": "public"
   },

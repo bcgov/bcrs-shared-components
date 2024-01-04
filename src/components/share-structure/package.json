@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/share-structure",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/action-chip": "^2.0.0",
-    "@bcrs-shared-components/confirm-dialog": "^2.0.0",
+    "@bcrs-shared-components/action-chip": "^2.0.1",
+    "@bcrs-shared-components/confirm-dialog": "^2.0.1",
     "@bcrs-shared-components/enums": "^2.0.0",
     "@bcrs-shared-components/interfaces": "^2.0.0",
     "lodash": "4.17.21",
