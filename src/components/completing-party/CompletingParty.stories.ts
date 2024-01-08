@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/vue3'
 import CompletingParty from './CompletingParty.vue'
 import { AddressIF } from '@bcrs-shared-components/interfaces'
-import { DefaultSchema } from './resources/default-schema'
+import { DefaultSchema } from '../base-address/resources/default-schema'
 
 export default {
   title: 'Component/CompletingParty',
