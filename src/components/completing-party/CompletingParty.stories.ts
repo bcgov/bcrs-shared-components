@@ -27,12 +27,12 @@ Default['args'] = {
       addressCountry: 'Canada',
       addressRegion: 'BC',
       deliveryInstructions: 'Test test test',
-      postalCode: 'V8V 1s8',
+      postalCode: 'V8V 1S8',
       streetAddress: '1234',
       streetAddressAdditional: 'Test Street Additional',
-      schema: DefaultSchema,
-      editing: true
+      schema: DefaultSchema
     }
   },
-  editing: true
+  editing: true,
+  addressSchema: DefaultSchema
 }
