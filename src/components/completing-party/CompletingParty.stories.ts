@@ -1,7 +1,6 @@
 import { Meta } from '@storybook/vue3'
 import CompletingParty from './CompletingParty.vue'
 import { AddressIF } from '@bcrs-shared-components/interfaces'
-import { DefaultSchema } from '../base-address/resources/default-schema'
 
 export default {
   title: 'Component/CompletingParty',
@@ -29,10 +28,8 @@ Default['args'] = {
       deliveryInstructions: 'Test test test',
       postalCode: 'V8V 1S8',
       streetAddress: '1234',
-      streetAddressAdditional: 'Test Street Additional',
-      schema: DefaultSchema
+      streetAddressAdditional: 'Test Street Additional'
     }
   },
-  editing: true,
-  addressSchema: DefaultSchema
+  editing: true
 }
