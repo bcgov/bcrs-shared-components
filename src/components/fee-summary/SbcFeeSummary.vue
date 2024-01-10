@@ -131,19 +131,19 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Emit } from 'vue-property-decorator'
 import { FeeServices } from '@bcrs-shared-components/services'
-import { Fee, FilingData } from '@bcrs-shared-components/interfaces'
+import { Fee, FilingData } from '@bcrs-shared-components/interfaces/'
 
 @Component({})
 export default class SbcFeeSummary extends Vue {
   /* This prop is an array of filing data. See model for details. */
   @Prop({ default: () => [] })
-  filingData!: Array<FilingData>
+    filingData!: Array<FilingData>
 
   @Prop({ default: '' })
-  payURL!: string
+    payURL!: string
 
   @Prop()
-  filingLabel!: string
+    filingLabel!: string
 
   /* class properties */
   fees: Fee[] = []
