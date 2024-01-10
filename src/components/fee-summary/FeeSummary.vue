@@ -12,7 +12,7 @@
       >
         <v-btn
           id="back-btn"
-          large
+          size="large"
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.BACK)"
         >
@@ -22,7 +22,7 @@
       <v-col class="pt-3">
         <v-btn
           id="cancel-btn"
-          large
+          size="large"
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.CANCEL)"
         >
@@ -32,7 +32,7 @@
       <v-col class="pt-3">
         <v-btn
           id="save-resume-later-btn"
-          large
+          size="large"
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.SAVE_RESUME_LATER)"
         >
@@ -42,7 +42,7 @@
       <v-col class="pt-3">
         <v-btn
           id="confirm-btn"
-          large
+          size="large"
           :disabled="hasConflicts"
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.CONFIRM)"
@@ -61,8 +61,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Component, Emit, Prop } from 'vue-property-decorator'
+import { Component, Emit, Prop, Vue } from 'vue-facing-decorator'
 import { FeeSummaryActions } from '@bcrs-shared-components/enums'
 import { FilingDataIF } from '@bcrs-shared-components/interfaces'
 import SbcFeeSummary from './SbcFeeSummary.vue'
