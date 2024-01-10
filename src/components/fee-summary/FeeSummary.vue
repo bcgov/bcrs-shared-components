@@ -105,33 +105,33 @@ export default class FeeSummary extends Vue {
 
 #fee-summary {
   .v-btn {
-      width: 100%;
-      border: 1.25px solid $app-blue;
-      color: $app-blue;
-      box-shadow: 0 1px 2px 0 rgba(33,37,41,0.2);
-      border-radius: 4px;
+    width: 100%;
+    border: 1.25px solid $app-blue;
+    color: $app-blue;
+    box-shadow: 0 1px 2px 0 rgba(33,37,41,0.2);
+    border-radius: 4px;
   }
 
   #confirm-btn {
-      color: white;
-      background-color: $app-blue;
-      font-weight: bold;
+    color: white;
+    background-color: $app-blue;
+    font-weight: bold;
   }
 
   .v-btn[disabled] {
-      color: white !important;
-      background-color: $app-blue !important;
-      opacity: 0.2;
+    color: white !important;
+    background-color: $app-blue !important;
+    opacity: 0.2;
   }
 
   .error-msg {
-      font-size: 0.75rem;
-      color: $app-red;
-      text-align: center;
+    font-size: 0.75rem;
+    color: $app-red;
+    text-align: center;
   }
 
   :deep(.fee-list) {
-      padding-left: 0;
+    padding-left: 0;
   }
 }
 </style>
