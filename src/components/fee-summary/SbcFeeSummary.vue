@@ -10,7 +10,7 @@
       <v-alert
         color="error"
         icon="warning"
-        outlined
+        variant="outlined"
       >
         {{ fetchError }}
       </v-alert>
