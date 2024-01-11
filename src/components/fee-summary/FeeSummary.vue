@@ -12,7 +12,7 @@
       >
         <v-btn
           id="back-btn"
-          large
+          size="large"
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.BACK)"
         >
@@ -22,7 +22,7 @@
       <v-col class="pt-3">
         <v-btn
           id="cancel-btn"
-          large
+          size="large"
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.CANCEL)"
         >
@@ -32,7 +32,7 @@
       <v-col class="pt-3">
         <v-btn
           id="save-resume-later-btn"
-          large
+          size="large"
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.SAVE_RESUME_LATER)"
         >
@@ -42,7 +42,7 @@
       <v-col class="pt-3">
         <v-btn
           id="confirm-btn"
-          large
+          size="large"
           :disabled="hasConflicts"
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.CONFIRM)"
