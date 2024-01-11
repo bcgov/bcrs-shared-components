@@ -245,8 +245,16 @@ export default defineComponent({
         localSchema.postalCode = origPostalCodeRules.concat([baseRules.zipCode])
         localSchema.region = origRegionRules
       } else {
-        localSchema.postalCode = origPostalCodeRules.concat([baseRules[AddressValidationRules.MAX_LENGTH(15)]])
-        localSchema.region = [baseRules[AddressValidationRules.MAX_LENGTH(2)], ...spaceRules]
+        baseRules[AddressValidationRules.MAX_LENGTH] = (max) => {
+          return (v) => (v || '').length <= max || `Maximum ${max} characters`
+        }
+        let maxLengthValidator = baseRules[AddressValidationRules.MAX_LENGTH](15)
+
+        localSchema.postalCode = origPostalCodeRules.concat([maxLengthValidator])
+
+        maxLengthValidator = baseRules[AddressValidationRules.MAX_LENGTH](2)
+
+        localSchema.region = origPostalCodeRules.concat([maxLengthValidator])
       }
       // reset other address fields (check is for loading an existing address)
       if (oldVal) {
