@@ -169,8 +169,7 @@ import {
   useBaseValidations,
   spaceRules
 } from '@/components/base-address/factories'
-import { AddressIF } from '@bcrs-shared-components/interfaces'
-import { SchemaIF } from '@/interfaces'
+import { AddressIF, SchemaIF } from '@bcrs-shared-components/interfaces'
 import { AddressValidationRules } from '@bcrs-shared-components/enums/address-validation-rules'
 
 export default defineComponent({

@@ -197,8 +197,8 @@ export function formatAddress (address: AddressIF): AddressIF {
   return{
     addressCity: address.addressCity?.trim(),
     addressCountry: address.addressCountry?.trim(),
-    addressRegion: address.region?.trim(), // FUTURE: change to undefined?
-    addressType: null, // FUTURE: change to undefined?
+    addressRegion: address.addressRegion?.trim(), // FUTURE: change to undefined?
+    addressType: address.addressType, // FUTURE: change to undefined?
     deliveryInstructions: address.deliveryInstruction?.trim(),
     postalCode: address.postalCode?.trim(),
     streetAddress: address.streetAddress?.trim(),
