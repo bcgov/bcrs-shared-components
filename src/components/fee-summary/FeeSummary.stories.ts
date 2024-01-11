@@ -1,21 +1,21 @@
-import type { Meta } from '@storybook/vue3'
-import FeeSummary from './FeeSummary.vue'
+import type { Meta } from '@storybook/vue'
+import Vue from 'vue'
+import { FeeSummary } from './index'
 import { FilingCodes, CorpTypeCd } from '@bcrs-shared-components/enums/'
 import { FilingDataIF } from '@bcrs-shared-components/interfaces/'
 
 // for SbcFeeSummary
+Vue.filter('currency', x => `$${x}`)
 
 const meta: Meta<typeof FeeSummary> = {
   title: 'component/FeeSummary'
 }
 export default meta
 
-const Template = (args: FilingDataIF) => ({
+const Template = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
   components: { FeeSummary },
-  setup () {
-    return { args }
-  },
-  template: '<div style="max-width: 350px"><fee-summary v-bind="args" /></div>'
+  template: '<div style="max-width: 350px"><fee-summary v-bind="$props" /></div>' // $props comes from args below
 })
 
 const filingData = [{
