@@ -168,7 +168,7 @@ import {
   useCountriesProvinces,
   useBaseValidations,
   spaceRules
-} from '@/components/base-address/factories'
+} from './factories'
 import { AddressIF, SchemaIF } from '@bcrs-shared-components/interfaces'
 import { AddressValidationRules } from '@bcrs-shared-components/enums/address-validation-rules'
 
@@ -245,8 +245,8 @@ export default defineComponent({
         localSchema.postalCode = origPostalCodeRules.concat([baseRules.zipCode])
         localSchema.region = origRegionRules
       } else {
-        localSchema.postalCode = origPostalCodeRules.concat([baseRules[AddressValidationRules.MAX_LENGTH]])
-        localSchema.region = [baseRules[AddressValidationRules.MAX_LENGTH], ...spaceRules]
+        localSchema.postalCode = origPostalCodeRules.concat([baseRules[AddressValidationRules.MAX_LENGTH(15)]])
+        localSchema.region = [baseRules[AddressValidationRules.MAX_LENGTH(2)], ...spaceRules]
       }
       // reset other address fields (check is for loading an existing address)
       if (oldVal) {
