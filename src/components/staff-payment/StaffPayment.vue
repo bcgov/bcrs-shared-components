@@ -166,7 +166,7 @@ export default class StaffPayment extends Vue {
   private fasFormValid = false
 
   /** If FAS form inputs are disabled. */
-  private get fasFormInputDisabled (): boolean {
+  get fasFormInputDisabled (): boolean {
     return this.staffPaymentData.option === StaffPaymentOptions.BCOL ||
       this.staffPaymentData.option === StaffPaymentOptions.NO_FEE
   }
@@ -175,7 +175,7 @@ export default class StaffPayment extends Vue {
   private bcolFormValid = false
 
   /** If BCOL form inputs are disabled. */
-  private get bcolFormInputDisabled (): boolean {
+  get bcolFormInputDisabled (): boolean {
     return this.staffPaymentData.option === StaffPaymentOptions.FAS ||
       this.staffPaymentData.option === StaffPaymentOptions.NO_FEE
   }
