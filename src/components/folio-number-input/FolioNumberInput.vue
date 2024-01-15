@@ -6,13 +6,14 @@
   >
     <v-text-field
       id="folio-number-textfield"
-      v-model="folioNumberString"
+      :modelValue="folioNumberString"
       variant="filled"
       label="Folio Number (Optional)"
       :rules="folioNumberRules"
       :disabled="disabled"
       autocomplete="chrome-off"
       :name="Math.random().toString()"
+      @update:folioNumberString="emitFolioNumber($event)"
       @focus="emitFocus($event)"
     />
   </v-form>
@@ -60,12 +61,6 @@ export default class FolioNumberInput extends Vue {
   @Watch('folioNumber')
   private onFolioNumberChange (): void {
     this.folioNumberString = this.folioNumber
-  }
-
-  /** Emit folio number on change. */
-  @Watch('folioNumberString')
-  private onFolioNumberStringChange (): void {
-    this.emitFolioNumber(this.folioNumberString)
   }
 
   /** Prompt the field validations. */
