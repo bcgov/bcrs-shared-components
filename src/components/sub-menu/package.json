@@ -5,7 +5,6 @@
     "access": "public"
   },
   "dependencies": {
-    "vue": "^3.3.4"
   },
   "devDependencies": {
     "vue-facing-decorator": "^3.0.3"
