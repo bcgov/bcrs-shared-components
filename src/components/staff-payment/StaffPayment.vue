@@ -26,6 +26,7 @@
             id="fas-radio"
             class="mb-0"
             label="Cash or Cheque"
+            color="primary"
             :value="StaffPaymentOptions.FAS"
           />
           <v-form
@@ -50,6 +51,7 @@
             id="bcol-radio"
             class="mb-0 pt-2"
             label="BC Online"
+            color="primary"
             :value="StaffPaymentOptions.BCOL"
           />
           <v-form
@@ -92,6 +94,7 @@
             id="no-fee-radio"
             class="mb-0 pt-2"
             label="No Fee"
+            color="primary"
             :value="StaffPaymentOptions.NO_FEE"
           />
         </v-radio-group>
@@ -104,6 +107,7 @@
             v-model="staffPaymentData.isPriority"
             class="priority-checkbox mt-6 pt-0"
             label="Priority (add $100.00)"
+            color="primary"
             hide-details
             :disabled="staffPaymentData.option === StaffPaymentOptions.NO_FEE"
           />
@@ -162,6 +166,9 @@ export default class StaffPayment extends Vue {
   })
   readonly staffPaymentData!: StaffPaymentIF
 
+  /** Whether this component has been mounted. */
+  private isMounted = false
+
   /** FAS form model property. */
   private fasFormValid = false
 
@@ -179,9 +186,6 @@ export default class StaffPayment extends Vue {
     return this.staffPaymentData.option === StaffPaymentOptions.FAS ||
       this.staffPaymentData.option === StaffPaymentOptions.NO_FEE
   }
-
-  /** Whether this component has been mounted. */
-  private isMounted = false
 
   /** Validation rules for Routing Slip Number. */
   readonly routingSlipNumberRules: Array<(v) => boolean | string> = [
