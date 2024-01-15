@@ -274,7 +274,7 @@ export default class StaffPayment extends Vue {
   /** Watches for change to FAS form validity. */
   @Watch('fasFormValid')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private onFasFormValid (val: boolean) {
+  private onFasFormValid () {
     // ignore initial condition
     if (!this.isMounted) return
     this.emitValid()
@@ -283,7 +283,7 @@ export default class StaffPayment extends Vue {
   /** Watches for change to BCOL form validity. */
   @Watch('bcolFormValid')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private onBcolFormValid (val: boolean) {
+  private onBcolFormValid () {
     // ignore initial condition
     if (!this.isMounted) return
     this.emitValid()
