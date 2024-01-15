@@ -56,9 +56,15 @@ export default class FolioNumberInput extends Vue {
     this.folioNumberString = this.folioNumber
   }
 
+  /** Update folioNumberString when prop changes  */
+  @Watch('folioNumber')
+  private onFolioNumberChange (): void {
+    this.folioNumberString = this.folioNumber
+  }
+
   /** Emit folio number on change. */
   @Watch('folioNumberString')
-  private onFolioNumberChange (): void {
+  private onFolioNumberStringChange (): void {
     this.emitFolioNumber(this.folioNumberString)
   }
 
