@@ -6,14 +6,14 @@
   >
     <v-text-field
       id="folio-number-textfield"
-      filled
+      :modelValue="folioNumberString"
+      variant="filled"
       label="Folio Number (Optional)"
-      :value="folioNumber"
       :rules="folioNumberRules"
       :disabled="disabled"
       autocomplete="chrome-off"
-      :name="Math.random()"
-      @input="emitFolioNumber($event)"
+      :name="Math.random().toString()"
+      @update:folioNumberString="emitFolioNumber($event)"
       @focus="emitFocus($event)"
     />
   </v-form>
@@ -39,6 +39,9 @@ export default class FolioNumberInput extends Vue {
   /** Disabled prop. */
   @Prop({ default: false }) readonly disabled!: boolean
 
+  /** Local properties */
+  private folioNumberString: string
+
   /** Folio form model property. */
   protected folioFormValid = false
 
@@ -47,6 +50,27 @@ export default class FolioNumberInput extends Vue {
     return [
       v => (!v || !this.validate || v.length <= 50) || 'Cannot exceed 50 characters' // maximum character count
     ]
+  }
+
+  /** Called when component is created. */
+  created (): void {
+    this.folioNumberString = this.folioNumber
+  }
+
+  /** Update folioNumberString when prop changes  */
+  @Watch('folioNumber')
+  private onFolioNumberChange (): void {
+    this.folioNumberString = this.folioNumber
+  }
+
+  /** Prompt the field validations. */
+  @Watch('folioFormValid')
+  @Watch('validate')
+  private validateField (): void {
+    if (this.validate) {
+      this.validateFolioNumber()
+      this.emitValid()
+    }
   }
 
   /** Emits an event indicating whether or not this component is valid. */
@@ -64,16 +88,6 @@ export default class FolioNumberInput extends Vue {
   @Emit('emitFolioNumber')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected emitFolioNumber (val: string): void {}
-
-  /** Prompt the field validations. */
-  @Watch('folioFormValid')
-  @Watch('validate')
-  private validateField (): void {
-    if (this.validate) {
-      this.validateFolioNumber()
-      this.emitValid()
-    }
-  }
 
   /**
    * Public method that can be used through $refs from a parent
@@ -97,7 +111,7 @@ export default class FolioNumberInput extends Vue {
    * @returns True if form is valid and False if not
    */
   public validateFolioNumber (): boolean {
-    return this.$refs.folioForm.validate()
+    return this.$refs.folioForm?.validate()
   }
 }
 </script>

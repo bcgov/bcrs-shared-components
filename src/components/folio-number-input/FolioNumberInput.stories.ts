@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/vue'
+import type { Meta } from '@storybook/vue3'
 import { FolioNumberInput } from './index'
 
 const meta: Meta<typeof FolioNumberInput> = {
@@ -6,13 +6,16 @@ const meta: Meta<typeof FolioNumberInput> = {
 }
 export default meta
 
-const Template = (args, { argTypes }) => ({
-  props: Object.keys(argTypes),
+const Template = (args) => ({
   components: { FolioNumberInput },
-  template: '<folio-number-input v-bind="$props" />' // $props comes from args below
+  setup () {
+    return { args }
+  },
+  template: '<folio-number-input v-bind="args" />'
 })
 
 export const Default = Template.bind({})
 Default['args'] = {
-  folioNumber: '01234567890123456789012345678901234567890123456789ABC@123/*!$ ...'
+  folioNumber: '01234567890123456789012345678901234567890123456789ABC@123/*!$ ...',
+  validate: false
 }

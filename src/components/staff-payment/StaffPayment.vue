@@ -18,7 +18,7 @@
         :sm="displaySideLabel ? 9 : 12"
       >
         <v-radio-group
-          v-model="paymentOption"
+          v-model="staffPaymentData.option"
           class="payment-group"
         >
           <!-- Cash or Cheque radio button and form -->
@@ -26,6 +26,7 @@
             id="fas-radio"
             class="mb-0"
             label="Cash or Cheque"
+            color="primary"
             :value="StaffPaymentOptions.FAS"
           />
           <v-form
@@ -35,14 +36,13 @@
           >
             <v-text-field
               id="routing-slip-number-textfield"
-              filled
+              v-model="staffPaymentData.routingSlipNumber"
+              variant="filled"
               label="Routing Slip Number"
-              :value="staffPaymentData.routingSlipNumber"
               :rules="validate ? routingSlipNumberRules : []"
-              :disabled="paymentOption === StaffPaymentOptions.BCOL || paymentOption === StaffPaymentOptions.NO_FEE"
+              :disabled="fasFormInputDisabled"
               @keyup="staffPaymentData.routingSlipNumber = staffPaymentData.routingSlipNumber.trim()"
-              @focus="paymentOption = StaffPaymentOptions.FAS"
-              @input="emitStaffPaymentData({ option: StaffPaymentOptions.FAS, routingSlipNumber: $event })"
+              @focus="staffPaymentData.option = StaffPaymentOptions.FAS"
             />
           </v-form>
 
@@ -51,6 +51,7 @@
             id="bcol-radio"
             class="mb-0 pt-2"
             label="BC Online"
+            color="primary"
             :value="StaffPaymentOptions.BCOL"
           />
           <v-form
@@ -60,34 +61,31 @@
           >
             <v-text-field
               id="bcol-account-number-textfield"
-              filled
+              v-model="staffPaymentData.bcolAccountNumber"
+              variant="filled"
               label="BC Online Account Number"
-              :value="staffPaymentData.bcolAccountNumber"
               :rules="validate ? bcolAccountNumberRules : []"
-              :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              :disabled="bcolFormInputDisabled"
               @keyup="staffPaymentData.bcolAccountNumber = staffPaymentData.bcolAccountNumber.trim()"
-              @focus="paymentOption = StaffPaymentOptions.BCOL"
-              @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, bcolAccountNumber: $event })"
+              @focus="staffPaymentData.option = StaffPaymentOptions.BCOL"
             />
             <v-text-field
               id="dat-number-textfield"
-              filled
+              v-model="staffPaymentData.datNumber"
+              variant="filled"
               label="DAT Number"
-              :value="staffPaymentData.datNumber"
               :rules="validate ? datNumberRules : []"
-              :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              :disabled="bcolFormInputDisabled"
               @keyup="staffPaymentData.datNumber = staffPaymentData.datNumber.trim()"
-              @focus="paymentOption = StaffPaymentOptions.BCOL"
-              @input="emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, datNumber: $event })"
+              @focus="staffPaymentData.option = StaffPaymentOptions.BCOL"
             />
             <FolioNumberInput
               ref="folioNumberInputRef"
               :folioNumber="staffPaymentData.folioNumber"
-              :disabled="paymentOption === StaffPaymentOptions.FAS || paymentOption === StaffPaymentOptions.NO_FEE"
+              :disabled="bcolFormInputDisabled"
               validate="true"
-              @focus="paymentOption = StaffPaymentOptions.BCOL"
-              @emitFolioNumber="paymentOption === StaffPaymentOptions.BCOL &&
-                emitStaffPaymentData({ option: StaffPaymentOptions.BCOL, folioNumber: $event })"
+              @focus="staffPaymentData.option = StaffPaymentOptions.BCOL"
+              @emitFolioNumber="staffPaymentData.folioNumber = $event"
             />
           </v-form>
 
@@ -96,24 +94,24 @@
             id="no-fee-radio"
             class="mb-0 pt-2"
             label="No Fee"
+            color="primary"
             :value="StaffPaymentOptions.NO_FEE"
           />
-
-          <template v-if="displayPriorityCheckbox">
-            <v-divider class="mt-6" />
-
-            <!-- Priority checkbox -->
-            <v-checkbox
-              id="priority-checkbox"
-              class="priority-checkbox mt-6 pt-0"
-              label="Priority (add $100.00)"
-              hide-details
-              :input-value="staffPaymentData.isPriority"
-              :disabled="paymentOption === StaffPaymentOptions.NO_FEE"
-              @change="emitStaffPaymentData({ isPriority: !!$event })"
-            />
-          </template>
         </v-radio-group>
+        <template v-if="displayPriorityCheckbox">
+          <v-divider class="mt-6" />
+
+          <!-- Priority checkbox -->
+          <v-checkbox
+            id="priority-checkbox"
+            v-model="staffPaymentData.isPriority"
+            class="priority-checkbox mt-6 pt-0"
+            label="Priority (add $100.00)"
+            color="primary"
+            hide-details
+            :disabled="staffPaymentData.option === StaffPaymentOptions.NO_FEE"
+          />
+        </template>
       </v-col>
     </v-row>
   </div>
@@ -168,8 +166,8 @@ export default class StaffPayment extends Vue {
   })
   readonly staffPaymentData!: StaffPaymentIF
 
-  /** Radio group model property. */
-  private paymentOption = StaffPaymentOptions.NONE
+  /** Whether this component has been mounted. */
+  private isMounted = false
 
   /** FAS form model property. */
   private fasFormValid = false
@@ -177,8 +175,17 @@ export default class StaffPayment extends Vue {
   /** BCOL form model property. */
   private bcolFormValid = false
 
-  /** Whether this component has been mounted. */
-  private isMounted = false
+  /** If FAS form inputs are disabled. */
+  get fasFormInputDisabled (): boolean {
+    return this.staffPaymentData.option === StaffPaymentOptions.BCOL ||
+      this.staffPaymentData.option === StaffPaymentOptions.NO_FEE
+  }
+
+  /** If BCOL form inputs are disabled. */
+  get bcolFormInputDisabled (): boolean {
+    return this.staffPaymentData.option === StaffPaymentOptions.FAS ||
+      this.staffPaymentData.option === StaffPaymentOptions.NO_FEE
+  }
 
   /** Validation rules for Routing Slip Number. */
   readonly routingSlipNumberRules: Array<(v) => boolean | string> = [
@@ -204,8 +211,8 @@ export default class StaffPayment extends Vue {
     this.isMounted = true
   }
 
-  /** Called when payment option (radio group item) has changed. */
-  @Watch('paymentOption')
+  /** Called when staff payment data option (radio group item) has changed. */
+  @Watch('staffPaymentData.option')
   private onPaymentOptionChanged (val: number): void {
     switch (val) {
       case StaffPaymentOptions.FAS:
@@ -214,8 +221,6 @@ export default class StaffPayment extends Vue {
         this.$refs.folioNumberInputRef.resetFolioNumberValidation()
         // enable validation for this form
         this.$refs.fasForm.validate()
-        // update data
-        this.emitStaffPaymentData({ option: StaffPaymentOptions.FAS })
         break
 
       case StaffPaymentOptions.BCOL:
@@ -223,8 +228,6 @@ export default class StaffPayment extends Vue {
         this.$refs.fasForm.resetValidation()
         // enable validation for this form
         this.$refs.bcolForm.validate()
-        // update data
-        this.emitStaffPaymentData({ option: StaffPaymentOptions.BCOL })
         break
 
       case StaffPaymentOptions.NO_FEE:
@@ -233,46 +236,27 @@ export default class StaffPayment extends Vue {
         this.$refs.bcolForm.resetValidation()
         this.$refs.folioNumberInputRef.resetFolioNumberValidation()
         // update data
-        this.emitStaffPaymentData({ option: StaffPaymentOptions.NO_FEE, isPriority: false })
+        this.staffPaymentData.isPriority = false
         break
     }
-  }
-
-  /** Watches for change to FAS form validity. */
-  @Watch('fasFormValid')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private onFasFormValid (val: boolean) {
-    // ignore initial condition
-    if (!this.isMounted) return
-    this.emitValid()
-  }
-
-  /** Watches for change to BCOL form validity. */
-  @Watch('bcolFormValid')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private onBcolFormValid (val: boolean) {
-    // ignore initial condition
-    if (!this.isMounted) return
-    this.emitValid()
   }
 
   /** Watches for changes to Staff Payment Data prop. */
   @Watch('staffPaymentData', { deep: true, immediate: true })
   private async onStaffPaymentDataChanged (val: StaffPaymentIF): Promise<void> {
-    this.paymentOption = val.option
-    await this.$nextTick()
+    this.emitStaffPaymentData({ ...this.staffPaymentData })
     this.emitValid()
   }
 
   /** Emits an event to update the Staff Payment Data prop. */
   @Emit('update:staffPaymentData')
   private emitStaffPaymentData ({
-    option = this.staffPaymentData.option,
-    routingSlipNumber = this.staffPaymentData.routingSlipNumber || '',
-    bcolAccountNumber = this.staffPaymentData.bcolAccountNumber || '',
-    datNumber = this.staffPaymentData.datNumber || '',
-    folioNumber = this.staffPaymentData.folioNumber || '',
-    isPriority = this.staffPaymentData.isPriority || false
+    option = StaffPaymentOptions.NONE,
+    routingSlipNumber = '',
+    bcolAccountNumber = '',
+    datNumber = '',
+    folioNumber = '',
+    isPriority = false
   }): StaffPaymentIF {
     // return only the appropriate fields for each option
     switch (option) {
@@ -285,6 +269,24 @@ export default class StaffPayment extends Vue {
       case StaffPaymentOptions.NO_FEE:
         return { option } as StaffPaymentIF
     }
+  }
+
+  /** Watches for change to FAS form validity. */
+  @Watch('fasFormValid')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private onFasFormValid () {
+    // ignore initial condition
+    if (!this.isMounted) return
+    this.emitValid()
+  }
+
+  /** Watches for change to BCOL form validity. */
+  @Watch('bcolFormValid')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private onBcolFormValid () {
+    // ignore initial condition
+    if (!this.isMounted) return
+    this.emitValid()
   }
 
   /** Emits an event indicating whether or not this component is valid. */

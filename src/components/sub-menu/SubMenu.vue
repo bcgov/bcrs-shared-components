@@ -1,48 +1,46 @@
 <template>
   <v-menu
     :close-on-content-click="false"
-    :offset-x="isOffsetX"
-    :offset-y="isOffsetY"
     :open-on-hover="isOpenOnHover"
     :transition="transition"
-    :value="openMenu"
+    :model-value="openMenu"
   >
-    <template #activator="{ on }">
+    <template #activator="{ props }">
       <v-btn
         v-if="icon"
         :color="color"
-        v-on="on"
+        v-bind="props"
       >
         <v-icon>{{ icon }}</v-icon>
       </v-btn>
       <v-list-item
         v-else-if="isSubMenu"
         class="d-flex justify-space-between"
-        v-on="on"
+        append-icon="mdi-chevron-right"
+        v-bind="props"
       >
         {{ name }}
-        <div class="flex-grow-1" />
-        <v-icon>mdi-chevron-right</v-icon>
       </v-list-item>
       <v-btn
         v-else
         :color="color"
-        text
-        v-on="on"
+        variant="text"
+        v-bind="props"
         @click="openMenu=true"
       >
         {{ name }}
       </v-btn>
     </template>
     <v-list>
-      <template v-for="(item, index) in menuItems">
+      <template
+        v-for="(item, index) in menuItems"
+        :key="index"
+      >
         <v-divider
           v-if="item.isDivider"
-          :key="index"
         />
         <sub-menu
           v-else-if="item.menu"
-          :key="index"
           :is-open-on-hover="false"
           :is-offset-x="true"
           :is-offset-y="false"
@@ -53,7 +51,6 @@
         />
         <v-list-item
           v-else
-          :key="index"
           @click="emitClickEvent(item)"
         >
           <v-list-item-title>{{ item.name }}</v-list-item-title>
