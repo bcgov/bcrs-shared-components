@@ -189,18 +189,18 @@ export function useCountryRegions (code: string): boolean {
 export function formatAddress (address: AddressIF): AddressIF {
   let formattedPostalCode = address.postalCode?.toUpperCase() || ''
   if (address.addressCountry === 'CA') {
-    address.postalCode = address.postalCode.replace('-', ' ')
+    formattedPostalCode = address.postalCode.replace('-', ' ')
     if (address.postalCode.length > 4 && address.postalCode[3] !== ' ') {
-      address.postalCode = address.postalCode.slice(0, 3) + ' ' + address.postalCode.slice(3,)
+      formattedPostalCode = address.postalCode.slice(0, 3) + ' ' + address.postalCode.slice(3,)
     }
   }
-  return{
+  return {
     addressCity: address.addressCity?.trim(),
     addressCountry: address.addressCountry?.trim(),
-    addressRegion: address.addressRegion?.trim(), // FUTURE: change to undefined?
-    addressType: address.addressType, // FUTURE: change to undefined?
+    addressRegion: address.addressRegion?.trim(),
+    addressType: address.addressType?.trim(),
     deliveryInstructions: address.deliveryInstruction?.trim(),
-    postalCode: address.postalCode?.trim(),
+    postalCode: formattedPostalCode.trim(),
     streetAddress: address.streetAddress?.trim(),
     streetAddressAdditional: address.streetAddressAdditional?.trim()
   }

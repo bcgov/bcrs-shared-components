@@ -69,7 +69,7 @@
                 ref="mailingAddress"
                 :editing="true"
                 :schema="addressSchema"
-                :address="completingParty.mailingAddress"
+                :value="completingParty.mailingAddress"
                 @update:address="onMailingAddressUpdate($event)"
                 @valid="mailingAddressValid = $event"
               />
@@ -135,7 +135,7 @@
         >
           <BaseAddress
             class="peoples-roles-mailing-address"
-            :address="completingParty.mailingAddress"
+            :value="completingParty.mailingAddress"
           />
         </v-col>
       </v-row>
