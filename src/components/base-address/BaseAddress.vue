@@ -119,7 +119,15 @@
             :menu-props="{ maxHeight: '14rem' }"
             :name="Math.random().toString()"
             :rules="[...schemaLocal.region]"
-          />
+          >
+            <template #item="{item, props}">
+              <v-divider v-if="item.raw.divider" />
+              <v-list-item
+                v-else
+                v-bind="props"
+              />
+            </template>
+          </v-autocomplete>
           <v-text-field
             v-else
             v-model="addressLocal.addressRegion"
