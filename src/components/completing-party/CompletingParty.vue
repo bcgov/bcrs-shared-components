@@ -30,33 +30,33 @@
               <v-col>
                 <v-text-field
                   id="person__first-name"
-                  filled
+                  variant="filled"
                   class="item"
                   label="First Name"
                   :rules="firstNameRules"
-                  :value="completingParty.firstName"
+                  :model-value="completingParty.firstName"
                   @change="newCompletingParty.firstName = $event"
                 />
               </v-col>
               <v-col class="px-4">
                 <v-text-field
                   id="person__middle-name"
-                  filled
+                  variant="filled"
                   class="item"
                   label="Middle Name"
                   :rules="middleNameRules"
-                  :value="completingParty.middleName"
+                  :model-value="completingParty.middleName"
                   @change="newCompletingParty.middleName = $event"
                 />
               </v-col>
               <v-col>
                 <v-text-field
                   id="person__last-name"
-                  filled
+                  variant="filled"
                   class="item"
                   label="Last Name"
                   :rules="lastNameRules"
-                  :value="completingParty.lastName"
+                  :model-value="completingParty.lastName"
                   @change="newCompletingParty.lastName = $event"
                 />
               </v-col>
@@ -69,7 +69,7 @@
                 ref="mailingAddress"
                 :editing="true"
                 :schema="addressSchema"
-                :address="completingParty.mailingAddress"
+                :value="completingParty.mailingAddress"
                 @update:address="onMailingAddressUpdate($event)"
                 @valid="mailingAddressValid = $event"
               />
@@ -135,7 +135,7 @@
         >
           <BaseAddress
             class="peoples-roles-mailing-address"
-            :address="completingParty.mailingAddress"
+            :value="completingParty.mailingAddress"
           />
         </v-col>
       </v-row>
@@ -156,7 +156,7 @@ import { isEqual } from 'lodash'
 })
 export default class CompletingParty extends Vue {
   // Component references
-  $refs!: {
+  declare $refs: {
     completingPartyForm: FormIF
     mailingAddress: FormIF
   }

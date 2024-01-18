@@ -187,21 +187,22 @@ export function useCountryRegions (code: string): boolean {
 }
 
 export function formatAddress (address: AddressIF): AddressIF {
-  address.postalCode = address.postalCode?.toUpperCase() || ''
-  if (address.country === 'CA') {
-    address.postalCode = address.postalCode.replace('-', ' ')
+  let formattedPostalCode = address.postalCode?.toUpperCase() || ''
+  if (address.addressCountry === 'CA') {
+    formattedPostalCode = address.postalCode.replace('-', ' ')
     if (address.postalCode.length > 4 && address.postalCode[3] !== ' ') {
-      address.postalCode = address.postalCode.slice(0, 3) + ' ' + address.postalCode.slice(3,)
+      formattedPostalCode = address.postalCode.slice(0, 3) + ' ' + address.postalCode.slice(3,)
     }
   }
   return {
-    country: address.country?.trim(),
-    street: address.street?.trim(),
-    streetAdditional: address.streetAdditional?.trim(),
-    city: address.city?.trim(),
-    region: address.region?.trim(),
-    postalCode: address.postalCode?.trim(),
-    deliveryInstructions: address.deliveryInstructions?.trim()
+    addressCity: address.addressCity?.trim(),
+    addressCountry: address.addressCountry?.trim(),
+    addressRegion: address.addressRegion?.trim(),
+    addressType: address.addressType?.trim(),
+    deliveryInstructions: address.deliveryInstruction?.trim(),
+    postalCode: formattedPostalCode.trim(),
+    streetAddress: address.streetAddress?.trim(),
+    streetAddressAdditional: address.streetAddressAdditional?.trim()
   }
 }
 

@@ -18,26 +18,30 @@ const Template = (args: AddressIF) => ({
 
 export const Default = Template.bind({})
 Default['args'] = {
-  street: '',
-  streetAdditional: '',
-  city: '',
-  region: '',
-  postalCode: '',
-  country: '',
-  deliveryInstructions: '',
+  value: {
+    streetAddress: '',
+    streetAddressAdditional: '',
+    addressCity: '',
+    addressRegion: '',
+    addressCountry: '',
+    postalCode: '',
+    deliveryInstructions: ''
+  },
   schema: DefaultSchema,
   editing: true
 }
 
 export const WithData = Template.bind({})
 WithData['args'] = {
-  street: '1234 Sesame Street',
-  streetAdditional: '4th Floor',
-  city: 'Victoria',
-  region: 'BC',
-  postalCode: 'V8N 1A1',
-  country: 'Canada',
-  deliveryInstructions: 'Leave at front door',
+  value: {
+    streetAddress: '1234 Sesame Street',
+    streetAddressAdditional: '4th Floor',
+    addressCity: 'Victoria',
+    addressRegion: 'British Columbia',
+    addressCountry: 'Canada',
+    postalCode: 'V8N 1A1',
+    deliveryInstructions: 'Leave at front door'
+  },
   schema: DefaultSchema,
   editing: true
 }

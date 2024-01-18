@@ -17,8 +17,8 @@
             {{ addressLocal.streetAddressAdditional }}
           </p>
           <p class="address-block__info-row">
-            <span>{{ addressLocal.city }}</span>
-            <span v-if="addressLocal.region">&nbsp;{{ addressLocal.region }}&nbsp;</span>
+            <span>{{ addressLocal.addressCity }}</span>
+            <span v-if="addressLocal.addressRegion">&nbsp;{{ addressLocal.addressRegion }}&nbsp;</span>
             <span v-if="addressLocal.postalCode">&nbsp;{{ addressLocal.postalCode }}</span>
           </p>
           <p class="address-block__info-row">
@@ -44,7 +44,7 @@
       >
         <div class="form__row">
           <v-autocomplete
-            v-model="addressLocal.country"
+            v-model="addressLocal.addressCountry"
             autocomplete="new-password"
             :name="Math.random().toString()"
             variant="filled"
@@ -69,7 +69,7 @@
                    component then they are using the mouse (and thus, clicking). -->
           <v-text-field
             :id="streetId"
-            v-model="addressLocal.street"
+            v-model="addressLocal.streetAddress"
             autocomplete="new-password"
             class="street-address"
             variant="filled"
@@ -84,7 +84,7 @@
         </div>
         <div class="form__row">
           <v-textarea
-            v-model="addressLocal.streetAdditional"
+            v-model="addressLocal.streetAddressAdditional"
             autocomplete="new-password"
             auto-grow
             variant="filled"
@@ -92,12 +92,12 @@
             :label="streetAdditionalLabel"
             :name="Math.random().toString()"
             rows="1"
-            :rules="!!addressLocal.streetAdditional ? [...schemaLocal.streetAdditional] : []"
+            :rules="!!addressLocal.streetAddressAdditional ? [...schemaLocal.streetAdditional] : []"
           />
         </div>
         <div class="form__row three-column">
           <v-text-field
-            v-model="addressLocal.city"
+            v-model="addressLocal.addressCity"
             autocomplete="new-password"
             variant="filled"
             class="item address-city"
@@ -107,7 +107,7 @@
           />
           <v-autocomplete
             v-if="useCountryRegions(country)"
-            v-model="addressLocal.region"
+            v-model="addressLocal.addressRegion"
             autocomplete="new-password"
             variant="filled"
             class="item address-region"
@@ -119,10 +119,18 @@
             :menu-props="{ maxHeight: '14rem' }"
             :name="Math.random().toString()"
             :rules="[...schemaLocal.region]"
-          />
+          >
+            <template #item="{item, props}">
+              <v-divider v-if="item.raw.divider" />
+              <v-list-item
+                v-else
+                v-bind="props"
+              />
+            </template>
+          </v-autocomplete>
           <v-text-field
             v-else
-            v-model="addressLocal.region"
+            v-model="addressLocal.addressRegion"
             variant="filled"
             class="item address-region"
             :label="regionLabel"
@@ -168,7 +176,7 @@ import {
   useCountriesProvinces,
   useBaseValidations,
   spaceRules
-} from '@/components/base-address/factories'
+} from './factories'
 import { AddressIF, SchemaIF } from '@bcrs-shared-components/interfaces'
 import { AddressValidationRules } from '@bcrs-shared-components/enums'
 
@@ -215,6 +223,7 @@ export default defineComponent({
   },
   emits: ['valid'],
   setup (props, { emit }) {
+    // eslint-disable-next-line vue/no-setup-props-destructure
     const localSchema = { ...props.schema }
     const {
       addressLocal,
@@ -249,10 +258,10 @@ export default defineComponent({
       }
       // reset other address fields (check is for loading an existing address)
       if (oldVal) {
-        addressLocal.value.street = ''
-        addressLocal.value.streetAdditional = ''
-        addressLocal.value.city = ''
-        addressLocal.value.region = ''
+        addressLocal.value.streetAddress = ''
+        addressLocal.value.streetAddressAdditional = ''
+        addressLocal.value.addressCity = ''
+        addressLocal.value.addressRegion = ''
         addressLocal.value.postalCode = ''
       }
       // wait for schema update and validate the form
@@ -262,7 +271,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      countryChangeHandler(addressLocal.value.country, null)
+      countryChangeHandler(addressLocal.value.addressCountry, null)
     })
 
     watch(() => addressLocal.value, (val) => {
