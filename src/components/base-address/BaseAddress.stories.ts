@@ -23,7 +23,6 @@ Default['args'] = {
     streetAddressAdditional: '',
     addressCity: '',
     addressRegion: '',
-    addressCountry: '',
     postalCode: '',
     deliveryInstructions: ''
   },

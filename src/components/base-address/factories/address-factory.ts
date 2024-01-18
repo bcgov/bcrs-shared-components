@@ -8,7 +8,7 @@ export function useAddress (address: Ref<AddressIF>, schema: SchemaIF) {
   const addressLocal = address
   /** The Address Country, to simplify the template and so we can watch it directly. */
   const country = computed((): string => {
-    return addressLocal.value.country
+    return addressLocal.value.addressCountry
   })
   const schemaLocal = ref(schema)
   const isSchemaRequired = (prop: string): boolean => {
@@ -39,10 +39,10 @@ export function useAddress (address: Ref<AddressIF>, schema: SchemaIF) {
       let required = isSchemaRequired('region')
 
       // NB: make region required for Canada and USA
-      if (addressLocal.value.country === 'CA') {
+      if (addressLocal.value.addressCountry === 'CA') {
         label = 'Province'
         required = true
-      } else if (addressLocal.value.country === 'US') {
+      } else if (addressLocal.value.addressCountry === 'US') {
         label = 'State'
         required = true
       } else {
@@ -53,7 +53,7 @@ export function useAddress (address: Ref<AddressIF>, schema: SchemaIF) {
     /** The Postal Code label with 'optional' as needed. */
     postalCodeLabel: computed((): string => {
       let label: string
-      if (addressLocal.value.country === 'US') {
+      if (addressLocal.value.addressCountry === 'US') {
         label = 'Zip Code'
       } else {
         label = 'Postal Code'
@@ -95,22 +95,22 @@ export function useAddressComplete (addressLocal: Ref<AddressIF>) {
       combineLines(addressComplete['Line2'], addressComplete['Line3']),
       combineLines(addressComplete['Line4'], addressComplete['Line5'])
     )
-    addressLocal.value.city = addressComplete['City']
+    addressLocal.value.addressCity = addressComplete['City']
     if (useCountryRegions(addressComplete['CountryIso2'])) {
       // In this case, v-select will map known province code to province name
       // or v-select will be blank and user will have to select a known item.
-      addressLocal.value.region = addressComplete['ProvinceCode']
+      addressLocal.value.addressRegion = addressComplete['ProvinceCode']
     } else {
       // In this case, v-text-input will allow manual entry but province info is probably too long
       // so set region to null and add province name to the Street Address Additional field.
       // If length is excessive, user will have to fix it.
-      addressLocal.value.region = ''
-      addressLocal.value.streetAdditional = combineLines(
-        addressLocal.value.streetAdditional, addressComplete['ProvinceName']
+      addressLocal.value.addressRegion = ''
+      addressLocal.value.streetAddressAdditional = combineLines(
+        addressLocal.value.streetAddressAdditional, addressComplete['ProvinceName']
       )
     }
     addressLocal.value.postalCode = addressComplete['PostalCode']
-    addressLocal.value.country = addressComplete['CountryIso2']
+    addressLocal.value.addressCountry = addressComplete['CountryIso2']
   }
   const uniqueIds = reactive({
     /** A unique id for this instance of this component. */
