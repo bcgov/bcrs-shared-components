@@ -55,7 +55,15 @@
             :items="getCountries()"
             :label="countryLabel"
             :rules="[...schemaLocal.country]"
-          />
+          >
+            <template #item="{item, props}">
+              <v-divider v-if="item.raw.divider" />
+              <v-list-item
+                v-else
+                v-bind="props"
+              />
+            </template>
+          </v-autocomplete>
           <!-- special field to select AddressComplete country, separate from our model field -->
           <input
             :id="countryId"
