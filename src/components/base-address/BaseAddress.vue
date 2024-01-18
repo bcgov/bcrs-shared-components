@@ -194,12 +194,12 @@ export default defineComponent({
     value: {
       type: Object as () => AddressIF,
       default: () => ({
-        street: '',
-        streetAdditional: '',
-        city: '',
-        region: '',
+        streetAddress: '',
+        streetAddressAdditional: '',
+        addressCity: '',
+        addressRegion: '',
         postalCode: '',
-        country: '',
+        addressCountry: null,
         deliveryInstructions: ''
       })
     },
