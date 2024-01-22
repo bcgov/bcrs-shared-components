@@ -121,6 +121,12 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     shortDesc: 'CONTINUE IN',
     fullDesc: 'BC Limited Company'
   }, {
+    corpTypeCd: CorpTypeCd.BEN_CONTINUE_IN,
+    colinInd: true,
+    corpClass: CorpClass.BC,
+    shortDesc: 'BEN CONTINUE IN',
+    fullDesc: 'BC Benefit Company',
+  }, {
     corpTypeCd: CorpTypeCd.BC_CCC,
     colinInd: true,
     corpClass: CorpClass.BC,
