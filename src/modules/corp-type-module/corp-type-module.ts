@@ -12,6 +12,7 @@ export enum CorpTypeCd {
   BC_COMPANY = 'BC',
   BENEFIT_COMPANY = 'BEN',
   CONTINUE_IN = 'C',
+  BEN_CONTINUE_IN = 'CBEN',
   BC_CCC = 'CC',
   CCC_CONTINUE_IN = 'CCC',
   CEMETARY = 'CEM',
