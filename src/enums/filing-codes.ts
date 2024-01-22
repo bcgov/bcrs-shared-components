@@ -13,6 +13,7 @@ export enum FilingCodes {
   ANNUAL_REPORT_BC = 'BCANN', // BCOMP - Annual Report
   ANNUAL_REPORT_OT = 'OTANN', // Others - Annual Report
   CHANGE_OF_REGISTRATION = 'FMCHANGE',
+  CONTINUATION_IN = 'CONTI', // All entity types
   CONSENT_CONTINUATION_OUT = 'CONTO', // All entity types
   CONTINUATION_OUT = 'COUTI', // All entity types
   CORRECTION = 'CRCTN', // Correction - for both BCOMP and Others
