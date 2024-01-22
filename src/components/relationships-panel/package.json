@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/relationships-panel",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/enums": "^1.1.5",
+    "@bcrs-shared-components/enums": "^1.1.6",
     "vue": "^2.7.14"
   },
   "devDependencies": {
