@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/contact-info",
-  "version": "1.2.40",
+  "version": "1.2.41",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.1.6",
+    "@bcrs-shared-components/interfaces": "^1.1.7",
     "vue": "^2.7.14",
     "vue-the-mask": "^0.11.1"
   },

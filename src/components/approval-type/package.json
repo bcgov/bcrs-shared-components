@@ -1,13 +1,13 @@
 {
   "name": "@bcrs-shared-components/approval-type",
-  "version": "1.0.47",
+  "version": "1.0.48",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/date-picker": "^1.2.44",
-    "@bcrs-shared-components/enums": "^1.1.6",
-    "@bcrs-shared-components/interfaces": "^1.1.6",
+    "@bcrs-shared-components/date-picker": "^1.2.45",
+    "@bcrs-shared-components/enums": "^1.1.7",
+    "@bcrs-shared-components/interfaces": "^1.1.7",
     "vue": "^2.7.14"
   },
   "devDependencies": {
