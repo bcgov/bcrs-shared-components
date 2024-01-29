@@ -5,7 +5,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/enums": "^2.0.0",
-    "vue": "^2.7.14"
+    "@bcrs-shared-components/enums": "^2.0.0"
   }
 }

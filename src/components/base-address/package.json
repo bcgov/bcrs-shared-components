@@ -8,13 +8,6 @@
     "@bcrs-shared-components/enums": "^2.0.0",
     "@bcrs-shared-components/interfaces": "^2.0.0",
     "@bcrs-shared-components/mixins": "^2.0.1",
-    "@vuelidate/core": "^2.0.3",
-    "lodash.uniqueid": "^4.0.1",
-    "vue": "^2.7.14",
-    "vuelidate": "0.6.2"
-  },
-  "devDependencies": {
-    "vue-property-decorator": "^9.1.2",
-    "vuelidate-property-decorators": "1.0.28"
+    "lodash.uniqueid": "^4.0.1"
   }
 }

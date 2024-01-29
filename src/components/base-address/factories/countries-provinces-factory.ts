@@ -37,7 +37,7 @@ export function useCountriesProvinces () {
    * @param code The short code of the country.
    * @returns The long name of the country.
    */
-  const getCountryName = (code: string): string => {
+  const getCountryName = (code: string): string | null => {
     if (!code) return null
     if (window['countryNameCache'][code]) return window['countryNameCache'][code]
     const country = window['countries'].find(c => c.code === code)
