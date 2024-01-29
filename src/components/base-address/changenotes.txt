@@ -1,3 +1,0 @@
-v3.0.4:
-
-Converted to script setup, also renamed some of the events, included missing events (update-address). 
