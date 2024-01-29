@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/completing-party",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/base-address": "^3.0.3",
-    "@bcrs-shared-components/interfaces": "^2.0.0",
+    "@bcrs-shared-components/base-address": "^3.0.4",
+    "@bcrs-shared-components/interfaces": "^2.0.1",
     "lodash": "4.17.21",
     "vue": "^2.7.14",
     "vuelidate": "0.6.2"
