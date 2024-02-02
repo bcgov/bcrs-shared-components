@@ -177,7 +177,8 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
         const nr = await this.fetchAndValidateNr(this.nrNumber, this.businessId, this.applicantPhone,
           this.applicantEmail)
 
-        if (this.entityType !== nr.legalType) {
+        // if entity type is provided, verify it
+        if (this.entityType && this.entityType !== nr.legalType) {
           // invalid NR type - inform parent the process is done and show dialog
           this.$refs.form.resetValidation()
           this.emitSaved(false)
