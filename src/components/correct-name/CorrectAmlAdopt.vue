@@ -57,11 +57,10 @@ export default class CorrectAmlAdopt extends Vue {
   option = null as string // initially "none"
   formValid = false // initially invalid
 
-  /** The list of applicable amalgamating business names (excludes foreigns). */
+  /** The list of applicable amalgamating business names. */
   get radioOptions (): Array<any> {
     return this.amalgamatingBusinesses
-      .filter((business: any) => (business.type === 'lear'))
-      .map((business: any) => ({ name: business.name, id: business.id }))
+      .map((business: any) => ({ name: business.name, id: business.identifier }))
   }
 
   /** Watch for form submission and emit results. */
