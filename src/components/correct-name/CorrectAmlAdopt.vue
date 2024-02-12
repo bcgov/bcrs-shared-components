@@ -31,8 +31,8 @@
       class="message-box"
     >
       <p>
-        You will be able to choose a business name to adopt when amalgamating businesses
-        are added to the list above.
+        You will be able to adopt a name from the businesses in the list that have
+        the same business type as the resulting business.
       </p>
     </v-card>
   </v-form>
