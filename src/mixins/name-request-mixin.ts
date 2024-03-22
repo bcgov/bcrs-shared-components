@@ -36,27 +36,27 @@ export default class NameRequestMixin extends Vue {
 
     // match action code
     if (nameRequest.request_action_cd !== nrRequestActionCode) {
-      throw new Error('Incorrect Request Action Code')
+      throw new Error('The Name Request is not intended for this filing.')
     }
 
     // match business id
     if (businessId && nameRequest.corpNum !== businessId) {
-      throw new Error('Incorrect Business ID')
+      throw new Error('The Name Request is not intended for this business.')
     }
 
     // match email
     if (email && nameRequest.applicants?.emailAddress !== email) {
-      throw new Error('Incorrect Email Address')
+      throw new Error('The Name Request is not registered with this Email Address.')
     }
 
     // match phone
     if (phone && nameRequest.applicants?.phoneNumber !== phone) {
-      throw new Error('Incorrect Phone Number')
+      throw new Error('The Name Request is not registered with this Phone Number.')
     }
 
     // match legal type
     if (legalType && nameRequest.legalType !== legalType) {
-      throw new Error('Incorrect Legal Type')
+      throw new Error('The Name Request is not intended for this business type.')
     }
 
     // ensure NR is consumable
