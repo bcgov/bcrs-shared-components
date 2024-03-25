@@ -5,11 +5,6 @@
     v-model="formValid"
     lazy-validation
   >
-    <ConfirmDialogShared
-      ref="confirm"
-      attach="#app"
-    />
-
     <v-row no-gutters>
       <v-col
         cols="1"
@@ -88,26 +83,20 @@
 
 <script lang="ts">
 import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
-import { ConfirmDialog as ConfirmDialogShared } from '@bcrs-shared-components/confirm-dialog'
 import { NameRequestMixin } from '@bcrs-shared-components/mixins'
-import { ConfirmDialogType, NameRequestIF } from '@bcrs-shared-components/interfaces'
+import { NameRequestIF } from '@bcrs-shared-components/interfaces'
 import { CorrectNameOptions } from '@bcrs-shared-components/enums'
-import { CorpTypeCd, GetCorpFullDescription } from '@bcrs-shared-components/corp-type-module'
+import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
 
-@Component({
-  components: {
-    ConfirmDialogShared
-  }
-})
+@Component({})
 export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
   // Refs
   $refs!: {
-    confirm: ConfirmDialogType
     form: HTMLFormElement
   }
 
   @Prop({ required: true }) readonly businessId!: string
-  @Prop({ required: true }) readonly entityType!: CorpTypeCd
+  @Prop({ required: true }) readonly entityType!: CorpTypeCd // not used
   @Prop({ required: true }) readonly fetchAndValidateNr!: (...args) => Promise<NameRequestIF>
   @Prop({ required: true }) readonly formType!: CorrectNameOptions
   @Prop({ required: true }) readonly nameRequest!: NameRequestIF
@@ -177,30 +166,13 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
         const nr = await this.fetchAndValidateNr(this.nrNumber, this.businessId, this.applicantPhone,
           this.applicantEmail)
 
-        // if entity type is provided, verify it
-        if (this.entityType && this.entityType !== nr.legalType) {
-          // invalid NR type - inform parent the process is done and show dialog
-          this.$refs.form.resetValidation()
-          this.emitSaved(false)
-
-          const nrFullDescription = GetCorpFullDescription(nr.legalType)
-          const entityFullDescription = GetCorpFullDescription(this.entityType)
-          const dialogContent = `<p class="info-text">This ${nrFullDescription} Name Request ` +
-            `does not match the current business type <b>${entityFullDescription}</b>.\n\n` +
-            `The Name Request type must match the business type before you can continue.</p>`
-          await this.showConfirmDialog(
-            this.$refs.confirm,
-            'Name Request Type Does Not Match Business Type',
-            dialogContent
-          )
-        } else {
-          // emit new data
-          this.emitNameRequest(nr)
-          this.emitCompanyName(this.getNrApprovedName(nr))
-          this.emitSaved(true)
-        }
+        // emit new data
+        this.emitNameRequest(nr)
+        this.emitCompanyName(this.getNrApprovedName(nr))
+        this.emitSaved(true)
       } catch (error) {
-        alert((error as any).message)
+        // inform parent of fetch/validation error
+        this.emitError((error as any).message)
 
         // inform parent that process is complete
         this.$refs.form.resetValidation()
@@ -211,8 +183,8 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
 
   /** Validate or reset validation when parent tells us. */
   @Watch('validate')
-  private onValidate (val: boolean): void {
-    if (val) this.$refs.form.validate()
+  private onValidate (validate: boolean): void {
+    if (validate) this.$refs.form.validate()
     else this.$refs.form.resetValidation()
   }
 
@@ -223,9 +195,14 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
     return this.componentValid
   }
 
+  /** Inform parent of error. */
+  @Emit('error')
+  // eslint-disable-next-line handle-callback-err
+  private emitError (error: string): void {}
+
   /** Inform parent that the process is complete. */
   @Emit('saved')
-  private emitSaved (val: boolean): void {}
+  private emitSaved (saved: boolean): void {}
 
   /** Inform parent of updated company name. */
   @Emit('update:companyName')
@@ -234,23 +211,6 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
   /** Inform parent of updated name request object. */
   @Emit('update:nameRequest')
   private emitNameRequest (nameRequest: NameRequestIF): void {}
-
-  /**
-   * Helper to show the confirm dialogs.
-   * @param ref The dialog reference
-   * @param title The title content in dialog header
-   * @param message The content body
-   * */
-  private async showConfirmDialog (ref: ConfirmDialogType, title: string, message: string):
-    Promise<boolean> {
-    return ref.open(title, message, {
-      width: '45rem',
-      persistent: true,
-      yes: 'OK',
-      no: null,
-      cancel: null
-    }).catch(() => false)
-  }
 }
 </script>
 

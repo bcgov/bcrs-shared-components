@@ -51,6 +51,7 @@
             :formType="formType"
             :nameRequest="nameRequest"
             :validate="validate"
+            @error="emitError($event)"
             @saved="emitSaved($event)"
             @update:nameRequest="emitNameRequest($event)"
             @update:companyName="emitCompanyName($event)"
@@ -219,6 +220,11 @@ export default class CorrectName extends Vue {
     this.validate = false
     this.panel = null
   }
+
+  /** Inform parent of error. */
+  @Emit('error')
+  // eslint-disable-next-line handle-callback-err
+  emitError (error: string): void {}
 
   /** Inform parent that name correction process is done. */
   @Emit('saved')
