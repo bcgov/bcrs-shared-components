@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { NameRequestStates, NrRequestActionCodes } from '@bcrs-shared-components/enums'
 import { NameRequestIF } from '@bcrs-shared-components/interfaces'
-import { CorpTypeCd } from '@/modules/corp-type-module'
+import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
 
 /**
  * Mixin that provides some useful Name Request utilities.
@@ -11,14 +11,14 @@ import { CorpTypeCd } from '@/modules/corp-type-module'
 export default class NameRequestMixin extends Vue {
   /**
    * Validates a name request against the applicant's information.
-   * Throws an error if there is a problem.
+   * If there's a problem, throws an error that can be displayed to the user.
    * @param nameRequest the name request object
    * @param nrRequestActionCode the request action code to match
    * @param businessId the business identifier to match
    * @param phone the applicant's phone number to match
    * @param email the applicant's email address to match
    * @param legalType the business legal type to match
-   * @returns the name request object
+   * @returns the validated name request object, else exception
    */
   validateNameRequest (
     nameRequest: NameRequestIF,
@@ -31,7 +31,8 @@ export default class NameRequestMixin extends Vue {
     // ensure NR is valid
     const invalid = this.isNrInvalid(nameRequest)
     if (invalid) {
-      throw new Error(`Invalid Name Request: ${invalid}`)
+      console.log('Invalid NR data:', invalid)
+      throw new Error('The Name Request is invalid.')
     }
 
     // match action code
@@ -62,7 +63,8 @@ export default class NameRequestMixin extends Vue {
     // ensure NR is consumable
     const state = this.getNrState(nameRequest)
     if (state !== NameRequestStates.APPROVED && state !== NameRequestStates.CONDITIONAL) {
-      throw new Error(`Invalid Name Request state: ${state}`)
+      console.log('Invalid NR state:', state)
+      throw new Error('The Name Request is invalid.')
     }
 
     return nameRequest

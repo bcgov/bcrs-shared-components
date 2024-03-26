@@ -5,6 +5,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@bcrs-shared-components/corp-type-module": "^1.0.15",
     "@bcrs-shared-components/enums": "^1.1.8",
     "@bcrs-shared-components/interfaces": "^1.1.8",
     "country-list": "^2.3.0",
