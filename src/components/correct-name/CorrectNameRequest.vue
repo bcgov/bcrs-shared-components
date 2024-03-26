@@ -86,7 +86,6 @@ import { Component, Emit, Mixins, Prop, Watch } from 'vue-property-decorator'
 import { NameRequestMixin } from '@bcrs-shared-components/mixins'
 import { NameRequestIF } from '@bcrs-shared-components/interfaces'
 import { CorrectNameOptions } from '@bcrs-shared-components/enums'
-import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
 
 @Component({})
 export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
@@ -95,8 +94,6 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
     form: HTMLFormElement
   }
 
-  @Prop({ required: true }) readonly businessId!: string
-  @Prop({ required: true }) readonly entityType!: CorpTypeCd // not used
   @Prop({ required: true }) readonly fetchAndValidateNr!: (...args) => Promise<NameRequestIF>
   @Prop({ required: true }) readonly formType!: CorrectNameOptions
   @Prop({ required: true }) readonly nameRequest!: NameRequestIF
@@ -163,8 +160,7 @@ export default class CorrectNameRequest extends Mixins(NameRequestMixin) {
     if (this.formType === CorrectNameOptions.CORRECT_NEW_NR) {
       try {
         // validate and return the name request data
-        const nr = await this.fetchAndValidateNr(this.nrNumber, this.businessId, this.applicantPhone,
-          this.applicantEmail)
+        const nr = await this.fetchAndValidateNr(this.nrNumber, this.applicantPhone, this.applicantEmail)
 
         // emit new data
         this.emitNameRequest(nr)

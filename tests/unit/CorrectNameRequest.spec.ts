@@ -37,12 +37,9 @@ const nameRequest = {
   }
 }
 
-const fetchAndValidateNr = (nrNumber, businessId, applicantPhone, applicantEmail) => {
+const fetchAndValidateNr = (nrNumber, applicantPhone, applicantEmail) => {
   if (nrNumber !== nameRequest.nrNum) {
     throw new Error('wrong NR number')
-  }
-  if (businessId && businessId !== nameRequest.corpNum) {
-    throw new Error('wrong business id')
   }
   if (applicantEmail && applicantEmail !== nameRequest.applicants.emailAddress) {
     throw new Error('wrong applicant email')
@@ -252,21 +249,6 @@ describe('CorrectNameRequest', () => {
 
     // verify form emission
     expect(getLastEvent(wrapper, 'error')).toBe('wrong applicant email')
-    expect(getLastEvent(wrapper, 'saved')).toBe(false)
-  })
-
-  it('emits error and not saved when the process is done but business id doesn\'t match', async () => {
-    wrapper = wrapperFactory()
-
-    // Set values and submit form
-    wrapper.vm.nrNumber = 'NR 1234567'
-    await wrapper.setProps({ formType: 'correct-new-nr', businessId: 'BC0000000' })
-    await flushPromises()
-
-    expect(wrapper.vm.formValid).toBe(true)
-
-    // verify form emission
-    expect(getLastEvent(wrapper, 'error')).toBe('wrong business id')
     expect(getLastEvent(wrapper, 'saved')).toBe(false)
   })
 
