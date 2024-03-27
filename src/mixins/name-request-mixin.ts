@@ -78,7 +78,6 @@ export default class NameRequestMixin extends Vue {
   isNrInvalid (nameRequest: NameRequestIF): string {
     if (!nameRequest) return 'Invalid NR object'
     if (!nameRequest.applicants) return 'Invalid NR applicants'
-    if (!nameRequest.expirationDate) return 'Invalid NR expiration date\n(NR may still be processing)'
     if (!nameRequest.legalType) return 'Invalid NR legal type'
     if (!this.getNrApprovedName(nameRequest)) return 'Invalid NR approved name'
     if (!nameRequest.nrNum) return 'Invalid NR number'
@@ -95,6 +94,9 @@ export default class NameRequestMixin extends Vue {
   getNrState (nameRequest: NameRequestIF): NameRequestStates {
     // ensure a NR object is provided
     if (!nameRequest) return null
+
+    // check for no expiration date -- NR may still be processing
+    if (!nameRequest.expirationDate) return NameRequestStates.NOT_APPROVED
 
     // if the NR is awaiting consent, it is not consumable
     // null = consent not required

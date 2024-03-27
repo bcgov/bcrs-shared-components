@@ -1,6 +1,5 @@
 import { NameRequestStates, NrRequestActionCodes, NrRequestTypeCodes } from '@bcrs-shared-components/enums'
 import { CorpTypeCd } from '@bcrs-shared-components/corp-type-module'
-import { AddressIF } from './addresses-interface'
 import { ApiDateTimeUtc } from './date-interfaces'
 
 /**
@@ -50,7 +49,7 @@ export interface NameRequestIF {
   state: NameRequestStates
 }
 
-// NB: use cloneDeep when assigning EmptyOrgPerson
+// NB: use cloneDeep when assigning EmptyNameRequest
 export const EmptyNameRequest: NameRequestIF = {
   applicants: {} as NrApplicantIF,
   consentFlag: null,
@@ -63,21 +62,4 @@ export const EmptyNameRequest: NameRequestIF = {
   requestTypeCd: null,
   request_action_cd: null,
   state: null
-}
-
-/**
- * Interface for name request objects we submit to Legal API.
- * See:
- * https://github.com/bcgov/business-schemas/blob/master/src/registry_schemas/schemas/name_request.json
- */
-export interface NrSchemaIF {
-  nrNumber: string // max 10 chars
-  legalName: string
-  legalType: CorpTypeCd
-  requestType: string // eg, "New Business"
-  status: string
-  expires: ApiDateTimeUtc
-  consent: string
-  submittedBy: string
-  address: AddressIF
 }
