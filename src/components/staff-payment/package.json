@@ -1,13 +1,13 @@
 {
   "name": "@bcrs-shared-components/staff-payment",
-  "version": "2.1.43",
+  "version": "2.1.44",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/enums": "^1.1.8",
-    "@bcrs-shared-components/folio-number-input": "^1.1.43",
-    "@bcrs-shared-components/interfaces": "^1.1.9",
+    "@bcrs-shared-components/enums": "^1.1.9",
+    "@bcrs-shared-components/folio-number-input": "^1.1.44",
+    "@bcrs-shared-components/interfaces": "^1.1.10",
     "vue": "^2.7.14"
   },
   "devDependencies": {
