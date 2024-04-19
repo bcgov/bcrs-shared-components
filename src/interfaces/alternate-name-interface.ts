@@ -6,7 +6,7 @@ export interface AlternateNameIF {
   entityType: CorpTypeCd
   identifier: string
   name: string
-  nameRegisteredDate: ApiDateTimeUtc
-  nameStartDate: IsoDatePacific
-  nameType: NameTypes
+  registeredDate: ApiDateTimeUtc
+  startDate: IsoDatePacific
+  type: NameTypes
 }
