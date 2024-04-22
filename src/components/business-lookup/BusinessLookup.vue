@@ -8,11 +8,12 @@
         no-filter
         append-icon=""
         return-object
-        class="mt-5"
         autocomplete="chrome-off"
         menu-props="{ maxHeight: 380 }"
         item-text="identifier"
         :label="label"
+        :hint="hint"
+        :placeholder="placeholder"
         :name="Math.random()"
         :rules="showErrors ? businessLookupRules: []"
         :items="searchResults"
@@ -51,7 +52,7 @@
 
     <div
       v-if="state === States.SUMMARY && haveBusiness"
-      class="summary-block mt-5"
+      class="summary-block"
     >
       <v-row no-gutters>
         <v-col cols="10">
@@ -157,6 +158,12 @@ export default class BusinessLookup extends Vue {
 
   /** Label for BusinessLookup component. */
   @Prop({ default: 'Business or Corporation Name or Incorporation Number' }) readonly label!: string
+
+  /** Hint for BusinessLookup component. */
+  @Prop({ default: null }) readonly hint!: string
+
+  /** Placeholder for BusinessLookup component. */
+  @Prop({ default: null }) readonly placeholder!: string
 
   /** BusinessLookup legal types to search for. */
   @Prop({ default: 'BC,A,ULC,C,S,XP,GP,LP,CUL,XS,LLC,LL,BEN,CP,CC,XL,FI,XCP,PA' }) readonly legalTypes!: string
