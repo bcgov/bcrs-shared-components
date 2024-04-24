@@ -119,13 +119,15 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     colinInd: true,
     corpClass: CorpClass.BC,
     shortDesc: 'CONTINUE IN',
-    fullDesc: 'BC Limited Company'
+    fullDesc: 'BC Limited Company',
+    numberedDesc: 'Numbered Limited Company'
   }, {
     corpTypeCd: CorpTypeCd.BEN_CONTINUE_IN,
     colinInd: true,
     corpClass: CorpClass.BC,
     shortDesc: 'BEN CONTINUE IN',
-    fullDesc: 'BC Benefit Company'
+    fullDesc: 'BC Benefit Company',
+    numberedDesc: 'Numbered Benefit Company'
   }, {
     corpTypeCd: CorpTypeCd.BC_CCC,
     colinInd: true,
@@ -138,7 +140,8 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     colinInd: true,
     corpClass: CorpClass.BC,
     shortDesc: 'CCC CONTINUE IN',
-    fullDesc: 'BC Community Contribution Company'
+    fullDesc: 'BC Community Contribution Company',
+    numberedDesc: 'Numbered Community Contribution Company'
   }, {
     corpTypeCd: CorpTypeCd.CEMETARY,
     colinInd: false,
@@ -171,7 +174,8 @@ const CorpInfoArray: Array<CorpInfoIF> = [
     colinInd: true,
     corpClass: CorpClass.BC,
     shortDesc: 'ULC CONTINUE IN',
-    fullDesc: 'BC Unlimited Liability Company'
+    fullDesc: 'BC Unlimited Liability Company',
+    numberedDesc: 'Numbered Unlimited Liability Company'
   }, {
   //   // SPECIAL NAMEREQUEST-ONLY ENTITY TYPE
   //   corpTypeCd: CorpTypeCd.DOING_BUSINESS_AS,
