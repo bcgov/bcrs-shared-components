@@ -105,7 +105,7 @@ export default class NestedSelect extends Vue {
     // specify maxHeight only if it's set, otherwise the v-menu doesn't show all items
     // ("maxHeight: auto" doesn't work either)
     if (this.maxHeight) return { bottom: true, offsetY: true, maxHeight: this.maxHeight }
-    return { bottom: true, offsetY: true }
+    return { bottom: true, offsetY: true, auto: true }
   }
 
   // methods
