@@ -13,7 +13,7 @@
 import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
 import NestedSelect from './NestedSelect.vue'
 import { JurisdictionLocation } from '@bcrs-shared-components/enums'
-import { CanJurisdictions, IntlJurisdictions } from './list-data'
+import { CanJurisdictions, IntlJurisdictions, UsaJurisdiction } from './list-data'
 
 @Component({
   components: { NestedSelect }
@@ -22,6 +22,7 @@ export default class Jurisdiction extends Vue {
   // props
   @Prop({ default: 'Select the home jurisdiction' }) readonly label!: string
   @Prop() readonly errorMessages!: string
+  @Prop({ default: false }) readonly showUsJurisdictions!: boolean
 
   // variables
   jurisdiction = null
@@ -41,15 +42,26 @@ export default class Jurisdiction extends Vue {
         separator: (jur.value === JurisdictionLocation.FD)
       }))
 
+    if (this.showUsJurisdictions) {
+      array.push({ isHeader: true, group: 1, text: 'United States' })
+      UsaJurisdiction
+        .forEach(jur => array.push({
+          group: 1,
+          text: jur.text,
+          value: jur.value,
+          separator: false
+        }))
+    }
+
     // add in International jurisdictions (not including CA)
-    array.push({ isHeader: true, group: 1, text: 'International' })
+    array.push({ isHeader: true, group: 2, text: 'International' })
     IntlJurisdictions
       .filter(jur => jur.value !== JurisdictionLocation.CA)
       .forEach(jur => array.push({
-        group: 1,
+        group: 2,
         text: jur.text,
         value: jur.value,
-        separator: false
+        separator: (jur.value === JurisdictionLocation.IN)
       }))
 
     return array
