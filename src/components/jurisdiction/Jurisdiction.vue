@@ -22,7 +22,7 @@ export default class Jurisdiction extends Vue {
   // props
   @Prop({ default: 'Select the home jurisdiction' }) readonly label!: string
   @Prop() readonly errorMessages!: string
-  @Prop({ default: false }) readonly showUsJurisdictions!: boolean
+  @Prop({ default: false }) readonly showUsaJurisdictions!: boolean
 
   // variables
   jurisdiction = null
@@ -42,7 +42,8 @@ export default class Jurisdiction extends Vue {
         separator: (jur.value === JurisdictionLocation.FD)
       }))
 
-    if (this.showUsJurisdictions) {
+    // add USA jurisdictions (conditionally)
+    if (this.showUsaJurisdictions) {
       array.push({ isHeader: true, group: 1, text: 'United States' })
       UsaJurisdiction
         .forEach(jur => array.push({
@@ -56,7 +57,7 @@ export default class Jurisdiction extends Vue {
     // add in International jurisdictions (not including CA)
     array.push({ isHeader: true, group: 2, text: 'International' })
     IntlJurisdictions
-      .filter(jur => jur.value !== JurisdictionLocation.CA)
+      .filter(jur => this.excludeJurisdictions(jur.value))
       .forEach(jur => array.push({
         group: 2,
         text: jur.text,
@@ -65,6 +66,22 @@ export default class Jurisdiction extends Vue {
       }))
 
     return array
+  }
+
+  /**
+   * Always exclude CA
+   * Exclude USA when states are listed in the jurisdiction list based on showUsaJurisdictions flag
+   */
+  excludeJurisdictions (jurisdiction): boolean {
+    if (jurisdiction === JurisdictionLocation.CA) {
+      return false
+    }
+
+    if (this.showUsaJurisdictions && (jurisdiction === JurisdictionLocation.US)) {
+      return false
+    }
+
+    return true
   }
 
   @Emit('change')
