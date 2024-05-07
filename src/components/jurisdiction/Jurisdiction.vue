@@ -42,6 +42,7 @@ export default class Jurisdiction extends Vue {
         separator: (jur.value === JurisdictionLocation.FD)
       }))
 
+    // add USA jurisdictions (conditionally)
     if (this.showUsJurisdictions) {
       array.push({ isHeader: true, group: 1, text: 'United States' })
       UsaJurisdiction
@@ -56,7 +57,7 @@ export default class Jurisdiction extends Vue {
     // add in International jurisdictions (not including CA)
     array.push({ isHeader: true, group: 2, text: 'International' })
     IntlJurisdictions
-      .filter(jur => jur.value !== JurisdictionLocation.CA)
+      .filter(jur => !this.excludeJurisdictions(jur.value).includes(jur.value))
       .forEach(jur => array.push({
         group: 2,
         text: jur.text,
@@ -65,6 +66,23 @@ export default class Jurisdiction extends Vue {
       }))
 
     return array
+  }
+
+  /**
+   * Always exclude CA
+   * Exclude USA when states are listed in the jurisdiction list based on showUsJurisdictions flag
+   */
+  excludeJurisdictions (jurisdiction): Array<any> {
+    const excludedValues = []
+    if (jurisdiction === JurisdictionLocation.CA) {
+      excludedValues.push(JurisdictionLocation.CA)
+    }
+
+    if (this.showUsJurisdictions) {
+      excludedValues.push(JurisdictionLocation.US)
+    }
+
+    return excludedValues
   }
 
   @Emit('change')
