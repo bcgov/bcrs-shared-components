@@ -14,5 +14,5 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({})
 Default['args'] = {
-  showUsJurisdictions: false
+  showUsaJurisdictions: false
 }
