@@ -23,9 +23,17 @@ export default class Jurisdiction extends Vue {
   @Prop({ default: 'Select the home jurisdiction' }) readonly label!: string
   @Prop() readonly errorMessages!: string
   @Prop({ default: false }) readonly showUsaJurisdictions!: boolean
+  @Prop({ default: null }) readonly initialValue!: string
 
   // variables
   jurisdiction = null
+
+  /** Called when component is created. */
+  created (): void {
+    if (this.initialValue) {
+      this.jurisdiction = this.initialValue
+    }
+  }
 
   /** The jursidiction select options */
   get jurisdictionOptions (): Array<any> {

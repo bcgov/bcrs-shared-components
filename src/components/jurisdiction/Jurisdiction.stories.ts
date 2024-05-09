@@ -16,3 +16,14 @@ export const Default = Template.bind({})
 Default['args'] = {
   showUsaJurisdictions: false
 }
+
+export const JurisdictionInitialValue = Template.bind({})
+JurisdictionInitialValue['args'] = {
+  showUsaJurisdictions: false,
+  initialValue: {
+    group: 0,
+    text: 'Alberta',
+    value: 'AB',
+    separator: false
+  }
+}
