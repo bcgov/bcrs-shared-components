@@ -10,22 +10,68 @@
 </template>
 
 <script lang="ts">
-import { Component, Emit, Prop, Vue } from 'vue-property-decorator'
+import { Component, Emit, Mixins, Prop } from 'vue-property-decorator'
 import NestedSelect from './NestedSelect.vue'
 import { JurisdictionLocation } from '@bcrs-shared-components/enums'
+import { ForeignJurisdictionIF } from '@bcrs-shared-components/interfaces'
+import { CountriesProvincesMixin } from '@bcrs-shared-components/mixins'
 import { CanJurisdictions, IntlJurisdictions, UsaJurisdiction } from './list-data'
 
 @Component({
   components: { NestedSelect }
 })
-export default class Jurisdiction extends Vue {
+export default class Jurisdiction extends Mixins(CountriesProvincesMixin) {
   // props
   @Prop({ default: 'Select the home jurisdiction' }) readonly label!: string
   @Prop() readonly errorMessages!: string
   @Prop({ default: false }) readonly showUsaJurisdictions!: boolean
+  @Prop({ default: null }) readonly initialValue!: ForeignJurisdictionIF[]
 
   // variables
   jurisdiction = null
+
+  /** Called when component is created. */
+  created (): void {
+    if (this.initialValue) {
+      this.setInitialValue()
+    }
+  }
+
+  /** Set initial value of jurisdiction */
+  setInitialValue (): void {
+    let jurisdictionGroup
+    let jurisdictionValue = ''
+    let jurisdictionText = ''
+
+    const initialJurValue = this.initialValue as ForeignJurisdictionIF
+    const country = initialJurValue.country
+    const region = initialJurValue.region ? initialJurValue.region : ''
+
+    if (country === JurisdictionLocation.CA) {
+      jurisdictionGroup = 0
+    } else if (country === JurisdictionLocation.US) {
+      jurisdictionGroup = 1
+    } else {
+      jurisdictionGroup = 2
+    }
+
+    if (region) {
+      if (region === JurisdictionLocation.FD) {
+        jurisdictionText = 'Federal'
+      } else {
+        let regions = this.getCountryRegions(country) as any[]
+        jurisdictionText = regions.find(p => p.short === region).name
+      }
+    } else {
+      jurisdictionText = this.getCountryName(country)
+    }
+
+    this.jurisdiction = {
+      group: jurisdictionGroup,
+      text: jurisdictionText,
+      value: jurisdictionValue
+    }
+  }
 
   /** The jursidiction select options */
   get jurisdictionOptions (): Array<any> {

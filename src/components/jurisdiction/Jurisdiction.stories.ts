@@ -16,3 +16,12 @@ export const Default = Template.bind({})
 Default['args'] = {
   showUsaJurisdictions: false
 }
+
+export const JurisdictionInitialValue = Template.bind({})
+JurisdictionInitialValue['args'] = {
+  showUsaJurisdictions: false,
+  initialValue: {
+    country: 'CA',
+    region: 'FD'
+  }
+}
