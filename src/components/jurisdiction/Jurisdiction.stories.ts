@@ -21,9 +21,7 @@ export const JurisdictionInitialValue = Template.bind({})
 JurisdictionInitialValue['args'] = {
   showUsaJurisdictions: false,
   initialValue: {
-    group: 0,
-    text: 'Alberta',
-    value: 'AB',
-    separator: false
+    country: 'CA',
+    region: 'FD'
   }
 }
