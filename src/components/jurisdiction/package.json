@@ -6,6 +6,8 @@
   },
   "dependencies": {
     "@bcrs-shared-components/enums": "^1.1.10",
+    "@bcrs-shared-components/interfaces": "^1.1.14",
+    "@bcrs-shared-components/mixins": "^1.1.45",
     "vue": "^2.7.14"
   },
   "devDependencies": {

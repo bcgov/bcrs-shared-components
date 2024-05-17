@@ -43,7 +43,7 @@ export default class Jurisdiction extends Mixins(CountriesProvincesMixin) {
     let jurisdictionValue = ''
     let jurisdictionText = ''
 
-    const initialJurValue = this.initialValue as ForeignJurisdictionIF
+    const initialJurValue = this.initialValue as unknown as ForeignJurisdictionIF
     const country = initialJurValue.country
     const region = initialJurValue.region ? initialJurValue.region : ''
 
