@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/court-order-poa",
-  "version": "3.0.44",
+  "version": "3.0.45",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.1.14",
+    "@bcrs-shared-components/interfaces": "^1.1.15",
     "vue": "^2.7.14"
   },
   "devDependencies": {
