@@ -2,9 +2,10 @@
   <NestedSelect
     :label="label"
     :errorMessages="errorMessages"
-    :hideDetails="false"
+    hideDetails="auto"
     :menuItems="jurisdictionOptions"
-    :value="jurisdiction ? jurisdiction.text : ''"
+    :readonly="readonly"
+    :value="jurisdiction"
     @change="emitChangeEvent($event)"
   />
 </template>
@@ -13,9 +14,9 @@
 import { Component, Emit, Mixins, Prop } from 'vue-property-decorator'
 import NestedSelect from './NestedSelect.vue'
 import { JurisdictionLocation } from '@bcrs-shared-components/enums'
-import { ForeignJurisdictionIF } from '@bcrs-shared-components/interfaces'
+import { ForeignJurisdictionIF } from '@bcrs-shared-components/interfaces/'
 import { CountriesProvincesMixin } from '@bcrs-shared-components/mixins'
-import { CanJurisdictions, IntlJurisdictions, UsaJurisdiction } from './list-data'
+import { CanJurisdictions, IntlJurisdictions, UsaJurisdiction } from './list-data/'
 
 @Component({
   components: { NestedSelect }
@@ -25,9 +26,10 @@ export default class Jurisdiction extends Mixins(CountriesProvincesMixin) {
   @Prop({ default: 'Select the home jurisdiction' }) readonly label!: string
   @Prop() readonly errorMessages!: string
   @Prop({ default: false }) readonly showUsaJurisdictions!: boolean
-  @Prop({ default: null }) readonly initialValue!: ForeignJurisdictionIF[]
+  @Prop({ default: null }) readonly initialValue!: ForeignJurisdictionIF
+  @Prop({ default: false }) readonly readonly!: boolean
 
-  // variables
+  // local variables
   jurisdiction = null
 
   /** Called when component is created. */
@@ -37,15 +39,14 @@ export default class Jurisdiction extends Mixins(CountriesProvincesMixin) {
     }
   }
 
-  /** Set initial value of jurisdiction */
+  /** Sets initial jurisdiction value. */
   setInitialValue (): void {
-    let jurisdictionGroup
-    let jurisdictionValue = ''
-    let jurisdictionText = ''
+    const country = this.initialValue.country
+    const region = this.initialValue.region || ''
 
-    const initialJurValue = this.initialValue as unknown as ForeignJurisdictionIF
-    const country = initialJurValue.country
-    const region = initialJurValue.region ? initialJurValue.region : ''
+    let jurisdictionGroup = NaN
+    let jurisdictionText = ''
+    let jurisdictionValue = ''
 
     if (country === JurisdictionLocation.CA) {
       jurisdictionGroup = 0
@@ -56,14 +57,17 @@ export default class Jurisdiction extends Mixins(CountriesProvincesMixin) {
     }
 
     if (region) {
-      if (region === JurisdictionLocation.FD) {
+      if (region === 'FEDERAL') {
         jurisdictionText = 'Federal'
+        jurisdictionValue = JurisdictionLocation.FD
       } else {
-        let regions = this.getCountryRegions(country) as any[]
-        jurisdictionText = regions.find(p => p.short === region).name
+        const cr = this.getCountryRegions(country).find(p => p.short === region)
+        jurisdictionText = cr?.name
+        jurisdictionValue = cr?.short
       }
     } else {
       jurisdictionText = this.getCountryName(country)
+      jurisdictionValue = country
     }
 
     this.jurisdiction = {
@@ -100,7 +104,7 @@ export default class Jurisdiction extends Mixins(CountriesProvincesMixin) {
         }))
     }
 
-    // add in International jurisdictions (not including CA)
+    // add in International jurisdictions (minus exclusions)
     array.push({ isHeader: true, group: 2, text: 'International' })
     IntlJurisdictions
       .filter(jur => this.excludeJurisdictions(jur.value))
@@ -135,6 +139,3 @@ export default class Jurisdiction extends Mixins(CountriesProvincesMixin) {
   emitChangeEvent (jurisdiction: any): void {}
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

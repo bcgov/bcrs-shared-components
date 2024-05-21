@@ -1,4 +1,4 @@
-import { JurisdictionI } from '../interfaces'
+import { JurisdictionI } from '../interfaces/'
 
 export const UsaJurisdiction: JurisdictionI[] = [
   {

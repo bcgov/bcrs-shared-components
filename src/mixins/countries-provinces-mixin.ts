@@ -26,7 +26,7 @@ export default class CountriesProvincesMixin extends Vue {
    * Helper function to return a list of countries.
    * @returns An array of country objects, sorted alphabetically.
    */
-  getCountries (): Array<object> {
+  getCountries (): Array<any> {
     return window['countries']
   }
 
@@ -49,7 +49,7 @@ export default class CountriesProvincesMixin extends Vue {
    * @param code The short code of the country.
    * @returns An array of province objects, sorted alphabetically.
    */
-  getCountryRegions (code: string): Array<object> {
+  getCountryRegions (code: string): Array<any> {
     if (!code) return null
     if (window['countryRegionsCache'][code]) return window['countryRegionsCache'][code]
     const result = window['provinces']
@@ -66,7 +66,7 @@ export default class CountriesProvincesMixin extends Vue {
    * Helper function to return a list of Canadian provinces (excluding BC).
    * @returns An array of province objects (excluding BC), sorted alphabetically.
    */
-  getCanadaRegionsExcludeBC (): Array<object> {
+  getCanadaRegionsExcludeBC (): Array<any> {
     const countryCode = 'CA'
     if (window['canadaRegionsNoBCCache'][countryCode]) return window['canadaRegionsNoBCCache'][countryCode]
     const result = window['provinces']

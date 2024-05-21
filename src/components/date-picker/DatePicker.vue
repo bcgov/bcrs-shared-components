@@ -27,6 +27,7 @@
             ref="dateTextField"
             append-icon="mdi-calendar"
             autocomplete="chrome-off"
+            :class="{ 'disable-picker': disablePicker }"
             :clearable="clearable"
             :error-messages="errorMsg"
             :error="!!errorMsg"
@@ -34,7 +35,6 @@
             :label="title"
             :name="Math.random()"
             :rules="dateText == null ? [] : inputRules"
-            :disabled="disablePicker"
             :hint="hint"
             :persistent-hint="persistentHint"
             readonly
@@ -61,7 +61,7 @@
               color="primary"
               @click="emitDate(dateText)"
             >
-              <strong>OK</strong>
+              <span class="font-weight-bold">OK</span>
             </v-btn>
             <v-btn
               id="btn-cancel"
@@ -69,7 +69,7 @@
               color="primary"
               @click="emitCancel()"
             >
-              Cancel
+              <span>Cancel</span>
             </v-btn>
           </div>
         </template>
@@ -108,8 +108,8 @@ export default class DatePicker extends Mixins(DateMixin) {
   @Prop({ default: false }) readonly persistentHint!: boolean
   @Prop({ default: false }) readonly clearable!: boolean
 
-  private dateText = null
-  private displayPicker = false
+  dateText = null
+  displayPicker = false
 
   /** Clear local model after each action. */
   public clearDate (): void {
@@ -139,32 +139,32 @@ export default class DatePicker extends Mixins(DateMixin) {
 
   /** True when the picker is not displayed or disabled. */
   get enableSelector (): boolean {
-    return !this.displayPicker && !this.disablePicker
+    return (!this.displayPicker && !this.disablePicker)
   }
 
   /** Emit date to add or remove. */
   @Emit('emitDate')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected emitDate (date: string): void {
+  emitDate (date: string): void {
     this.displayPicker = false
   }
 
   /** Emit cancel event and clear the date. */
   @Emit('emitCancel')
-  protected emitCancel (): void {
+  emitCancel (): void {
     this.clearDate()
   }
 
   /** Emit clear event and clear the date. */
   @Emit('emitClear')
-  protected emitClear (): void {
+  emitClear (): void {
     this.clearDate()
   }
 
   @Watch('dateText')
   @Emit('emitDateSync')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private emitDateSync (date: string): string {
+  private emitDateSync (): string {
     return this.dateText
   }
 
@@ -249,15 +249,18 @@ export default class DatePicker extends Mixins(DateMixin) {
     color: $app-blue !important;
   }
 
-  .v-input--is-disabled {
-    opacity: 0.4;
+  // when picker is disabled, reduce label opacity (same as readonly text fields)
+  .disable-picker label {
+    opacity: 0.87;
   }
 
-  .theme--light.v-text-field.v-input--is-disabled .v-input__slot:before {
-    border-image: none;
+  // when picker is disabled, hide the calendar icon
+  .disable-picker .v-input__icon--append {
+    display: none;
   }
 
-  .v-text-field.v-input--is-readonly .v-input__slot:before {
+  // when picked is not disabled (even though it's readonly), show the bottom line as solid
+  .v-text-field.v-input--is-readonly:not(.disable-picker) .v-input__slot:before {
     border-style: solid !important;
   }
 }

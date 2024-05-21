@@ -9,6 +9,7 @@
     :items="items"
     :label="label"
     :menu-props="menuProps"
+    :readonly="readonly"
     :value="value"
     @change="emitChangeEvent($event)"
   >
@@ -84,6 +85,7 @@ export default class NestedSelect extends Vue {
   @Prop() readonly hideDetails!: boolean | 'auto'
   @Prop({ default: null }) readonly value!: any
   @Prop() readonly maxHeight!: string
+  @Prop({ default: false }) readonly readonly!: boolean
 
   // variables
   activeActionGroup = NaN
@@ -157,14 +159,21 @@ export default class NestedSelect extends Vue {
 ::v-deep .v-list-item:has(.v-list-item__content.hide-me) {
   display: none;
 }
-// Removes empty spaces on nested select when the list is collapsed
+
+// remove empty spaces on nested select when the list is collapsed
 ::v-deep .v-list-item {
   min-height: auto;
   display: list-item;
   list-style:none;
 }
-// Hide and remove space for disabled list items and makes the nested select work for firefox
+
+// hide and remove space for disabled list items and makes the nested select work for firefox
 .v-list-item.v-list-item--disabled.theme--light .v-list-item__content.hide-me {
   display: none;
+}
+
+// set color of initial value
+.theme--light.v-select ::v-deep .v-select__selection--disabled {
+  color: $gray9;
 }
 </style>
