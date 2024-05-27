@@ -34,7 +34,7 @@
             :value="displayDate"
             :label="title"
             :name="Math.random()"
-            :rules="dateText == null ? [] : inputRules"
+            :rules="inputRules"
             :hint="hint"
             :persistent-hint="persistentHint"
             readonly
