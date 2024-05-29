@@ -37,6 +37,7 @@
             :rules="inputRules"
             :hint="hint"
             :persistent-hint="persistentHint"
+            hide-details="auto"
             readonly
             filled
             @click:clear="emitClear()"
