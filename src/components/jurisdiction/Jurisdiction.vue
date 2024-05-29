@@ -5,6 +5,7 @@
     hideDetails="auto"
     :menuItems="jurisdictionOptions"
     :readonly="readonly"
+    :showAppendIcon="showAppendIcon"
     :value="jurisdiction"
     @change="emitChangeEvent($event)"
   />
@@ -28,6 +29,7 @@ export default class Jurisdiction extends Mixins(CountriesProvincesMixin) {
   @Prop({ default: false }) readonly showUsaJurisdictions!: boolean
   @Prop({ default: null }) readonly initialValue!: ForeignJurisdictionIF
   @Prop({ default: false }) readonly readonly!: boolean
+  @Prop({ default: true }) readonly showAppendIcon!: boolean
 
   // local variables
   jurisdiction = null

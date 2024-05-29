@@ -4,6 +4,7 @@
     item-value="[group,value]"
     return-object
     filled
+    :append-icon="showAppendIcon ? 'mdi-menu-down' : ''"
     :error-messages="errorMessages"
     :hide-details="hideDetails"
     :items="items"
@@ -86,6 +87,7 @@ export default class NestedSelect extends Vue {
   @Prop({ default: null }) readonly value!: any
   @Prop() readonly maxHeight!: string
   @Prop({ default: false }) readonly readonly!: boolean
+  @Prop({ default: true }) readonly showAppendIcon!: string
 
   // variables
   activeActionGroup = NaN
