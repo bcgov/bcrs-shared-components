@@ -141,10 +141,10 @@ export default class BusinessLookup extends Vue {
   /** Whether to show errors. */
   @Prop({ required: true }) readonly showErrors!: boolean
 
-  /** The BusinessLookup object. */
+  /** The Business Lookup object. */
   @Prop({ required: true }) readonly businessLookup!: BusinessLookupIF
 
-  /** Class for BusinessLookup services. */
+  /** Class for Business Lookup Services. */
   @Prop({ required: true }) readonly BusinessLookupServices!: any
 
   /** Whether to display Change features. */
@@ -156,17 +156,19 @@ export default class BusinessLookup extends Vue {
   /** Business status to search for (eg, ACTIVE or HISTORICAL or '' to match all. */
   @Prop({ default: 'ACTIVE' }) readonly searchStatus!: string
 
-  /** Label for BusinessLookup component. */
+  /** Label for Business Lookup component. */
   @Prop({ default: 'Business or Corporation Name or Incorporation Number' }) readonly label!: string
 
-  /** Hint for BusinessLookup component. */
+  /** Hint for Business Lookup component. */
   @Prop({ default: null }) readonly hint!: string
 
-  /** Placeholder for BusinessLookup component. */
+  /** Placeholder for Business Lookup component. */
   @Prop({ default: null }) readonly placeholder!: string
 
-  /** BusinessLookup legal types to search for. */
-  @Prop({ default: 'BC,A,ULC,C,S,XP,GP,LP,CUL,XS,LLC,LL,BEN,CP,CC,XL,FI,XCP,PA' }) readonly legalTypes!: string
+  /** Legal types to search for. */
+  @Prop(
+    { default: 'A,BC,BEN,C,CBEN,CC,CCC,CP,CUL,FI,GP,LL,LLC,LP,PA,S,SP,ULC,XCP,XL,XP,XS' }
+  ) readonly legalTypes!: string
 
   // enum for template
   readonly States = States
