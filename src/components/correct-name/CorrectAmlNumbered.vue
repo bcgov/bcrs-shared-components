@@ -39,17 +39,16 @@ export default class CorrectAmlNumbered extends Vue {
 
   /**
    * The business' numbered name.
-   * It will be created from the new incorporation number.
+   * It will be created from the new incorporation number by the Filer.
    */
   get numberedName (): string {
-    const id = '[Incorporation Number]'
     switch (this.entityType) {
       case CorpTypeCd.BC_ULC_COMPANY:
-        return `${id} B.C. UNLIMITED LIABILITY COMPANY`
+        return '[Incorporation Number] B.C. UNLIMITED LIABILITY COMPANY'
       case CorpTypeCd.BC_CCC:
-        return `${id} B.C. COMMUNITY CONTRIBUTION COMPANY`
+        return '[Incorporation Number] B.C. COMMUNITY CONTRIBUTION COMPANY LTD.'
       default:
-        return `${id} B.C. LTD.`
+        return '[Incorporation Number] B.C. LTD.'
     }
   }
 
