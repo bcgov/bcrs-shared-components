@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/correct-name",
-  "version": "1.0.53",
+  "version": "1.0.54",
   "publishConfig": {
     "access": "public"
   },
