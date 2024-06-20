@@ -28,12 +28,12 @@
     <v-card
       v-else
       outlined
-      class="message-box"
+      class="rounded-0 ma-0"
     >
-      <p>
+      <div class="px-7 py-5">
         You will be able to adopt a name from the businesses in the list that have
         the same business type as the resulting business.
-      </p>
+      </div>
     </v-card>
   </v-form>
 </template>
@@ -100,6 +100,18 @@ export default class CorrectAmlAdopt extends Vue {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
+
+// styling same as message box in Create UI
+.v-card {
+  background-color: $BCgovGold0 !important;
+  border-color: $BCgovGold5 !important;
+
+  div {
+    font-size: $px-14;
+    letter-spacing: 0.01rem;
+    color: $gray7;
+  }
+}
 
 // remove extra padding and margin from radio group
 .v-input--selection-controls {

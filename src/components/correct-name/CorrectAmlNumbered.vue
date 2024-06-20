@@ -58,7 +58,7 @@ export default class CorrectAmlNumbered extends Vue {
     // process only when current form type matches
     if (this.formType === CorrectNameOptions.CORRECT_AML_NUMBERED) {
       // emit new data
-      this.emitCompanyName(this.numberedName)
+      this.emitCompanyName(null) // no name
       this.emitSaved(true)
     }
   }

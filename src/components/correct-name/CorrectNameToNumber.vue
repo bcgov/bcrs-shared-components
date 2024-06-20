@@ -32,7 +32,7 @@ export default class CorrectNameToNumber extends Vue {
   @Prop({ required: true }) readonly formType!: CorrectNameOptions
   @Prop({ required: true }) readonly validate!: boolean
 
-  checkbox = false
+  checkbox = false // initially unchecked
   formValid = false // initially invalid
 
   /**
@@ -45,7 +45,7 @@ export default class CorrectNameToNumber extends Vue {
       case CorpTypeCd.BC_ULC_COMPANY:
         return `${id} B.C. UNLIMITED LIABILITY COMPANY`
       case CorpTypeCd.BC_CCC:
-        return `${id} B.C. COMMUNITY CONTRIBUTION COMPANY`
+        return `${id} B.C. COMMUNITY CONTRIBUTION COMPANY LTD.`
       default:
         return `${id} B.C. LTD.`
     }
