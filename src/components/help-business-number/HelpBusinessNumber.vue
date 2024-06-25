@@ -40,11 +40,11 @@
               color="primary"
             >mdi-open-in-new</v-icon>
           </a>.
-          <span v-if="isTypeSoleProp">
+          <span v-if="isEntitySoleProp">
             You will have a business number if the sole proprietorship you are
             registering already has one of the following accounts:
           </span>
-          <span v-if="isTypePartnership">
+          <span v-if="isEntityPartnership">
             You will have a business number if the firm you are registering already
             has one of the following accounts:
           </span>
@@ -63,7 +63,7 @@
           accounts listed above.
         </p>
 
-        <template v-if="isTypeSoleProp">
+        <template v-if="isEntitySoleProp">
           <p class="my-4">
             You may also have a business number that you can use for this registration if the
             following applies:
@@ -115,11 +115,11 @@ import { Component, Prop } from 'vue-property-decorator'
 
 @Component({})
 export default class HelpBusinessNumber extends Vue {
-  /** Whether this is a Sole Proprietorship entity. */
-  @Prop({ default: false }) readonly isTypeSoleProp!: boolean
+  /** Whether entity is a Sole Proprietorship. */
+  @Prop({ default: false }) readonly isEntitySoleProp!: boolean
 
-  /** Whether this is a General Partnership entity. */
-  @Prop({ default: false }) readonly isTypePartnership!: boolean
+  /** Whether entity is a General Partnership. */
+  @Prop({ default: false }) readonly isEntityPartnership!: boolean
 
   readonly Header = 'Help with Business Number'
   readonly ProgramAccountUrl = 'https://www.canada.ca/en/revenue-agency/services/tax/businesses/' +
@@ -128,7 +128,7 @@ export default class HelpBusinessNumber extends Vue {
     'managing-a-business/permits-licences/businesses-incorporated-companies/business-number'
 
   // local variable
-  protected helpToggle = false
+  helpToggle = false
 }
 </script>
 
