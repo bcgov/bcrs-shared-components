@@ -1,13 +1,13 @@
 {
   "name": "@bcrs-shared-components/jurisdiction",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/enums": "^1.1.10",
-    "@bcrs-shared-components/interfaces": "^1.1.15",
-    "@bcrs-shared-components/mixins": "^1.1.46",
+    "@bcrs-shared-components/enums": "^1.1.11",
+    "@bcrs-shared-components/interfaces": "^1.1.16",
+    "@bcrs-shared-components/mixins": "^1.1.47",
     "vue": "^2.7.14"
   },
   "devDependencies": {
