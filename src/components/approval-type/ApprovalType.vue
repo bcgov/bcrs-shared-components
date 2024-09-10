@@ -18,7 +18,7 @@
         class="mb-n5"
       >
         <v-radio-group
-          class="payment-group mt-0"
+          class="mt-0"
           :value="approvalTypeSelected"
           @change="setApprovalTypeSelected($event)"
         >
@@ -43,7 +43,7 @@
                 id="court-order-number-input"
                 class="mt-4"
                 label="Court Order Number"
-                :value="courtOrderNumber"
+                :value="courtOrderNumberText"
                 :rules="validate ? courtOrderNumRules : []"
                 hide-details="auto"
                 filled
@@ -71,7 +71,7 @@
                   class="mt-2"
                   title="Select Date"
                   :nudgeRight="150"
-                  :initialValue="noticeDate"
+                  :initialValue="noticeDateText"
                   :inputRules="validate ? datePickerRules : []"
                   @emitDateSync="setNoticeDateText($event)"
                 />
@@ -83,7 +83,7 @@
                   class="mt-2"
                   title="Select Date"
                   :nudgeRight="150"
-                  :initialValue="applicationDate"
+                  :initialValue="applicationDateText"
                   :inputRules="validate ? datePickerRules : []"
                   @emitDateSync="setApplicationDateText($event)"
                 />
@@ -114,7 +114,10 @@ export default class ApprovalType extends Vue {
     courtNumRef: FormIF
   }
 
-  /** The initial court order number. */
+  /**
+   * The initial court order number.
+   * Is only read when the component is mounted.
+   */
   @Prop({ default: '' }) readonly courtOrderNumber!: string
 
   /** Whether restoration was approved by the registrar. */
@@ -126,10 +129,16 @@ export default class ApprovalType extends Vue {
   /** Filing name used in radio options. */
   @Prop({ default: 'restoration' }) readonly filingType!: string
 
-  /** The initial date the notice of the application for restoration was published in the BC Gazette. */
+  /**
+   * The initial date the notice of the application for restoration was published in the BC Gazette.
+   * Is only read when the component is mounted.
+   */
   @Prop({ default: '' }) readonly noticeDate!: string
 
-  /** The initial date the application for restoration was mailed to the company. */
+  /**
+   * The initial date the application for restoration was mailed to the company.
+   * Is only read when the component is mounted.
+   */
   @Prop({ default: '' }) readonly applicationDate!: string
 
   /** Whether this section is invalid. */
@@ -194,7 +203,7 @@ export default class ApprovalType extends Vue {
   private validateComponent (): boolean {
     let valid = true
     if (this.approvalTypeSelected === ApprovalTypes.VIA_COURT_ORDER) {
-      valid = this.$refs.courtNumRef.validate()
+      valid = this.$refs.courtNumRef?.validate()
     } else if (this.approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR) {
       // Valid if validation flag is not set.
       // Valid if both dates are selected.
@@ -235,7 +244,7 @@ export default class ApprovalType extends Vue {
     if (option === ApprovalTypes.VIA_COURT_ORDER && this.isCourtOrderRadio) {
       return `This ${this.filingType} is approved by court order.`
     } else if (option === ApprovalTypes.VIA_COURT_ORDER && !this.isCourtOrderRadio) {
-      return `Enter a Court Order number, as the ${this.filingType} of this company was ordered by the court:`
+      return `Enter a Court Order number, as the restoration of this company was ordered by the court:`
     }
     if (option === ApprovalTypes.VIA_REGISTRAR) {
       return `This ${this.filingType} is approved by registrar.`
