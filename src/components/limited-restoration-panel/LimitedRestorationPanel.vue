@@ -103,7 +103,7 @@ export default class LimitedRestorationPanel extends Vue {
     if (this.radioValue === 'customMonths') {
       // wait for component updates then validate the input field
       await this.$nextTick()
-      const valid = this.$refs.monthsRef.validate()
+      const valid = this.$refs.monthsRef?.validate()
 
       // emit months and validity
       this.emitMonths(valid ? +this.inputValue : null) // emit null if invalid
