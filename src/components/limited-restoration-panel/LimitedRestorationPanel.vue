@@ -45,7 +45,6 @@
           hide-spin-buttons
           :rules="monthsRules"
           :disabled="(radioValue !== 'customMonths')"
-          @input="onMonthsInput($event)"
         />
       </v-form>
       <span class="ml-2 mt-2 month-text">month(s)</span>
@@ -84,9 +83,9 @@ export default class LimitedRestorationPanel extends Vue {
 
   /**
    * Called when the component is mounted.
-   * Sets the initial radio button and months input (if applicable).
    */
   mounted (): void {
+    // set the initial radio button and months input (if applicable)
     if ([24, 18, 12, 6].includes(this.months)) {
       this.radioValue = this.months.toString()
     } else {
@@ -96,49 +95,38 @@ export default class LimitedRestorationPanel extends Vue {
   }
 
   /**
-   * Called when months input has changed.
-   */
-  async onMonthsInput (input: string): Promise<void> {
-    // ignore non-inputs
-    if (input !== null) {
-      // wait for component updates
-      await this.$nextTick()
-      // validate the input
-      const valid = this.$refs.monthsRef.validate()
-      // emit validity
-      this.emitValid(valid)
-      // if valid, emit new value
-      if (valid) this.emitMonths(Number(this.inputValue))
-    }
-  }
-
-  /**
-   * Called when radio button has changed.
+   * Called when radio value or input value have changed.
    */
   @Watch('radioValue')
-  private onRadioValueChanged () {
-    if (this.radioValue !== 'customMonths') {
-      // reset months text field when another radio button is selected
-      this.$refs.monthsRef.reset()
+  @Watch('inputValue')
+  private async onValueChanged (): Promise<void> {
+    if (this.radioValue === 'customMonths') {
+      // wait for component updates then validate the input field
+      await this.$nextTick()
+      const valid = this.$refs.monthsRef?.validate()
+
       // emit months and validity
-      this.emitMonths(Number(this.radioValue))
+      this.emitMonths(valid ? +this.inputValue : null) // emit null if invalid
+      this.emitValid(valid)
+    } else {
+      // reset input field validation
+      this.$refs.monthsRef.resetValidation()
+
+      // emit months and validity
+      this.emitMonths(+this.radioValue)
       this.emitValid(true)
-    } else if (!this.inputValue) {
-      // as there is no input value, this component is invalid
-      // otherwise, validation will be done in onMonthsInput()
-      this.emitValid(false)
     }
   }
 
   /**
-   * Emits the numbed of months selected.
+   * Emits the number of months selected.
    */
   @Emit('months')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private emitMonths (months: number): void {}
 
   /**
-   * Emits whether the number of months selected is valid.
+   * Emits the component validity.
    */
   @Emit('valid')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -148,6 +136,7 @@ export default class LimitedRestorationPanel extends Vue {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
+
 .month-text {
   color: $gray7;
 }
