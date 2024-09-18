@@ -20,7 +20,7 @@
             :error="displayErrorState"
           >
             <template #label>
-              <span class="vuetify-label">{{ RelationshipTypes.HEIR_LEGAL_REP }}</span>
+              <span class="checkbox-label">{{ RelationshipTypes.HEIR_LEGAL_REP }}</span>
             </template>
           </v-checkbox>
         </v-col>
@@ -33,7 +33,7 @@
             :error="displayErrorState"
           >
             <template #label>
-              <span class="vuetify-label">{{ RelationshipTypes.OFFICER }}</span>
+              <span class="checkbox-label">{{ RelationshipTypes.OFFICER }}</span>
             </template>
           </v-checkbox>
         </v-col>
@@ -46,7 +46,7 @@
             :error="displayErrorState"
           >
             <template #label>
-              <span class="vuetify-label">{{ RelationshipTypes.DIRECTOR }}</span>
+              <span class="checkbox-label">{{ RelationshipTypes.DIRECTOR }}</span>
             </template>
           </v-checkbox>
         </v-col>
@@ -59,7 +59,7 @@
             :error="displayErrorState"
           >
             <template #label>
-              <span class="vuetify-label">{{ RelationshipTypes.SHAREHOLDER }}</span>
+              <span class="checkbox-label">{{ RelationshipTypes.SHAREHOLDER }}</span>
             </template>
           </v-checkbox>
         </v-col>
@@ -72,7 +72,7 @@
             :error="displayErrorState"
           >
             <template #label>
-              <span class="vuetify-label">{{ RelationshipTypes.COURT_ORDERED_PARTY }}</span>
+              <span class="checkbox-label">{{ RelationshipTypes.COURT_ORDERED_PARTY }}</span>
             </template>
           </v-checkbox>
         </v-col>
@@ -100,29 +100,26 @@ export default class RelationshipsPanel extends Vue {
 
   /**
    * Called when component is mounted.
-   * Automatically check all previously checked relationships (if any) when user continues a draft.
+   * Sets previously checked relationships (if any) and emits initial validity.
    */
   mounted (): void {
     if (this.draftRelationships.length > 0) {
       this.selectedRelationships.push(...this.draftRelationships)
     }
+    this.emitValidity()
   }
 
-  /** The validation rules for the Relationships. */
-  private setDisplayErrorState (): void {
-    this.displayErrorState = (this.showValidationErrors && this.selectedRelationships.length === 0)
-  }
-
-  // Emit the selected relationships array.
+  /** Emits the changed relationships array. */
   @Emit('changed')
-  private relationshipsChanged (): any[] {
+  private emitChangedRelationships (): any[] {
     return this.selectedRelationships
   }
 
-  // Emit a boolean (validation) which is if at least one relationship is selected.
+  /** Emits the component validity. */
   @Emit('valid')
-  private relationshipsValid (event: boolean): boolean {
-    return event
+  private emitValidity (): boolean {
+    const valid = (this.selectedRelationships.length > 0)
+    return valid
   }
 
   /**
@@ -130,15 +127,12 @@ export default class RelationshipsPanel extends Vue {
    */
   @Watch('selectedRelationships')
   @Watch('showValidationErrors')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private setRelationships (event) {
-    this.setDisplayErrorState()
-    this.relationshipsChanged()
-    if (this.selectedRelationships.length === 0) {
-      this.relationshipsValid(false)
-    } else {
-      this.relationshipsValid(true)
-    }
+  private setRelationships (): void {
+    // set checkbox error state
+    // then emit latest values + validity
+    this.displayErrorState = (this.showValidationErrors && (this.selectedRelationships.length === 0))
+    this.emitChangedRelationships()
+    this.emitValidity()
   }
 }
 
@@ -154,9 +148,9 @@ export default class RelationshipsPanel extends Vue {
   align-items: stretch;
 }
 
-.vuetify-label {
-    color: $gray7;
-    font-weight: normal;
+// don't show checkbox label error styling
+.checkbox-label {
+  color: $gray7;
+  font-weight: normal;
 }
-
 </style>
