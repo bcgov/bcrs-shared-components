@@ -25,7 +25,7 @@
           <v-text-field
             id="date-text-field"
             ref="dateTextField"
-            append-icon="mdi-calendar"
+            :append-icon="appendIcon"
             autocomplete="chrome-off"
             :class="{ 'disable-picker': disablePicker }"
             :clearable="clearable"
@@ -108,6 +108,7 @@ export default class DatePicker extends Mixins(DateMixin) {
   @Prop({ default: '' }) readonly hint!: string
   @Prop({ default: false }) readonly persistentHint!: boolean
   @Prop({ default: false }) readonly clearable!: boolean
+  @Prop({ default: 'mdi-calendar' }) readonly appendIcon!: string
 
   dateText = null
   displayPicker = false
