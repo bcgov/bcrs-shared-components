@@ -26,7 +26,6 @@
           <v-radio
             v-if="isCourtOrderRadio"
             id="court-order-radio"
-            class="mb-0"
             :label="getRadioText(ApprovalTypes.VIA_COURT_ORDER)"
             :value="ApprovalTypes.VIA_COURT_ORDER"
           />
@@ -36,12 +35,14 @@
           >
             {{ getRadioText(ApprovalTypes.VIA_COURT_ORDER) }}
           </span>
-          <v-form ref="courtNumRef">
-            <v-expand-transition>
+          <v-expand-transition>
+            <v-form
+              ref="courtNumRef"
+              v-if="approvalTypeSelected === ApprovalTypes.VIA_COURT_ORDER"
+            >
               <v-text-field
-                v-if="approvalTypeSelected === ApprovalTypes.VIA_COURT_ORDER"
                 id="court-order-number-input"
-                class="mt-4"
+                class="ml-8 mt-2"
                 label="Court Order Number"
                 :value="courtOrderNumberText"
                 :rules="validate ? courtOrderNumRules : []"
@@ -49,20 +50,20 @@
                 filled
                 @input="setCourtOrderNumberText($event)"
               />
-            </v-expand-transition>
-          </v-form>
+            </v-form>
+          </v-expand-transition>
 
           <!-- registrar section -->
           <v-radio
             v-if="isCourtOrderRadio"
             id="registrar-radio"
-            class="mt-6 mb-0"
+            class="mt-4"
             :label="getRadioText(ApprovalTypes.VIA_REGISTRAR)"
             :value="ApprovalTypes.VIA_REGISTRAR"
           />
           <v-expand-transition>
             <div v-if="approvalTypeSelected === ApprovalTypes.VIA_REGISTRAR">
-              <div class="ml-8 mt-4">
+              <div class="ml-8 mt-2">
                 <span class="v-label">Enter the date the Notice of the Application for Restoration was published in
                   the BC Gazette:
                 </span>
@@ -72,11 +73,11 @@
                   title="Select Date"
                   :nudgeRight="150"
                   :initialValue="noticeDateText"
-                  :inputRules="validate ? datePickerRules : []"
+                  :errorMsg="noticeDateErrorMsg"
                   @emitDateSync="setNoticeDateText($event)"
                 />
               </div>
-              <div class="ml-8">
+              <div class="ml-8 mt-5">
                 <span class="v-label">Enter the date the Application for Restoration was mailed to the company:</span>
                 <DatePicker
                   id="date-picker-application"
@@ -84,7 +85,7 @@
                   title="Select Date"
                   :nudgeRight="150"
                   :initialValue="applicationDateText"
-                  :inputRules="validate ? datePickerRules : []"
+                  :errorMsg="applicationDateErrorMsg"
                   @emitDateSync="setApplicationDateText($event)"
                 />
               </div>
@@ -159,9 +160,6 @@ export default class ApprovalType extends Vue {
   // For template
   readonly ApprovalTypes = ApprovalTypes
 
-  /** Date picker rules. */
-  readonly datePickerRules = [(v: string) => !!v || 'Date is required']
-
   /** Text field rules. */
   readonly courtOrderNumRules = [
     (v: string) => (!v || !/^\s/g.test(v)) || 'Invalid spaces', // leading spaces
@@ -170,6 +168,14 @@ export default class ApprovalType extends Vue {
     (v: string) => (!v || !(v.length > 20)) || 'Court order number is too long',
     (v: string) => !!v || 'A Court Order number is required'
   ]
+
+  get noticeDateErrorMsg (): string {
+    return (this.validate && !this.noticeDateText) ? 'Date is required': null
+  }
+
+  get applicationDateErrorMsg (): string {
+    return (this.validate && !this.applicationDateText) ? 'Date is required' : null
+  }
 
   /** Called when component is mounted. */
   mounted (): void {
@@ -271,11 +277,11 @@ export default class ApprovalType extends Vue {
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
 
-:deep() {
-  .v-card__actions {
-    justify-content: flex-end;
-  }
+label {
+  font-weight: bold;
+}
 
+:deep() {
   .v-input .v-label {
     font-weight: normal;
     color: $gray7;
