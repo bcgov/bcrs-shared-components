@@ -54,21 +54,16 @@
                 class="certify-stmt"
                 :class="{'error-text': invalidSection && !isCertified}"
               >
-                <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>
-                certifies that they have relevant knowledge of the
-                {{ entityDisplay || "association" }} and is authorized to
-                make this filing.
+                <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong> certifies that they have relevant
+                knowledge of the {{ entityDisplay || "association" }} and are authorized to make this filing.
               </div>
               <div
                 v-else
                 class="certify-stmt"
                 :class="{'error-text': invalidSection && !isCertified}"
               >
-                I,
-                <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>,
-                certify that I have relevant knowledge of the
-                {{ entityDisplay || "association" }} and I am authorized to
-                make this filing.
+                I, <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>, certify that I have relevant
+                knowledge of the {{ entityDisplay || "association" }} and I am authorized to make this filing.
               </div>
             </template>
           </v-checkbox>
@@ -256,9 +251,11 @@ export default class Certify extends Vue {
   font-weight: normal;
 }
 
-// override v-text-field label and text
-:deep(.v-input--is-disabled input),
-.v-input--is-disabled textarea {
-  color: $gray9;
+// for accessibility, override the input label and text colour
+// this applies to both editable and disabled modes
+:deep(.theme--light.v-input) {
+  label, input {
+    color: $gray7;
+  }
 }
 </style>

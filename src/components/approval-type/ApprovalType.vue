@@ -37,8 +37,8 @@
           </span>
           <v-expand-transition>
             <v-form
-              ref="courtNumRef"
               v-if="approvalTypeSelected === ApprovalTypes.VIA_COURT_ORDER"
+              ref="courtNumRef"
             >
               <v-text-field
                 id="court-order-number-input"
