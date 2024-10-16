@@ -170,7 +170,7 @@ export default class ApprovalType extends Vue {
   ]
 
   get noticeDateErrorMsg (): string {
-    return (this.validate && !this.noticeDateText) ? 'Date is required': null
+    return (this.validate && !this.noticeDateText) ? 'Date is required' : null
   }
 
   get applicationDateErrorMsg (): string {
