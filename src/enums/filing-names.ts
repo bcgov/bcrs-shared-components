@@ -14,6 +14,7 @@ export enum FilingNames {
   CONSENT_AMALGAMATION_OUT = 'Consent to Amalgamation Out',
   CONSENT_CONTINUATION_OUT = 'Consent to Continuation Out',
   CONTINUATION_IN_APPLICATION = 'Continuation Application',
+  CONTINUATION_AUTHORIZATION = 'Continuation Authorization',
   CONTINUATION_OUT = 'Continuation Out',
   CONVERSION = 'Record Conversion',
   CORRECTION = 'Correction',
