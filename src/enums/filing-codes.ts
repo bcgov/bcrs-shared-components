@@ -1,7 +1,7 @@
 /** Filing codes to send to Pay API. */
 export enum FilingCodes {
-  ADDRESS_CHANGE_BC = 'BCADD', // BCOMP - Change of Address
-  ADDRESS_CHANGE_OT = 'OTADD', // Others - Change of Address
+  ADDRESS_CHANGE_BC = 'BCADD', // Change of Address - BC, BEN, etc
+  ADDRESS_CHANGE_OT = 'OTADD', // Change of Address - CP
   AGM_EXTENSION = 'AGMDT',
   AGM_LOCATION_CHANGE = 'AGMLC',
   AFFIDAVIT = 'AFDVT',
@@ -11,7 +11,7 @@ export enum FilingCodes {
   AMALGAMATION_REGULAR = 'AMALR', // Amalgamation Application (Regular)
   AMALGAMATION_VERTICAL = 'AMALV', // Amalgamation Application (Vertical Short Form)
   AMALGAMATION_OUT = 'AMALO', // Amalgamation Out
-  ANNUAL_REPORT_BC = 'BCANN', // Annual Report - BC, etc
+  ANNUAL_REPORT_BC = 'BCANN', // Annual Report - BC, BEN, etc
   ANNUAL_REPORT_OT = 'OTANN', // Annual Report - CP
   CHANGE_OF_REGISTRATION = 'FMCHANGE',
   CONSENT_AMALGAMATION_OUT = 'IAMGO', // Consent To Amalgamation Out
@@ -19,8 +19,8 @@ export enum FilingCodes {
   CONTINUATION_IN = 'CONTI',
   CONTINUATION_OUT = 'COUTI',
   CORRECTION = 'CRCTN', // Correction - for both BCOMP and Others
-  DIRECTOR_CHANGE_BC = 'BCCDR', // BCOMP - Change of Directors
-  DIRECTOR_CHANGE_OT = 'OTCDR', // Others - Change of Directors
+  DIRECTOR_CHANGE_BC = 'BCCDR', // Change of Directors - BC, BEN, etc
+  DIRECTOR_CHANGE_OT = 'OTCDR', // Change of Directors - CP
   DISSOLUTION_ADMINISTRATIVE = 'DIS_ADMIN',
   DISSOLUTION_COURT_ORDERED_LIQUIDATION = 'DIS_COLQD',
   DISSOLUTION_INVOLUNTARY = 'DIS_INVOL',
