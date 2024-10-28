@@ -11,8 +11,8 @@ export enum FilingCodes {
   AMALGAMATION_REGULAR = 'AMALR', // Amalgamation Application (Regular)
   AMALGAMATION_VERTICAL = 'AMALV', // Amalgamation Application (Vertical Short Form)
   AMALGAMATION_OUT = 'AMALO', // Amalgamation Out
-  ANNUAL_REPORT_BC = 'BCANN', // BCOMP - Annual Report
-  ANNUAL_REPORT_OT = 'OTANN', // Others - Annual Report
+  ANNUAL_REPORT_BC = 'BCANN', // Annual Report - BC, etc
+  ANNUAL_REPORT_OT = 'OTANN', // Annual Report - CP
   CHANGE_OF_REGISTRATION = 'FMCHANGE',
   CONSENT_AMALGAMATION_OUT = 'IAMGO', // Consent To Amalgamation Out
   CONSENT_CONTINUATION_OUT = 'CONTO', // Consent To Continuation Out
