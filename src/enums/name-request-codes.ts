@@ -6,22 +6,26 @@
 // ref: https://github.com/bcgov/namex/blob/main/api/namex/constants/__init__.py
 // ref: https://github.com/bcgov/lear/blob/main/legal-api/src/legal_api/resources/v1/nr_type_map.py
 export enum NrRequestTypeCodes {
-  // change name (or resubmit)
+  // change name
   CHANGE_BEN = 'BEC',
-  CHANGE_CCC = 'CCC',
+  CHANGE_CC = 'CCC',
   CHANGE_COOP = 'CCP',
   CHANGE_CORP = 'CCR', // BC Limited
   CHANGE_FIRM = 'CFR', // SP, DBA or GP
   CHANGE_ULC = 'CUL',
+  CHANGE_C = 'CT', // continued in BC Limited Company
+  CHANGE_CBEN = 'BECT', // continued in Benefit Company
+  CHANGE_CCC = 'CCCT', // continued in Community Contribution Company
+  CHANGE_CUL = 'ULCT', // continued in Unlimited Liability Company
 
-  // continuation in (move or resubmit)
+  // continuation in
   CONTINUATION_IN_BEN = 'BECT',
   CONTINUATION_IN_CCC = 'CCCT',
   CONTINUATION_IN_COOP = 'CTC',
   CONTINUATION_IN_CORP = 'CT',
   CONTINUATION_IN_ULC = 'ULCT',
 
-  // convert (or resubmit)
+  // convert (aka alteration)
   CONVERT_BEN = 'BECV', // from LTD to BEN
   CONVERT_CCC = 'CCV', // from LTD to CCC
   CONVERT_CORP = 'BECR', // from BEN to LTD
@@ -29,22 +33,22 @@ export enum NrRequestTypeCodes {
   CONVERT_ULC = 'UC', // from LTD to ULC
   CONVERT_ULCB = 'ULCB', // from ULC to LTD
 
-  // new (or resubmit)
-  NEW_BC = 'BC', // BC Benefit Company Incorporation
-  NEW_CCC = 'CC', // CCC - Incorporation/Amalgamation
-  NEW_COOP = 'CP', // Cooperative - Incorporation/Amalgamation
-  NEW_CORP = 'CR', // BC Company - Incorporation/Amalgamation
-  NEW_FIRM = 'FR', // Sole Proprietorship/General Partnership/DBA - Registration
+  // new (or amalgamation)
+  NEW_BC = 'BC', // Benefit Company
+  NEW_CCC = 'CC', // Community Contribution Company
+  NEW_COOP = 'CP', // Cooperative
+  NEW_CORP = 'CR', // Corporation = BC Limited Company
+  NEW_FIRM = 'FR', // Firm = Sole Proprietorship/General Partnership/DBA
   NEW_ULC = 'UL', // Unlimited Liability Company
-  NEW_XPRO_CORP = 'XCR', // Corporation (Foreign) - Extrapro Registration/Amalgamation
+  NEW_XPRO_CORP = 'XCR', // Corporation (Foreign)
 
   // restoration
-  RESTORATION_CCC = 'RCC',
+  RESTORATION_CCC = 'RCC', // used for both CC and CCC
   RESTORATION_COOP = 'RCP',
-  RESTORATION_CORP = 'RCR', // BC Limited
+  RESTORATION_CORP = 'RCR', // used for both BC and C
   RESTORATION_SOC = 'RSO',
-  RESTORATION_BEN = 'BERE',
-  RESTORATION_ULC = 'RUL',
+  RESTORATION_BEN = 'BERE', // used for both BEN and CBEN
+  RESTORATION_ULC = 'RUL', // used for both ULC and CUL
 
   // others, may be legacy or future
   LC = 'LC', // new XPRO_LL_PARTNR
