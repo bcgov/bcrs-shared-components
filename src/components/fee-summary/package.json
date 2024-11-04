@@ -1,13 +1,13 @@
 {
   "name": "@bcrs-shared-components/fee-summary",
-  "version": "2.0.26",
+  "version": "2.0.27",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/enums": "^1.1.13",
-    "@bcrs-shared-components/interfaces": "^1.1.18",
-    "@bcrs-shared-components/services": "^1.0.27",
+    "@bcrs-shared-components/enums": "^1.1.14",
+    "@bcrs-shared-components/interfaces": "^1.1.19",
+    "@bcrs-shared-components/services": "^1.0.28",
     "sbc-common-components": "3.0.8",
     "vue": "^2.7.14"
   },
