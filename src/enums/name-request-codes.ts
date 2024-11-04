@@ -26,12 +26,13 @@ export enum NrRequestTypeCodes {
   CONTINUATION_IN_ULC = 'ULCT',
 
   // convert (aka alteration)
-  CONVERT_BEN = 'BECV', // from LTD to BEN
-  CONVERT_CCC = 'CCV', // from LTD to CCC
-  CONVERT_CORP = 'BECR', // from BEN to LTD
-  CONVERT_ULBE = 'ULBE', // from ULC to BEN
-  CONVERT_ULC = 'UC', // from LTD to ULC
-  CONVERT_ULCB = 'ULCB', // from ULC to LTD
+  CONVERT_BC_TO_BEN = 'BECV', // BC Limited -> Benefit Company
+  CONVERT_BC_TO_CCC = 'CCV', // BC Limited -> Community Contribution Company
+  CONVERT_BC_TO_ULC = 'UC', // BC Limited -> Unlimited Liability Company
+  CONVERT_BEN_TO_BC = 'BECR', // Benefit Company -> BC Limited Company
+  CONVERT_BEN_TO_CCC = 'BECC', // Benefit Company -> Community Contribution Company
+  CONVERT_ULC_TO_BC = 'ULCB', // Unlimited Liability Company -> BC Limited Company
+  CONVERT_ULC_TO_BEN = 'ULBE', // Unlimited Liability Company -> Benefit Company
 
   // new (or amalgamation)
   NEW_BC = 'BC', // Benefit Company
