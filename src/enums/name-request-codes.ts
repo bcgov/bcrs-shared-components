@@ -7,16 +7,12 @@
 // ref: https://github.com/bcgov/lear/blob/main/legal-api/src/legal_api/resources/v1/nr_type_map.py
 export enum NrRequestTypeCodes {
   // change name
-  CHANGE_BEN = 'BEC',
-  CHANGE_CC = 'CCC',
+  CHANGE_BEN = 'BEC', // used for both BEN and CBEN
+  CHANGE_CC = 'CCC', // used for both CC and CCC
   CHANGE_COOP = 'CCP',
-  CHANGE_CORP = 'CCR', // BC Limited
+  CHANGE_CORP = 'CCR', // used for both BC and C
   CHANGE_FIRM = 'CFR', // SP, DBA or GP
-  CHANGE_ULC = 'CUL',
-  CHANGE_C = 'CT', // continued in BC Limited Company
-  CHANGE_CBEN = 'BECT', // continued in Benefit Company
-  CHANGE_CCC = 'CCCT', // continued in Community Contribution Company
-  CHANGE_CUL = 'ULCT', // continued in Unlimited Liability Company
+  CHANGE_ULC = 'CUL', // used for both ULC and CUL
 
   // continuation in
   CONTINUATION_IN_BEN = 'BECT',
@@ -26,13 +22,13 @@ export enum NrRequestTypeCodes {
   CONTINUATION_IN_ULC = 'ULCT',
 
   // convert (aka alteration)
-  CONVERT_BC_TO_BEN = 'BECV', // BC Limited -> Benefit Company
-  CONVERT_BC_TO_CCC = 'CCV', // BC Limited -> Community Contribution Company
-  CONVERT_BC_TO_ULC = 'UC', // BC Limited -> Unlimited Liability Company
-  CONVERT_BEN_TO_BC = 'BECR', // Benefit Company -> BC Limited Company
-  CONVERT_BEN_TO_CCC = 'BECC', // Benefit Company -> Community Contribution Company
-  CONVERT_ULC_TO_BC = 'ULCB', // Unlimited Liability Company -> BC Limited Company
-  CONVERT_ULC_TO_BEN = 'ULBE', // Unlimited Liability Company -> Benefit Company
+  CONVERT_BC_TO_BEN = 'BECV', // BC Limited -> Benefit Company // used for both BC and C
+  CONVERT_BC_TO_CCC = 'CCV', // BC Limited -> Community Contribution Company // used for both BC and C
+  CONVERT_BC_TO_ULC = 'UC', // BC Limited -> Unlimited Liability Company // used for both BC and C
+  CONVERT_BEN_TO_BC = 'BECR', // Benefit Company -> BC Limited Company // used for both BEN and CBEN
+  CONVERT_BEN_TO_CCC = 'BECC', // Benefit Company -> Community Contribution Company // used for both BEN and CBEN
+  CONVERT_ULC_TO_BC = 'ULCB', // Unlimited Liability Company -> BC Limited Company // used for both ULC and CUL
+  CONVERT_ULC_TO_BEN = 'ULBE', // Unlimited Liability Company -> Benefit Company // used for both ULC and CUL
 
   // new (or amalgamation)
   NEW_BC = 'BC', // Benefit Company
