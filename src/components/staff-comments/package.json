@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/staff-comments",
-  "version": "1.3.58",
+  "version": "1.3.59",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.1.20",
-    "@bcrs-shared-components/mixins": "^1.1.51",
+    "@bcrs-shared-components/interfaces": "^1.1.21",
+    "@bcrs-shared-components/mixins": "^1.1.52",
     "vue": "^2.7.14"
   },
   "devDependencies": {
