@@ -28,6 +28,7 @@ export enum FilingNames {
   DISSOLVED = 'Involuntary Dissolution',
   INCORPORATION_APPLICATION = 'Incorporation Application',
   INVOLUNTARY_DISSOLUTION = 'Involuntary Dissolution',
+  NOTICE_OF_WITHDRAWAL = 'Notice of Withdrawal',
   PUT_BACK_ON = 'Put Back On',
   REGISTRATION = 'Registration',
   REGISTRARS_NOTATION = 'Registrar\'s Notation',
