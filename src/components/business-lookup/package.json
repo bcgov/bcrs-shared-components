@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/business-lookup",
-  "version": "1.3.11",
+  "version": "1.3.12",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.1.22",
+    "@bcrs-shared-components/interfaces": "^1.1.23",
     "lodash": "4.17.21",
     "vue": "^2.7.14"
   },
