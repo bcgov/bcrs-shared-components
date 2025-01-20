@@ -20,6 +20,10 @@
         class="address-block"
       >
         <div class="address-block__info pre-line">
+          <div class="address-block__info-row address-country">
+            {{ getCountryName(addressCountry) }}
+          </div>
+
           <div class="address-block__info-row street-address">
             {{ addressLocal.streetAddress }}
           </div>
@@ -40,10 +44,6 @@
             </template>
           </div>
 
-          <div class="address-block__info-row address-country">
-            {{ getCountryName(addressCountry) }}
-          </div>
-
           <template v-if="addressLocal.deliveryInstructions">
             <div class="address-block__info-row delivery-instructions mt-5 font-italic">
               {{ addressLocal.deliveryInstructions }}
@@ -61,6 +61,26 @@
         name="address-form"
         lazy-validation
       >
+        <div class="form__row">
+          <v-select
+            v-model="addressLocal.addressCountry"
+            filled
+            class="address-country"
+            :label="addressCountryLabel"
+            menu-props="auto"
+            item-text="name"
+            item-value="code"
+            :items="getCountries()"
+            :rules="[...rules.addressCountry, ...spaceRules]"
+            @change="resetRegion()"
+          />
+          <!-- special field to select AddressComplete country, separate from our model field -->
+          <input
+            :id="addressCountryId"
+            type="hidden"
+            :value="addressCountry"
+          >
+        </div>
         <div class="form__row">
           <!-- NB1: AddressComplete needs to be enabled each time user clicks in this search field.
                NB2: Only process first keypress -- assumes if user moves between instances of this
@@ -127,26 +147,6 @@
             :label="postalCodeLabel"
             :rules="[...rules.postalCode, ...spaceRules]"
           />
-        </div>
-        <div class="form__row">
-          <v-select
-            v-model="addressLocal.addressCountry"
-            filled
-            class="address-country"
-            :label="addressCountryLabel"
-            menu-props="auto"
-            item-text="name"
-            item-value="code"
-            :items="getCountries()"
-            :rules="[...rules.addressCountry, ...spaceRules]"
-            @change="resetRegion()"
-          />
-          <!-- special field to select AddressComplete country, separate from our model field -->
-          <input
-            :id="addressCountryId"
-            type="hidden"
-            :value="addressCountry"
-          >
         </div>
         <div class="form__row">
           <v-textarea
