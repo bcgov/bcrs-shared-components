@@ -10,13 +10,13 @@ localVue.use(VueRouter)
 
 const homeBreadCrumb = [
   {
-    text: 'BC Registries Dashboard'
+    text: 'Service BC Connect Dashboard'
   }
 ]
 
 const baseBreadCrumb = [
   {
-    text: 'BC Registries Dashboard',
+    text: 'Service BC Connect Dashboard',
     href: 'someUrl'
   },
   {
@@ -26,7 +26,7 @@ const baseBreadCrumb = [
 
 const navigationBreadCrumb = [
   {
-    text: 'BC Registries Dashboard',
+    text: 'Service BC Connect Dashboard',
     href: 'someUrl'
   },
   {
@@ -80,7 +80,7 @@ describe('BreadCrumb', () => {
     const breadcrumbs = wrapper.findAll('.breadcrumb-text')
     expect(breadcrumbs.length).toBe(4)
 
-    expect(breadcrumbs.at(0).text()).toContain('BC Registries Dashboard')
+    expect(breadcrumbs.at(0).text()).toContain('Service BC Connect Dashboard')
     expect(breadcrumbs.at(1).text()).toContain('BC12345678')
     expect(breadcrumbs.at(2).text()).toContain('some route')
     expect(breadcrumbs.at(3).text()).toContain('some route')
