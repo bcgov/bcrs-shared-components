@@ -1,8 +1,9 @@
-import Vue from 'vue'
+import { nextTick } from 'vue'
 import Vuetify from 'vuetify'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 import { DatePicker } from '@/components/date-picker'
 import VueRouter from 'vue-router'
+import flushPromises from 'flush-promises'
 
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning
 document.body.setAttribute('data-app', 'true')
@@ -50,48 +51,48 @@ describe('DatePicker component', () => {
 
   it('loads the component', async () => {
     wrapper = createComponent()
-    await Vue.nextTick()
+    await nextTick()
 
     expect(wrapper.findComponent(DatePicker).exists()).toBe(true)
   })
 
   it('displays the correct title msg', async () => {
     wrapper = createComponent('Mock Title Msg')
-    await Vue.nextTick()
+    await nextTick()
 
     expect(wrapper.find('.date-picker-form .v-text-field').text()).toContain('Mock Title Msg')
   })
 
   it('displays the error msg when prompted', async () => {
     wrapper = createComponent(null, 'Mock Error Msg')
-    await Vue.nextTick()
+    await nextTick()
 
     expect(wrapper.find('.date-picker-form .v-text-field').text()).toContain('Mock Error Msg')
   })
 
   it('enables the date picker by default', async () => {
     wrapper = createComponent()
-    await Vue.nextTick()
+    await nextTick()
 
-    expect(wrapper.find('#date-text-field').attributes('disabled')).toBeUndefined()
+    expect(wrapper.find('.v-text-field').classes()).not.toContain('disable-picker')
   })
 
   it('disables the date picker when prompted', async () => {
     wrapper = createComponent(null, null, true)
-    await Vue.nextTick()
+    await nextTick()
 
-    expect(wrapper.find('#date-text-field').attributes('disabled')).toBeDefined()
+    expect(wrapper.find('.v-text-field').classes()).toContain('disable-picker')
   })
 
   it('displays the date picker', async () => {
     wrapper = createComponent()
-    await Vue.nextTick()
+    await nextTick()
 
     // Verify Date Picker is closed
     expect(wrapper.find('#date-picker-calendar').exists()).toBe(false)
 
     wrapper.find('#date-text-field').trigger('click')
-    await Vue.nextTick()
+    await nextTick()
 
     // Verify Date Picker is open
     expect(wrapper.find('#date-picker-calendar').exists()).toBe(true)
@@ -99,10 +100,10 @@ describe('DatePicker component', () => {
 
   it('verify the calendar slot btns', async () => {
     wrapper = createComponent()
-    await Vue.nextTick()
+    await nextTick()
 
     wrapper.find('#date-text-field').trigger('click')
-    await Vue.nextTick()
+    await nextTick()
 
     // Verify Date Picker is open
     expect(wrapper.find('#date-picker-calendar').exists()).toBe(true)
@@ -114,20 +115,20 @@ describe('DatePicker component', () => {
 
   it('verify the calendar OK emit', async () => {
     wrapper = createComponent()
-    await Vue.nextTick()
+    await nextTick()
 
     wrapper.find('#date-text-field').trigger('click')
-    await Vue.nextTick()
+    await nextTick()
 
     // Verify Date Picker is open
     expect(wrapper.find('#date-picker-calendar').exists()).toBe(true)
 
     wrapper.vm.$data.dateText = '2020-12-01'
-    await Vue.nextTick()
+    await nextTick()
 
     // Click OK btn
     wrapper.find('#date-picker-calendar #btn-done').trigger('click')
-    await Vue.nextTick()
+    await nextTick()
 
     expect(wrapper.emitted('emitDate').pop()[0]).toEqual('2020-12-01')
   })
@@ -137,7 +138,7 @@ describe('DatePicker component', () => {
       [(v: string) => !!v || 'Select date']
 
     wrapper = createComponent(null, null, null, validationRules)
-    await Vue.nextTick()
+    await nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
     const validateFormMethod = datePicker.validateForm
@@ -147,13 +148,13 @@ describe('DatePicker component', () => {
     expect(validateFormMethod()).toBe(false)
 
     wrapper.vm.$data.dateText = '2021-04-30'
-    await Vue.nextTick()
+    await nextTick()
     expect(validateFormMethod()).toBe(true)
   })
 
   it('should have a clearDate public method', async () => {
     wrapper = createComponent()
-    await Vue.nextTick()
+    await nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
     const clearDateMethod = datePicker.clearDate
@@ -162,7 +163,7 @@ describe('DatePicker component', () => {
 
     wrapper.vm.$data.dateText = '2021-04-30'
     wrapper.vm.$data.displayPicker = true
-    await Vue.nextTick()
+    await nextTick()
     clearDateMethod()
     expect(wrapper.vm.$data.dateText).toBe('')
     expect(wrapper.vm.$data.displayPicker).toBe(false)
@@ -175,7 +176,7 @@ describe('DatePicker component', () => {
       },
       vuetify
     })
-    await Vue.nextTick()
+    await nextTick()
 
     // Verify model and date text field value is updated to use initialValue
     expect(wrapper.vm.$data.dateText).toEqual('2021-11-18')
@@ -187,7 +188,7 @@ describe('DatePicker component', () => {
       propsData: {},
       vuetify
     })
-    await Vue.nextTick()
+    await nextTick()
 
     // Verify model and date text field value are initialized correctly when initialValue is set as prop
     expect(wrapper.vm.$data.dateText).toBeNull()
@@ -196,7 +197,7 @@ describe('DatePicker component', () => {
 
   it('should have a isDateValid public method', async () => {
     wrapper = createComponent()
-    await Vue.nextTick()
+    await nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
     const isDateValidMethod = datePicker.isDateValid
@@ -209,7 +210,7 @@ describe('DatePicker component', () => {
       [(v: string) => !!v || 'Select date']
 
     wrapper = createComponent(null, null, null, validationRules)
-    await Vue.nextTick()
+    await nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
     expect(datePicker.isDateValid()).toEqual(false)
@@ -219,10 +220,10 @@ describe('DatePicker component', () => {
     const validationRules: any[] =
       [(v: string) => !!v || 'Select date']
     wrapper = createComponent(null, null, null, validationRules)
-    await Vue.nextTick()
+    await nextTick()
 
     wrapper.vm.$data.dateText = '2020-12-01'
-    await Vue.nextTick()
+    await nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
     expect(datePicker.isDateValid()).toEqual(true)
@@ -235,10 +236,10 @@ describe('DatePicker component', () => {
       (v: string) => expectedDateFormat.test(v) || 'Date format should be YYYY-MM-DD'
     ]
     wrapper = createComponent(null, null, null, validationRules)
-    await Vue.nextTick()
+    await nextTick()
 
     wrapper.vm.$data.dateText = 'invalid-date-format'
-    await Vue.nextTick()
+    await nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
     expect(datePicker.isDateValid()).toEqual(false)
@@ -250,10 +251,10 @@ describe('DatePicker component', () => {
       (v: string) => !!v || 'Select date'
     ]
     wrapper = createComponent(null, null, null, validationRules)
-    await Vue.nextTick()
+    await nextTick()
 
     wrapper.vm.$data.dateText = '2020-12-01'
-    await Vue.nextTick()
+    await nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
     expect(datePicker.isDateValid()).toEqual(true)
@@ -263,17 +264,17 @@ describe('DatePicker component', () => {
     const validationRules: any[] =
       [(v: string) => !!v || 'Select date']
     wrapper = createComponent(null, null, null, validationRules)
-    await Vue.nextTick()
+    await nextTick()
 
     wrapper.find('#date-text-field').trigger('click')
-    await Vue.nextTick()
+    await nextTick()
 
     wrapper.vm.$data.dateText = '2020-12-01'
-    await Vue.nextTick()
+    await nextTick()
 
     // Click OK btn
     wrapper.find('#date-picker-calendar #btn-done').trigger('click')
-    await Vue.nextTick()
+    await nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
     expect(datePicker.isDateValid()).toEqual(true)
@@ -283,17 +284,17 @@ describe('DatePicker component', () => {
     const validationRules: any[] =
       [(v: string) => !!v || 'Select date']
     wrapper = createComponent(null, null, null, validationRules)
-    await Vue.nextTick()
+    await nextTick()
 
     wrapper.find('#date-text-field').trigger('click')
-    await Vue.nextTick()
+    await nextTick()
 
     wrapper.vm.$data.dateText = '2020-12-01'
-    await Vue.nextTick()
+    await nextTick()
 
     // Click OK btn
     wrapper.find('#date-picker-calendar #btn-cancel').trigger('click')
-    await Vue.nextTick()
+    await nextTick()
 
     const datePicker = wrapper.vm as any // wrapper.vm type is Vue
     expect(datePicker.isDateValid()).toEqual(false)
@@ -302,7 +303,7 @@ describe('DatePicker component', () => {
   it('clearable button clears date', async () => {
     const initialValue = '2021-11-18'
     wrapper = createComponent(null, null, null, [], initialValue, true)
-    await Vue.nextTick()
+    await nextTick()
 
     expect(wrapper.vm.$data.dateText).toBe(initialValue)
 
@@ -310,7 +311,7 @@ describe('DatePicker component', () => {
     const clearBtn = wrapper.findAll('button.mdi-close')
     expect(clearBtn?.length).toBe(1)
     clearBtn.at(0).trigger('click')
-    await Vue.nextTick()
+    await nextTick()
 
     expect(wrapper.vm.$data.dateText).toBe('')
   })
