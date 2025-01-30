@@ -1,0 +1,15 @@
+{
+  "name": "@bcrs-shared-components/document-id",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "@bcrs-shared-components/interfaces": "^1.1.23",
+    "vue": "^2.7.14"
+  },
+  "devDependencies": {
+    "vue-property-decorator": "^9.1.2"
+  }
+}
