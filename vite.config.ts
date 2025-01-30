@@ -21,7 +21,7 @@ export default defineConfig({
       '@bcrs-shared-components/mixins': path.resolve(__dirname, './src/mixins'),
       '@bcrs-shared-components/types': path.resolve(__dirname, './src/types'),
       '@bcrs-shared-components/services': path.resolve(__dirname, './src/services'),
-      '@bcrs-shared-components/': path.resolve(__dirname, './src/components')
+      '@bcrs-shared-components': path.resolve(__dirname, './src/components')
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   },
