@@ -239,8 +239,10 @@ export default class DocumentId extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/theme.scss';
+
 .title-label {
-  color: #212529FF;
+  color: $gray9;
   font-weight: bold;
 }
 .copy-text, .copy-label {
@@ -248,9 +250,9 @@ export default class DocumentId extends Vue {
   color: black;
 }
 .border-error-left {
-  border-left: 3px solid #d3272c;
+  border-left: 3px solid $app-red;
 }
 .error-text {
-  color: #d3272c;
+  color: $app-red;
 }
 </style>

@@ -15,3 +15,7 @@ const Template = (args, { argTypes }) => ({
 })
 
 export const Default = Template.bind({})
+export const error = Template.bind({})
+error['args'] = {
+  validate: true
+}
