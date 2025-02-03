@@ -2,6 +2,8 @@ import Vuetify from 'vuetify'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 import { ApprovalType } from '@/components/approval-type'
 import VueRouter from 'vue-router'
+import { nextTick } from 'vue'
+import flushPromises from 'flush-promises'
 
 const vuetify = new Vuetify({})
 const localVue = createLocalVue()
@@ -140,6 +142,7 @@ describe('ApprovalType component', () => {
       localVue
     })
     const vm2 = wrapper2.vm
+    await nextTick()
 
     expect(vm2.$data.courtOrderNumberText).toBe('1234-567890')
     expect(vm2.$data.approvalTypeSelected).toEqual('courtOrder')

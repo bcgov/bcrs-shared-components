@@ -3,6 +3,7 @@ import Vuetify from 'vuetify'
 import { createLocalVue, mount, Wrapper } from '@vue/test-utils'
 import { EffectiveDateTime } from '@/components/effective-date-time'
 import flushPromises from 'flush-promises'
+import { DatePicker } from '@/components/date-picker'
 
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning
 document.body.setAttribute('data-app', 'true')
@@ -101,7 +102,7 @@ describe('Effective Date Time component', () => {
 
     await radioIsImmediate.trigger('click')
 
-    expect(wrapper.find('#date-text-field').attributes('disabled')).toBe('disabled')
+    expect(wrapper.findComponent(DatePicker).find('.v-text-field').classes()).toContain('disable-picker')
     expect(wrapper.find('#hour-selector').attributes('disabled')).toBe('disabled')
     expect(wrapper.find('#minute-selector').attributes('disabled')).toBe('disabled')
     expect(wrapper.find('#period-selector').attributes('disabled')).toBe('disabled')
@@ -149,7 +150,7 @@ describe('Effective Date Time component', () => {
 
     await radioIsImmediate.trigger('click')
 
-    expect(wrapper.find('#date-text-field').attributes('disabled')).toBe('disabled')
+    expect(wrapper.findComponent(DatePicker).find('.v-text-field').classes()).toContain('disable-picker')
     expect(wrapper.find('#hour-selector').attributes('disabled')).toBe('disabled')
     expect(wrapper.find('#minute-selector').attributes('disabled')).toBe('disabled')
     expect(wrapper.find('#period-selector').attributes('disabled')).toBe('disabled')
