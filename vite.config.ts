@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue2'
 import EnvironmentPlugin from 'vite-plugin-environment'
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,15 +13,15 @@ export default defineConfig({
   resolve: {
     alias: {
       // to find local components in src/
-      '@/': new URL('./src/', import.meta.url).pathname,
+      '@': path.resolve(__dirname, './src'),
       // to find shared components in src/xxx
-      '@bcrs-shared-components/corp-type-module': new URL('./src/modules/corp-type-module', import.meta.url).pathname,
-      '@bcrs-shared-components/enums': new URL('./src/enums', import.meta.url).pathname,
-      '@bcrs-shared-components/interfaces': new URL('./src/interfaces', import.meta.url).pathname,
-      '@bcrs-shared-components/mixins': new URL('./src/mixins', import.meta.url).pathname,
-      '@bcrs-shared-components/types': new URL('./src/types', import.meta.url).pathname,
-      '@bcrs-shared-components/services': new URL('./src/services', import.meta.url).pathname,
-      '@bcrs-shared-components/': new URL('./src/components/', import.meta.url).pathname
+      '@bcrs-shared-components/corp-type-module': path.resolve(__dirname, './src/modules/corp-type-module'),
+      '@bcrs-shared-components/enums': path.resolve(__dirname, './src/enums'),
+      '@bcrs-shared-components/interfaces': path.resolve(__dirname, './src/interfaces'),
+      '@bcrs-shared-components/mixins': path.resolve(__dirname, './src/mixins'),
+      '@bcrs-shared-components/types': path.resolve(__dirname, './src/types'),
+      '@bcrs-shared-components/services': path.resolve(__dirname, './src/services'),
+      '@bcrs-shared-components': path.resolve(__dirname, './src/components')
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   },

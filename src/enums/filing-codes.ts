@@ -19,6 +19,7 @@ export enum FilingCodes {
   CONTINUATION_IN = 'CONTI',
   CONTINUATION_OUT = 'COUTI',
   CORRECTION = 'CRCTN', // Correction - for both BCOMP and Others
+  COURT_ORDER = 'COURT', // Court Order Fee Code
   DIRECTOR_CHANGE_BC = 'BCCDR', // Change of Directors - BC, BEN, etc
   DIRECTOR_CHANGE_OT = 'OTCDR', // Change of Directors - CP
   DISSOLUTION_ADMINISTRATIVE = 'DIS_ADMIN',

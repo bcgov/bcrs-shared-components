@@ -1,13 +1,15 @@
 import Vuetify from 'vuetify'
 import { mount } from '@vue/test-utils'
 import { HelpBusinessNumber } from '@/components/help-business-number'
+import { nextTick } from 'vue'
 
 const vuetify = new Vuetify({})
 
 describe('HelpBusinessNumber', () => {
   it('displays expected content for SP entity type', async () => {
-    const wrapper = mount(HelpBusinessNumber, { vuetify, propsData: { isTypeSoleProp: true } })
+    const wrapper = mount(HelpBusinessNumber, { vuetify, propsData: { isEntitySoleProp: true } })
     const vm = wrapper.vm as any
+    await nextTick()
 
     // sanity check
     expect(wrapper.find('#help-business-number')).toBeDefined()
@@ -59,7 +61,7 @@ describe('HelpBusinessNumber', () => {
   })
 
   it('displays expected content for GP entity types', async () => {
-    const wrapper = mount(HelpBusinessNumber, { vuetify, propsData: { isTypePartnership: true } })
+    const wrapper = mount(HelpBusinessNumber, { vuetify, propsData: { isEntityPartnership: true } })
     const vm = wrapper.vm as any
 
     // sanity check
