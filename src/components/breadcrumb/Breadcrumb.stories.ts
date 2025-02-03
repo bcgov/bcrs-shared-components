@@ -16,7 +16,7 @@ export const homeRoute = Template.bind({})
 homeRoute['args'] = {
   breadcrumbs: [
     {
-      text: 'BC Registries Dashboard'
+      text: 'Service BC Connect Dashboard'
     }
   ]
 }
@@ -25,7 +25,7 @@ export const baseRoute = Template.bind({})
 baseRoute['args'] = {
   breadcrumbs: [
     {
-      text: 'BC Registries Dashboard',
+      text: 'Service BC Connect Dashboard',
       to: { name: '/?path=/story/component-breadcrumb--home-route' }
     },
     {
@@ -38,7 +38,7 @@ export const navigationRoute = Template.bind({})
 navigationRoute['args'] = {
   breadcrumbs: [
     {
-      text: 'BC Registries Dashboard',
+      text: 'Service BC Connect Dashboard',
       to: { name: 'component-breadcrumb--navigation-route' }
     },
     {
