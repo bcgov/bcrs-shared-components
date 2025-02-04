@@ -28,6 +28,7 @@
           color="primary"
           maxlength="8"
           label="Document ID Number"
+          :rules="docIdRules"
           :disabled="generateDocumentId"
           :error="!isVerifiedDocId && validate && !generateDocumentId"
           :error-messages="docIdError"
@@ -45,7 +46,7 @@
             />
             <v-icon
               v-if="!isVerifyingDocId && isVerifiedDocId && !generateDocumentId"
-              color="green-darken-2"
+              class="success-icon"
             >
               mdi-check
             </v-icon>
@@ -94,7 +95,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
-import { SessionStorageKeys } from '@/enums/sbc-common-components-constants'
+import { SessionStorageKeys } from '@/enums'
 
 @Component({})
 export default class DocumentId extends Vue {
@@ -108,7 +109,7 @@ export default class DocumentId extends Vue {
   @Prop({ default: false }) readonly validate!: boolean
 
   /** Card padding overrides */
-  @Prop({ default: ['pt-10 pl-4 pb-3 pr-4'] }) readonly cardPadding!: Array<string>
+  @Prop({ default: () => ['pt-10 pl-4 pb-3 pr-4'] }) readonly cardPadding!: Array<string>
 
   // local variables
   documentId = ''
@@ -116,6 +117,13 @@ export default class DocumentId extends Vue {
   isVerifiedDocId = false
   generateDocumentId = false
   docIdError = []
+
+  /** The array of validations rule(s) for the  fields. */
+  get docIdRules (): Array<(v) => boolean | string> {
+    return [
+      v => !isNaN(Number(v)) || 'Must contain numbers only'
+    ]
+  }
 
   /** Getter for the Document ID error styling */
   get showBorderError (): boolean {
@@ -143,8 +151,8 @@ export default class DocumentId extends Vue {
 
     // Set up the headers for the API call
     const config = { headers: {
-      'Authorization': `Bearer ${sessionStorage.getItem(SessionStorageKeys.KeyCloakToken)}`,
-      'x-apikey': this.docApiKey }
+        'Authorization': `Bearer ${sessionStorage.getItem(SessionStorageKeys.KeyCloakToken)}`,
+        'x-apikey': this.docApiKey }
     }
 
     // Add the Account-Id header if the current account is available
@@ -240,7 +248,6 @@ export default class DocumentId extends Vue {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
-
 .title-label {
   color: $gray9;
   font-weight: bold;
@@ -254,5 +261,8 @@ export default class DocumentId extends Vue {
 }
 .error-text {
   color: $app-red;
+}
+.success-icon {
+  color: $app-green;
 }
 </style>

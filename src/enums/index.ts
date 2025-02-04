@@ -22,3 +22,4 @@ export * from './relationship-types'
 // export the enums from corp type module
 // DEPRECATED: stop this -- import from corp-type-module instead
 export { CorpTypeCd, CorpClass } from '@bcrs-shared-components/corp-type-module'
+export { SessionStorageKeys } from '@bcrs-shared-components/enums/sbc-common-components-constants'
