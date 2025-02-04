@@ -151,8 +151,8 @@ export default class DocumentId extends Vue {
 
     // Set up the headers for the API call
     const config = { headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem(SessionStorageKeys.KeyCloakToken)}`,
-        'x-apikey': this.docApiKey }
+      'Authorization': `Bearer ${sessionStorage.getItem(SessionStorageKeys.KeyCloakToken)}`,
+      'x-apikey': this.docApiKey }
     }
 
     // Add the Account-Id header if the current account is available
