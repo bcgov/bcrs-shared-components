@@ -95,7 +95,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
-import { SessionStorageKeys } from '@/enums'
+import { SessionStorageKeys } from '@bcrs-shared-components/enums/sbc-common-components-constants'
 
 @Component({})
 export default class DocumentId extends Vue {
