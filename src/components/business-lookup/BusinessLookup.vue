@@ -167,7 +167,7 @@ export default class BusinessLookup extends Vue {
 
   /** Legal types to search for. */
   @Prop(
-    { default: 'A,BC,BEN,C,CBEN,CC,CCC,CP,CUL,FI,GP,LL,LLC,LP,PA,S,SP,ULC,XCP,XL,XP,XS' }
+    { default: 'A,BC,BEN,C,CBEN,CC,CCC,CP,CS,CUL,FI,GP,LL,LLC,LP,PA,S,SP,ULC,XCP,XL,XP,XS' }
   ) readonly legalTypes!: string
 
   // enum for template
