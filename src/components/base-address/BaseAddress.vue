@@ -83,6 +83,8 @@
         <div class="form__row">
           <v-textarea
             v-model="addressLocal.streetAddressAdditional"
+            autocomplete="chrome-off"
+            :name="Math.random()"
             auto-grow
             filled
             class="street-address-additional"
