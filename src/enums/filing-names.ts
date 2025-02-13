@@ -30,6 +30,7 @@ export enum FilingNames {
   INVOLUNTARY_DISSOLUTION = 'Involuntary Dissolution',
   NOTICE_OF_WITHDRAWAL = 'Notice of Withdrawal',
   PUT_BACK_ON = 'Put Back On',
+  PUT_BACK_OFF = 'Put Back Off',
   REGISTRATION = 'Registration',
   REGISTRARS_NOTATION = 'Registrar\'s Notation',
   REGISTRARS_ORDER = 'Registrar\'s Order',
