@@ -23,6 +23,7 @@ export enum FilingTypes {
   INCORPORATION_APPLICATION = 'incorporationApplication',
   NOTICE_OF_WITHDRAWAL = 'noticeOfWithdrawal',
   PUT_BACK_ON = 'putBackOn',
+  PUT_BACK_OFF = 'putBackOff',
   REGISTRATION = 'registration',
   REGISTRARS_NOTATION = 'registrarsNotation',
   REGISTRARS_ORDER = 'registrarsOrder',
