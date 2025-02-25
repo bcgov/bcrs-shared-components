@@ -1,7 +1,6 @@
 import Axios from 'axios'
-import { Fee, FilingData, PayData } from '@/interfaces'
-import ConfigHelper from '@/utils/config-helper'
-import { SessionStorageKeys } from '@/enums/sbc-common-components-constants'
+import { Fee, FilingData, PayData } from '@bcrs-shared-components/interfaces'
+import { SessionStorageKeys } from '@bcrs-shared-components/enums/sbc-common-components-constants'
 
 // sample Microcks URLs =
 //   https://mock-lear-tools.pathfinder.gov.bc.ca/rest/SBC+Pay+API+Reference/1.0.1/api/v1/fees/CP/OTANN
@@ -10,8 +9,8 @@ const API_URL = 'https://pay-api-dev.pathfinder.gov.bc.ca/api/v1/fees'
 
 export default {
   getFee (filingData: FilingData[], payApiUrl: string) : Promise<Fee[]> {
-    const token = ConfigHelper.getFromSession(SessionStorageKeys.KeyCloakToken)
-    const accountId = JSON.parse(ConfigHelper.getFromSession(SessionStorageKeys.CurrentAccount) || '{}').id || 0
+    const token = sessionStorage.getItem(SessionStorageKeys.KeyCloakToken)
+    const accountId = JSON.parse(sessionStorage.getItem(SessionStorageKeys.CurrentAccount) || '{}').id || 0
 
     if (filingData.length < 1) {
       Promise.resolve()

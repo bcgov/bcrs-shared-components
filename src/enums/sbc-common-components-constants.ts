@@ -26,7 +26,9 @@ export enum SessionStorageKeys {
   FasWebUrl = 'FAS_WEB_URL',
   AffidavitNeeded = 'AFFIDAVIT_NEEDED',
   GOVN_USER='AUTH_GOVN_USER',
-  PayApiUrl = 'PAY_API_URL'
+  PayApiUrl = 'PAY_API_URL',
+  DocApiUrl = 'DOC_API_URL',
+  DocApiKey = 'DOC_API_KEY'
 }
 
 export enum Account {
