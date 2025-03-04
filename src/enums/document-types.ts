@@ -7,7 +7,7 @@ export enum DocumetTypeEnum {
   CNTO = 'CNTO',
   DIRECTOR_AFFIDAVIT = 'DIRECTOR_AFFIDAVIT',
   CORP_AFFIDAVIT = 'CORP_AFFIDAVIT',
-  COOP_MEMORANDUM = 'COOP_MEMORANDUM', //Memorandum
+  COOP_MEMORANDUM = 'COOP_MEMORANDUM', // Memorandum
   COOP_RULES = 'COOP_RULES', // Rules
   COU = 'COU', // Court Order
 }

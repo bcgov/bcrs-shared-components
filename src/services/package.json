@@ -5,7 +5,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/enums": "^1.1.21",
+    "@bcrs-shared-components/enums": "^1.1.22",
     "@bcrs-shared-components/interfaces": "^1.1.26",
     "axios": "^0.27.2",
     "lodash": "4.17.21",
