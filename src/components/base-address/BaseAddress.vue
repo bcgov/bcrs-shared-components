@@ -141,7 +141,6 @@
             item-value="code"
             :items="getCountries()"
             :rules="[...rules.addressCountry, ...spaceRules]"
-            @change="resetRegion()"
           />
           <!-- special field to select AddressComplete country, separate from our model field -->
           <input
@@ -226,10 +225,6 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
 
   @Prop({ default: false })
   readonly excludeBC: boolean
-
-  resetRegion () {
-    this.addressLocal['addressRegion'] = ''
-  }
 
   /** A local (working) copy of the address, to contain the fields edited by the component (ie, the model). */
   addressLocal: object = {}
