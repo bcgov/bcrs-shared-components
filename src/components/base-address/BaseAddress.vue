@@ -62,6 +62,26 @@
         lazy-validation
       >
         <div class="form__row">
+          <v-select
+            v-model="addressLocal.addressCountry"
+            filled
+            class="address-country"
+            :label="addressCountryLabel"
+            menu-props="auto"
+            item-text="name"
+            item-value="code"
+            :items="getCountries()"
+            :rules="[...rules.addressCountry, ...spaceRules]"
+            @change="resetRegion()"
+          />
+          <!-- special field to select AddressComplete country, separate from our model field -->
+          <input
+            :id="addressCountryId"
+            type="hidden"
+            :value="addressCountry"
+          >
+        </div>
+        <div class="form__row">
           <!-- NB1: AddressComplete needs to be enabled each time user clicks in this search field.
                NB2: Only process first keypress -- assumes if user moves between instances of this
                    component then they are using the mouse (and thus, clicking). -->
@@ -131,25 +151,6 @@
           />
         </div>
         <div class="form__row">
-          <v-select
-            v-model="addressLocal.addressCountry"
-            filled
-            class="address-country"
-            :label="addressCountryLabel"
-            menu-props="auto"
-            item-text="name"
-            item-value="code"
-            :items="getCountries()"
-            :rules="[...rules.addressCountry, ...spaceRules]"
-          />
-          <!-- special field to select AddressComplete country, separate from our model field -->
-          <input
-            :id="addressCountryId"
-            type="hidden"
-            :value="addressCountry"
-          >
-        </div>
-        <div class="form__row">
           <v-textarea
             v-model="addressLocal.deliveryInstructions"
             auto-grow
@@ -203,7 +204,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
       addressCity: '',
       addressRegion: '',
       postalCode: '',
-      addressCountry: '',
+      addressCountry: 'CA',
       deliveryInstructions: ''
     })
   })
@@ -226,6 +227,10 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   @Prop({ default: false })
   readonly excludeBC: boolean
 
+  resetRegion () {
+    this.addressLocal['addressRegion'] = ''
+  }
+
   /** A local (working) copy of the address, to contain the fields edited by the component (ie, the model). */
   addressLocal: object = {}
 
@@ -241,7 +246,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   }
 
   /** A unique id for the Address Country input. */
-  addressCountryId (): string {
+  get addressCountryId (): string {
     return `address-country-${this.uniqueId}`
   }
 
@@ -364,27 +369,6 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   }
 
   /**
-   * Watches changes to the Address Country and updates the schema accordingly.
-   */
-  @Watch('addressCountry')
-  onAddressCountryChanged (): void {
-    // skip this if component is called without a schema (eg, display mode)
-    if (this.schema) {
-      if (this.useCountryRegions(this.addressLocal['addressCountry'])) {
-        // we are using a region list for the current country so make region a required field
-        const addressRegion = { ...this.schema.addressRegion, required }
-        // re-assign the local schema because Vue does not detect property addition
-        this.schemaLocal = { ...this.schema, addressRegion }
-      } else {
-        // we are not using a region list for the current country so remove required property
-        const { required, ...addressRegion } = this.schema.addressRegion
-        // re-assign the local schema because Vue does not detect property deletion
-        this.schemaLocal = { ...this.schema, addressRegion }
-      }
-    }
-  }
-
-  /**
    * Watches changes to the Address Local object, to catch any changes to the fields within the address.
    * Will notify the parent object with the new address and whether or not the address is valid.
    */
@@ -438,7 +422,12 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
       { element: this.streetAddressId, field: 'Line1', mode: pca.fieldMode.SEARCH },
       { element: this.addressCountryId, field: 'CountryName', mode: pca.fieldMode.COUNTRY }
     ]
-    const options = { key }
+    const options = {
+      key,
+      bar: {
+        visible: false
+      }
+    }
 
     const addressComplete = new pca.Address(fields, options)
 
