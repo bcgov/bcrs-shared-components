@@ -369,6 +369,27 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   }
 
   /**
+   * Watches changes to the Address Country and updates the schema accordingly.
+   */
+  @Watch('addressCountry')
+  onAddressCountryChanged (): void {
+    // skip this if component is called without a schema (eg, display mode)
+    if (this.schema) {
+      if (this.useCountryRegions(this.addressLocal['addressCountry'])) {
+        // we are using a region list for the current country so make region a required field
+        const addressRegion = { ...this.schema.addressRegion, required }
+        // re-assign the local schema because Vue does not detect property addition
+        this.schemaLocal = { ...this.schema, addressRegion }
+      } else {
+        // we are not using a region list for the current country so remove required property
+        const { required, ...addressRegion } = this.schema.addressRegion
+        // re-assign the local schema because Vue does not detect property deletion
+        this.schemaLocal = { ...this.schema, addressRegion }
+      }
+    }
+  }
+
+  /**
    * Watches changes to the Address Local object, to catch any changes to the fields within the address.
    * Will notify the parent object with the new address and whether or not the address is valid.
    */
