@@ -2,15 +2,16 @@ import MockAdapter from 'axios-mock-adapter'
 import documentService from '@/services/document-services'
 import { DOCUMENT_TYPES } from '@/enums'
 import { SessionStorageKeys } from '@/enums/sbc-common-components-constants'
-import { AxiosInstance as axiosInstance } from 'tests/utils'
+import { getAxiosInstance } from 'tests/utils'
 
 describe('documentService', () => {
+  const axiosInstance = getAxiosInstance()
   const mock = new MockAdapter(axiosInstance)
   const docApiUrl = 'https://api.example.com/doc/api/v1'
   const docApiKey = 'test-doc-api-key'
   const accountId = '1010'
-  const documentClass = DOCUMENT_TYPES.contInAuthorization.class
-  const documentType = DOCUMENT_TYPES.contInAuthorization.type
+  const documentClass = DOCUMENT_TYPES.corpContInAuthorization.class
+  const documentType = DOCUMENT_TYPES.corpContInAuthorization.type
   const consumerIdentifier = 'T0aAaaAAAA'
   const consumerFilingDate = '2025-03-06T22:06:53.870Z'
   const documentName = 'cont.in.authorization.pdf'
