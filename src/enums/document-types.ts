@@ -1,10 +1,10 @@
-export enum DocumentClassEnum {
+export enum DocumentClasses {
   CORP = 'CORP',
   COOP = 'COOP',
 }
 
-export enum DocumetTypeEnum {
-  CNTO = 'CNTO',
+export enum DocumentTypes {
+  CNTA = 'CNTA',
   DIRECTOR_AFFIDAVIT = 'DIRECTOR_AFFIDAVIT',
   CORP_AFFIDAVIT = 'CORP_AFFIDAVIT',
   COOP_MEMORANDUM = 'COOP_MEMORANDUM', // Memorandum
@@ -14,27 +14,27 @@ export enum DocumetTypeEnum {
 
 export const DOCUMENT_TYPES = {
   contInAuthorization: {
-    class: DocumentClassEnum.CORP,
-    type: DocumetTypeEnum.CNTO
+    class: DocumentClasses.CORP,
+    type: DocumentTypes.CNTA
   },
   directorAffidavit: {
-    class: DocumentClassEnum.CORP,
-    type: DocumetTypeEnum.DIRECTOR_AFFIDAVIT
+    class: DocumentClasses.CORP,
+    type: DocumentTypes.DIRECTOR_AFFIDAVIT
   },
   corpAffidavit: {
-    class: DocumentClassEnum.CORP,
-    type: DocumetTypeEnum.CORP_AFFIDAVIT
+    class: DocumentClasses.CORP,
+    type: DocumentTypes.CORP_AFFIDAVIT
   },
   coopMemorandum: {
-    class: DocumentClassEnum.COOP,
-    type: DocumetTypeEnum.COOP_MEMORANDUM
+    class: DocumentClasses.COOP,
+    type: DocumentTypes.COOP_MEMORANDUM
   },
   coopRules: {
-    class: DocumentClassEnum.COOP,
-    type: DocumetTypeEnum.COOP_RULES
+    class: DocumentClasses.COOP,
+    type: DocumentTypes.COOP_RULES
   },
   courtOrder: {
-    class: DocumentClassEnum.CORP,
-    type: DocumetTypeEnum.COU
+    class: DocumentClasses.CORP,
+    type: DocumentTypes.COU
   }
 }

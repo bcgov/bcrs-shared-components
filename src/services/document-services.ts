@@ -1,15 +1,22 @@
-import Axios, { AxiosResponse } from 'axios'
+import { AxiosInstance, AxiosResponse } from 'axios'
 import { SessionStorageKeys } from '@bcrs-shared-components/enums/sbc-common-components-constants'
+import ConfigHelper from './utils/config-helper'
 
-const requestConfig = {
-  url: sessionStorage.getItem(SessionStorageKeys.DocApiUrl),
-  headers: {
-    'x-apikey': sessionStorage.getItem(SessionStorageKeys.DocApiKey),
-    'Account-Id': JSON.parse(sessionStorage.getItem(SessionStorageKeys.CurrentAccount) || '{}').id || 0
+export default class DocumentService {
+  /**
+   * Retrieves the configuration for making an API request to the Document Record service.
+   * @returns an object containing the URL and headers for the DRS API request.
+   */
+  static requestConfig () {
+    return {
+      url: ConfigHelper.getFromSession('DOC_API_URL'),
+      headers: {
+        'x-apikey': ConfigHelper.getFromSession('DOC_API_KEY'),
+        'Account-Id': JSON.parse(ConfigHelper.getFromSession(SessionStorageKeys.CurrentAccount) || '{}')?.id || 0
+      }
+    }
   }
-}
 
-export default {
   /**
    * Uploads the specified file to Document Record Service.
    * @param file the file to upload
@@ -19,37 +26,37 @@ export default {
    * @param consumerDocumentId the identifier of one or more documents associated with the filing.
    * @returns a promise to return the axios response or the error response
    */
-
-  async uploadDocumentToDRS (
+  static async uploadDocumentToDRS (
+    axios: AxiosInstance,
     document: File,
     documentClass: string,
     documentType: string,
     businessId: string,
-    consumerDocumentId: string = undefined
+    consumerDocumentId: string = undefined,
+    consumerFilingDate: string = new Date().toISOString()
   ): Promise<AxiosResponse> {
-    const consumerFilingDate = new Date().toISOString()
-
     // Set request params.
-    let url = `${requestConfig.url}/documents/${documentClass}/${documentType}`
+    let url = `${DocumentService.requestConfig().url}/documents/${documentClass}/${documentType}`
     url += `?consumerFilingDate=${consumerFilingDate}&consumerFilename=${document.name}`
     url += `&consumerIdentifier=${businessId}`
     if (consumerDocumentId) {
       url += `&consumerDocumentId=${consumerDocumentId}`
     }
 
-    return Axios.post(url, document, {
-      headers: {
-        ...requestConfig.headers,
-        'Content-Type': 'application/pdf'
-      }
-    })
+    return axios
+      .post(url, document, {
+        headers: {
+          ...DocumentService.requestConfig().headers,
+          'Content-Type': 'application/pdf'
+        }
+      })
       .then((response) => {
         return response
       })
       .catch((error) => {
         return error.response
       })
-  },
+  }
 
   /**
    * Replace the existing document record specified by the document service ID.
@@ -58,38 +65,44 @@ export default {
    * @param documentName the file name to replace
    * @returns a promise to return the axios response or the error response
    */
-  async updateDocumentOnDRS (document: File, documentServiceId: string, documentName: string) {
-    let url = `${requestConfig.url}/documents/${documentServiceId}`
+  static async updateDocumentOnDRS (
+    axios: AxiosInstance,
+    document: File,
+    documentServiceId: string,
+    documentName: string
+  ) {
+    let url = `${DocumentService.requestConfig().url}/documents/${documentServiceId}`
     url += `?consumerFilename=${documentName}`
 
-    return Axios.put(url, document, {
-      headers: {
-        ...requestConfig.headers,
-        'Content-Type': 'application/pdf'
-      }
-    })
+    return axios
+      .put(url, document, {
+        headers: {
+          ...DocumentService.requestConfig().headers,
+          'Content-Type': 'application/pdf'
+        }
+      })
       .then((response) => {
         return response
       })
       .catch((error) => {
         return error.response
       })
-  },
+  }
 
   /**
    * Deletes a document from Document Record Service.
    * @param documentServiceId the unique identifier of document on Document Record Service
    * @returns a promise to return the axios response or the error response
    */
-  async deleteDocumentFromDRS (documentServiceId: string): Promise<AxiosResponse> {
+  static async deleteDocumentFromDRS (axios: AxiosInstance, documentServiceId: string): Promise<AxiosResponse> {
     // safety checks
     if (!documentServiceId) {
       throw new Error('Invalid parameters')
     }
-    const url = `${requestConfig.url}/documents/${documentServiceId}`
+    const url = `${DocumentService.requestConfig().url}/documents/${documentServiceId}`
 
-    return Axios.patch(url, { removed: true }, { headers: requestConfig.headers })
-  },
+    return axios.patch(url, { removed: true }, { headers: DocumentService.requestConfig().headers })
+  }
 
   /**
    * Download the specified file from Document Record Service.
@@ -98,16 +111,23 @@ export default {
    * @param documentName the document name to download
    * @returns void
    */
-  async downloadDocumentFromDRS (documentKey: string, documentName: string, documentClass: string): Promise<void> {
+  static async downloadDocumentFromDRS (
+    axios: AxiosInstance,
+    documentKey: string,
+    documentName: string,
+    documentClass: string
+  ): Promise<void> {
     // safety checks
     if (!documentKey || !documentName) {
       throw new Error('Invalid parameters')
     }
 
-    const url = `${requestConfig.url}/searches/${documentClass}?documentServiceId=${documentKey}`
+    const url = `${DocumentService.requestConfig().url}/searches/${documentClass}?documentServiceId=${documentKey}`
 
-    Axios.get(url, { headers: requestConfig.headers }).then((response) => {
-      if (!response) throw new Error('Null response')
+    axios.get(url, { headers: DocumentService.requestConfig().headers }).then((response) => {
+      if (!response) {
+        throw new Error('Null response')
+      }
 
       const link = document.createElement('a')
       link.href = response.data[0].documentURL
