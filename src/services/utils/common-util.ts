@@ -1,5 +1,5 @@
 import ConfigHelper from './config-helper'
-import { SessionStorageKeys, ACCOUNT_ID } from '../enums/sbc-common-components-constants'
+import { SessionStorageKeys, ACCOUNT_ID } from '@bcrs-shared-components/enums/sbc-common-components-constants'
 
 /**
  * Place to put all the custom utility methods
