@@ -1,6 +1,7 @@
-import { AxiosInstance, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import { SessionStorageKeys } from '@bcrs-shared-components/enums/sbc-common-components-constants'
 import ConfigHelper from './utils/config-helper'
+import { axiosInstance } from './utils'
 
 export default class DocumentService {
   /**
@@ -27,7 +28,6 @@ export default class DocumentService {
    * @returns a promise to return the axios response or the error response
    */
   static async uploadDocumentToDRS (
-    axios: AxiosInstance,
     document: File,
     documentClass: string,
     documentType: string,
@@ -36,17 +36,16 @@ export default class DocumentService {
     consumerFilingDate: string = new Date().toISOString()
   ): Promise<AxiosResponse> {
     // Set request params.
-    let url = `${DocumentService.requestConfig().url}/documents/${documentClass}/${documentType}`
+    let url = `${ConfigHelper.getFromSession('DOC_API_URL')}/documents/${documentClass}/${documentType}`
     url += `?consumerFilingDate=${consumerFilingDate}&consumerFilename=${document.name}`
     url += `&consumerIdentifier=${businessId}`
     if (consumerDocumentId) {
       url += `&consumerDocumentId=${consumerDocumentId}`
     }
 
-    return axios
+    return axiosInstance
       .post(url, document, {
         headers: {
-          ...DocumentService.requestConfig().headers,
           'Content-Type': 'application/pdf'
         }
       })
@@ -66,18 +65,16 @@ export default class DocumentService {
    * @returns a promise to return the axios response or the error response
    */
   static async updateDocumentOnDRS (
-    axios: AxiosInstance,
     document: File,
     documentServiceId: string,
     documentName: string
   ) {
-    let url = `${DocumentService.requestConfig().url}/documents/${documentServiceId}`
+    let url = `${ConfigHelper.getFromSession('DOC_API_URL')}/documents/${documentServiceId}`
     url += `?consumerFilename=${documentName}`
 
-    return axios
+    return axiosInstance
       .put(url, document, {
         headers: {
-          ...DocumentService.requestConfig().headers,
           'Content-Type': 'application/pdf'
         }
       })
@@ -94,14 +91,14 @@ export default class DocumentService {
    * @param documentServiceId the unique identifier of document on Document Record Service
    * @returns a promise to return the axios response or the error response
    */
-  static async deleteDocumentFromDRS (axios: AxiosInstance, documentServiceId: string): Promise<AxiosResponse> {
+  static async deleteDocumentFromDRS (documentServiceId: string): Promise<AxiosResponse> {
     // safety checks
     if (!documentServiceId) {
       throw new Error('Invalid parameters')
     }
-    const url = `${DocumentService.requestConfig().url}/documents/${documentServiceId}`
+    const url = `${ConfigHelper.getFromSession('DOC_API_URL')}/documents/${documentServiceId}`
 
-    return axios.patch(url, { removed: true }, { headers: DocumentService.requestConfig().headers })
+    return axiosInstance.patch(url, { removed: true })
   }
 
   /**
@@ -112,7 +109,6 @@ export default class DocumentService {
    * @returns void
    */
   static async downloadDocumentFromDRS (
-    axios: AxiosInstance,
     documentKey: string,
     documentName: string,
     documentClass: string
@@ -122,13 +118,12 @@ export default class DocumentService {
       throw new Error('Invalid parameters')
     }
 
-    const url = `${DocumentService.requestConfig().url}/searches/${documentClass}?documentServiceId=${documentKey}`
+    const url = `${ConfigHelper.getFromSession('DOC_API_URL')}/searches/${documentClass}?documentServiceId=${documentKey}`
 
-    axios.get(url, { headers: DocumentService.requestConfig().headers }).then((response) => {
+    axiosInstance.get(url).then((response) => {
       if (!response) {
         throw new Error('Null response')
       }
-
       const link = document.createElement('a')
       link.href = response.data[0].documentURL
       link.download = documentName

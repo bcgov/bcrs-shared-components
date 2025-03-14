@@ -2,10 +2,9 @@ import MockAdapter from 'axios-mock-adapter'
 import documentService from '@/services/document-services'
 import { DOCUMENT_TYPES } from '@/enums'
 import { SessionStorageKeys } from '@/enums/sbc-common-components-constants'
-import { getAxiosInstance } from 'tests/utils'
+import { axiosInstance } from '@/services/utils'
 
 describe('documentService', () => {
-  const axiosInstance = getAxiosInstance()
   const mock = new MockAdapter(axiosInstance)
   const docApiUrl = 'https://api.example.com/doc/api/v1'
   const docApiKey = 'test-doc-api-key'
@@ -46,7 +45,6 @@ describe('documentService', () => {
       })
 
     const response = await documentService.uploadDocumentToDRS(
-      axiosInstance,
       file,
       documentClass,
       documentType,
@@ -83,7 +81,7 @@ describe('documentService', () => {
         documentType: documentType
       })
 
-    const response = await documentService.updateDocumentOnDRS(axiosInstance, file, documentServiceId, documentName)
+    const response = await documentService.updateDocumentOnDRS(file, documentServiceId, documentName)
 
     expect(response.status).toEqual(200)
     expect(response.data).toHaveProperty('consumerIdentifier', consumerIdentifier)
@@ -99,21 +97,10 @@ describe('documentService', () => {
 
     mock.onPatch(url, { removed: true }).reply(200, {})
 
-    const response = await documentService.deleteDocumentFromDRS(axiosInstance, documentServiceId)
+    const response = await documentService.deleteDocumentFromDRS(documentServiceId)
 
     expect(response.status).toBe(200)
     expect(mock.history.patch.length).toBe(1)
     expect(mock.history.patch[0].url).toBe(url)
-  })
-
-  it('should download a document successfully', async () => {
-    const url = `${docApiUrl}/searches/${documentClass}?documentServiceId=${documentServiceId}`
-
-    mock.onGet(url).reply(200, [{ documentURL: documentURL }])
-
-    await documentService.downloadDocumentFromDRS(axiosInstance, documentServiceId, documentName, documentClass)
-
-    expect(mock.history.get.length).toBe(1)
-    expect(mock.history.get[0].url).toBe(url)
   })
 })
