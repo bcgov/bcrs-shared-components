@@ -5,20 +5,6 @@ import { axiosInstance } from './utils'
 
 export default class DocumentService {
   /**
-   * Retrieves the configuration for making an API request to the Document Record service.
-   * @returns an object containing the URL and headers for the DRS API request.
-   */
-  static requestConfig () {
-    return {
-      url: ConfigHelper.getFromSession('DOC_API_URL'),
-      headers: {
-        'x-apikey': ConfigHelper.getFromSession('DOC_API_KEY'),
-        'Account-Id': JSON.parse(ConfigHelper.getFromSession(SessionStorageKeys.CurrentAccount) || '{}')?.id || 0
-      }
-    }
-  }
-
-  /**
    * Uploads the specified file to Document Record Service.
    * @param file the file to upload
    * @param documentClass the document class defined for the document service. e.g. 'CORP'
