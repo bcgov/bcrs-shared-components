@@ -392,7 +392,7 @@ export default class ContactInfo extends Vue {
 
   /** Cancel the current local edits */
   protected cancelEdit (): void {
-    this.contactInfo = { ...this.businessContact }
+    this.contactInfo = { ...this.businessContact, confirmEmail: this.businessContact.email }
     this.emitContactInfo(this.contactInfo)
     this.isEditing = false
   }
