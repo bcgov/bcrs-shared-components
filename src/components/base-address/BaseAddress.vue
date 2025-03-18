@@ -503,18 +503,18 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     // List of priority countries
     const priorityCountries = ['Canada', 'United States of America']
 
-    const prioritized = countries.filter((country: any) =>
+    const prioritizedCountries = countries.filter((country: any) =>
       priorityCountries.includes(country.name)
     )
 
-    const list = countries.filter((country: any) =>
+    const countryList = countries.filter((country: any) =>
       !priorityCountries.includes(country.name)
     )
 
     return [
-      ...prioritized,
+      ...prioritizedCountries,
       { divider: true },
-      ...list
+      ...countryList
     ]
   }
 
