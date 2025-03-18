@@ -70,7 +70,7 @@
             menu-props="auto"
             item-text="name"
             item-value="code"
-            :items="formatCountries()"
+            :items="getCountryList()"
             :rules="[...rules.addressCountry, ...spaceRules]"
             @change="resetRegion()"
           />
@@ -497,7 +497,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     Vue.nextTick(() => { (this.$refs.addressForm as any).validate() })
   }
 
-  formatCountries (): Array<object> {
+  getCountryList (): Array<object> {
     const countries = this.getCountries()
 
     // List of priority countries
