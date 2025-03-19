@@ -1,6 +1,6 @@
 {
   "name": "@bcrs-shared-components/base-address",
-  "version": "2.0.44",
+  "version": "2.0.45",
   "publishConfig": {
     "access": "public"
   },
