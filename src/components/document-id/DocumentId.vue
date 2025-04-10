@@ -150,10 +150,7 @@ export default class DocumentId extends Vue {
     const url = `${this.docApiUrl}/documents/verify/${this.documentId}`
 
     // Set up the headers for the API call
-    const config = { headers: {
-      'Authorization': `Bearer ${sessionStorage.getItem(SessionStorageKeys.KeyCloakToken)}`,
-      'x-apikey': this.docApiKey }
-    }
+    const config = { headers: { 'x-apikey': this.docApiKey } }
 
     // Add the Account-Id header if the current account is available
     const currentAccount = sessionStorage.getItem(SessionStorageKeys.CurrentAccount)
@@ -257,7 +254,9 @@ export default class DocumentId extends Vue {
   color: black;
 }
 .border-error-left {
-  border-left: 3px solid $app-red;
+  border-left: 3px solid $app-red !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
 }
 .error-text {
   color: $app-red;
