@@ -150,7 +150,10 @@ export default class DocumentId extends Vue {
     const url = `${this.docApiUrl}/documents/verify/${this.documentId}`
 
     // Set up the headers for the API call
-    const config = { headers: { 'x-apikey': this.docApiKey } }
+    const config = { headers: {
+      'Authorization': `Bearer ${sessionStorage.getItem(SessionStorageKeys.KeyCloakToken)}`,
+      'x-apikey': this.docApiKey }
+    }
 
     // Add the Account-Id header if the current account is available
     const currentAccount = sessionStorage.getItem(SessionStorageKeys.CurrentAccount)
