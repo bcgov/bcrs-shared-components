@@ -62,5 +62,5 @@ FilledInBaseAddress['args'] = {
     deliveryInstructions: 'Leave at front door'
   },
   noPoBox: true,
-  isCeased: false
+  isInactive: false
 }

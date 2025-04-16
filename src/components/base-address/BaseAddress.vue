@@ -18,7 +18,7 @@
       <div
         v-if="!editing"
         class="address-block"
-        :class="{ 'inactive' : isCeased }"
+        :class="{ 'inactive' : isInactive }"
       >
         <div class="address-block__info pre-line">
           <div class="address-block__info-row street-address">
@@ -229,7 +229,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   readonly excludeBC: boolean
 
   @Prop({ default: false })
-  readonly isCeased: boolean
+  readonly isInactive: boolean
 
   resetRegion () {
     this.addressLocal['addressRegion'] = ''
