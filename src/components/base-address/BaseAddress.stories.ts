@@ -61,5 +61,6 @@ FilledInBaseAddress['args'] = {
     postalCode: 'V8N 1A1',
     deliveryInstructions: 'Leave at front door'
   },
-  noPoBox: true
+  noPoBox: true,
+  isInactive: false
 }
