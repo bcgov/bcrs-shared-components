@@ -190,7 +190,7 @@ export default class SbcFeeSummary extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/styles/theme.scss";
+@import '@/assets/styles/theme.scss';
 
 header {
   color: #fff;
