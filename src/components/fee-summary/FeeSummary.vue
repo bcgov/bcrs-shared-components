@@ -1,6 +1,6 @@
 <template>
   <aside id="fee-summary">
-    <sbc-fee-summary
+    <SbcFeeSummary
       :filingData="[...filingData]"
       :payURL="payApiUrl"
     />
@@ -33,6 +33,7 @@
         <v-btn
           id="save-resume-later-btn"
           large
+          :disabled="disableSaveResumeLater"
           :loading="isLoading"
           @click="emitAction(FeeSummaryActions.SAVE_RESUME_LATER)"
         >
@@ -79,7 +80,10 @@ export default class FeeSummary extends Vue {
   /** URL for Sbc Fee Summary component to get fees. */
   @Prop({ default: '' }) readonly payApiUrl!: string
 
-  /** Indicator that something isn't valid. */
+  /** Whether to disable the Save and Resume Later button. */
+  @Prop({ default: false }) readonly disableSaveResumeLater!: boolean
+
+  /** Indicator that something isn't valid. This disables the confirm button. */
   @Prop({ default: false }) readonly hasConflicts!: boolean
 
   /** Indicator that there is a request in progress. */
