@@ -18,6 +18,7 @@ export * from './restoration-types'
 export * from './role-types'
 export * from './staff-payment-options'
 export * from './relationship-types'
+export * from './sbc-common-components-constants'
 
 // export the enums from corp type module
 // DEPRECATED: stop this -- import from corp-type-module instead
