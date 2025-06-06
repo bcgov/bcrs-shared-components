@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios'
-import { SessionStorageKeys } from '@bcrs-shared-components/enums/sbc-common-components-constants'
 import ConfigHelper from './utils/config-helper'
 import { axiosInstance } from './utils'
 

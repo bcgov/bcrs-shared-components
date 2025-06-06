@@ -1,4 +1,4 @@
-import { SessionStorageKeys } from '@bcrs-shared-components/enums/sbc-common-components-constants'
+import { SessionStorageKeys } from '@bcrs-shared-components/enums'
 import { trimTrailingSlashURL } from './common-util'
 
 export default class ConfigHelper {

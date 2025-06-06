@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import { Fee, FilingData, PayData } from '@bcrs-shared-components/interfaces'
-import { SessionStorageKeys } from '@bcrs-shared-components/enums/sbc-common-components-constants'
+import { SessionStorageKeys } from '@bcrs-shared-components/enums'
 import ConfigHelper from './utils/config-helper'
 
 // sample Microcks URLs =

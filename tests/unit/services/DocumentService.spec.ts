@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter'
 import documentService from '@/services/document-services'
 import { DOCUMENT_TYPES } from '@/enums'
-import { SessionStorageKeys } from '@/enums/sbc-common-components-constants'
+import { SessionStorageKeys } from '@/enums'
 import { axiosInstance } from '@/services/utils'
 
 describe('documentService', () => {
