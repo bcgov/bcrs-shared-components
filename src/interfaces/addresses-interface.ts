@@ -17,7 +17,7 @@ export interface AddressIF {
 /** Empty address for initializing address objects. */
 export const EmptyAddress: AddressIF = {
   addressCity: '',
-  addressCountry: '',
+  addressCountry: 'CA',
   addressRegion: '', // FUTURE: change to undefined?
   addressType: null, // FUTURE: change to undefined?
   deliveryInstructions: '',

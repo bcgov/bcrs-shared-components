@@ -4,7 +4,7 @@ import axios from 'axios'
 import sinon from 'sinon'
 import { mount, Wrapper } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
-import { sleep } from '@/utils/sleep'
+import { sleep } from '../utils'
 import { StaffComments } from '@/components/staff-comments'
 
 // suppress the "[Vuetify] Unable to locate target [data-app]" warning
