@@ -257,7 +257,9 @@ export default class DocumentId extends Vue {
   color: black;
 }
 .border-error-left {
-  border-left: 3px solid $app-red;
+  border-left: 3px solid $app-red !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
 }
 .error-text {
   color: $app-red;
