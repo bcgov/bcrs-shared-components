@@ -162,11 +162,6 @@ export enum AffiliationTypes {
   REGISTRATION = 'Registration'
 }
 
-export enum FilingTypes {
-  INCORPORATION_APPLICATION = 'incorporationApplication',
-  REGISTRATION = 'registration'
-}
-
 export enum LearFilingTypes {
   AMALGAMATION = 'Amalgamation',
   INCORPORATION = 'Incorporation',
