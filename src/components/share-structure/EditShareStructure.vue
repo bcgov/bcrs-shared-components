@@ -63,6 +63,8 @@
                             filled
                             label="Maximum Number of Shares"
                             persistent-hint
+                            type="number"
+                            hide-spin-buttons
                             :hint="'Enter the maximum number of shares in the ' + shareStructure.type.toLowerCase()"
                             :rules="maximumShareRules"
                             :disabled="hasNoMaximumShares"
@@ -103,6 +105,8 @@
                             :rules="parValueRules"
                             hint="Enter the initial value of each share"
                             persistent-hint
+                            type="number"
+                            hide-spin-buttons
                           />
                         </v-col>
                         <v-col cols="6">
@@ -224,6 +228,7 @@ import { ConfirmDialog } from '@bcrs-shared-components/confirm-dialog'
 import { ConfirmDialogType, FormIF, ShareClassIF } from '@bcrs-shared-components/interfaces'
 import { ActionTypes } from '@bcrs-shared-components/enums'
 import CurrencyLookupMixin from './currency-lookup-mixin'
+import { VuetifyRuleFunction } from '@bcrs-shared-components/types'
 
 @Component({
   components: {
@@ -278,8 +283,8 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
   }
 
   /** The rules applying to the Class/Series name input field. */
-  get nameRule (): Array<(v) => boolean | string> {
-    const rules: Array<(v) => boolean | string> = [
+  get nameRule (): Array<VuetifyRuleFunction> {
+    const rules: Array<VuetifyRuleFunction> = [
       (v: string) => !/^\s/g.test(v) || 'Invalid spaces', // leading spaces
       (v: string) => !/\s$/g.test(v) || 'Invalid spaces' // trailing spaces
     ]
@@ -313,8 +318,8 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
   }
 
   /** The rules applying to the Class/Series max share input field. */
-  get maximumShareRule (): Array<(v) => boolean | string> {
-    let rules: Array<(v) => boolean | string> = []
+  get maximumShareRule (): Array<VuetifyRuleFunction> {
+    let rules: Array<VuetifyRuleFunction> = []
     if (!this.hasNoMaximumShares) {
       rules = [
         (v: string) => (v !== '' && v !== null && v !== undefined) || 'Number of shares is required',
@@ -351,21 +356,22 @@ export default class EditShareStructure extends Mixins(CurrencyLookupMixin) {
   }
 
   /** The rules applying to the Class/Series par value input field. */
-  get parValueRule (): Array<(v) => boolean | string> {
-    let rules: Array<(v) => boolean | string> = []
+  get parValueRule (): Array<VuetifyRuleFunction> {
+    let rules: Array<VuetifyRuleFunction> = []
     if (!this.hasNoParValue) {
       rules = [
-        (v: string) => (v !== '' && v !== null && v !== undefined) || 'Par value is required',
-        (v: string) => +v > 0 || 'Amount must be greater than 0',
-        (v: string) => (+v < 1)
-          ? (/^(\d+(\.\d{0,3})?|\.\d{0,3})$/.test(v) || 'Amounts less than 1 can be entered with up to 3 decimal place')
-          : (/^\d+(\.\d{1,2})?$/.test(v) || 'Amounts greater than 1 can be entered with up to 2 decimal place')]
+        v => (v !== '' && v !== null && v !== undefined) || 'Par value is required',
+        v => v > 0 || 'Amount must be greater than 0',
+        v => (v < 1)
+          ? (/^\d+(\.\d{0,6})?$/.test(v) || 'Amounts less than 1 can be entered with up to 6 decimal places')
+          : (/^\d+(\.\d{1,2})?$/.test(v) || 'Amounts greater than 1 can be entered with up to 2 decimal places')
+      ]
     }
     return rules
   }
 
   /** The rules applying to the Class/Series currency input field. */
-  get currencyRule (): Array<(v) => boolean | string> {
+  get currencyRule (): Array<VuetifyRuleFunction> {
     if (!this.hasNoParValue) {
       return [(v: string) => !!v || 'Currency is required']
     }
