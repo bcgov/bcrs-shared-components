@@ -289,12 +289,12 @@ describe('Edit Share Structure component', () => {
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareClass, -1, 1, null, [existingShareClass])
     const inputElement: Wrapper<Vue> = wrapper.find(classParValue)
 
-    inputElement.setValue(0.1111)
+    inputElement.setValue(0.1234567) // invalid
     wrapper.find(doneButtonSelector).trigger('click')
     await Vue.nextTick()
 
     expect(wrapper.find(formSelector).text())
-      .toContain('Amounts less than 1 can be entered with up to 3 decimal place')
+      .toContain('Amounts less than 1 can be entered with up to 6 decimal places')
     expect(wrapper.vm.$data.formValid).toBe(false)
     wrapper.destroy()
   })
@@ -305,12 +305,12 @@ describe('Edit Share Structure component', () => {
     const wrapper: Wrapper<EditShareStructure> = createComponent(shareClass, -1, 1, null, [existingShareClass])
     const inputElement: Wrapper<Vue> = wrapper.find(classParValue)
 
-    inputElement.setValue(1.234)
+    inputElement.setValue(1.234) // invalid
     wrapper.find(doneButtonSelector).trigger('click')
     await Vue.nextTick()
 
     expect(wrapper.find(formSelector).text())
-      .toContain('Amounts greater than 1 can be entered with up to 2 decimal place')
+      .toContain('Amounts greater than 1 can be entered with up to 2 decimal places')
     expect(wrapper.vm.$data.formValid).toBe(false)
     wrapper.destroy()
   })
