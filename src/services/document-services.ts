@@ -37,9 +37,9 @@ export default class DocumentService {
 
   /**
    * Replace the existing document record specified by the document service ID.
-   * @param documentServiceId the unique identifier of document on Document Record Service
-   * @param file the file to replace
-   * @param documentName the file name to replace
+   * @param document the file to replace
+   * @param params - The document metadata including fields like `documentClass`,
+   *                 `documentType`, `consumerIdentifier`, etc.
    * @returns a promise to return the axios response or the error response
    */
   static async updateDocumentOnDRS (document: File, params: DocumentRequestIF) {
