@@ -30,6 +30,6 @@ export enum FilingTypes {
     RESTORATION = 'restoration',
     SPECIAL_RESOLUTION = 'specialResolution',
     TRANSITION = 'transition',
-  
+
     UNKNOWN = 'unknown' // for fallback
   }

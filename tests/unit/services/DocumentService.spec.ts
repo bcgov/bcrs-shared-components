@@ -1,8 +1,7 @@
 import MockAdapter from 'axios-mock-adapter'
 import documentService from '@/services/document-services'
-import { DOCUMENT_TYPES } from '@/enums'
-import { SessionStorageKeys } from '@/enums'
-import { axiosInstance } from '@/services/utils'
+import { DOCUMENT_TYPES, SessionStorageKeys } from '@/enums'
+import { axiosInstance, buildUrl } from '@/services/utils'
 
 describe('documentService', () => {
   const mock = new MockAdapter(axiosInstance)
@@ -27,10 +26,13 @@ describe('documentService', () => {
 
   it('should upload a file successfully', async () => {
     const file = new File(['test-content'], documentName, { type: 'application/pdf' })
+    const baseUrl = `${docApiUrl}/documents/${documentClass}/${documentType}`
 
-    let url = `${docApiUrl}/documents/${documentClass}/${documentType}`
-    url += `?consumerFilingDate=${consumerFilingDate}&consumerFilename=${file.name}`
-    url += `&consumerIdentifier=${consumerIdentifier}`
+    const url = buildUrl(baseUrl, {
+      consumerIdentifier,
+      consumerFilingDate,
+      consumerFilename: documentName
+    }).toString()
 
     mock
       .onPost(url, file, {
@@ -46,11 +48,13 @@ describe('documentService', () => {
 
     const response = await documentService.uploadDocumentToDRS(
       file,
-      documentClass,
-      documentType,
-      consumerIdentifier,
-      null,
-      consumerFilingDate
+      {
+        documentClass,
+        documentType,
+        consumerIdentifier,
+        consumerFilingDate,
+        consumerFilename: documentName
+      }
     )
 
     expect(response.status).toEqual(201)
@@ -81,7 +85,10 @@ describe('documentService', () => {
         documentType: documentType
       })
 
-    const response = await documentService.updateDocumentOnDRS(file, documentServiceId, documentName)
+    const response = await documentService.updateDocumentOnDRS(file, {
+      documentServiceId,
+      consumerFilename: documentName
+    })
 
     expect(response.status).toEqual(200)
     expect(response.data).toHaveProperty('consumerIdentifier', consumerIdentifier)

@@ -1,32 +1,25 @@
 import { AxiosResponse } from 'axios'
-import ConfigHelper from './utils/config-helper'
-import { axiosInstance } from './utils'
+import { DocumentRequestIF } from '@bcrs-shared-components/interfaces'
+import { ConfigHelper, axiosInstance, buildUrl } from './utils'
 
 export default class DocumentService {
   /**
-   * Uploads the specified file to Document Record Service.
-   * @param file the file to upload
-   * @param documentClass the document class defined for the document service. e.g. 'CORP'
-   * @param documentType the type of document. e.g. 'CNTA'
-   * @param businessId the business identifier(tempId or businessId)
-   * @param consumerDocumentId the identifier of one or more documents associated with the filing.
+   * Uploads the specified document file to the Document Record Service (DRS).
+   * @param document - The file to upload to DRS.
+   * @param params - The document metadata including fields like `documentClass`,
+   *                 `documentType`, `consumerIdentifier`, etc.
    * @returns a promise to return the axios response or the error response
    */
-  static async uploadDocumentToDRS (
-    document: File,
-    documentClass: string,
-    documentType: string,
-    businessId: string,
-    consumerDocumentId: string = undefined,
-    consumerFilingDate: string = new Date().toISOString()
-  ): Promise<AxiosResponse> {
+  static async uploadDocumentToDRS (document: File, params: DocumentRequestIF): Promise<AxiosResponse> {
+    const {
+      documentClass,
+      documentType,
+      ...queryParams
+    } = params
     // Set request params.
-    let url = `${ConfigHelper.getFromSession('DOC_API_URL')}/documents/${documentClass}/${documentType}`
-    url += `?consumerFilingDate=${consumerFilingDate}&consumerFilename=${document.name}`
-    url += `&consumerIdentifier=${businessId}`
-    if (consumerDocumentId) {
-      url += `&consumerDocumentId=${consumerDocumentId}`
-    }
+
+    const baseUrl = `${ConfigHelper.getFromSession('DOC_API_URL')}/documents/${documentClass}/${documentType}`
+    const url = buildUrl(baseUrl, queryParams).toString()
 
     return axiosInstance
       .post(url, document, {
@@ -49,13 +42,15 @@ export default class DocumentService {
    * @param documentName the file name to replace
    * @returns a promise to return the axios response or the error response
    */
-  static async updateDocumentOnDRS (
-    document: File,
-    documentServiceId: string,
-    documentName: string
-  ) {
-    let url = `${ConfigHelper.getFromSession('DOC_API_URL')}/documents/${documentServiceId}`
-    url += `?consumerFilename=${documentName}`
+  static async updateDocumentOnDRS (document: File, params: DocumentRequestIF) {
+    const {
+      documentServiceId,
+      consumerFilingDate = new Date().toISOString(),
+      ...queryParams
+    } = params
+    // Set request params.
+    const baseUrl = `${ConfigHelper.getFromSession('DOC_API_URL')}/documents/${documentServiceId}`
+    const url = buildUrl(baseUrl, queryParams).toString()
 
     return axiosInstance
       .put(url, document, {
@@ -84,6 +79,12 @@ export default class DocumentService {
     const url = `${ConfigHelper.getFromSession('DOC_API_URL')}/documents/${documentServiceId}`
 
     return axiosInstance.patch(url, { removed: true })
+      .then((response) => {
+        return response
+      })
+      .catch((error) => {
+        return error.response
+      })
   }
 
   /**

@@ -69,3 +69,22 @@ export function removeAccountIdFromUrl (url, key = ACCOUNT_ID) {
   return url?.replace(new RegExp(key + '=\\w+'), '').replace('?&', '?').replace(/\?$/, '')
     .replace('&&', '&').replace(/&$/, '')
 }
+
+/**
+   * Builds a complete URL by appending query parameters to the given base URL.
+   * @param baseUrl The base URL to which query parameters will be added.
+   * @param params An object containing key-value pairs to be added as query parameters.
+   *                 Values can be strings, numbers, or booleans. Null or undefined values are ignored.
+   * @returns A URL object with the provided query parameters appended.
+   */
+export function buildUrl (baseUrl: string, params?: { [key: string]: string }): URL {
+  const url = new URL(baseUrl)
+
+  Object.entries(params ?? {}).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      url.searchParams.append(key, String(value))
+    }
+  })
+
+  return url
+}
