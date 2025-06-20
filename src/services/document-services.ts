@@ -6,8 +6,7 @@ export default class DocumentService {
   /**
    * Uploads the specified document file to the Document Record Service (DRS).
    * @param document - The file to upload to DRS.
-   * @param params - The document metadata including fields like `documentClass`,
-   *                 `documentType`, `consumerIdentifier`, etc.
+   * @param params - The document metadata including fields like `documentClass`, `documentType`, `consumerIdentifier`, etc.
    * @returns a promise to return the axios response or the error response
    */
   static async uploadDocumentToDRS (document: File, params: DocumentRequestIF): Promise<AxiosResponse> {
@@ -37,9 +36,8 @@ export default class DocumentService {
 
   /**
    * Replace the existing document record specified by the document service ID.
-   * @param document the file to replace
-   * @param params - The document metadata including fields like `documentClass`,
-   *                 `documentType`, `consumerIdentifier`, etc.
+   * @param document - the file to replace
+   * @param params - The document metadata including fields like `documentClass`, `documentType`, `consumerIdentifier`, etc.
    * @returns a promise to return the axios response or the error response
    */
   static async updateDocumentOnDRS (document: File, params: DocumentRequestIF) {
@@ -68,7 +66,7 @@ export default class DocumentService {
 
   /**
    * Deletes a document from Document Record Service.
-   * @param documentServiceId the unique identifier of document on Document Record Service
+   * @param documentServiceId - the unique identifier of document on Document Record Service
    * @returns a promise to return the axios response or the error response
    */
   static async deleteDocumentFromDRS (documentServiceId: string): Promise<AxiosResponse> {
@@ -89,9 +87,9 @@ export default class DocumentService {
 
   /**
    * Download the specified file from Document Record Service.
-   * @param documentKey the unique id on Document Record Service
-   * @param documentClass the document class defined for the document service. e.g. 'CORP'
-   * @param documentName the document name to download
+   * @param documentKey - the unique id on Document Record Service
+   * @param documentClass - the document class defined for the document service. e.g. 'CORP'
+   * @param documentName - the document name to download
    * @returns void
    */
   static async downloadDocumentFromDRS (
