@@ -1,3 +1,3 @@
 export * from './common-util'
-export * from './config-helper'
+export { default as ConfigHelper } from './config-helper'
 export * from './axios-instance'
