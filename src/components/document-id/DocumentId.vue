@@ -108,6 +108,12 @@ export default class DocumentId extends Vue {
   /** Validation flag. */
   @Prop({ default: false }) readonly validate!: boolean
 
+  /** The saved document ID, if available. */
+  @Prop({ default: '' }) readonly docId!: string
+
+  /** Indicates whether the saved document ID is valid. */
+  @Prop({ default: false }) readonly isDocIdValid!: boolean
+
   /** Card padding overrides */
   @Prop({ default: () => ['pt-10 pl-4 pb-3 pr-4'] }) readonly cardPadding!: Array<string>
 
@@ -117,6 +123,15 @@ export default class DocumentId extends Vue {
   isVerifiedDocId = false
   generateDocumentId = false
   docIdError = []
+
+  /**
+   * Load the saved documentId and determine the checkbox status
+   * in case the filing was saved prior to submission.
+   */
+  mounted (): void {
+    this.documentId = this.docId
+    this.generateDocumentId = !this.docId && this.isDocIdValid
+  }
 
   /** The array of validations rule(s) for the  fields. */
   get docIdRules (): Array<(v) => boolean | string> {

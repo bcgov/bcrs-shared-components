@@ -16,5 +16,6 @@ export interface DocumentRequestIF {
     consumerIdentifier?: string
     consumerFilingDate?: string
     consumerFilename?: string
+    consumerReferenceId?: string
     documentURL?: string
 }
