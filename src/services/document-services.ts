@@ -16,7 +16,7 @@ export default class DocumentService {
       ...queryParams
     } = params
     // Set request params.
-  
+
     const baseUrl = `${ConfigHelper.getFromSession('DOC_API_URL')}/documents/${documentClass}/${documentType}`
     const url = buildUrl(baseUrl, queryParams).toString()
 
@@ -123,12 +123,10 @@ export default class DocumentService {
   }
 
   /**
-   * Fetches existing document records from the Document Record Service (DRS)
-   * using the provided document class and query parameters.
+   * Searches for document records in DRS with the given parameters.
    *
-   * @param documentClass - The document class to search under (e.g., 'CORP', 'FIRM').
-   * @param queryParams - Key-value pairs for query parameters (e.g., consumerDocumentId).
-   * @returns A promise resolving to the Axios response or the error response.
+   * @param params - Search parameters (e.g., documentClass, consumerDocumentId).
+   * @returns Axios response or error response.
    */
   static async searchDocument (params: DocumentRequestIF): Promise<AxiosResponse> {
     const baseUrl = `${ConfigHelper.getFromSession('DOC_API_URL')}/searches`
