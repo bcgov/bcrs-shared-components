@@ -93,35 +93,27 @@ export function buildUrl (baseUrl: string, params?: DocumentRequestIF): URL {
 }
 
 /**
- * Gets the document class for a given legal type.
- * Defaults to 'CORP' if not found.
- *
- * @param legalType - Business legal type (e.g., 'CP', 'SP').
- * @returns Document class (e.g., 'COOP', 'FIRM', 'CORP').
- */
-export function getDocumentClass (legalType: string): string {
-  const documentClass = DOCUMENT_CLASSES[legalType] || ''
-  return documentClass || DocumentClasses.CORP
-}
-
-/**
- * Resolves the document type based on filing type and legal type.
- * Falls back to 'systemIsTheRecord' if no match is found.
+ * Resolves the document class and type for a given filing and legal type.
+ * Defaults to 'CORP' for class and 'systemIsTheRecord' for type if not found.
  *
  * @param filingType - Filing type (e.g., 'annualReport', 'correction').
- * @param legalType - Legal entity type (e.g., 'BC', 'ULC').
- * @returns Document type string.
+ * @param legalType - Business legal type (e.g., 'CP', 'SP', 'BC', 'ULC').
+ * @returns An object containing `documentClass` and `documentType`.
  */
-export function getDocumentType (filingType: string, legalType: string): string {
-  const documentType = DOCUMENT_TYPES[filingType]
+export function getDocumentInfo (filingType: string, legalType: string): {
+  documentClass: string
+  documentType: string
+} {
+  const documentClass = DOCUMENT_CLASSES[legalType] || DocumentClasses.CORP
+  const documentTypeEntry = DOCUMENT_TYPES[filingType]
 
-  if (typeof documentType === 'string') {
-    return documentType || DOCUMENT_TYPES.systemIsTheRecord
-  } else if (typeof documentType === 'object' && documentType !== null) {
-    const documentClass = getDocumentClass(legalType)
-    const docType = documentType[documentClass] || ''
-    return docType || DOCUMENT_TYPES.systemIsTheRecord
+  let documentType: string = DOCUMENT_TYPES.systemIsTheRecord
+
+  if (typeof documentTypeEntry === 'string') {
+    documentType = documentTypeEntry || DOCUMENT_TYPES.systemIsTheRecord
+  } else if (typeof documentTypeEntry === 'object' && documentTypeEntry !== null) {
+    documentType = documentTypeEntry[documentClass] || DOCUMENT_TYPES.systemIsTheRecord
   }
 
-  return DOCUMENT_TYPES.systemIsTheRecord
+  return { documentClass, documentType }
 }
