@@ -1,5 +1,12 @@
 import ConfigHelper from './config-helper'
-import { SessionStorageKeys, ACCOUNT_ID } from '@bcrs-shared-components/enums'
+import { DocumentRequestIF } from '@bcrs-shared-components/interfaces'
+import {
+  SessionStorageKeys,
+  ACCOUNT_ID,
+  DOCUMENT_CLASSES,
+  DOCUMENT_TYPES,
+  DocumentClasses
+} from '@bcrs-shared-components/enums'
 
 /**
  * Place to put all the custom utility methods
@@ -71,20 +78,50 @@ export function removeAccountIdFromUrl (url, key = ACCOUNT_ID) {
 }
 
 /**
-   * Builds a complete URL by appending query parameters to the given base URL.
-   * @param baseUrl The base URL to which query parameters will be added.
-   * @param params An object containing key-value pairs to be added as query parameters.
-   *                 Values can be strings, numbers, or booleans. Null or undefined values are ignored.
-   * @returns A URL object with the provided query parameters appended.
-   */
-export function buildUrl (baseUrl: string, params?: { [key: string]: string }): URL {
+ * Appends query parameters to a base URL.
+ *
+ * @param baseUrl - The base URL.
+ * @param params - Key-value pairs (string, number, or boolean) to add as query parameters.
+ * @returns A URL object with the query parameters appended.
+ */
+export function buildUrl (baseUrl: string, params?: DocumentRequestIF): URL {
   const url = new URL(baseUrl)
 
-  Object.entries(params ?? {}).forEach(([key, value]) => {
-    if (value !== undefined && value !== null) {
-      url.searchParams.append(key, String(value))
-    }
-  })
+  Object.entries(params ?? {}).forEach(([k, v]) => v && url.searchParams.append(k, String(v)))
 
   return url
+}
+
+/**
+ * Gets the document class for a given legal type.
+ * Defaults to 'CORP' if not found.
+ *
+ * @param legalType - Business legal type (e.g., 'CP', 'SP').
+ * @returns Document class (e.g., 'COOP', 'FIRM', 'CORP').
+ */
+export function getDocumentClass (legalType: string): string {
+  const documentClass = DOCUMENT_CLASSES[legalType] || ''
+  return documentClass || DocumentClasses.CORP
+}
+
+/**
+ * Resolves the document type based on filing type and legal type.
+ * Falls back to 'systemIsTheRecord' if no match is found.
+ *
+ * @param filingType - Filing type (e.g., 'annualReport', 'correction').
+ * @param legalType - Legal entity type (e.g., 'BC', 'ULC').
+ * @returns Document type string.
+ */
+export function getDocumentType (filingType: string, legalType: string): string {
+  const documentType = DOCUMENT_TYPES[filingType]
+
+  if (typeof documentType === 'string') {
+    return documentType || DOCUMENT_TYPES.systemIsTheRecord
+  } else if (typeof documentType === 'object' && documentType !== null) {
+    const documentClass = getDocumentClass(legalType)
+    const docType = documentType[documentClass] || ''
+    return docType || DOCUMENT_TYPES.systemIsTheRecord
+  }
+
+  return DOCUMENT_TYPES.systemIsTheRecord
 }
