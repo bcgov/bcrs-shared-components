@@ -13,7 +13,7 @@
         <v-btn
           id="back-btn"
           large
-          :loading="isLoading"
+          :loading="loadingButton === FeeSummaryActions.BACK"
           @click="emitAction(FeeSummaryActions.BACK)"
         >
           <span><v-icon>mdi-chevron-left</v-icon>Back</span>
@@ -23,7 +23,7 @@
         <v-btn
           id="cancel-btn"
           large
-          :loading="isLoading"
+          :loading="loadingButton === FeeSummaryActions.CANCEL"
           @click="emitAction(FeeSummaryActions.CANCEL)"
         >
           <span>Cancel</span>
@@ -33,8 +33,8 @@
         <v-btn
           id="save-resume-later-btn"
           large
-          :disabled="disableSaveResumeLater"
-          :loading="isLoading"
+          :disabled="isSaveResumeLaterDisabled"
+          :loading="loadingButton === FeeSummaryActions.SAVE_RESUME_LATER"
           @click="emitAction(FeeSummaryActions.SAVE_RESUME_LATER)"
         >
           <span>Save and Resume Later</span>
@@ -44,8 +44,8 @@
         <v-btn
           id="confirm-btn"
           large
-          :disabled="hasConflicts"
-          :loading="isLoading"
+          :disabled="isConfirmDisabled"
+          :loading="loadingButton === FeeSummaryActions.CONFIRM"
           @click="emitAction(FeeSummaryActions.CONFIRM)"
         >
           <span>{{ confirmLabel }}<v-icon>mdi-chevron-right</v-icon></span>
@@ -86,9 +86,6 @@ export default class FeeSummary extends Vue {
   /** Indicator that something isn't valid. This disables the confirm button. */
   @Prop({ default: false }) readonly hasConflicts!: boolean
 
-  /** Indicator that there is a request in progress. */
-  @Prop({ default: false }) readonly isLoading!: boolean
-
   /** Label for Confirm button. */
   @Prop({ default: 'Confirm' }) readonly confirmLabel!: string
 
@@ -98,10 +95,26 @@ export default class FeeSummary extends Vue {
   /** Prop to indicate summary mode. */
   @Prop({ default: false }) readonly isSummaryMode!: boolean
 
+  /** Prop to indicate loading button. */
+  @Prop({ default: null }) readonly loadingButton!: FeeSummaryActions | null
+
   /** Emit action event. */
   @Emit('action')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   emitAction (action: FeeSummaryActions): void {}
+
+  get isSaveResumeLaterDisabled (): boolean {
+    return (
+      this.disableSaveResumeLater ||
+      (this.loadingButton != null && this.loadingButton !== FeeSummaryActions.SAVE_RESUME_LATER)
+    )
+  }
+
+  get isConfirmDisabled (): boolean {
+    return (
+      this.hasConflicts || (this.loadingButton != null && this.loadingButton !== FeeSummaryActions.CONFIRM)
+    )
+  }
 }
 </script>
 
