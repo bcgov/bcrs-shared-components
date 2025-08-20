@@ -78,7 +78,7 @@
                 />
               </div>
               <div class="ml-8 mt-5">
-                <span class="v-label">Enter the date the applicant has mailed the Notice of the Application for 
+                <span class="v-label">Enter the date the applicant has mailed the Notice of the Application for
                   Restoration to the company and director(s):</span>
                 <DatePicker
                   id="date-picker-application"
