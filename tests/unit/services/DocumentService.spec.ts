@@ -1,20 +1,23 @@
 import MockAdapter from 'axios-mock-adapter'
 import documentService from '@/services/document-services'
-import { DOCUMENT_TYPES, SessionStorageKeys } from '@/enums'
-import { axiosInstance, buildUrl } from '@/services/utils'
+import { SessionStorageKeys, FilingTypes } from '@/enums'
+import { axiosInstance, buildUrl, getDocumentInfo } from '@/services/utils'
 
 describe('documentService', () => {
   const mock = new MockAdapter(axiosInstance)
   const docApiUrl = 'https://api.example.com/doc/api/v1'
   const docApiKey = 'test-doc-api-key'
   const accountId = '1010'
-  const documentClass = DOCUMENT_TYPES.corpContInAuthorization.class
-  const documentType = DOCUMENT_TYPES.corpContInAuthorization.type
+
+  // Set environment variable for the axios interceptor
+  beforeAll(() => {
+    process.env.VUE_APP_DOC_API_KEY = docApiKey
+  })
+  const { documentClass, documentType } = getDocumentInfo(FilingTypes.CONTINUATION_IN, 'BC')
   const consumerIdentifier = 'T0aAaaAAAA'
   const consumerFilingDate = '2025-03-06T22:06:53.870Z'
   const documentName = 'cont.in.authorization.pdf'
   const documentServiceId = 'DS0000000001'
-  const documentURL = 'https://api.googlestorage.com/some/drs/api?some-file-name-with-id.pdf'
 
   sessionStorage.setItem(SessionStorageKeys.DocApiUrl, docApiUrl)
   sessionStorage.setItem(SessionStorageKeys.DocApiKey, docApiKey)
@@ -27,7 +30,6 @@ describe('documentService', () => {
   it('should upload a file successfully', async () => {
     const file = new File(['test-content'], documentName, { type: 'application/pdf' })
     const baseUrl = `${docApiUrl}/documents/${documentClass}/${documentType}`
-
     const url = buildUrl(baseUrl, {
       consumerIdentifier,
       consumerFilingDate,
@@ -89,7 +91,6 @@ describe('documentService', () => {
       documentServiceId,
       consumerFilename: documentName
     })
-
     expect(response.status).toEqual(200)
     expect(response.data).toHaveProperty('consumerIdentifier', consumerIdentifier)
     expect(mock.history.put.length).toBe(1)
