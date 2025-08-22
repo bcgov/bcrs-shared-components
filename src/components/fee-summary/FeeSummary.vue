@@ -77,6 +77,10 @@ enum ButtonState {
   DISABLE = 'disable'
 }
 
+type ButtonStatusMap = {
+  [key in FeeSummaryActions]: ButtonState
+}
+
 @Component({
   components: { SbcFeeSummary }
 })
@@ -125,7 +129,7 @@ export default class FeeSummary extends Vue {
   }
 
   /** Base button statuses based on props */
-  get baseButtonStatus () {
+  get baseButtonStatus (): ButtonStatusMap {
     return {
       [FeeSummaryActions.BACK]: ButtonState.DEFAULT,
       [FeeSummaryActions.CANCEL]: ButtonState.DEFAULT,
@@ -135,7 +139,7 @@ export default class FeeSummary extends Vue {
   }
 
   /** Computes current button statuses dynamically */
-  get buttonStatus () {
+  get buttonStatus (): ButtonStatusMap {
     if (!this.isLoading || !this.currentLoadingAction) {
       return this.baseButtonStatus
     }
