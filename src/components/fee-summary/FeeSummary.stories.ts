@@ -30,7 +30,7 @@ Default['args'] = {
   filingData: filingData,
   payApiUrl: 'https://pay-api-dev.apps.silver.devops.gov.bc.ca/api/v1/',
   hasConflicts: false,
-  loadingButton: null,
+  isLoading: false,
   confirmLabel: 'Continue',
   errorMessage: ''
 }
@@ -40,7 +40,7 @@ summaryMode['args'] = {
   filingData: filingData,
   payApiUrl: 'https://pay-api-dev.apps.silver.devops.gov.bc.ca/api/v1/',
   hasConflicts: false,
-  loadingButton: null,
+  isLoading: false,
   confirmLabel: 'File and Pay',
   errorMessage: '',
   isSummaryMode: true
