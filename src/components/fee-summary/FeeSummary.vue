@@ -118,14 +118,14 @@ export default class FeeSummary extends Vue {
 
   /** Watch for isLoading changes from parent */
   @Watch('isLoading')
-  onIsLoadingChanged(newVal: boolean): void {
+  onIsLoadingChanged (newVal: boolean): void {
     if (!newVal) {
       this.currentLoadingAction = null
     }
   }
 
   /** Base button statuses based on props */
-  get baseButtonStatus() {
+  get baseButtonStatus () {
     return {
       [FeeSummaryActions.BACK]: ButtonState.DEFAULT,
       [FeeSummaryActions.CANCEL]: ButtonState.DEFAULT,
@@ -135,7 +135,7 @@ export default class FeeSummary extends Vue {
   }
 
   /** Computes current button statuses dynamically */
-  get buttonStatus() {
+  get buttonStatus () {
     if (!this.isLoading || !this.currentLoadingAction) {
       return this.baseButtonStatus
     }
@@ -149,7 +149,7 @@ export default class FeeSummary extends Vue {
   }
 
   /** Handle button click */
-  handleClick(action: FeeSummaryActions): void {
+  handleClick (action: FeeSummaryActions): void {
     this.currentLoadingAction = action
     this.emitAction(action)
   }
