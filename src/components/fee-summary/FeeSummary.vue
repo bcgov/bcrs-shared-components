@@ -8,7 +8,7 @@
     <v-row no-gutters>
       <v-col
         v-if="isSummaryMode"
-        class="pt-3 pr-3"
+        class="pt-3 px-1"
       >
         <v-btn
           id="back-btn"
@@ -20,7 +20,7 @@
           <span><v-icon>mdi-chevron-left</v-icon>Back</span>
         </v-btn>
       </v-col>
-      <v-col class="pt-3">
+      <v-col class="pt-3 px-1">
         <v-btn
           id="cancel-btn"
           large
@@ -31,7 +31,7 @@
           <span>Cancel</span>
         </v-btn>
       </v-col>
-      <v-col class="pt-3">
+      <v-col class="pt-3 px-1">
         <v-btn
           id="save-resume-later-btn"
           large
@@ -42,7 +42,7 @@
           <span>Save and Resume Later</span>
         </v-btn>
       </v-col>
-      <v-col class="pt-3">
+      <v-col class="pt-3 px-1">
         <v-btn
           id="confirm-btn"
           large
