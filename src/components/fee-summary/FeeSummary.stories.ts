@@ -16,7 +16,7 @@ export default meta
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { FeeSummary },
-  template: '<div style="max-width: 316px"><fee-summary v-bind="$props" /></div>' // $props comes from args below
+  template: '<div style="max-width: 350px"><fee-summary v-bind="$props" /></div>' // $props comes from args below
 })
 
 const filingData = [{
