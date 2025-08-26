@@ -8,45 +8,47 @@
     <v-row no-gutters>
       <v-col
         v-if="isSummaryMode"
-        class="pt-3 pr-3"
+        class="pt-3 px-1"
       >
         <v-btn
           id="back-btn"
           large
-          :loading="isLoading"
-          @click="emitAction(FeeSummaryActions.BACK)"
+          :loading="buttonStatus[FeeSummaryActions.BACK] === ButtonState.LOADING"
+          :disabled="buttonStatus[FeeSummaryActions.BACK] === ButtonState.DISABLE"
+          @click="handleClick(FeeSummaryActions.BACK)"
         >
           <span><v-icon>mdi-chevron-left</v-icon>Back</span>
         </v-btn>
       </v-col>
-      <v-col class="pt-3">
+      <v-col class="pt-3 px-1">
         <v-btn
           id="cancel-btn"
           large
-          :loading="isLoading"
-          @click="emitAction(FeeSummaryActions.CANCEL)"
+          :loading="buttonStatus[FeeSummaryActions.CANCEL] === ButtonState.LOADING"
+          :disabled="buttonStatus[FeeSummaryActions.CANCEL] === ButtonState.DISABLE"
+          @click="handleClick(FeeSummaryActions.CANCEL)"
         >
           <span>Cancel</span>
         </v-btn>
       </v-col>
-      <v-col class="pt-3">
+      <v-col class="pt-3 px-1">
         <v-btn
           id="save-resume-later-btn"
           large
-          :disabled="disableSaveResumeLater"
-          :loading="isLoading"
-          @click="emitAction(FeeSummaryActions.SAVE_RESUME_LATER)"
+          :loading="buttonStatus[FeeSummaryActions.SAVE_RESUME_LATER] === ButtonState.LOADING"
+          :disabled="buttonStatus[FeeSummaryActions.SAVE_RESUME_LATER] === ButtonState.DISABLE"
+          @click="handleClick(FeeSummaryActions.SAVE_RESUME_LATER)"
         >
           <span>Save and Resume Later</span>
         </v-btn>
       </v-col>
-      <v-col class="pt-3">
+      <v-col class="pt-3 px-1">
         <v-btn
           id="confirm-btn"
           large
-          :disabled="hasConflicts"
-          :loading="isLoading"
-          @click="emitAction(FeeSummaryActions.CONFIRM)"
+          :loading="buttonStatus[FeeSummaryActions.CONFIRM] === ButtonState.LOADING"
+          :disabled="buttonStatus[FeeSummaryActions.CONFIRM] === ButtonState.DISABLE"
+          @click="handleClick(FeeSummaryActions.CONFIRM)"
         >
           <span>{{ confirmLabel }}<v-icon>mdi-chevron-right</v-icon></span>
         </v-btn>
@@ -63,16 +65,28 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Emit, Prop } from 'vue-property-decorator'
+import { Component, Emit, Prop, Watch } from 'vue-property-decorator'
 import { FeeSummaryActions } from '@bcrs-shared-components/enums'
 import { FilingDataIF } from '@bcrs-shared-components/interfaces'
 import SbcFeeSummary from './SbcFeeSummary.vue'
+
+/** Button state enum */
+enum ButtonState {
+  DEFAULT = '',
+  LOADING = 'loading',
+  DISABLE = 'disable'
+}
+
+type ButtonStatusMap = {
+  [key in FeeSummaryActions]: ButtonState
+}
 
 @Component({
   components: { SbcFeeSummary }
 })
 export default class FeeSummary extends Vue {
   readonly FeeSummaryActions = FeeSummaryActions
+  readonly ButtonState = ButtonState
 
   /** Filing information to calculate fees. */
   @Prop({ default: () => [] }) readonly filingData!: Array<FilingDataIF>
@@ -102,6 +116,47 @@ export default class FeeSummary extends Vue {
   @Emit('action')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   emitAction (action: FeeSummaryActions): void {}
+
+  /** Stores the action currently being processed */
+  currentLoadingAction: FeeSummaryActions | null = null
+
+  /** Watch for isLoading changes from parent */
+  @Watch('isLoading')
+  onIsLoadingChanged (newVal: boolean): void {
+    if (!newVal) {
+      this.currentLoadingAction = null
+    }
+  }
+
+  /** Base button statuses based on props */
+  get baseButtonStatus (): ButtonStatusMap {
+    return {
+      [FeeSummaryActions.BACK]: ButtonState.DEFAULT,
+      [FeeSummaryActions.CANCEL]: ButtonState.DEFAULT,
+      [FeeSummaryActions.SAVE_RESUME_LATER]: this.disableSaveResumeLater ? ButtonState.DISABLE : ButtonState.DEFAULT,
+      [FeeSummaryActions.CONFIRM]: this.hasConflicts ? ButtonState.DISABLE : ButtonState.DEFAULT
+    }
+  }
+
+  /** Computes current button statuses dynamically */
+  get buttonStatus (): ButtonStatusMap {
+    if (!this.isLoading || !this.currentLoadingAction) {
+      return this.baseButtonStatus
+    }
+
+    const status = { ...this.baseButtonStatus }
+    Object.values(FeeSummaryActions).forEach(action => {
+      status[action] = action === this.currentLoadingAction ? ButtonState.LOADING : ButtonState.DISABLE
+    })
+
+    return status
+  }
+
+  /** Handle button click */
+  handleClick (action: FeeSummaryActions): void {
+    this.currentLoadingAction = action
+    this.emitAction(action)
+  }
 }
 </script>
 
@@ -121,12 +176,6 @@ export default class FeeSummary extends Vue {
     color: white;
     background-color: $app-blue;
     font-weight: bold;
-  }
-
-  .v-btn[disabled] {
-    color: white !important;
-    background-color: $app-blue !important;
-    opacity: 0.2;
   }
 
   .error-msg {
