@@ -96,6 +96,7 @@ import CorrectAmlNumbered from './CorrectAmlNumbered.vue'
 import CorrectCompanyName from './CorrectCompanyName.vue'
 import CorrectNameToNumber from './CorrectNameToNumber.vue'
 import CorrectNameRequest from './CorrectNameRequest.vue'
+import CorrectNameRequestStaff from './CorrectNameRequestStaff.vue'
 
 interface CorrectNameOptionIF {
   id: CorrectNameOptions,
@@ -117,7 +118,8 @@ interface CorrectNameOptionIF {
     CorrectAmlNumbered,
     CorrectCompanyName,
     CorrectNameToNumber,
-    CorrectNameRequest
+    CorrectNameRequest,
+    CorrectNameRequestStaff
   }
 })
 export default class CorrectName extends Vue {
@@ -170,6 +172,12 @@ export default class CorrectName extends Vue {
       title: 'Use the new incorporation number as the name',
       description: null,
       component: CorrectAmlNumbered
+    },
+    {
+      id: CorrectNameOptions.CORRECT_NEW_NR_STAFF,
+      title: 'Use a new name request number',
+      description: 'Enter the new Name Request Number (e.g., NR 1234567).',
+      component: CorrectNameRequestStaff
     }
   ]
 
