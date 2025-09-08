@@ -176,7 +176,7 @@ export default class CorrectName extends Vue {
     {
       id: CorrectNameOptions.CORRECT_NEW_NR_STAFF,
       title: 'Use a new name request number',
-      description: 'Enter the new Name Request Number (e.g., NR 1234567).',
+      description: null,
       component: CorrectNameRequestStaff
     }
   ]
