@@ -64,3 +64,20 @@ FilledInBaseAddress['args'] = {
   noPoBox: true,
   isInactive: false
 }
+
+export const FilledCountryInBaseAddress = Template.bind({})
+FilledCountryInBaseAddress['args'] = {
+  editing: true,
+  schema: PersonAddressSchema,
+  address: {
+    streetAddress: '',
+    streetAddressAdditional: '',
+    addressCity: '',
+    addressRegion: '',
+    addressCountry: 'CA',
+    postalCode: '',
+    deliveryInstructions: ''
+  },
+  noPoBox: true,
+  isInactive: false
+}

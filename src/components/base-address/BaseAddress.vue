@@ -244,6 +244,12 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   /** A unique id for this instance of this component. */
   uniqueId = uniqueId()
 
+  /** Called when component is created. */
+  created (): void {
+    // Initialize region field validation based on the starting country
+    this.onAddressCountryChanged()
+  }
+
   /** A unique id for the Street Address input. */
   get streetAddressId (): string {
     return `street-address-${this.uniqueId}`
