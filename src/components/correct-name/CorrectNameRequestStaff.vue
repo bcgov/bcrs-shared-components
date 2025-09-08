@@ -6,17 +6,6 @@
     lazy-validation
   >
     <v-row no-gutters>
-      <v-col
-        cols="1"
-        class="mt-3"
-      >
-        <v-chip
-          outlined
-          class="step-icon"
-        >
-          1
-        </v-chip>
-      </v-col>
       <v-col>
         <v-text-field
           id="nr-number"
