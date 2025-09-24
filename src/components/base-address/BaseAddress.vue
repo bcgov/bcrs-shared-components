@@ -73,7 +73,7 @@
             item-value="code"
             :items="getCountriesList()"
             :rules="[...rules.addressCountry, ...spaceRules]"
-            @change="resetRegion()"
+            @change="onCountryChange()"
           />
           <!-- special field to select AddressComplete country, separate from our model field -->
           <input
@@ -185,6 +185,11 @@ import { ValidationMixin, CountriesProvincesMixin } from '@bcrs-shared-component
   mixins: [ValidationMixin, CountriesProvincesMixin]
 })
 export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvincesMixin) {
+  // Refs
+  $refs!: {
+    addressForm: HTMLFormElement
+  }
+
   /**
    * The validation object used by Vuelidate to compute address model validity.
    * @returns the Vuelidate validations object
@@ -231,12 +236,16 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   @Prop({ default: false })
   readonly isInactive: boolean
 
-  resetRegion () {
+  /** When country changes, resets fields. */
+  onCountryChange () {
     this.addressLocal['addressRegion'] = ''
+    this.addressLocal['postalCode'] = ''
+    // clear any existing validation errors
+    this.$refs.addressForm.resetValidation()
   }
 
   /** A local (working) copy of the address, to contain the fields edited by the component (ie, the model). */
-  addressLocal: object = {}
+  addressLocal: any = {}
 
   /** A local (working) copy of the address schema. */
   schemaLocal: any = {}
@@ -350,14 +359,17 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
    * @returns the Vuetify validation rules object
    */
   get rules (): { [attr: string]: Array<() => boolean | string> } {
-    return this.createVuetifyRulesObject('addressLocal') as { [attr: string]: Array<() => boolean | string> }
+    return this.createVuetifyRulesObject('addressLocal')
   }
+
   /** Emits an update message for the address prop, so that the caller can ".sync" with it. */
   @Emit('update:address')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   emitAddress (address: object): void { }
 
   /** Emits the validity of the address entered by the user. */
   @Emit('valid')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   emitValid (valid: boolean): void { }
 
   /**
@@ -392,6 +404,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
         this.schemaLocal = { ...this.schema, addressRegion }
       } else {
         // we are not using a region list for the current country so remove required property
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { required, ...addressRegion } = this.schema.addressRegion
         // re-assign the local schema because Vue does not detect property deletion
         this.schemaLocal = { ...this.schema, addressRegion }
