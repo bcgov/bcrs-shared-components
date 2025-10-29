@@ -112,7 +112,7 @@
           <td class="text-right">
             {{ row.item.parValue ? `$${formatParValue(row.item.parValue)}` : 'No Par Value' }}
           </td>
-          <td>{{ row.item.currency }}</td>
+          <td>{{ row.item.parValue ? row.item.currency : null }}</td>
           <td>{{ row.item.hasRightsOrRestrictions ? 'Yes' : 'No' }}</td>
 
           <!-- Share Class Action Btns -->
@@ -320,7 +320,7 @@
             <td class="text-right">
               {{ row.item.parValue ? `$${formatParValue(row.item.parValue)}` : 'No Par Value' }}
             </td>
-            <td>{{ row.item.currency }}</td>
+            <td>{{ row.item.parValue ? row.item.currency : null }}</td>
             <td>{{ seriesItem.hasRightsOrRestrictions ? 'Yes' : 'No' }}</td>
 
             <!-- Share Series Edit Btn -->
