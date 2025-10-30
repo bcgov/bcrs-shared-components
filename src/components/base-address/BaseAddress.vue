@@ -149,6 +149,7 @@
             class="item postal-code"
             :label="postalCodeLabel"
             :rules="[...rules.postalCode, ...spaceRules]"
+            @input="addressLocal.postalCode = addressLocal.postalCode.toUpperCase()"
           />
         </div>
         <div class="form__row">
