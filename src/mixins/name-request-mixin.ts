@@ -15,8 +15,6 @@ export default class NameRequestMixin extends Vue {
    * @param nameRequest the name request object
    * @param nrRequestActionCode the request action code to match
    * @param businessId the business identifier to match
-   * @param phone the applicant's phone number to match
-   * @param email the applicant's email address to match
    * @param legalType the business legal type to match
    * @returns the validated name request object, else exception
    */
@@ -24,8 +22,6 @@ export default class NameRequestMixin extends Vue {
     nameRequest: NameRequestIF,
     nrRequestActionCode: NrRequestActionCodes,
     businessId?: string,
-    phone?: string,
-    email?: string,
     legalType?: CorpTypeCd
   ): NameRequestIF {
     // ensure NR is valid
@@ -43,16 +39,6 @@ export default class NameRequestMixin extends Vue {
     // match business id
     if (businessId && nameRequest.corpNum !== businessId) {
       throw new Error('The Name Request is not intended for this business.')
-    }
-
-    // match email
-    if (email && nameRequest.applicants?.emailAddress !== email) {
-      throw new Error('The Name Request is not registered with this Email Address.')
-    }
-
-    // match phone
-    if (phone && nameRequest.applicants?.phoneNumber !== phone) {
-      throw new Error('The Name Request is not registered with this Phone Number.')
     }
 
     // match legal type
