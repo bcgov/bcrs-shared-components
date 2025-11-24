@@ -159,7 +159,7 @@ export default class CompletingParty extends Vue {
   // Component references
   $refs!: {
     completingPartyForm: FormIF
-    mailingAddress: FormIF
+    mailingAddress: BaseAddress
   }
 
   /** The current completing party. */
@@ -221,7 +221,7 @@ export default class CompletingParty extends Vue {
   @Watch('validate')
   private onValidate (): void {
     this.$refs.completingPartyForm && this.$refs.completingPartyForm.validate()
-    this.$refs.mailingAddress && this.$refs.mailingAddress.$refs.addressForm.validate()
+    this.$refs.mailingAddress && this.$refs.mailingAddress.validate()
   }
 
   /** When prop changes, update local object. */

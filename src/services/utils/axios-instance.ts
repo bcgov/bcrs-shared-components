@@ -7,7 +7,8 @@ const instance = axios.create()
 instance.interceptors.request.use(
   request => {
     request.headers['x-apikey'] = import.meta.env.VUE_APP_DOC_API_KEY
-    request.headers['Account-Id'] = JSON.parse(ConfigHelper.getFromSession(SessionStorageKeys.CurrentAccount) || '{}')?.id || 0
+    request.headers['Account-Id'] =
+      JSON.parse(ConfigHelper.getFromSession(SessionStorageKeys.CurrentAccount) || '{}')?.id || 0
 
     return request
   },

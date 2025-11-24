@@ -6,7 +6,7 @@ export default class DocumentService {
   /**
    * Uploads the specified document file to the Document Record Service (DRS).
    * @param document - The file to upload to DRS.
-   * @param params - The document metadata including fields like `documentClass`, `documentType`, `consumerIdentifier`, etc.
+   * @param params - The document metadata including fields like documentClass, documentType, consumerIdentifier, etc.
    * @returns a promise to return the axios response or the error response
    */
   static async uploadDocumentToDRS (document: File, params: DocumentRequestIF): Promise<AxiosResponse> {
@@ -102,7 +102,8 @@ export default class DocumentService {
       throw new Error('Invalid parameters')
     }
 
-    const url = `${ConfigHelper.getFromSession('DOC_API_URL')}/searches/${documentClass}?documentServiceId=${documentKey}`
+    const url =
+      `${ConfigHelper.getFromSession('DOC_API_URL')}/searches/${documentClass}?documentServiceId=${documentKey}`
 
     axiosInstance.get(url).then((response) => {
       if (!response) {
