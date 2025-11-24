@@ -163,6 +163,7 @@ import { Component, Mixins, Emit, Prop, Watch } from 'vue-property-decorator'
 import { Validations } from 'vuelidate-property-decorators'
 import { uniqueId } from 'lodash'
 import { ValidationMixin, CountriesProvincesMixin } from '@bcrs-shared-components/mixins'
+import { FormIF } from '@bcrs-shared-components/interfaces'
 
 /**
  * The component for displaying and editing an address.
@@ -176,7 +177,7 @@ import { ValidationMixin, CountriesProvincesMixin } from '@bcrs-shared-component
 export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvincesMixin) {
   // Refs
   $refs!: {
-    addressForm: HTMLFormElement
+    addressForm: FormIF
   }
 
   /**
@@ -226,19 +227,19 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   readonly isInactive: boolean
 
   /** Called, possibly externally, to validate all registered form inputs. */
-  public doValidate (): any {
+  public validate (): any {
     this.postalCodeRulesEnabled = true
     return this.$refs.addressForm.validate()
   }
 
   /** Called, possibly externally, to reset validation of all registered form inputs and clear their values. */
-  public doReset (): any {
+  public reset (): any {
     this.postalCodeRulesEnabled = false
     return this.$refs.addressForm.reset()
   }
 
   /** Called, possibly externally, to reset validation of all registered form inputs without modifying their values. */
-  public doResetValidation (): any {
+  public resetValidation (): any {
     return this.$refs.addressForm.resetValidation()
   }
 
@@ -247,7 +248,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     this.addressLocal['addressRegion'] = ''
     this.addressLocal['postalCode'] = ''
     // clear any existing validation errors
-    this.doResetValidation()
+    this.resetValidation()
   }
 
   /** A local (working) copy of the address, to contain the fields edited by the component (ie, the model). */
@@ -527,7 +528,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     this.addressLocal = newAddressLocal
 
     // Validate the form, in case any fields are missing or incorrect.
-    Vue.nextTick(() => this.doValidate())
+    Vue.nextTick(() => this.validate())
   }
 
   getCountriesList (): Array<object> {
