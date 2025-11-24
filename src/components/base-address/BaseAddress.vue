@@ -1,16 +1,3 @@
-//
-// Copyright © 2020 Province of British Columbia
-//
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
-// the License. You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
-// an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
-// specific language governing permissions and limitations under the License.
-//
-
 <template>
   <div class="base-address">
     <!-- Display fields -->
@@ -148,8 +135,9 @@
             filled
             class="item postal-code"
             :label="postalCodeLabel"
-            :rules="[...rules.postalCode, ...spaceRules]"
+            :rules="postalCodeRulesEnabled ? [...rules.postalCode, ...spaceRules] : []"
             @input="addressLocal.postalCode = addressLocal.postalCode?.toUpperCase()"
+            @blur="postalCodeRulesEnabled = true"
           />
         </div>
         <div class="form__row">
@@ -237,12 +225,29 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   @Prop({ default: false })
   readonly isInactive: boolean
 
+  /** Called, possibly externally, to validate all registered form inputs. */
+  public doValidate (): any {
+    this.postalCodeRulesEnabled = true
+    return this.$refs.addressForm.validate()
+  }
+
+  /** Called, possibly externally, to reset validation of all registered form inputs and clear their values. */
+  public doReset (): any {
+    this.postalCodeRulesEnabled = false
+    return this.$refs.addressForm.reset()
+  }
+
+  /** Called, possibly externally, to reset validation of all registered form inputs without modifying their values. */
+  public doResetValidation (): any {
+    return this.$refs.addressForm.resetValidation()
+  }
+
   /** When country changes, resets fields. */
   onCountryChange () {
     this.addressLocal['addressRegion'] = ''
     this.addressLocal['postalCode'] = ''
     // clear any existing validation errors
-    this.$refs.addressForm.resetValidation()
+    this.doResetValidation()
   }
 
   /** A local (working) copy of the address, to contain the fields edited by the component (ie, the model). */
@@ -253,6 +258,9 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
 
   /** A unique id for this instance of this component. */
   uniqueId = uniqueId()
+
+  /** Whether postal code validation rules are enabled (after first blur). */
+  postalCodeRulesEnabled = false
 
   /** Called when component is created. */
   created (): void {
@@ -420,7 +428,8 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   @Watch('addressLocal', { deep: true, immediate: true })
   onAddressLocalChanged (): void {
     this.emitAddress(this.addressLocal)
-    this.emitValid(!this.$v.$invalid)
+    // form is valid only if postal code rules are enabled
+    this.emitValid(!this.$v.$invalid && this.postalCodeRulesEnabled)
   }
 
   /**
@@ -518,7 +527,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     this.addressLocal = newAddressLocal
 
     // Validate the form, in case any fields are missing or incorrect.
-    Vue.nextTick(() => { (this.$refs.addressForm as any).validate() })
+    Vue.nextTick(() => this.doValidate())
   }
 
   getCountriesList (): Array<object> {

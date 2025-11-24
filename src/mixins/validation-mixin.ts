@@ -90,6 +90,6 @@ export default class ValidationMixin extends Vue {
   }
 
   protected postalCodeRule (prop: string, key: string): boolean | string {
-    return Boolean(this.$v[prop] && this.$v[prop][key].validatePostalCode) || 'Format must be A1A 1A1'
+    return Boolean(this.$v[prop] && this.$v[prop][key].validatePostalCode) || 'Enter a valid postal code'
   }
 }
