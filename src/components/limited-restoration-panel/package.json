@@ -1,11 +1,11 @@
 {
   "name": "@bcrs-shared-components/limited-restoration-panel",
-  "version": "2.1.20",
+  "version": "2.1.21",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@bcrs-shared-components/interfaces": "^1.1.36",
+    "@bcrs-shared-components/interfaces": "^1.1.37",
     "vue": "^2.7.14"
   },
   "devDependencies": {
