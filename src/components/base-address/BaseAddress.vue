@@ -46,6 +46,7 @@
       <v-form
         v-if="editing"
         ref="addressForm"
+        v-model="addressFormValid"
         name="address-form"
         lazy-validation
       >
@@ -260,7 +261,10 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   /** A unique id for this instance of this component. */
   uniqueId = uniqueId()
 
-  /** Whether postal code validation rules are enabled (after first blur). */
+  /** Whether address form is valid. */
+  addressFormValid = false
+
+  /** Whether postal code validation rules are enabled (ie, after first blur or validate call). */
   postalCodeRulesEnabled = false
 
   /** Called when component is created. */
@@ -372,18 +376,8 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     return this.createVuetifyRulesObject('addressLocal')
   }
 
-  /** Emits an update message for the address prop, so that the caller can ".sync" with it. */
-  @Emit('update:address')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  emitAddress (address: object): void { }
-
-  /** Emits the validity of the address entered by the user. */
-  @Emit('valid')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  emitValid (valid: boolean): void { }
-
   /**
-   * Watches changes to the Schema object, so that if the parent changes the data, then
+   * Watches for changes to the Schema object, so that if the parent changes the data then
    * the working copy of it is updated.
    */
   @Watch('schema', { deep: true, immediate: true })
@@ -392,7 +386,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   }
 
   /**
-   * Watches changes to the Address object, so that if the parent changes the data, then
+   * Watches for changes to the Address object, so that if the parent changes the data then
    * the working copy of it is updated.
    */
   @Watch('address', { deep: true, immediate: true })
@@ -401,7 +395,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   }
 
   /**
-   * Watches changes to the Address Country and updates the schema accordingly.
+   * Watches for changes to the Address Country and updates the schema accordingly.
    */
   @Watch('addressCountry')
   onAddressCountryChanged (): void {
@@ -423,14 +417,22 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   }
 
   /**
-   * Watches changes to the Address Local object, to catch any changes to the fields within the address.
-   * Will notify the parent object with the new address and whether or not the address is valid.
+   * Watches for changes to the local address object, to catch any changes to the fields within the address.
+   * Emits an update message for the address prop, so that the caller can ".sync" with it.
+   * If this causes the form to become valid or invalid then another watcher will handle that.
    */
   @Watch('addressLocal', { deep: true, immediate: true })
-  onAddressLocalChanged (): void {
-    this.emitAddress(this.addressLocal)
+  @Emit('update:address')
+  onAddressLocalChanged (): any {
+    return this.addressLocal
+  }
+
+  /** Watches for changes to the address form validity and emits the updated state. */
+  @Watch('addressFormValid')
+  @Emit('valid')
+  onAddressFormValidChanged (): boolean {
     // form is valid only if postal code rules are enabled
-    this.emitValid(!this.$v.$invalid && this.postalCodeRulesEnabled)
+    return (!this.$v.$invalid && this.postalCodeRulesEnabled)
   }
 
   /**
