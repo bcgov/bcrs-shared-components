@@ -261,8 +261,8 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   /** A unique id for this instance of this component. */
   uniqueId = uniqueId()
 
-  /** Whether address form is valid. */
-  addressFormValid = false
+  /** Whether address form is valid (True until proven False). */
+  addressFormValid = true
 
   /** Whether postal code validation rules are enabled (ie, after first blur or validate call). */
   postalCodeRulesEnabled = false
