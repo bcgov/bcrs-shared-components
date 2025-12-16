@@ -429,10 +429,11 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
 
   /** Watches for changes to the address form validity and emits the updated state. */
   @Watch('addressFormValid')
+  @Watch('postalCodeRulesEnabled')
   @Emit('valid')
   onAddressFormValidChanged (): boolean {
     // form is valid only if postal code rules are enabled
-    return (!this.$v.$invalid && this.postalCodeRulesEnabled)
+    return (this.addressFormValid && this.postalCodeRulesEnabled)
   }
 
   /**
