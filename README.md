@@ -98,7 +98,10 @@ Note: This step will create new tags and commit them!
 
 ### 15. Publish to npm
 
+Note: You need a npm account for this, and you need 2FA set up.
+
 ```
+npm login
 lerna publish from-package
 ```
 
