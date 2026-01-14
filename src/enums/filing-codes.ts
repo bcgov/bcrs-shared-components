@@ -2,6 +2,8 @@
 export enum FilingCodes {
   ADDRESS_CHANGE_BC = 'BCADD', // Change of Address - BC, BEN, etc
   ADDRESS_CHANGE_OT = 'OTADD', // Change of Address - CP
+  ADDRESS_CHANGE_LIQUIDATOR = 'NOCAL', // Change of Address - Liquidator
+  ADDRESS_CHANGE_RECEIVER = 'NOCRM', // Change of Address - Receiver
   AGM_EXTENSION = 'AGMDT',
   AGM_LOCATION_CHANGE = 'AGMLC',
   AFFIDAVIT = 'AFDVT',
@@ -11,8 +13,13 @@ export enum FilingCodes {
   AMALGAMATION_REGULAR = 'AMALR', // Amalgamation Application (Regular)
   AMALGAMATION_VERTICAL = 'AMALV', // Amalgamation Application (Vertical Short Form)
   AMALGAMATION_OUT = 'AMALO', // Amalgamation Out
+  AMEND_RECEIVER = 'AMEND', // Amend Receiver
   ANNUAL_REPORT_BC = 'BCANN', // Annual Report - BC, BEN, etc
   ANNUAL_REPORT_OT = 'OTANN', // Annual Report - CP
+  APPOINT_LIQUIDATOR = 'NOAPL', // Appoint Liquidator
+  APPOINT_RECEIVER = 'NOARM', // Appoint Receiver
+  CEASE_LIQUIDATOR = 'NOCEL', // Cease Liquidator
+  CEASE_RECEIVER = 'NOCER', // Cease Receiver
   CHANGE_OF_REGISTRATION = 'FMCHANGE',
   CONSENT_AMALGAMATION_OUT = 'IAMGO', // Consent To Amalgamation Out
   CONSENT_CONTINUATION_OUT = 'CONTO', // Consent To Continuation Out
@@ -38,6 +45,8 @@ export enum FilingCodes {
   INCORPORATION_CC = 'BCINC',
   INCORPORATION_CP = 'OTINC',
   INCORPORATION_ULC = 'BCINC',
+  INTENT_TO_LIQUIDATE = 'LQSIN', // Intent to Liquidate
+  LIQUIDATION_REPORT = 'LIQUR', // Liquidation Report
   NOTICE_OF_WITHDRAWAL = 'NWITH',
   REGISTRATION_GP = 'FRREG',
   REGISTRATION_SP = 'FRREG',
