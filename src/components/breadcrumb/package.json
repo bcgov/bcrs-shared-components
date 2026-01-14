@@ -10,5 +10,6 @@
   },
   "devDependencies": {
     "vue-property-decorator": "^9.1.2"
-  }
+  },
+  "gitHead": "31c1b1c7fa82101f90ccd7842e436608bdfca752"
 }
