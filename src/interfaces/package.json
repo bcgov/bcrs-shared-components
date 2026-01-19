@@ -1,12 +1,12 @@
 {
   "name": "@bcrs-shared-components/interfaces",
-  "version": "1.1.39",
+  "version": "1.1.40",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@bcrs-shared-components/corp-type-module": "^1.0.16",
-    "@bcrs-shared-components/enums": "^1.2.1",
+    "@bcrs-shared-components/enums": "^1.2.2",
     "vue": "^2.7.14"
   },
   "gitHead": "31c1b1c7fa82101f90ccd7842e436608bdfca752"
