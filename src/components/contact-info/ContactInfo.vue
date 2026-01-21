@@ -420,7 +420,10 @@ export default class ContactInfo extends Vue {
       (v: string) => !v || (v.toString() === (this.$refs.editContactForm && this.$refs.editContactForm.$el[0].value)) ||
         'Email addresses must match'
     ]
-    this.phoneRules = this.optionalPhone ? []
+    this.phoneRules = this.optionalPhone
+      ? [
+        (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
+      ]
       : [
         (v: string) => !!v || 'Phone number is required',
         (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
