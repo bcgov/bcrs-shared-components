@@ -183,4 +183,46 @@ describe('Business Contact Info component', () => {
 
     wrapper.destroy()
   })
+
+  it('Allows optional phone to be empty', async () => {
+    const wrapper: Wrapper<ContactInfo> =
+      createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
+
+    // Set optional prop
+    wrapper.setProps({ optionalPhone: true })
+    await Vue.nextTick()
+
+    wrapper.find(editButtonSelector).trigger('click')
+    await Vue.nextTick()
+    await (wrapper.vm as any).submitContact()
+    await Vue.nextTick()
+
+    const rules = (wrapper.vm as any).phoneRules
+    const result = rules[0]('')
+
+    expect(result).toBe(true)
+    wrapper.destroy()
+  })
+
+  it('Validates optional phone format if provided', async () => {
+    const wrapper: Wrapper<ContactInfo> =
+      createComponent(originalBusinessContactInfo, originalBusinessContactInfo)
+
+    // Set optional prop
+    wrapper.setProps({ optionalPhone: true })
+    await Vue.nextTick()
+
+    wrapper.find(editButtonSelector).trigger('click')
+    await Vue.nextTick()
+    await (wrapper.vm as any).submitContact()
+    await Vue.nextTick()
+
+    const rules = (wrapper.vm as any).phoneRules
+    let result = rules[0]('(555) 555-5555')
+    expect(result).toBe(true)
+
+    result = rules[0]('5555555555')
+    expect(result).toBe('Enter a valid phone number')
+    wrapper.destroy()
+  })
 })
