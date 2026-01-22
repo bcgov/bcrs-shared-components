@@ -422,11 +422,11 @@ export default class ContactInfo extends Vue {
     ]
     this.phoneRules = this.optionalPhone
       ? [
-        (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
+        (v: any) => !v || (v.length === 0 || v.length === 14) || 'Enter a valid phone number'
       ]
       : [
         (v: string) => !!v || 'Phone number is required',
-        (v: any) => !v || (v.length === 0 || v.length === 14) || 'Phone number is invalid'
+        (v: any) => !v || (v.length === 0 || v.length === 14) || 'Enter a valid phone number'
       ]
 
     // Validate form and wait for v-model to get updated
