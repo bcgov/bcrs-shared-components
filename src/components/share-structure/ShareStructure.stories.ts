@@ -188,7 +188,8 @@ correction['args'] = {
   incorporationApplication: IA,
   businessSnapshot: businessSnapshot,
   shareClasses: IA.incorporationApplication.shareStructure.shareClasses,
-  resolutionRequired: false
+  resolutionRequired: false,
+  disabled: false
 }
 
 export const alteration = Template.bind({})
@@ -200,5 +201,6 @@ alteration['args'] = {
   incorporationApplication: IA,
   businessSnapshot: businessSnapshot,
   shareClasses: businessSnapshot[4].shareClasses,
-  resolutionRequired: true
+  resolutionRequired: true,
+  disabled: false
 }
