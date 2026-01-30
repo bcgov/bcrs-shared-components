@@ -341,7 +341,7 @@
                     :id="'series-' + index + '-change-btn'"
                     text
                     color="primary"
-                    :disabled="addEditInProgress"
+                    :disabled="addEditInProgress || disabled"
                     @click="editSeries(row.index, index)"
                   >
                     <v-icon small>mdi-pencil</v-icon>
@@ -397,7 +397,7 @@
                         text
                         color="primary"
                         class="actions__more-actions__btn"
-                        :disabled="addEditInProgress"
+                        :disabled="addEditInProgress || disabled"
                         v-on="on"
                       >
                         <v-icon>{{ seriesDropdown[row.index][index] ? 'mdi-menu-up' : 'mdi-menu-down' }}</v-icon>

@@ -507,7 +507,9 @@ describe('Share Structure component - enabled/disabled', () => {
     // verify that the action buttons are enabled
     expect(wrapper.find('#btn-add-person').attributes('disabled')).toBeUndefined()
     expect(wrapper.find('#class-0-change-btn').attributes('disabled')).toBeUndefined()
-    expect(wrapper.find('.actions__more-actions__btn').attributes('disabled')).toBeUndefined()
+    expect(wrapper.find('.class-row .actions__more-actions__btn').attributes('disabled')).toBeUndefined()
+    expect(wrapper.find('#series-0-change-btn').attributes('disabled')).toBeUndefined()
+    expect(wrapper.find('.series-row .actions__more-actions__btn').attributes('disabled')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -526,7 +528,9 @@ describe('Share Structure component - enabled/disabled', () => {
     // verify that the action buttons are disabled
     expect(wrapper.find('#btn-add-person').attributes('disabled')).toBe('disabled')
     expect(wrapper.find('#class-0-change-btn').attributes('disabled')).toBe('disabled')
-    expect(wrapper.find('.actions__more-actions__btn').attributes('disabled')).toBe('disabled')
+    expect(wrapper.find('.class-row .actions__more-actions__btn').attributes('disabled')).toBe('disabled')
+    expect(wrapper.find('#series-0-change-btn').attributes('disabled')).toBe('disabled')
+    expect(wrapper.find('.series-row .actions__more-actions__btn').attributes('disabled')).toBe('disabled')
 
     wrapper.destroy()
   })
