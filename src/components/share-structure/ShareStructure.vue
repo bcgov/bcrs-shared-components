@@ -40,7 +40,7 @@
           id="btn-add-person"
           outlined
           color="primary"
-          :disabled="addEditInProgress"
+          :disabled="addEditInProgress || disabled"
           @click="initNewShareClass()"
         >
           <v-icon>mdi-plus</v-icon>
@@ -130,7 +130,7 @@
                   :id="'class-' + row.index + '-change-btn'"
                   text
                   color="primary"
-                  :disabled="addEditInProgress"
+                  :disabled="addEditInProgress || disabled"
                   @click="initShareClassForEdit(row.index)"
                 >
                   <v-icon small>mdi-pencil</v-icon>
@@ -184,7 +184,7 @@
                       text
                       color="primary"
                       class="actions__more-actions__btn"
-                      :disabled="addEditInProgress"
+                      :disabled="addEditInProgress || disabled"
                       v-on="on"
                     >
                       <v-icon>{{ classDropdown[row.index] ? 'mdi-menu-up' : 'mdi-menu-down' }}</v-icon>
@@ -577,6 +577,9 @@ export default class ShareStructure extends Vue {
 
   /** Verification the Share Structure contains the minimum required Share Classes. */
   @Prop({ default: false }) readonly invalidMinimumShareClass!: boolean
+
+  /** Whether this component should be disabled. */
+  @Prop({ default: false }) readonly disabled!: boolean
 
   //
   // Local properties:
