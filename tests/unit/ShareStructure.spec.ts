@@ -13,246 +13,246 @@ document.body.setAttribute('id', 'share-structure')
 const vuetify = new Vuetify({})
 const localVue = createLocalVue()
 
+const shareClassesOriginal: any = [
+  {
+    id: '1',
+    name: 'Common Shares',
+    priority: 0,
+    maxNumberOfShares: 10000,
+    parValue: 1.58,
+    currency: 'CAD',
+    hasRightsOrRestrictions: true,
+    series: [
+      {
+        id: '1',
+        name: 'Share Series 1',
+        priority: 1,
+        hasMaximumShares: true,
+        maxNumberOfShares: 50,
+        hasRightsOrRestrictions: false
+      },
+      {
+        id: '2',
+        name: 'Share Series 2',
+        priority: 2,
+        hasMaximumShares: true,
+        maxNumberOfShares: 100,
+        hasRightsOrRestrictions: false
+      }
+    ]
+  },
+  {
+    id: '2',
+    name: 'Non-voting Shares',
+    priority: 1,
+    maxNumberOfShares: 1000,
+    parValue: null,
+    currency: '',
+    hasRightsOrRestrictions: false,
+    series: [
+      {
+        id: '1',
+        name: 'Share Series 3',
+        priority: 1,
+        hasMaximumShares: true,
+        maxNumberOfShares: 50,
+        hasRightsOrRestrictions: false
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Common Shares 2',
+    priority: 2,
+    maxNumberOfShares: 10000,
+    parValue: 0.568,
+    currency: 'CAD',
+    hasRightsOrRestrictions: true,
+    series: []
+  },
+  {
+    id: '4',
+    priority: 3,
+    name: 'Non-voting Shares 2',
+    maxNumberOfShares: 1000,
+    parValue: null,
+    currency: '',
+    hasRightsOrRestrictions: false,
+    series: []
+  }]
+
+const shareClasses: any = [
+  {
+    id: '1',
+    name: 'Common Shares',
+    priority: 0,
+    maxNumberOfShares: 10000,
+    parValue: 1.58,
+    currency: 'CAD',
+    hasRightsOrRestrictions: true,
+    series: [
+      {
+        id: '1',
+        name: 'Share Series 1',
+        priority: 1,
+        hasMaximumShares: true,
+        maxNumberOfShares: 50,
+        hasRightsOrRestrictions: false,
+        action: 'REMOVED'
+      },
+      {
+        id: '2',
+        name: 'Share Series 2B',
+        priority: 2,
+        hasMaximumShares: true,
+        maxNumberOfShares: 100,
+        hasRightsOrRestrictions: false,
+        action: 'EDITED'
+      },
+      {
+        id: '3',
+        name: 'Share Series 3C',
+        priority: 3,
+        hasMaximumShares: true,
+        maxNumberOfShares: 100,
+        hasRightsOrRestrictions: false,
+        action: 'ADDED'
+      }
+    ]
+  },
+  {
+    id: '2',
+    name: 'Non-voting Shares',
+    priority: 1,
+    maxNumberOfShares: 1000,
+    parValue: null,
+    currency: '',
+    hasRightsOrRestrictions: false,
+    series: [
+      {
+        id: '1',
+        name: 'Share Series 3',
+        priority: 1,
+        hasMaximumShares: true,
+        maxNumberOfShares: 50,
+        hasRightsOrRestrictions: false
+      },
+      {
+        id: '2',
+        name: 'Share Series 3B',
+        priority: 2,
+        hasMaximumShares: true,
+        maxNumberOfShares: 50,
+        hasRightsOrRestrictions: false,
+        action: 'ADDED'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Common Shares 2B',
+    priority: 2,
+    maxNumberOfShares: 10000,
+    parValue: 0.568,
+    currency: 'CAD',
+    hasRightsOrRestrictions: true,
+    series: [],
+    action: 'EDITED'
+  },
+  {
+    id: '4',
+    priority: 3,
+    name: 'Non-voting Shares 2',
+    maxNumberOfShares: 1000,
+    parValue: null,
+    currency: '',
+    hasRightsOrRestrictions: false,
+    series: [],
+    action: 'REMOVED'
+  },
+  {
+    id: '5',
+    priority: 4,
+    name: 'Non-voting Shares 3',
+    maxNumberOfShares: 1000,
+    parValue: null,
+    currency: '',
+    hasRightsOrRestrictions: false,
+    series: [],
+    action: 'ADDED'
+  }]
+
+const shareClassesNestedSeriesCorrected: any = [
+  {
+    id: '1',
+    name: 'Common Shares',
+    priority: 0,
+    maxNumberOfShares: 10000,
+    parValue: 1.58,
+    currency: 'CAD',
+    hasRightsOrRestrictions: true,
+    series: [
+      {
+        id: '1',
+        name: 'Share Series 1',
+        priority: 1,
+        hasMaximumShares: true,
+        maxNumberOfShares: 50,
+        hasRightsOrRestrictions: false
+      },
+      {
+        id: '2',
+        name: 'Share Series 2',
+        priority: 2,
+        hasMaximumShares: true,
+        maxNumberOfShares: 100,
+        hasRightsOrRestrictions: false
+      }
+    ]
+  },
+  {
+    id: '2',
+    name: 'Non-voting Shares',
+    priority: 1,
+    maxNumberOfShares: 1000,
+    parValue: null,
+    currency: '',
+    hasRightsOrRestrictions: false,
+    series: [
+      {
+        id: '1',
+        name: 'Share Series 3B',
+        priority: 1,
+        hasMaximumShares: true,
+        maxNumberOfShares: 50,
+        hasRightsOrRestrictions: false,
+        action: 'CORRECTED'
+      }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Common Shares 2',
+    priority: 2,
+    maxNumberOfShares: 10000,
+    parValue: 0.568,
+    currency: 'CAD',
+    hasRightsOrRestrictions: true,
+    series: []
+  },
+  {
+    id: '4',
+    priority: 3,
+    name: 'Non-voting Shares 2',
+    maxNumberOfShares: 1000,
+    parValue: null,
+    currency: '',
+    hasRightsOrRestrictions: false,
+    series: []
+  }]
+
 describe('Share Structure component', () => {
   let wrapper: any
-
-  const shareClassesOriginal: any = [
-    {
-      id: '1',
-      name: 'Common Shares',
-      priority: 0,
-      maxNumberOfShares: 10000,
-      parValue: 1.58,
-      currency: 'CAD',
-      hasRightsOrRestrictions: true,
-      series: [
-        {
-          id: '1',
-          name: 'Share Series 1',
-          priority: 1,
-          hasMaximumShares: true,
-          maxNumberOfShares: 50,
-          hasRightsOrRestrictions: false
-        },
-        {
-          id: '2',
-          name: 'Share Series 2',
-          priority: 2,
-          hasMaximumShares: true,
-          maxNumberOfShares: 100,
-          hasRightsOrRestrictions: false
-        }
-      ]
-    },
-    {
-      id: '2',
-      name: 'Non-voting Shares',
-      priority: 1,
-      maxNumberOfShares: 1000,
-      parValue: null,
-      currency: '',
-      hasRightsOrRestrictions: false,
-      series: [
-        {
-          id: '1',
-          name: 'Share Series 3',
-          priority: 1,
-          hasMaximumShares: true,
-          maxNumberOfShares: 50,
-          hasRightsOrRestrictions: false
-        }
-      ]
-    },
-    {
-      id: '3',
-      name: 'Common Shares 2',
-      priority: 2,
-      maxNumberOfShares: 10000,
-      parValue: 0.568,
-      currency: 'CAD',
-      hasRightsOrRestrictions: true,
-      series: []
-    },
-    {
-      id: '4',
-      priority: 3,
-      name: 'Non-voting Shares 2',
-      maxNumberOfShares: 1000,
-      parValue: null,
-      currency: '',
-      hasRightsOrRestrictions: false,
-      series: []
-    }]
-
-  const shareClasses: any = [
-    {
-      id: '1',
-      name: 'Common Shares',
-      priority: 0,
-      maxNumberOfShares: 10000,
-      parValue: 1.58,
-      currency: 'CAD',
-      hasRightsOrRestrictions: true,
-      series: [
-        {
-          id: '1',
-          name: 'Share Series 1',
-          priority: 1,
-          hasMaximumShares: true,
-          maxNumberOfShares: 50,
-          hasRightsOrRestrictions: false,
-          action: 'REMOVED'
-        },
-        {
-          id: '2',
-          name: 'Share Series 2B',
-          priority: 2,
-          hasMaximumShares: true,
-          maxNumberOfShares: 100,
-          hasRightsOrRestrictions: false,
-          action: 'EDITED'
-        },
-        {
-          id: '3',
-          name: 'Share Series 3C',
-          priority: 3,
-          hasMaximumShares: true,
-          maxNumberOfShares: 100,
-          hasRightsOrRestrictions: false,
-          action: 'ADDED'
-        }
-      ]
-    },
-    {
-      id: '2',
-      name: 'Non-voting Shares',
-      priority: 1,
-      maxNumberOfShares: 1000,
-      parValue: null,
-      currency: '',
-      hasRightsOrRestrictions: false,
-      series: [
-        {
-          id: '1',
-          name: 'Share Series 3',
-          priority: 1,
-          hasMaximumShares: true,
-          maxNumberOfShares: 50,
-          hasRightsOrRestrictions: false
-        },
-        {
-          id: '2',
-          name: 'Share Series 3B',
-          priority: 2,
-          hasMaximumShares: true,
-          maxNumberOfShares: 50,
-          hasRightsOrRestrictions: false,
-          action: 'ADDED'
-        }
-      ]
-    },
-    {
-      id: '3',
-      name: 'Common Shares 2B',
-      priority: 2,
-      maxNumberOfShares: 10000,
-      parValue: 0.568,
-      currency: 'CAD',
-      hasRightsOrRestrictions: true,
-      series: [],
-      action: 'EDITED'
-    },
-    {
-      id: '4',
-      priority: 3,
-      name: 'Non-voting Shares 2',
-      maxNumberOfShares: 1000,
-      parValue: null,
-      currency: '',
-      hasRightsOrRestrictions: false,
-      series: [],
-      action: 'REMOVED'
-    },
-    {
-      id: '5',
-      priority: 4,
-      name: 'Non-voting Shares 3',
-      maxNumberOfShares: 1000,
-      parValue: null,
-      currency: '',
-      hasRightsOrRestrictions: false,
-      series: [],
-      action: 'ADDED'
-    }]
-
-  const shareClassesNestedSeriesCorrected: any = [
-    {
-      id: '1',
-      name: 'Common Shares',
-      priority: 0,
-      maxNumberOfShares: 10000,
-      parValue: 1.58,
-      currency: 'CAD',
-      hasRightsOrRestrictions: true,
-      series: [
-        {
-          id: '1',
-          name: 'Share Series 1',
-          priority: 1,
-          hasMaximumShares: true,
-          maxNumberOfShares: 50,
-          hasRightsOrRestrictions: false
-        },
-        {
-          id: '2',
-          name: 'Share Series 2',
-          priority: 2,
-          hasMaximumShares: true,
-          maxNumberOfShares: 100,
-          hasRightsOrRestrictions: false
-        }
-      ]
-    },
-    {
-      id: '2',
-      name: 'Non-voting Shares',
-      priority: 1,
-      maxNumberOfShares: 1000,
-      parValue: null,
-      currency: '',
-      hasRightsOrRestrictions: false,
-      series: [
-        {
-          id: '1',
-          name: 'Share Series 3B',
-          priority: 1,
-          hasMaximumShares: true,
-          maxNumberOfShares: 50,
-          hasRightsOrRestrictions: false,
-          action: 'CORRECTED'
-        }
-      ]
-    },
-    {
-      id: '3',
-      name: 'Common Shares 2',
-      priority: 2,
-      maxNumberOfShares: 10000,
-      parValue: 0.568,
-      currency: 'CAD',
-      hasRightsOrRestrictions: true,
-      series: []
-    },
-    {
-      id: '4',
-      priority: 3,
-      name: 'Non-voting Shares 2',
-      maxNumberOfShares: 1000,
-      parValue: null,
-      currency: '',
-      hasRightsOrRestrictions: false,
-      series: []
-    }]
 
   beforeEach(() => {
     wrapper = mount(ShareStructure, {
@@ -490,5 +490,44 @@ describe('Share Structure component', () => {
 
     expect(wrapper.find('.share-info-container').text())
       .toContain('Your share structure must contain at least one share class.')
+  })
+})
+
+describe('Share Structure component - enabled/disabled', () => {
+  it('disables the action buttons when the disabled prop is not specified (default: False)', () => {
+    const wrapper = mount(ShareStructure, {
+      localVue,
+      vuetify,
+      propsData: {
+        originalShareStructure: shareClassesOriginal,
+        shareClasses: shareClasses
+      }
+    })
+
+    // verify that the action buttons are enabled
+    expect(wrapper.find('#btn-add-person').attributes('disabled')).toBeUndefined()
+    expect(wrapper.find('#class-0-change-btn').attributes('disabled')).toBeUndefined()
+    expect(wrapper.find('.actions__more-actions__btn').attributes('disabled')).toBeUndefined()
+
+    wrapper.destroy()
+  })
+
+  it('disables the action buttons when the disabled prop is True', () => {
+    const wrapper = mount(ShareStructure, {
+      localVue,
+      vuetify,
+      propsData: {
+        originalShareStructure: shareClassesOriginal,
+        shareClasses: shareClasses,
+        disabled: true
+      }
+    })
+
+    // verify that the action buttons are disabled
+    expect(wrapper.find('#btn-add-person').attributes('disabled')).toBe('disabled')
+    expect(wrapper.find('#class-0-change-btn').attributes('disabled')).toBe('disabled')
+    expect(wrapper.find('.actions__more-actions__btn').attributes('disabled')).toBe('disabled')
+
+    wrapper.destroy()
   })
 })
