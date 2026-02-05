@@ -219,9 +219,9 @@ export default class CompletingParty extends Vue {
 
   /** When prop changes, validate the components. */
   @Watch('validate')
-  private onValidate (): void {
+  private async onValidate (): Promise<void> {
     this.$refs.completingPartyForm && this.$refs.completingPartyForm.validate()
-    this.$refs.mailingAddress && this.$refs.mailingAddress.validate()
+    this.$refs.mailingAddress && await this.$refs.mailingAddress.validate()
   }
 
   /** When prop changes, update local object. */
