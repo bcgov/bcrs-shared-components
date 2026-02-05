@@ -228,24 +228,25 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   readonly isInactive: boolean
 
   /** Called, possibly externally, to validate all registered form inputs. */
-  public validate (): any {
+  public async validate (): Promise<boolean> {
     this.postalCodeRulesEnabled = true
+    await Vue.nextTick() // ensure postal code rules are functional before validating
     return this.$refs.addressForm.validate()
   }
 
   /** Called, possibly externally, to reset validation of all registered form inputs and clear their values. */
-  public reset (): any {
+  public reset (): void {
     this.postalCodeRulesEnabled = false
     return this.$refs.addressForm.reset()
   }
 
   /** Called, possibly externally, to reset validation of all registered form inputs without modifying their values. */
-  public resetValidation (): any {
+  public resetValidation (): void {
     return this.$refs.addressForm.resetValidation()
   }
 
   /** When country changes, resets fields. */
-  onCountryChange () {
+  onCountryChange (): void {
     this.addressLocal['addressRegion'] = ''
     this.addressLocal['postalCode'] = ''
     // clear any existing validation errors
