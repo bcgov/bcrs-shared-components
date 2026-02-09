@@ -5,7 +5,7 @@
 const CanadaPostalCodeRegex = /^[ABCEGHJ-NPRSTVXY][0-9][ABCEGHJ-NPRSTV-Z][ ]?[0-9][ABCEGHJ-NPRSTV-Z][0-9]$/i
 
 /** Custom validator for postal codes. */
-export function validatePostalCode (value: string, parentVm: any): boolean {
+export function isValidPostalCode (value: string, parentVm: any): boolean {
   // if Canada, validate postal code format
   // empty value is considered valid -- "required" validation is handled separately
   if (parentVm.addressCountry === 'CA') return !value || CanadaPostalCodeRegex.test(value)
