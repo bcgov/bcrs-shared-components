@@ -7,8 +7,9 @@
     "src/interfaces",
     "src/mixins",
     "src/modules/*",
+    "src/services",
     "src/types",
-    "src/services"
+    "src/validators"
   ],
   "command": {
     "publish": {
