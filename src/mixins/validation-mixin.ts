@@ -40,7 +40,8 @@ export default class ValidationMixin extends Vue {
                 case 'maxLength': obj[prop].push(() => this.maxLengthRule(model, prop)); break
                 case 'isCanada': obj[prop].push(() => this.isCanadaRule(model, prop)); break
                 case 'isBC': obj[prop].push(() => this.isBCRule(model, prop)); break
-                case 'validatePostalCode': obj[prop].push(() => this.postalCodeRule(model, prop)); break
+                case 'isValidPostalCode': obj[prop].push(() => this.isValidPostalCodeRule(model, prop)); break
+                case 'isRequiredPostalCode': obj[prop].push(() => this.isRequiredPostalCodeRule(model, prop)); break
                 // FUTURE: add extra validation functions here
                 default: break
               }
@@ -89,7 +90,11 @@ export default class ValidationMixin extends Vue {
     return Boolean(this.$v[prop] && this.$v[prop][key].isBC) || 'Address must be in BC'
   }
 
-  protected postalCodeRule (prop: string, key: string): boolean | string {
-    return Boolean(this.$v[prop] && this.$v[prop][key].validatePostalCode) || 'Enter a valid postal code'
+  protected isValidPostalCodeRule (prop: string, key: string): boolean | string {
+    return Boolean(this.$v[prop] && this.$v[prop][key].isValidPostalCode) || 'Enter a valid postal code'
+  }
+
+  protected isRequiredPostalCodeRule (prop: string, key: string): boolean | string {
+    return Boolean(this.$v[prop] && this.$v[prop][key].isRequiredPostalCode) || 'This field is required'
   }
 }

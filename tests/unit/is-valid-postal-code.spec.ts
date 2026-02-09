@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { shallowMount } from '@vue/test-utils'
-import { validatePostalCode } from '@/validators'
+import { isValidPostalCode } from '@/validators'
 
 const Dummy = Vue.component('DummyComponent', { template: '<div />' })
 
@@ -22,7 +22,7 @@ describe('Validate Postal Code', () => {
     'a1a 1a1',
     'a1a1a1'
   ])('accepts valid postal code "%s" for Canada', (postalCode) => {
-    expect(validatePostalCode(postalCode, { addressCountry: 'CA' })).toBe(true)
+    expect(isValidPostalCode(postalCode, { addressCountry: 'CA' })).toBe(true)
   })
 
   it.each([
@@ -40,7 +40,7 @@ describe('Validate Postal Code', () => {
     'W1W 1W1', // W is not allowed in Canadian postal codes
     'Z1Z 1Z1' // Z is not allowed in Canadian postal codes
   ])('rejects invalid postal code "%s" for Canada', (postalCode) => {
-    expect(validatePostalCode(postalCode, { addressCountry: 'CA' })).toBe(false)
+    expect(isValidPostalCode(postalCode, { addressCountry: 'CA' })).toBe(false)
   })
 
   it.each([
@@ -52,6 +52,20 @@ describe('Validate Postal Code', () => {
     'W1W 1W1',
     'Z1Z 1Z1'
   ])('accepts any postal code "%s" for non-Canada', (postalCode) => {
-    expect(validatePostalCode(postalCode, { addressCountry: 'XX' })).toBe(true)
+    expect(isValidPostalCode(postalCode, { addressCountry: 'XX' })).toBe(true)
+  })
+
+  it.each([
+    null,
+    undefined
+  ])('accepts %s postal code for Canada', (postalCode) => {
+    expect(isValidPostalCode(postalCode as any, { addressCountry: 'CA' })).toBe(true)
+  })
+
+  it.each([
+    null,
+    undefined
+  ])('accepts %s postal code for non-Canada', (postalCode) => {
+    expect(isValidPostalCode(postalCode as any, { addressCountry: 'XX' })).toBe(true)
   })
 })
