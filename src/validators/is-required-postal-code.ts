@@ -12,12 +12,20 @@ const NO_POSTAL_CODE_COUNTRY_CODES = new Set([
 ])
 
 /**
+ * Returns true if the given country does not use postal codes.
+ * @param countryCode the ISO 3166-1 alpha-2 country code
+ */
+export function isPostalCodeOptionalForCountry (countryCode: string): boolean {
+  return NO_POSTAL_CODE_COUNTRY_CODES.has(countryCode)
+}
+
+/**
  * Custom validator for postal code required.
  * Returns true if postal code has a value, or if the country doesn't use postal codes.
  */
 export function isRequiredPostalCode (value: string, parentVm: any): boolean {
   // If the country doesn't use postal codes, no value is required
-  if (NO_POSTAL_CODE_COUNTRY_CODES.has(parentVm.addressCountry)) {
+  if (isPostalCodeOptionalForCountry(parentVm.addressCountry)) {
     return true
   }
   // Otherwise, postal code is required

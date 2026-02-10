@@ -165,7 +165,7 @@ import { Validations } from 'vuelidate-property-decorators'
 import { uniqueId } from 'lodash'
 import { ValidationMixin, CountriesProvincesMixin } from '@bcrs-shared-components/mixins'
 import { FormIF } from '@bcrs-shared-components/interfaces'
-
+import { isPostalCodeOptionalForCountry } from '@/validators'
 /**
  * The component for displaying and editing an address.
  * Vuelidate is used to implement the validation rules (eg, what 'required' means and whether it's satisfied).
@@ -335,7 +335,14 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     } else {
       label = 'Postal Code'
     }
-    return label + (this.isSchemaRequired('postalCode') ? '' : ' (Optional)')
+
+    let isRequired = this.isSchemaRequired('postalCode')
+    // If schema uses isRequiredPostalCode validator, check if country requires postal codes
+    if (!isRequired && this.schemaLocal?.postalCode?.isRequiredPostalCode) {
+      isRequired = !isPostalCodeOptionalForCountry(this.addressCountry)
+    }
+
+    return label + (isRequired ? '' : ' (Optional)')
   }
 
   /** The Address Country label with 'optional' as needed. */
@@ -358,7 +365,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
 
   /** Whether the specified prop is required according to the schema. */
   isSchemaRequired (prop: string): boolean {
-    return Boolean(this.schemaLocal && this.schemaLocal[prop] && this.schemaLocal[prop].required)
+    return Boolean(this.schemaLocal?.[prop]?.required)
   }
 
   /** Array of validation rules used by input elements to prevent extra whitespace. */
