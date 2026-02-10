@@ -365,7 +365,7 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
 
   /** Whether the specified prop is required according to the schema. */
   isSchemaRequired (prop: string): boolean {
-    return Boolean(this.schemaLocal && this.schemaLocal[prop] && this.schemaLocal[prop].required)
+    return Boolean(this.schemaLocal?.[prop]?.required)
   }
 
   /** Array of validation rules used by input elements to prevent extra whitespace. */
