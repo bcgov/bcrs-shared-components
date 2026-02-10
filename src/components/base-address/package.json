@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@bcrs-shared-components/mixins": "^1.2.6",
+    "@bcrs-shared-components/validators": "^1.0.2",
     "lodash.uniqueid": "^4.0.1",
     "vue": "^2.7.14",
     "vuelidate": "0.6.2"
