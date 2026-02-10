@@ -166,6 +166,7 @@ import { uniqueId } from 'lodash'
 import { ValidationMixin, CountriesProvincesMixin } from '@bcrs-shared-components/mixins'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 import { isPostalCodeOptionalForCountry } from '@bcrs-shared-components/validators'
+
 /**
  * The component for displaying and editing an address.
  * Vuelidate is used to implement the validation rules (eg, what 'required' means and whether it's satisfied).
