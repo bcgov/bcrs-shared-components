@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SessionStorageKeys } from 'sbc-common-components/src/util/constants'
+import { SessionStorageKeys } from '@bcrs-shared-components/enums'
 import ConfigHelper from './config-helper'
 
 const instance = axios.create()

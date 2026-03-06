@@ -1,3 +1,4 @@
+// see also '@sbc-common-components/src/util/constants'
 export enum SessionStorageKeys {
   AffidavitNeeded = 'AFFIDAVIT_NEEDED',
   ApiConfigKey = 'AUTH_API_CONFIG',
