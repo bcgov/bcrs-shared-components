@@ -5,7 +5,10 @@
       lazy-validation
       @submit.prevent
     >
-      <v-row no-gutters>
+      <v-row
+        v-if="!enableAuthorization"
+        no-gutters
+      >
         <v-col
           cols="12"
           :sm="firstColumn"
@@ -37,7 +40,13 @@
         <v-col
           cols="12"
           :sm="firstColumn"
-        />
+        >
+          <label
+            v-if="enableAuthorization"
+            class="title-label"
+            :class="{'error-text': invalidSection}"
+          >Confirm Authorization</label>
+        </v-col>
         <v-col
           cols="12"
           :sm="secondColumn"
@@ -50,7 +59,15 @@
           >
             <template #label>
               <div
-                v-if="isStaff"
+                v-if="enableAuthorization"
+                class="certify-stmt"
+                :class="{'error-text': invalidSection && !isCertified}"
+              >
+                I confirm that the information provided is correct and that I am authorized to
+                submit this filing on behalf of the {{ entityDisplay || "[entity type]" }}.
+              </div>
+              <div
+                v-else-if="isStaff"
                 class="certify-stmt"
                 :class="{'error-text': invalidSection && !isCertified}"
               >
@@ -168,13 +185,23 @@ export default class Certify extends Vue {
   /** Disable Text Input field. */
   @Prop({ default: false }) readonly disableEdit!: boolean
 
+  /** Enable Authorization prop. Hides the Legal Name field and displays a simplified authorization statement. */
+  @Prop({ default: false }) readonly enableAuthorization!: boolean
+
   // Form Ref
   $refs: { certifyForm: FormIF }
 
   /** Called when component is created. */
   created (): void {
     // inform parent of initial validity
-    this.emitValid(Boolean(this.trimmedCertifiedBy && this.isCertified))
+    this.emitValid(this.isFormValid)
+  }
+
+  get isFormValid (): boolean {
+    if (this.enableAuthorization) {
+      return Boolean(this.isCertified)
+    }
+    return Boolean(this.trimmedCertifiedBy && this.isCertified)
   }
 
   /** The trimmed "Certified By" string (may be ''). */
@@ -194,14 +221,14 @@ export default class Certify extends Vue {
   protected emitCertifiedBy (certifiedBy: string): string {
     // remove repeated inline whitespace, and leading/trailing whitespace
     certifiedBy = certifiedBy && certifiedBy.replace(/\s+/g, ' ').trim()
-    this.emitValid(Boolean(certifiedBy && this.isCertified))
+    this.emitValid(this.isFormValid)
     return certifiedBy
   }
 
   /** Emits an event to update the Is Certified prop. */
   @Emit('update:isCertified')
   protected emitIsCertified (isCertified: boolean): boolean {
-    this.emitValid(Boolean(this.trimmedCertifiedBy && isCertified))
+    this.emitValid(this.isFormValid)
     return isCertified
   }
 
