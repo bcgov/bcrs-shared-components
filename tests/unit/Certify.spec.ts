@@ -47,7 +47,8 @@ function createComponent (
   enableMailTo = false,
   businessEmail = '',
   completingPartyEmail = '',
-  disableEdit = false
+  disableEdit = false,
+  showLegalName = true
 ): Wrapper<Certify> {
   return mount(Certify, {
     propsData: {
@@ -61,7 +62,8 @@ function createComponent (
       enableMailTo,
       businessEmail,
       completingPartyEmail,
-      disableEdit
+      disableEdit,
+      showLegalName
     },
     vuetify
   })
@@ -232,5 +234,45 @@ describe('Certify', () => {
 
     expect(wrapper.find('#certified-by-textfield').exists()).toBe(true)
     expect(wrapper.find('#certified-by-textfield').attributes('disabled')).toBeTruthy()
+  })
+})
+
+describe('Certify - authorization statement', () => {
+  // showLegalName is false
+  it('hides the legal name field', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false)
+
+    expect(wrapper.find('#certified-by-textfield').exists()).toBe(false)
+  })
+
+  it('displays the Confirm Authorization label', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false)
+
+    expect(wrapper.text()).toContain('Confirm Authorization')
+  })
+
+  it('displays the authorization statement instead of the certify statement', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false)
+    const statement: Wrapper<Vue> = wrapper.find(statementSelector)
+
+    expect(statement.text()).toContain('I confirm that the information provided is correct')
+    expect(statement.text()).not.toContain('certify that I have relevant knowledge')
+  })
+
+  it('is invalid when isCertified is false', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(undefined, false, undefined, defaultDate, false, false, [], false, '', '', false, false)
+
+    expect(getLastEvent(wrapper, 'valid')).toBe(false)
+  })
+
+  it('is valid when isCertified is true and certifiedBy is not defined', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(undefined, true, undefined, defaultDate, false, false, [], false, '', '', false, false)
+
+    expect(getLastEvent(wrapper, 'valid')).toBe(true)
   })
 })
