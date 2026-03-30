@@ -22,5 +22,5 @@ Default['args'] = {
     'record submitted to the Corporate Registry for filing. See section 427 of the Business Corporations Act.',
   entityDisplay: 'BC Company',
   disableEdit: false,
-  enableAuthorization: false
+  showLegalName: true
 }

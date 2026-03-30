@@ -6,7 +6,7 @@
       @submit.prevent
     >
       <v-row
-        v-if="!enableAuthorization"
+        v-if="showLegalName"
         no-gutters
       >
         <v-col
@@ -42,7 +42,7 @@
           :sm="firstColumn"
         >
           <label
-            v-if="enableAuthorization"
+            v-if="!showLegalName"
             class="title-label"
             :class="{'error-text': invalidSection}"
           >Confirm Authorization</label>
@@ -59,7 +59,7 @@
           >
             <template #label>
               <div
-                v-if="enableAuthorization"
+                v-if="!showLegalName"
                 class="certify-stmt"
                 :class="{'error-text': invalidSection && !isCertified}"
               >
@@ -185,8 +185,8 @@ export default class Certify extends Vue {
   /** Disable Text Input field. */
   @Prop({ default: false }) readonly disableEdit!: boolean
 
-  /** Enable Authorization prop. Hides the Legal Name field and displays a simplified authorization statement. */
-  @Prop({ default: false }) readonly enableAuthorization!: boolean
+  /** Show Legal Name prop. */
+  @Prop({ default: true }) readonly showLegalName!: boolean
 
   // Form Ref
   $refs: { certifyForm: FormIF }
@@ -198,10 +198,10 @@ export default class Certify extends Vue {
   }
 
   get isFormValid (): boolean {
-    if (this.enableAuthorization) {
-      return Boolean(this.isCertified)
+    if (this.showLegalName) {
+      return Boolean(this.trimmedCertifiedBy && this.isCertified)
     }
-    return Boolean(this.trimmedCertifiedBy && this.isCertified)
+    return Boolean(this.isCertified)
   }
 
   /** The trimmed "Certified By" string (may be ''). */
