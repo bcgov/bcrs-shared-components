@@ -45,7 +45,9 @@
             v-if="!showLegalName"
             class="title-label"
             :class="{'error-text': invalidSection}"
-          >Confirm Authorization</label>
+          >
+            {{ authorizationTitle }}
+          </label>
         </v-col>
         <v-col
           cols="12"
@@ -63,8 +65,7 @@
                 class="certify-stmt"
                 :class="{'error-text': invalidSection && !isCertified}"
               >
-                I confirm that the information provided is correct and that I am authorized to
-                submit this filing on behalf of the {{ entityDisplay || "[entity type]" }}.
+                {{ checkboxLabelText }}
               </div>
               <div
                 v-else-if="isStaff"
@@ -188,6 +189,9 @@ export default class Certify extends Vue {
   /** Show Legal Name prop. */
   @Prop({ default: true }) readonly showLegalName!: boolean
 
+  /** Authorization Mode prop. */
+  @Prop({ default: 'certify' }) readonly authorizationMode!: 'confirm' | 'certify'
+
   // Form Ref
   $refs: { certifyForm: FormIF }
 
@@ -208,6 +212,18 @@ export default class Certify extends Vue {
   get trimmedCertifiedBy (): string {
     // remove repeated inline whitespace, and leading/trailing whitespace
     return this.certifiedBy && this.certifiedBy.replace(/\s+/g, ' ').trim()
+  }
+
+  /** Returns the title for the authorization section based on the authorization mode. */
+  get authorizationTitle (): string {
+    return this.authorizationMode === 'certify'
+      ? 'Certify'
+      : 'Confirm Authorization'
+  }
+  /** Returns the checkbox label text based on the authorization mode. */
+  get checkboxLabelText (): string {
+    return `I ${this.authorizationMode} that the information provided is correct and that I am authorized to
+      submit this filing on behalf of the ${this.entityDisplay || '[entity type]'}.`
   }
 
   /** Prompt the field validations. */

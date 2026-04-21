@@ -48,7 +48,8 @@ function createComponent (
   businessEmail = '',
   completingPartyEmail = '',
   disableEdit = false,
-  showLegalName = true
+  showLegalName = true,
+  authorizationMode = 'certify'
 ): Wrapper<Certify> {
   return mount(Certify, {
     propsData: {
@@ -63,7 +64,8 @@ function createComponent (
       businessEmail,
       completingPartyEmail,
       disableEdit,
-      showLegalName
+      showLegalName,
+      authorizationMode
     },
     vuetify
   })
@@ -248,17 +250,35 @@ describe('Certify - authorization statement', () => {
 
   it('displays the Confirm Authorization label', () => {
     const wrapper: Wrapper<Certify> =
-      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false)
+      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false,
+        'confirm')
 
     expect(wrapper.text()).toContain('Confirm Authorization')
   })
 
-  it('displays the authorization statement instead of the certify statement', () => {
+  it('displays the Certify label', () => {
     const wrapper: Wrapper<Certify> =
-      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false)
+      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false,
+        'certify')
+
+    expect(wrapper.text()).toContain('Certify')
+  })
+
+  it('displays the authorization statement in authorization mode instead of the certify statement', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false, 'confirm')
     const statement: Wrapper<Vue> = wrapper.find(statementSelector)
 
     expect(statement.text()).toContain('I confirm that the information provided is correct')
+    expect(statement.text()).not.toContain('certify that I have relevant knowledge')
+  })
+
+  it('displays the authorization statement not in authorization mode instead of the certify statement', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false, 'certify')
+    const statement: Wrapper<Vue> = wrapper.find(statementSelector)
+
+    expect(statement.text()).toContain('I certify that the information provided is correct')
     expect(statement.text()).not.toContain('certify that I have relevant knowledge')
   })
 
