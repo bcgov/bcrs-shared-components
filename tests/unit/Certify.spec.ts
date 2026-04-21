@@ -266,7 +266,8 @@ describe('Certify - authorization statement', () => {
 
   it('displays the authorization statement in authorization mode instead of the certify statement', () => {
     const wrapper: Wrapper<Certify> =
-      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false, 'confirm')
+      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false,
+        'confirm')
     const statement: Wrapper<Vue> = wrapper.find(statementSelector)
 
     expect(statement.text()).toContain('I confirm that the information provided is correct')
@@ -275,7 +276,8 @@ describe('Certify - authorization statement', () => {
 
   it('displays the authorization statement not in authorization mode instead of the certify statement', () => {
     const wrapper: Wrapper<Certify> =
-      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false, 'certify')
+      createComponent(undefined, undefined, undefined, defaultDate, false, false, [], false, '', '', false, false,
+        'certify')
     const statement: Wrapper<Vue> = wrapper.find(statementSelector)
 
     expect(statement.text()).toContain('I certify that the information provided is correct')
