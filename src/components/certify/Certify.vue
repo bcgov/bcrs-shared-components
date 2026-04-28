@@ -105,10 +105,10 @@
           <p class="certify-clause">
             <strong>Date:</strong> {{ currentDate }}
           </p>
-          <p class="certify-clause">
-            {{ message }}
-          </p>
-
+          <p
+            class="certify-clause"
+            v-html="sanitizedMessage"
+          />
           <!-- Incorporation MailTo Section -->
           <template v-if="enableMailTo">
             <p class="mt-4">
@@ -142,6 +142,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Emit, Watch } from 'vue-property-decorator'
+import sanitizeHtml from 'sanitize-html'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
@@ -228,6 +229,9 @@ export default class Certify extends Vue {
   get checkboxLabelText (): string {
     return `I ${this.authorizationMode} that the information provided is correct and that I am authorized to
       submit this filing on behalf of the ${this.entityDisplay || '[entity type]'}.`
+  }
+  get sanitizedMessage (): string {
+    return sanitizeHtml(this.message)
   }
 
   /** Prompt the field validations. */
