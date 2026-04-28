@@ -34,8 +34,8 @@ git co -b my-feature-branch
 ### 4. Install dependencies
 
 ```
-npm i                         // if new repo
-npm i --global lerna@^5.6.2   // if you didn't do this previously
+npm i                        // if new repo
+npm i --global lerna@4.0.0   // if you didn't do this previously
 ```
 
 **NOTE: Step 5 to 9 are only for adding new component**

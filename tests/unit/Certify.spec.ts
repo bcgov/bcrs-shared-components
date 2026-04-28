@@ -297,4 +297,13 @@ describe('Certify - authorization statement', () => {
 
     expect(getLastEvent(wrapper, 'valid')).toBe(true)
   })
+
+  it('displays expected validation when invalidSection is true', () => {
+    const wrapper: Wrapper<Certify> =
+      createComponent(undefined, false, false, defaultDate, false, true, [], false, '', '', false, false, 'certify')
+
+    const errorText = wrapper.find('p.error-text')
+    expect(errorText.exists()).toBe(true)
+    expect(errorText.text()).toBe('Check this box to continue')
+  })
 })

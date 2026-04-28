@@ -19,6 +19,7 @@
     "lodash": "4.17.21",
     "provinces": "^1.11.0",
     "regenerator-runtime": "^0.13.11",
+    "sanitize-html": "^2.17.3",
     "uuid": "^9.0.0",
     "vue": "^2.7.14",
     "vue-router": "^3.6.5",
