@@ -9,7 +9,8 @@ export default meta
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Certify },
-  template: '<certify v-bind="$props" />' // $props comes from args below
+  // $props comes from args below
+  template: '<certify v-bind="$props" :style="{ \'background-color\': \'white\' }" />'
 })
 
 export const Default = Template.bind({})
@@ -23,5 +24,6 @@ Default['args'] = {
   entityDisplay: 'BC Company',
   disableEdit: false,
   showLegalName: true,
-  authorizationMode: 'certify'
+  authorizationMode: 'certify',
+  invalidSection: true
 }

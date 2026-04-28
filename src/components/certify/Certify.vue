@@ -41,13 +41,17 @@
           cols="12"
           :sm="firstColumn"
         >
-          <label
-            v-if="!showLegalName"
-            class="title-label"
-            :class="{'error-text': invalidSection}"
-          >
-            {{ authorizationTitle }}
-          </label>
+          <div v-if="!showLegalName">
+            <label class="title-label">
+              {{ authorizationTitle }}
+            </label>
+            <p
+              v-if="invalidSection"
+              class="mt-1 error-text"
+            >
+              Check this box to continue
+            </p>
+          </div>
         </v-col>
         <v-col
           cols="12"
@@ -56,33 +60,33 @@
           <v-checkbox
             hide-details
             :value="isCertified"
-            class="mt-0 pt-0"
+            class="mt-0 pa-5 bg-gray"
+            :class="{ 'error-text': invalidSection && !isCertified }"
             @change="emitIsCertified($event)"
           >
             <template #label>
-              <div
-                v-if="!showLegalName"
-                class="certify-stmt"
-                :class="{'error-text': invalidSection && !isCertified}"
-              >
-                {{ checkboxLabelText }}
-              </div>
-              <div
-                v-else-if="isStaff"
-                class="certify-stmt"
-                :class="{'error-text': invalidSection && !isCertified}"
-              >
-                <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong> certifies that they have relevant
-                knowledge of the {{ entityDisplay || "association" }} and are authorized to make this filing.
-              </div>
-              <div
-                v-else
-                class="certify-stmt"
-                :class="{'error-text': invalidSection && !isCertified}"
-              >
-                I, <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>, certify that I have relevant
-                knowledge of the {{ entityDisplay || "association" }} and I am authorized to make this filing.
-              </div>
+              <slot name="checkbox-label">
+                <div
+                  v-if="!showLegalName"
+                  class="certify-stmt"
+                >
+                  {{ checkboxLabelText }}
+                </div>
+                <div
+                  v-else-if="isStaff"
+                  class="certify-stmt"
+                >
+                  <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong> certifies that they have relevant
+                  knowledge of the {{ entityDisplay || "association" }} and are authorized to make this filing.
+                </div>
+                <div
+                  v-else
+                  class="certify-stmt"
+                >
+                  I, <strong>{{ trimmedCertifiedBy || "[Legal Name]" }}</strong>, certify that I have relevant
+                  knowledge of the {{ entityDisplay || "association" }} and I am authorized to make this filing.
+                </div>
+              </slot>
             </template>
           </v-checkbox>
 
@@ -276,7 +280,6 @@ export default class Certify extends Vue {
 .certify-clause {
   margin: 0;
   padding-top: 1rem;
-  padding-left: 2rem;
   color: $gray7;
   font-size: 0.875rem;
 }
@@ -286,6 +289,10 @@ export default class Certify extends Vue {
   font-size: 0.875rem;
   color: $gray7;
   font-weight: normal;
+}
+
+.bg-gray {
+  background-color: $gray1;
 }
 
 // override v-text-field label
@@ -300,5 +307,10 @@ export default class Certify extends Vue {
   label, input {
     color: $gray7;
   }
+}
+
+// checkbox on error styling
+:deep(.v-input--checkbox.error-text .v-input__control .v-input__slot .v-input--selection-controls__input i) {
+  color: $app-red;
 }
 </style>
