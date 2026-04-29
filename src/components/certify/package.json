@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@bcrs-shared-components/interfaces": "^1.1.41",
-    "sanitize-html": "^2.17.3",
+    "dompurify": "^3.4.1",
     "vue": "^2.7.14"
   },
   "devDependencies": {
