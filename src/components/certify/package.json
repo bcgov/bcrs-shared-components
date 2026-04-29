@@ -1,16 +1,16 @@
 {
   "name": "@bcrs-shared-components/certify",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "@bcrs-shared-components/interfaces": "^1.1.41",
-    "sanitize-html": "^2.17.3",
+    "dompurify": "^3.4.1",
     "vue": "^2.7.14"
   },
   "devDependencies": {
     "vue-property-decorator": "^9.1.2"
   },
-  "gitHead": "8367a598ea2aa6f7e09a72f181da0969ac9b5f3f"
+  "gitHead": "69247eb66ad30a6621136e288c7b1db05d61788d"
 }

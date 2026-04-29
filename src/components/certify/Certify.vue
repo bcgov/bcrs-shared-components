@@ -142,7 +142,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Emit, Watch } from 'vue-property-decorator'
-import sanitizeHtml from 'sanitize-html'
+import DOMPurify from 'dompurify'
 import { FormIF } from '@bcrs-shared-components/interfaces'
 
 @Component({})
@@ -231,7 +231,7 @@ export default class Certify extends Vue {
       submit this filing on behalf of the ${this.entityDisplay || '[entity type]'}.`
   }
   get sanitizedMessage (): string {
-    return sanitizeHtml(this.message)
+    return DOMPurify.sanitize(this.message)
   }
 
   /** Prompt the field validations. */
