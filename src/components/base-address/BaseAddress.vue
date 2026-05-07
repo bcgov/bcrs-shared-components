@@ -525,19 +525,28 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   }
 
   /**
+   * Builds the RetrieveFormatted request URL for a given picked record.
+   * Returns null when the picked record has no Id or window.addressCompleteKey
+   * is unset. Uses json3ex.ws — the CORS-enabled XHR endpoint the AddressComplete
+   * library itself uses — rather than json.ws, which is not CORS-enabled.
+   */
+  buildRetrieveFormattedUrl (picked: object): string | null {
+    const id = picked?.['Id']
+    const key = window['addressCompleteKey']
+    if (!id || !key) return null
+    return 'https://ws1.postescanada-canadapost.ca/AddressComplete/Interactive/RetrieveFormatted/v2.10/json3ex.ws' +
+      `?Key=${encodeURIComponent(key)}&Id=${encodeURIComponent(id)}&Source=&Language=en`
+  }
+
+  /**
    * Fetches the full RetrieveFormatted response for a given Id and returns
    * the first Latin-1 record from the Items array, or null if none exist.
    * The library's populate event fires before its own cache is written, so
    * we make this request ourselves rather than reading pca.requestCache.
-   * Uses json3ex.ws (the CORS-enabled XHR endpoint the library itself uses)
-   * because json.ws is not CORS-enabled.
    */
   async fetchLatin1Alternate (picked: object): Promise<object | null> {
-    const id = picked?.['Id']
-    const key = window['addressCompleteKey']
-    if (!id || !key) return null
-    const url = 'https://ws1.postescanada-canadapost.ca/AddressComplete/Interactive/RetrieveFormatted/v2.10/json3ex.ws' +
-      `?Key=${encodeURIComponent(key)}&Id=${encodeURIComponent(id)}&Source=&Language=en`
+    const url = this.buildRetrieveFormattedUrl(picked)
+    if (!url) return null
     try {
       const resp = await fetch(url)
       if (!resp.ok) return null
