@@ -506,11 +506,63 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     return addressComplete
   }
 
+  /** Fields of an AddressComplete record we display on the form. */
+  readonly latin1Fields = ['Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'City', 'Province', 'ProvinceName']
+
+  /** True if every character in the value is in the Latin-1 range (code points 0-255). */
+  isLatin1Value (value: any): boolean {
+    if (!value) return true
+    const str = String(value)
+    for (let i = 0; i < str.length; i++) {
+      if (str.charCodeAt(i) > 255) return false
+    }
+    return true
+  }
+
+  /** True if all displayable fields on the AddressComplete record are Latin-1. */
+  isLatin1Record (record: object): boolean {
+    return this.latin1Fields.every(f => this.isLatin1Value(record[f]))
+  }
+
   /**
-   * Callback to update the address data after the user chooses a suggested address.
-   * @param address the data object returned by the AddressComplete Retrieve API
+   * Builds the RetrieveFormatted request URL for a given picked record.
+   * Returns null when the picked record has no Id or window.addressCompleteKey
+   * is unset. Uses json3ex.ws — the CORS-enabled XHR endpoint the AddressComplete
+   * library itself uses — rather than json.ws, which is not CORS-enabled.
    */
-  addressCompletePopulate (address: object): void {
+  buildRetrieveFormattedUrl (picked: object): string | null {
+    const id = picked?.['Id']
+    const key = window['addressCompleteKey']
+    if (!id || !key) return null
+    return 'https://ws1.postescanada-canadapost.ca/AddressComplete/Interactive/RetrieveFormatted/v2.10/json3ex.ws' +
+      `?Key=${encodeURIComponent(key)}&Id=${encodeURIComponent(id)}&Source=&Language=en`
+  }
+
+  /**
+   * Fetches the full RetrieveFormatted response for a given Id and returns
+   * the first Latin-1 record from the Items array, or null if none exist.
+   * The library's populate event fires before its own cache is written, so
+   * we make this request ourselves rather than reading pca.requestCache.
+   */
+  async fetchLatin1Alternate (picked: object): Promise<object | null> {
+    const url = this.buildRetrieveFormattedUrl(picked)
+    if (!url) return null
+    try {
+      const resp = await fetch(url)
+      if (!resp.ok) return null
+      const data = await resp.json()
+      const items = data?.Items
+      if (!Array.isArray(items)) return null
+      return items.find((item: object) => this.isLatin1Record(item)) || null
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('BaseAddress: RetrieveFormatted fetch failed', err)
+      return null
+    }
+  }
+
+  /** Maps an AddressComplete record onto the form fields. */
+  applyAddressToForm (address: object): void {
     const newAddressLocal: object = {}
 
     newAddressLocal['streetAddress'] = address['Line1'] || 'N/A'
@@ -541,6 +593,23 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
 
     // Validate the form, in case any fields are missing or incorrect.
     Vue.nextTick(() => this.validate())
+  }
+
+  /**
+   * Callback to update the address data after the user chooses a suggested address.
+   * If the library's picked record contains non-Latin-1 values (e.g. native-script
+   * Chinese), fetches the full RetrieveFormatted response and prefers a Latin-1
+   * variant when one exists. Falls back to the original picked record otherwise.
+   * @param address the data object returned by the AddressComplete Retrieve API
+   */
+  addressCompletePopulate (address: object): void {
+    if (this.isLatin1Record(address)) {
+      this.applyAddressToForm(address)
+      return
+    }
+    this.fetchLatin1Alternate(address).then(latin1 => {
+      this.applyAddressToForm(latin1 || address)
+    })
   }
 
   getCountriesList (): Array<object> {
