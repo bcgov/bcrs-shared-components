@@ -509,8 +509,26 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
   /**
    * Callback to update the address data after the user chooses a suggested address.
    * @param address the data object returned by the AddressComplete Retrieve API
+   * UNDOCUMENTED! 2 args must be passed. address_ref contains first item in addresses, addresses contains entire return array.
    */
-  addressCompletePopulate (address: object): void {
+  addressCompletePopulate (addressRef: object, addresses: object[]): void {
+    // Select the first occurrence of the address only containing latin-1
+    const address = addresses.find(addr =>
+      // eslint-disable-next-line no-control-regex
+      Object.values(addr).every(val => typeof val !== 'string' || /^[\u0000-\u00ff]*$/.test(val))
+    ) || {
+      Line1: '',
+      Line2: '',
+      Line3: '',
+      Line4: '',
+      Line5: '',
+      City: '',
+      ProvinceCode: '',
+      ProvinceName: '',
+      PostalCode: '',
+      CountryIso2: ''
+    }
+
     const newAddressLocal: object = {}
 
     newAddressLocal['streetAddress'] = address['Line1'] || 'N/A'
