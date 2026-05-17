@@ -84,7 +84,7 @@
             :hint="streetAddressHint"
             persistent-hint
             :label="streetAddressLabel"
-            :rules="[...rules.streetAddress, ...spaceRules]"
+            :rules="[...rules.streetAddress, ...spaceRules, ...latin1Rules]"
             @keypress.once="enableAddressComplete()"
             @click="enableAddressComplete()"
           />
@@ -99,7 +99,7 @@
             class="street-address-additional"
             :label="streetAddressAdditionalLabel"
             rows="1"
-            :rules="[...rules.streetAddressAdditional, ...spaceRules]"
+            :rules="[...rules.streetAddressAdditional, ...spaceRules, ...latin1Rules]"
           />
         </div>
         <div class="form__row three-column">
@@ -108,7 +108,7 @@
             filled
             class="item address-city"
             :label="addressCityLabel"
-            :rules="[...rules.addressCity, ...spaceRules]"
+            :rules="[...rules.addressCity, ...spaceRules, ...latin1Rules]"
           />
           <v-select
             v-if="useCountryRegions(addressCountry)"
@@ -129,14 +129,14 @@
             filled
             class="item address-region"
             :label="addressRegionLabel"
-            :rules="[...rules.addressRegion, ...spaceRules]"
+            :rules="[...rules.addressRegion, ...spaceRules, ...latin1Rules]"
           />
           <v-text-field
             v-model="addressLocal.postalCode"
             filled
             class="item postal-code"
             :label="postalCodeLabel"
-            :rules="postalCodeRulesEnabled ? [...rules.postalCode, ...spaceRules] : []"
+            :rules="postalCodeRulesEnabled ? [...rules.postalCode, ...spaceRules, ...latin1Rules] : [...latin1Rules]"
             @input="addressLocal.postalCode = addressLocal.postalCode?.toUpperCase()"
             @blur="postalCodeRulesEnabled = true"
           />
@@ -149,7 +149,7 @@
             class="delivery-instructions"
             :label="deliveryInstructionsLabel"
             rows="2"
-            :rules="[...rules.deliveryInstructions, ...spaceRules]"
+            :rules="[...rules.deliveryInstructions, ...spaceRules, ...latin1Rules]"
           />
         </div>
       </v-form>
@@ -227,6 +227,10 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
 
   @Prop({ default: false })
   readonly isInactive: boolean
+
+  /** Whether to restrict address fields to the Latin-1 (ISO-8859-1) character set. */
+  @Prop({ default: false })
+  readonly requireLatin1: boolean
 
   /** Called, possibly externally, to validate all registered form inputs. */
   public async validate (): Promise<boolean> {
@@ -375,6 +379,20 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     v => !/\s$/g.test(v) || 'Invalid spaces', // trailing spaces
     v => !/\s\s/g.test(v) || 'Invalid word spacing' // multiple inline spaces
   ]
+
+  /**
+   * Array of validation rules to restrict input to the Latin-1 (ISO-8859-1) character set.
+   * Enabled only when the requireLatin1 prop is set, so existing consumers are unaffected.
+   * Accepts Latin-1 accented characters (eg, é, à, ç) but rejects anything outside that
+   * range (eg, CJK/Chinese characters), whether typed or pasted.
+   */
+  get latin1Rules (): Array<(v: string) => boolean | string> {
+    if (!this.requireLatin1) return []
+    return [
+      // eslint-disable-next-line no-control-regex
+      v => !v || /^[\u0000-\u00ff]*$/.test(v) || 'Invalid character(s)'
+    ]
+  }
 
   /**
    * The Vuetify rules object. Used to display any validation errors/styling.
