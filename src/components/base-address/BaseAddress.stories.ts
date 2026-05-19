@@ -81,3 +81,21 @@ FilledCountryInBaseAddress['args'] = {
   noPoBox: true,
   isInactive: false
 }
+
+export const Latin1RestrictedBaseAddress = Template.bind({})
+Latin1RestrictedBaseAddress['args'] = {
+  editing: true,
+  schema: PersonAddressSchema,
+  address: {
+    streetAddress: '1234 Sesame Street',
+    streetAddressAdditional: '4th Floor',
+    addressCity: 'Montréal',
+    addressRegion: 'Quebec',
+    addressCountry: 'CA',
+    postalCode: 'H2X 1Y4',
+    deliveryInstructions: 'Leave at front door'
+  },
+  noPoBox: true,
+  isInactive: false,
+  requireLatin1: true
+}
