@@ -20,7 +20,7 @@ export enum FilingNames {
   CHANGE_OF_OFFICERS = 'Officer Change',
   CHANGE_OF_REGISTRATION = 'Change of Registration',
   CONSENT_AMALGAMATION_OUT = 'Consent to Amalgamation Out',
-  CONSENT_CONTINUATION_OUT = 'Consent to Continuation Out',
+  CONSENT_CONTINUATION_OUT = 'Consent to Continue Out',
   CONTINUATION_IN_APPLICATION = 'Continuation Application',
   CONTINUATION_AUTHORIZATION = 'Continuation Authorization',
   CONTINUATION_OUT = 'Continuation Out',
