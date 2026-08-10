@@ -454,13 +454,24 @@ export default class BaseAddress extends Mixins(ValidationMixin, CountriesProvin
     return this.addressLocal
   }
 
+  /**
+   * Whether the Postal Code model value is valid per the schema.
+   * NB: Vuelidate validates the model continuously, even while the Vuetify postal code
+   * rules are disabled (ie, before the field's first blur), so this reflects the actual
+   * validity of the value rather than whether errors are being displayed.
+   */
+  get isPostalCodeValid (): boolean {
+    return !this.$v?.addressLocal?.postalCode?.$invalid
+  }
+
   /** Watches for changes to the address form validity and emits the updated state. */
   @Watch('addressFormValid')
-  @Watch('postalCodeRulesEnabled')
+  @Watch('isPostalCodeValid')
   @Emit('valid')
   onAddressFormValidChanged (): boolean {
-    // form is valid only if postal code rules are enabled
-    return (this.addressFormValid && this.postalCodeRulesEnabled)
+    // NB: addressFormValid alone can be a false positive while the Vuetify postal code
+    // rules are still disabled, so also check the postal code's Vuelidate state
+    return (this.addressFormValid && this.isPostalCodeValid)
   }
 
   /**
