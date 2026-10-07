@@ -428,4 +428,51 @@ describe('StaffPayment', () => {
     // Confirm validation
     expect(vm.validate).toBe(true)
   })
+
+  it('accepts a lower or upper case leading letter in the DAT Number', async () => {
+    const wrapper = mount(StaffPayment, { vuetify })
+    await Vue.nextTick()
+
+    const vm: any = wrapper.vm
+    const formatRule = vm.datNumberRules[1]
+
+    // valid formats
+    expect(formatRule('C1234567')).toBe(true)
+    expect(formatRule('c1234567')).toBe(true)
+    expect(formatRule('c123456789')).toBe(true)
+
+    // invalid formats
+    expect(formatRule('1234567')).toBe('DAT Number must be in standard format (eg, C1234567)')
+    expect(formatRule('C123456')).toBe('DAT Number must be in standard format (eg, C1234567)')
+    expect(formatRule('CC1234567')).toBe('DAT Number must be in standard format (eg, C1234567)')
+
+    wrapper.destroy()
+  })
+
+  it('emits the DAT Number in upper case', async () => {
+    const wrapper = mount(StaffPayment, {
+      vuetify,
+      propsData: {
+        staffPaymentData: {
+          option: 2, // BCOL
+          bcolAccountNumber: '123456',
+          datNumber: ''
+        }
+      }
+    })
+    await Vue.nextTick()
+
+    await wrapper.find('#dat-number-textfield').setValue('c1234567')
+
+    // @Emit emits the return value first, followed by the original argument
+    expect(wrapper.emitted('update:staffPaymentData').pop()[0]).toEqual({
+      option: 2, // BCOL
+      bcolAccountNumber: '123456',
+      datNumber: 'C1234567',
+      folioNumber: '',
+      isPriority: false
+    })
+
+    wrapper.destroy()
+  })
 })

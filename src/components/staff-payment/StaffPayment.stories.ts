@@ -27,3 +27,14 @@ export const Default = Template.bind({})
 Default['args'] = {
   staffPaymentData: staffPaymentData
 }
+
+export const BcolWithLowerCaseDatNumber = Template.bind({})
+BcolWithLowerCaseDatNumber['args'] = {
+  staffPaymentData: {
+    ...staffPaymentData,
+    option: StaffPaymentOptions.BCOL,
+    bcolAccountNumber: '123456',
+    datNumber: 'c1234567'
+  } as StaffPaymentIF,
+  validate: true
+}

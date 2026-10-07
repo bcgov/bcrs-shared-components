@@ -196,7 +196,7 @@ export default class StaffPayment extends Vue {
   /** Validation rules for DAT Number. */
   readonly datNumberRules: Array<(v) => boolean | string> = [
     v => !!v || 'Enter DAT Number',
-    v => /^[A-Z]{1}[0-9]{7,9}$/.test(v) || 'DAT Number must be in standard format (eg, C1234567)'
+    v => /^[A-Za-z]{1}[0-9]{7,9}$/.test(v) || 'DAT Number must be in standard format (eg, C1234567)'
   ]
 
   /** Called when component is mounted. */
@@ -281,7 +281,8 @@ export default class StaffPayment extends Vue {
         return { option, routingSlipNumber, isPriority } as StaffPaymentIF
 
       case StaffPaymentOptions.BCOL:
-        return { option, bcolAccountNumber, datNumber, folioNumber, isPriority } as StaffPaymentIF
+        // upper case the DAT number so a lower case leading letter is accepted and normalized
+        return { option, bcolAccountNumber, datNumber: datNumber.toUpperCase(), folioNumber, isPriority } as StaffPaymentIF
 
       case StaffPaymentOptions.NO_FEE:
         return { option } as StaffPaymentIF
