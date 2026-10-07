@@ -179,18 +179,27 @@ describe('BaseAddress - valid event (#34469)', () => {
     }
   })
 
-  it('emits valid=true after validate() on a fully valid address', async () => {
+  it('emits valid=true after validate() once an invalid postal code is corrected', async () => {
+    // start invalid (empty, required postal code) so the validity watcher has a change to react to
     wrapper = mount(BaseAddress, {
       vuetify,
-      propsData: { schema, editing: true, address }
+      propsData: { schema, editing: true, address: { ...address, postalCode: '' } }
     })
     await Vue.nextTick()
+    expect(wrapper.vm.isPostalCodeValid).toBe(false)
 
-    await wrapper.vm.validate()
+    // correct the postal code, then validate as the consuming app does on submit
+    const postalCode = wrapper.find('.postal-code input')
+    await postalCode.setValue('V8V 1V1')
+    await Vue.nextTick()
+
+    expect(await wrapper.vm.validate()).toBe(true)
     await Vue.nextTick()
 
     const validEvents = wrapper.emitted('valid')
     expect(validEvents).toBeTruthy()
     expect(validEvents[validEvents.length - 1][0]).toBe(true)
+    expect(wrapper.vm.isPostalCodeValid).toBe(true)
+    expect(wrapper.vm.addressFormValid).toBe(true)
   })
 })
