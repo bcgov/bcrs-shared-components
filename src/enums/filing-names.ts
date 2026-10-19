@@ -49,6 +49,7 @@ export enum FilingNames {
   RESTORATION_EXTENSION = 'Limited Restoration Extension',
   RESTORATION_FULL = 'Full Restoration',
   RESTORATION_LIMITED = 'Limited Restoration',
+  REVIEW_IMPORTED_DATA = 'Review Migrated Information',
   SPECIAL_RESOLUTION = 'Special Resolution',
   TRANSITION_APPLICATION = 'Transition Application',
   VOLUNTARY_DISSOLUTION = 'Voluntary Dissolution',
