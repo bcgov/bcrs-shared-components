@@ -37,3 +37,14 @@ EditableCompletingParty['args'] = {
   additionalValue: 'additional1@example.com, additional2@example.com',
   invalidSection: false
 }
+
+export const AdditionalEmail = Template.bind({})
+AdditionalEmail['args'] = {
+  contactLabel: 'Registered Office',
+  contactValue: 'contact@example.com',
+  editableCompletingParty: true,
+  completingPartyLabel: 'Additional Email',
+  optionalEmailLabel: 'Additional Email Address (Optional)',
+  documentOptionalEmail: 'optional@example.com',
+  invalidSection: false
+}

@@ -74,7 +74,7 @@
           class="title-label"
           :class="{ 'error-text': invalidSection }"
         >
-          Completing Party
+          {{ completingPartyLabel }}
         </label>
       </v-col>
       <v-col
@@ -89,7 +89,7 @@
           persistent-hint
           validate-on-blur
           class="text-input-field"
-          label="Client Email Address (Optional)"
+          :label="optionalEmailLabel"
           hint="Example: name@email.com"
           :rules="entityEmailRules"
         />
@@ -128,6 +128,8 @@ export default class DocumentDelivery extends Vue {
   @Prop({ default: false }) readonly editableCompletingParty!: boolean
   @Prop({ default: null }) readonly completingPartyEmail!: string
   @Prop({ default: null }) readonly documentOptionalEmail!: string
+  @Prop({ default: 'Completing Party' }) readonly completingPartyLabel!: string
+  @Prop({ default: 'Client Email Address (Optional)' }) readonly optionalEmailLabel!: string
 
   /** Whether to display invalid section styling. */
   @Prop({ default: false }) readonly invalidSection!: boolean
