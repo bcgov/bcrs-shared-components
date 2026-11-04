@@ -114,6 +114,17 @@ for (const mock of documentDeliveryCases) {
       expect(wrapper.find('#optionalEmail').exists()).toBe(mock.optionalEmail)
     })
 
+    it('displays custom completing party and optional email labels', () => {
+      wrapper = shallowWrapperFactory(DocumentDelivery, {
+        contactLabel: mock.tombstone.contactLabel,
+        editableCompletingParty: true,
+        completingPartyLabel: 'Additional Email',
+        optionalEmailLabel: 'Additional Email Address (Optional)'
+      })
+      expect(wrapper.findAll('label').at(1).text()).toBe('Additional Email')
+      expect(wrapper.find('#optionalEmail').attributes('label')).toBe('Additional Email Address (Optional)')
+    })
+
     it('displays showCustodianEmail', () => {
       wrapper = shallowWrapperFactory(DocumentDelivery, {
         contactValue: mock.businessContact.email,
