@@ -24,9 +24,30 @@
         <!-- Empty selection slot will stop re-triggering of search-input event -->
         <template #selection="" />
 
+        <!-- Heading above the results (only if provided) -->
+        <template
+          v-if="resultsHeading"
+          #prepend-item
+        >
+          <v-list-item class="result-title-item">
+            <div class="result-title">
+              {{ resultsHeading }}
+            </div>
+          </v-list-item>
+        </template>
+
         <template #no-data>
           <v-list-item>
-            <div>No matches found.</div>
+            <div :class="{ 'result-no-data': noDataDetails }">
+              <strong v-if="noDataDetails">{{ noDataMessage }}</strong>
+              <template v-else>
+                {{ noDataMessage }}
+              </template>
+              <template v-if="noDataDetails">
+                <br>
+                {{ noDataDetails }}
+              </template>
+            </div>
           </v-list-item>
         </template>
 
@@ -170,6 +191,18 @@ export default class BusinessLookup extends Vue {
     { default: 'A,BC,BEN,C,CBEN,CC,CCC,CP,CS,CUL,FI,GP,LL,LLC,LP,PA,S,SP,ULC,XCP,XL,XP,XS' }
   ) readonly legalTypes!: string
 
+  /** Legal types to exclude from the search (applied after legalTypes). */
+  @Prop({ default: () => [] }) readonly excludeLegalTypes!: Array<string>
+
+  /** Heading shown above the results list (and the no-data message). No heading if empty. */
+  @Prop({ default: null }) readonly resultsHeading!: string
+
+  /** Message shown when no results are found. */
+  @Prop({ default: 'No matches found.' }) readonly noDataMessage!: string
+
+  /** Optional extra text under the no-data message. If set, the message is shown in bold. */
+  @Prop({ default: null }) readonly noDataDetails!: string
+
   // enum for template
   readonly States = States
 
@@ -215,6 +248,16 @@ export default class BusinessLookup extends Vue {
     return (this.haveBusiness && this.state === States.SUMMARY)
   }
 
+  /** The legal types to actually search for (legalTypes minus excludeLegalTypes). */
+  get effectiveLegalTypes (): string {
+    const excluded = this.excludeLegalTypes.map(type => type.trim())
+    return this.legalTypes
+      .split(',')
+      .map(type => type.trim())
+      .filter(type => type && !excluded.includes(type))
+      .join(',')
+  }
+
   /** Sets the business name. */
   setBusinessName (val: string): void {
     const name = val?.trim()
@@ -234,7 +277,8 @@ export default class BusinessLookup extends Vue {
     if (searchInput?.length > 2) {
       that.state = States.SEARCHING
       that.searchResults =
-        await that.BusinessLookupServices.search(searchInput, that.searchStatus, that.legalTypes).catch(() => [])
+        await that.BusinessLookupServices.search(searchInput, that.searchStatus, that.effectiveLegalTypes)
+          .catch(() => [])
       // display appropriate section
       that.state = (that.searchResults.length > 0) ? States.SHOW_RESULTS : States.NO_RESULTS
     } else {
@@ -283,6 +327,30 @@ export default class BusinessLookup extends Vue {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/theme.scss';
+
+.result-title-item {
+  min-height: 32px;
+  margin-top: -6px;
+  margin-bottom: 12px;
+}
+
+.result-title {
+  font-size: $px-14;
+  color: $gray7;
+  padding: 0 4px;
+}
+
+.result-no-data {
+  font-size: $px-16;
+  color: $gray7;
+  padding: 0 4px 4px;
+
+  // don't let the long text widen the menu: size to the menu, then wrap
+  width: 0;
+  min-width: 100%;
+  white-space: normal;
+  word-break: break-word;
+}
 
 .v-icon.mdi-open-in-new {
   margin-top: -2px;
