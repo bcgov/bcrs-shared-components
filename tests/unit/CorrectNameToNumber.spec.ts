@@ -147,4 +147,34 @@ describe('CorrectNameToNumber', () => {
     // Verify Data changes
     expect(getLastEvent(wrapper, 'update:companyName')).toBe('0871437 B.C. UNLIMITED LIABILITY COMPANY')
   })
+
+  describe('numbered name', () => {
+    // Changing formType is what triggers the submit watcher in the component
+    async function submit (propsData: any): Promise<string> {
+      wrapper = wrapperFactory(propsData)
+      await flushPromises()
+      await wrapper.setProps({ formType: CorrectNameOptions.CORRECT_NAME_TO_NUMBER })
+      await flushPromises()
+      return getLastEvent(wrapper, 'update:companyName')
+    }
+
+    const cases: Array<[string, string, CorpTypeCd, string]> = [
+      ['BC company', 'BC0871437', CorpTypeCd.BC_COMPANY, '0871437 B.C. LTD.'],
+      ['BC ULC', 'BC0871437', CorpTypeCd.BC_ULC_COMPANY, '0871437 B.C. UNLIMITED LIABILITY COMPANY'],
+      ['BC CCC', 'BC0871437', CorpTypeCd.BC_CCC, '0871437 B.C. COMMUNITY CONTRIBUTION COMPANY LTD.'],
+      ['continued-in (C)', 'C1234567', CorpTypeCd.CONTINUE_IN, '1234567 B.C. LTD.'],
+      ['continued-in ULC (CUL)', 'C1234567', CorpTypeCd.ULC_CONTINUE_IN,
+        '1234567 B.C. UNLIMITED LIABILITY COMPANY'],
+      ['continued-in CCC', 'C1234567', CorpTypeCd.CCC_CONTINUE_IN,
+        '1234567 B.C. COMMUNITY CONTRIBUTION COMPANY LTD.']
+    ]
+
+    it.each(cases)('builds the correct name for %s', async (_label, businessId, entityType, expected) => {
+      expect(await submit({ businessId, entityType })).toBe(expected)
+    })
+
+    it('falls back to "Unknown" when the business id is empty', async () => {
+      expect(await submit({ businessId: '' })).toBe('Unknown B.C. LTD.')
+    })
+  })
 })

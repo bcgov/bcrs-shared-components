@@ -40,11 +40,13 @@ export default class CorrectNameToNumber extends Vue {
    * It is created from existing business ID.
    */
   get numberedName (): string {
-    const id = this.businessId?.substring(2) || 'Unknown'
+    const id = this.businessId?.replace(/^[A-Z]+/, '') || 'Unknown'
     switch (this.entityType) {
       case CorpTypeCd.BC_ULC_COMPANY:
+      case CorpTypeCd.ULC_CONTINUE_IN:
         return `${id} B.C. UNLIMITED LIABILITY COMPANY`
       case CorpTypeCd.BC_CCC:
+      case CorpTypeCd.CCC_CONTINUE_IN:
         return `${id} B.C. COMMUNITY CONTRIBUTION COMPANY LTD.`
       default:
         return `${id} B.C. LTD.`
